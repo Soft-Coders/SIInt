@@ -1,2 +1,2 @@
 # SIInt
-Proyecto grupal de 
+Proyecto grupal de la asignatura Sistemas de la Información de Internet
