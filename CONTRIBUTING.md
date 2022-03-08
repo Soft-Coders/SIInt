@@ -13,6 +13,12 @@ EL workflow base es **feature-branching**
 - Se requiere que **solo** los integrantes citados **en el comentario y título** revisen y acepten el *pull request* para realizar el *merge*.
   - `<member name> <Pull Request Name>` <br>
     `@member1 @member2 @member3 ...` <br>
+## Aprobación de Pull Requests
+- Síncrono:
+  - Reunión de las personas implicadas para aprobar el pull request.
+- Asíncrono:
+  - Se revisa de manera individual y se comenta si se aprueba o no el request.
+  - Cuando la decisión no sea unánime se discute con el resto de implicados si se aprueba o no.
 ## Sprints
 ### Sprint Reviews
 1. Elección de Sprint master mediante sortea2.
