@@ -25,9 +25,9 @@
 | RF10 | Acceso a la aplicación de clientes y autorizados | Los clientes que sean personas físicas y los autorizados a cuentas de clientes que son personas jurídicas podrán acceder a la aplicación (con usuario y contraseña) para ver las cuentas a las que tienen acceso y consultar sus transacciones y cualquier otra información. Un cliente que es persona jurídica no puede tener acceso a la aplicación. |
 | RF11 | Generación de informes para Holanda | La aplicación implementará una API REST con tres  _endpoints_  que proporcionen la información de las cuentas y los clientes. Los detalles sobre la información a devolver se encuentran en la presentación de eBury. En el caso de que algún campo no esté disponible en el modelo de datos se devuelve "non-existent".
 | RF12 | Generación de informes para Alemania | La aplicación será capaz de generar un fichero CSV con la información que exige Alemania (ver esta información en la presentación de eBury). Deberá haber un botón de descarga para que una persona administrativa de la empresa pueda descargarlo y posteriormente subirlo al SFTP (ajeno a la aplicación). Hay dos tipos de informes: el inicial y el periódico (con menos información). El usuario administrativo deberá poder escoger entre estos dos informes.|
-| RF13 | Distintos tipos de autorizados | La aplicación distinguirá dos tipos de autorizados: aquellos que solo pueden ver las cuentas y datos asociados (como transacciones) y aquellos que, además, pueden realizar operaciones (transacciones y cambios de divisa). |
-| RF14 | Cambio de divisas realizadas por el cliente/autorizado | La aplicación permitirá a un cliente/autorizado realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.|
-| RF15 | Cambio de divisas realizadas por el administrativo | La aplicación permitirá a un administrativo realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.
+| RF15 | Distintos tipos de autorizados | La aplicación distinguirá dos tipos de autorizados: aquellos que solo pueden ver las cuentas y datos asociados (como transacciones) y aquellos que, además, pueden realizar operaciones (transacciones y cambios de divisa). |
+| RF17 | Cambio de divisas realizadas por el cliente/autorizado | La aplicación permitirá a un cliente/autorizado realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.|
+| RF18 | Cambio de divisas realizadas por el administrativo | La aplicación permitirá a un administrativo realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.
 <br />
 
 ## Requisitos de información
@@ -54,9 +54,9 @@
 - [ ] RF10
 - [ ] RF11
 - [ ] RF12
-- [ ] RF13
-- [ ] RF14
 - [ ] RF15
+- [ ] RF17
+- [ ] RF18
 
 ### Información
 - [ ] Cliente
