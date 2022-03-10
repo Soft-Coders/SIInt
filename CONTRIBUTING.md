@@ -1,5 +1,6 @@
 # Metodología organizacional SoftSCRUM:
-EL workflow base es **feature-branching**
+El workflow base es **gitflow**, modificando la rama "develop" por la rama "entrega-x".
+![diagrama gitflow](./images/gitflow.png)
 ## Pull Requests:
 - Todo merge a *main* debe de hacerse mediante *pull request*.
 - Opcionalmente se pueden crear *pull requests* para *feature branches* que contengan *sub-features* en las que trabajen varias personas.
