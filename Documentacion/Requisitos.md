@@ -1,12 +1,13 @@
 # Requisitos
 > Listado de objetivos a cumplir por nuestra aplicación
 
-<br />
 
 ### Contenidos:
 - [Requisitos funcionales](#requisitos-funcionales)
 - [Requisitos de información](#requisitos-de-información)
 - [Lista de requisitos implementados](#lista-de-requisitos-implementados)
+    - [Funcionales](#funcionales)
+    - [Información](#información)
 <br /><br />
 
 ## Requisitos funcionales
