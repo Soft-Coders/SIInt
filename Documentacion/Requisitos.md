@@ -1,9 +1,13 @@
 # Requisitos
+> Listado de objetivos a cumplir por nuestra aplicación
 
+<br />
 
-1. [Requisitos funcionales](#requisitos-funcionales)
-2. [Requisitos de información](#requisitos-de-información)
-3. [Lista de requisitos implementados](#lista-de-requisitos-implementados)
+### Contenidos:
+- [Requisitos funcionales](#requisitos-funcionales)
+- [Requisitos de información](#requisitos-de-información)
+- [Lista de requisitos implementados](#lista-de-requisitos-implementados)
+<br /><br />
 
 ## Requisitos funcionales
 | Código | Nombre | Descripción |
@@ -23,7 +27,7 @@
 | RF13 | Distintos tipos de autorizados | La aplicación distinguirá dos tipos de autorizados: aquellos que solo pueden ver las cuentas y datos asociados (como transacciones) y aquellos que, además, pueden realizar operaciones (transacciones y cambios de divisa). |
 | RF14 | Cambio de divisas realizadas por el cliente/autorizado | La aplicación permitirá a un cliente/autorizado realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.|
 | RF15 | Cambio de divisas realizadas por el administrativo | La aplicación permitirá a un administrativo realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.
-
+<br />
 
 ## Requisitos de información
 | Entidad | Información |
@@ -32,6 +36,7 @@
 | Autorizado | Identificación, nombre, apellidos, dirección, fecha de nacimiento, estado (activo, bloqueado, baja), fecha de inicio (como autorizado) y fecha de fin (como autorizado). |
 | Cuenta | IBAN y SWIFT. Para cuentas de eBury hace falta también el estado (activa, baja), fecha de apertura, fecha de cierre, el tipo de cuenta (agrupada o segregada) y el saldo en las distintas divisas que tiene la cuenta asociada. En el caso de las cuentas de referencia asociadas a las cuentas de eBury, además del IBAN y SWIFT necesitamos conocer el nombre del banco, la sucursal, el país, el saldo, la fecha de apertura y su estado (activa, baja).  |
 | Transacciones | Fecha de instrucción, la cantidad transferida en la divisa de origen, divisas de origen y de destino, el tipo de transacción (cambio de divisas o transferencia regular) y la comisión cobrada por el banco (supondremos que para cambios de divisas no hay comisión y para el resto se cobra una comisión de un 1% de la cantidad a transferir). |
+<br />
 
 ## Lista de requisitos implementados
 
