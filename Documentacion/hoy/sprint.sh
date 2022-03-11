@@ -1,3 +1,3 @@
 #/bin/bash/!
 
-cat *.md > $1.md;
+cat *.md > sprint_$1.md;
