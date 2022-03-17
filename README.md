@@ -1,2 +1,9 @@
-# SIInt
-Proyecto grupal de la asignatura Sistemas de la Información de Internet
+<h1 align="center">
+  <br>
+  <img src="images/logos/SC-transparent.png" width="300">
+  <br>
+  <br>
+  SoftCoders
+  <br>
+</h1>
+
