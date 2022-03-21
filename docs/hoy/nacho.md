@@ -1,10 +1,8 @@
 ## Ignacio Lopezosa
 ### ¿Qué has hecho hasta ahora?
-- Creado nueva estructura de ramas
-### ¿Qué haras hasta la próxima SCRUM meeting?
-- Buscar automatizar tags
-- Terminar tutorial VeuJS
-- Avanzar temario JAP, EJB, Servlets y JSP
+- Creado el motor generador de etiquetas automático
+- Estudiado JPA a fondo (me falta practicarlo)
 ### ¿Con qué problemas te has encontrado?
-- Falta de tiempo
+- El motor generador de etiquetas ha sido mucho más complicado de lo esperado
+- Carga de trabajo en otras asignaturas mayor del esperado
 <br><br>
