@@ -13,5 +13,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: false
-        RELEASE_BRANCHES: main, entrega-*
-        PRERELEASE_SUFFIX: false
+        RELEASE_BRANCHES: *
