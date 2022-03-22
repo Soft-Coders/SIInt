@@ -7,3 +7,8 @@
   <br>
 </h1>
 
+---
+
+## License
+
+Licensed under the [MIT License](LICENSE).
