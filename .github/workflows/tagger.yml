@@ -1,5 +1,5 @@
 name: Bump version
-on: [push]
+on: push
 
 jobs:
   build:
@@ -13,3 +13,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         WITH_V: false
+        DEFAULT_BUMP: patch
+        
