@@ -6,7 +6,7 @@
 </h1>
 
 ## Metodología organizacional SCROM
-> SCROM: Soft Coders Realistic Organizational Model
+> **SCROM**: Soft Coders Realistic Organizational Model
 
 ### Distribución del trabajo
 > En este proyecto se han dividido los períodos de entregas en 2 subsecciones con objetivos diferentes para maximizar la eficiencia.
