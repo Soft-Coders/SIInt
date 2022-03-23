@@ -1,9 +1,4 @@
 # Protocolo de contribuciones
-> SCROM: Soft Coders Realistic Organisational Model
-
-<br>
-
----
 ## Github
 El workflow base es **gitflow**, modificando la rama "develop" por la rama "entrega-x".
 
@@ -24,7 +19,7 @@ Existen 2 formas de interactuar con el *tagger*:
 		- Se quiere incrementar el Minor: `<Commit name> #minor`.
 		- Se quiere incrementar el Patch: `<Commit name> #patch`.
 		- No se quiere incrementar la versión: `<Commit name> #none`.
----
+
 ## Pull Requests
 - Todo merge a *main* y *entrega-x* debe de hacerse mediante *pull request*.
 - En el caso de un PR para *main* deberá ser revisado y aprobado por *todo* el equipo.
