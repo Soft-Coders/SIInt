@@ -10,10 +10,9 @@
 ---
 # Metodología organizacional SCROM
 > SCROM: Soft Coders Realistic Organizational Model
-<br>
----
+
 ## Comeets
-> Las *coomets* son reuniones surgidas como resultado de unificar los workflows a seguir en sprint reviews y scrum meetings.
+> Las *comeets* son reuniones surgidas como resultado de unificar los workflows a seguir en sprint reviews y scrum meetings.
 El procedimiento a seguir es el siguiente:
 1. Actas.
 	- Exposición individual de respuestas a las dos preguntas básicas:
