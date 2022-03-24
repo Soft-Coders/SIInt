@@ -8,6 +8,7 @@ El workflow base es **gitflow**, modificando la rama "develop" por la rama "entr
 ---
 ## Push (tags)
 > En este repositorio se utiliza un script con GitHub actions para crear *tags* de forma automática. Esto requiere del uso de unas etiquetas en el nombre de cada commit y merge para controlar cómo se actualiza el número de versión. Aquí se explica cómo usar estas etiquetas de la forma adecuada.
+
 Existen 2 formas de interactuar con el *tagger*:
 - Automáticamente:
 	- Cuando se realiza un commit o merge en el que no se especifica con etiquetas como debe de actuar el tagger.
@@ -19,6 +20,11 @@ Existen 2 formas de interactuar con el *tagger*:
 		- Se quiere incrementar el Minor: `<Commit name> #minor`.
 		- Se quiere incrementar el Patch: `<Commit name> #patch`.
 		- No se quiere incrementar la versión: `<Commit name> #none`.
+
+Las etiquetas en las versiones indican:
+- `#major` : número de entrega
+- `#minor` : incorporación de nuevas features
+- `#patch` : cambios menores dentro de una feature o en la documentación
 
 ## Pull Requests
 - Todo merge a *main* y *entrega-x* debe de hacerse mediante *pull request*.
