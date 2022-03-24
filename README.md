@@ -1,4 +1,3 @@
-<br>
 
 <h1 align="left" >
  	<img src="images/logos/SC-transparent.png" width="27">
@@ -42,11 +41,6 @@ El procedimiento a seguir es el siguiente:
   - Nada grave:
     1. Se notifica por el canal general de Discord o Whatsapp (opcional).
     2. Se discute en el próximo COMEET preferiblemente.
----
-
-## License
-
-Licensed under the [MIT License](LICENSE).
 
 ---
 
@@ -57,3 +51,5 @@ Licensed under the [MIT License](LICENSE).
 	
 	SoftCoders
 </h1>
+
+Licensed under the [MIT License](LICENSE).
