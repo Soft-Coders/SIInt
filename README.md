@@ -44,8 +44,6 @@ El procedimiento a seguir es el siguiente:
 
 ---
 
-<br>
-
 <h1 align="center" >
  	<img src="images/logos/SC-transparent.png" width="300">
 	
