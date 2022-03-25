@@ -24,7 +24,8 @@ Existen 2 formas de interactuar con el *tagger*:
 Las etiquetas en las versiones indican:
 - `#major` : número de entrega
 - `#minor` : incorporación de nuevas features
-- `#patch` : cambios menores dentro de una feature o en la documentación
+- `#patch` : cambios menores y arreglos dentro de una feature o en la documentación
+- `#none` : cambios intrascendentes que no alteren funcionalidades
 
 ## Pull Requests
 - Todo merge a *main* y *entrega-x* debe de hacerse mediante *pull request*.
