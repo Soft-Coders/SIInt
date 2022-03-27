@@ -4,6 +4,16 @@
 	SoftCoders
 </h1>
 
+## Tecnologías usadas
+<h3 align="left" >
+ 	Apache Maven
+	<img src="images/logos/SC-transparent.png" width="20">
+	
+</h3>
+Maven es un gestor de proyectos que nos permite simplificar pasos a la hora de construir nuestra aplicación.
+
+Para mantener un control de versiones de nuestro proyecto, estas se verán reflejadas tanto en el repositorio remoto en Github, como en el archivo Persistence.xml creado por Maven. Este ritmo irá marcado por las actualizaciones que hagamos en cualquiera de los dos lados, se puede consultar todo acerca de cómo enumeramos las versiones [aquí].(CONTRIBUTING.md)
+
 ## Metodología organizacional SCROM
 > **SCROM**: Soft Coders Realistic Organizational Model
 
