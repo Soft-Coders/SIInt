@@ -19,7 +19,7 @@
 
 ### PAUTAS PARA LA ENTREGA DE DOCUMENTOS Y TRABAJOS<a name=2></a>
 
-1. Los documentos solicitados antes de un comeet serán entregados en el periodo de tiempo estipulado.
+1. Los documentos solicitados antes de un Comeet serán entregados en el periodo de tiempo estipulado.
 2. Seguir en medida de lo posible las plantillas y formatos definidos para cada documento.
 
 ### El documento ha de ser aprobado de forma unánime por todo el grupo.
