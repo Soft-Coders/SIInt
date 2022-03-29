@@ -55,6 +55,16 @@ El procedimiento a seguir es el siguiente:
 
 ---
 
+## Tecnologías usadas
+<h3 align="left" >
+ 	Apache Maven
+	<img src="images/maven-logo.png" height="15">
+</h3>
+
+Maven es un gestor de proyectos basado en el concepto *Project Object Model* (POM) que nos permitirá ahorrar tiempo a la hora de construir nuestra aplicación. Con él podremos compilar, montar, ejecutar y testear nuestro programa; además, gracias a su sistema de control de dependencias simplificará en gran medida el tiempo de desarrollo a la hora de indicar las bibliotecas que usaremos.
+
+---
+
 <h1 align="center" >
  	<img src="images/logos/SC-transparent.png" width="300">
 	
