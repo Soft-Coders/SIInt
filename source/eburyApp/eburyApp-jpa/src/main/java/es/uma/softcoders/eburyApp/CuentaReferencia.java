@@ -1,0 +1,153 @@
+package es.uma.softcoders.eburyApp;
+
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name="CUENTA_REFERENCIA")
+public class CuentaReferencia implements Serializable{
+// La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
+	
+	@Id
+	@GeneratedValue
+	private int id;	// TODO Sustituir por id heredado de Cuenta
+	
+	@Column(name= "nombre_banco", columnDefinition= "VARCHAR2(20) NOT NULL")
+	private String 	nombreBanco;
+	@Column(name= "sucursal", columnDefinition= "VARCHAR2(20)")
+	private String 	sucursal;
+	@Column(name= "pais", columnDefinition= "VARCHAR2(20)")
+	private String 	pais;
+	@Column(name= "saldo", columnDefinition= "NUMBER(12,0) NOT NULL")
+	private Integer saldo;
+	@Temporal(TemporalType.DATE)
+	@Column(name= "fecha_apertura")
+	private Date 	fechaApertura;
+	@Column(name= "estado", columnDefinition= "VARCHAR2(20)")
+	private String 	estado;
+	@OneToOne(mappedBy= "cuentaRef")
+	@JoinColumn(name= "segregada_id")
+	private Segregada segregada;
+	
+	// Constructor TODO
+	public CuentaReferencia() {
+		
+	}
+	
+	// Getters y Setters
+	
+	
+	
+
+	/**
+	 * @return nombre del banco de la cuenta referencia
+	 */
+	public String getNombreBanco() {
+		return nombreBanco;
+	}
+
+	/**
+	 * @param nombreBanco el nombre del banco de la cuenta referencia
+	 */
+	public void setNombreBanco(String nombreBanco) {
+		this.nombreBanco = nombreBanco;
+	}
+
+	/**
+	 * @return la sucursal de la cuenta referencia
+	 */
+	public String getSucursal() {
+		return sucursal;
+	}
+
+	/**
+	 * @param sucursal la sucursal de la cuenta referencia
+	 */
+	public void setSucursal(String sucursal) {
+		this.sucursal = sucursal;
+	}
+
+	/**
+	 * @return el país de la cuenta referencia
+	 */
+	public String getPais() {
+		return pais;
+	}
+
+	/**
+	 * @param pais el país de la cuenta referencia
+	 */
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	/**
+	 * @return el saldo de la cuenta referencia
+	 */
+	public Integer getSaldo() {
+		return saldo;
+	}
+
+	/**
+	 * @param saldo el saldo de la cuenta referencia
+	 */
+	public void setSaldo(Integer saldo) {
+		this.saldo = saldo;
+	}
+
+	/**
+	 * @return la fecha de apertura de la cuenta referencia
+	 */
+	public Date getFechaApertura() {
+		return fechaApertura;
+	}
+
+	/**
+	 * @param fechaApertura la fecha de apertura de la cuenta referencia
+	 */
+	public void setFechaApertura(Date fechaApertura) {
+		this.fechaApertura = fechaApertura;
+	}
+
+	/**
+	 * @return el estado de la cuenta referencia
+	 */
+	public String getEstado() {
+		return estado;
+	}
+
+	/**
+	 * @param estado el estado de la cuenta referencia
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+// Para generar hashCode() e equals() se necesita a la clase padre Cuenta de la que hereda id
+	
+//	@Override
+//	public int hashCode() {
+//		//TODO
+//	}
+	
+//	@Override
+//	public boolean equals(Object obj) {
+//		//TODO
+//	}
+	
+	@Override
+	public String toString() {
+		return "CuentaReferencia [nombreBanco=" + nombreBanco + ", sucursal=" + sucursal + ", pais=" + pais	//TODO ampliar con id de padre
+				+ ", estado=" + estado + "]";
+	}
+}
