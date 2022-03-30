@@ -47,7 +47,8 @@ public class Cliente {
     @Column (nullable = false)
     private String Pais;
     
-    @OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
+
+	@OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
     private List<Cuenta> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
@@ -126,5 +127,77 @@ public class Cliente {
 	}
 	public void setPersonasAut(List<Persona_autorizada> personasAut) {
 		PersonasAut = personasAut;
+	}
+	
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((Ciudad == null) ? 0 : Ciudad.hashCode());
+		result = prime * result + CodigoPostal;
+		result = prime * result + ((Direccion == null) ? 0 : Direccion.hashCode());
+		result = prime * result + ((Fecha_Alta == null) ? 0 : Fecha_Alta.hashCode());
+		result = prime * result + ((Fecha_Baja == null) ? 0 : Fecha_Baja.hashCode());
+		result = prime * result + (int) (ID ^ (ID >>> 32));
+		result = prime * result + ((Identificacion == null) ? 0 : Identificacion.hashCode());
+		result = prime * result + ((Pais == null) ? 0 : Pais.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
+		result = prime * result + ((tipo_cliente == null) ? 0 : tipo_cliente.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (Ciudad == null) {
+			if (other.Ciudad != null)
+				return false;
+		} else if (!Ciudad.equals(other.Ciudad))
+			return false;
+		if (CodigoPostal != other.CodigoPostal)
+			return false;
+		if (Direccion == null) {
+			if (other.Direccion != null)
+				return false;
+		} else if (!Direccion.equals(other.Direccion))
+			return false;
+		if (Fecha_Alta == null) {
+			if (other.Fecha_Alta != null)
+				return false;
+		} else if (!Fecha_Alta.equals(other.Fecha_Alta))
+			return false;
+		if (Fecha_Baja == null) {
+			if (other.Fecha_Baja != null)
+				return false;
+		} else if (!Fecha_Baja.equals(other.Fecha_Baja))
+			return false;
+		if (ID != other.ID)
+			return false;
+		if (Identificacion == null) {
+			if (other.Identificacion != null)
+				return false;
+		} else if (!Identificacion.equals(other.Identificacion))
+			return false;
+		if (Pais == null) {
+			if (other.Pais != null)
+				return false;
+		} else if (!Pais.equals(other.Pais))
+			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
+		if (tipo_cliente == null) {
+			if (other.tipo_cliente != null)
+				return false;
+		} else if (!tipo_cliente.equals(other.tipo_cliente))
+			return false;
+		return true;
 	}
 }
