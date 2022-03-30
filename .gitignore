@@ -1,9 +1,12 @@
 *.DS_Store
 
-.metadata/**
+# Eclipse specific files/directories
+.classpath
+.project
+.settings
+.metadata
 
 # Maven (from: https://github.com/github/gitignore/blob/master/Maven.gitignore)
-
 target/
 pom.xml.tag
 pom.xml.releaseBackup
