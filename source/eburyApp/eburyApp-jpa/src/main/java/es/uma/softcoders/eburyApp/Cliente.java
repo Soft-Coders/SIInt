@@ -21,7 +21,7 @@ public class Cliente {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private long ID;
     
-    @Column (nullable = false)
+    @Column (nullable = false , Unique = true)
     private String Identificacion;
     
     @Column (nullable = false)
