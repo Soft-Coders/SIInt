@@ -5,14 +5,12 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Cuenta implements Serializable{
 	
 		@Id
-		@GeneratedValue
 		private Long IBAN;    //Solo la parte numérica
 		@Column(length=2, nullable = false)
 		private String codigo_pais;  //El inicio del IBAN
