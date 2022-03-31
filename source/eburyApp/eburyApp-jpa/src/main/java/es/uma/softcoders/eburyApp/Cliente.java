@@ -1,5 +1,5 @@
 package es.uma.softcoders.eburyApp;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +31,10 @@ public class Cliente {
     private String estado;
     
     @Column (nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date Fecha_Alta;
     
+    @Temporal(TemporalType.DATE)
     private Date Fecha_Baja;
     
     @Column (nullable = false)
