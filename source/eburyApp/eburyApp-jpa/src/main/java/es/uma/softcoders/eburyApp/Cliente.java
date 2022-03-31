@@ -48,13 +48,15 @@ public class Cliente {
     private String Pais;
     
 
-	@OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
+    @OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
     private List<Cuenta> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
     private List<Persona_autorizada> PersonasAut;
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
-	
+	public Cliente(){
+		
+	}
 	
 	public long getID() {
 		return ID;
@@ -200,4 +202,5 @@ public class Cliente {
 			return false;
 		return true;
 	}
+	
 }
