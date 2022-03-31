@@ -12,8 +12,7 @@ import javax.persistence.Id;
 public class Divisa implements Serializable{
 
 	@Id
-	//@Column( nullable = false, length = 3 )
-	@GeneratedValue
+	@Column( length = 3 )
 	private String abreviatura;
 	
 	@Column( nullable = false )
@@ -21,7 +20,7 @@ public class Divisa implements Serializable{
 	
 	private Character simbolo;
 	
-	@Column( name = "cambio_euro", nullable = false )
+	@Column( name = "CAMBIO_EURO", nullable = false )
 	private Long cambioEuro;
 	
 	public Divisa() {
