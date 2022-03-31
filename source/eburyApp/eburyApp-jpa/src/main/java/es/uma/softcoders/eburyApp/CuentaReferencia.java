@@ -18,25 +18,27 @@ import javax.persistence.TemporalType;
 public class CuentaReferencia implements Serializable{
 // La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
 	
+	// ---------- ATRIBUTOS ----------
+	
 	@Id
 	@GeneratedValue
 	private int id;	// TODO Sustituir por id heredado de Cuenta
 	
-	@Column(name= "nombre_banco", columnDefinition= "VARCHAR2(20) NOT NULL")
+	@Column(name= "NOMBRE_BANCO", nullable= false, length= 20)
 	private String 	nombreBanco;
-	@Column(name= "sucursal", columnDefinition= "VARCHAR2(20)")
+	@Column(length= 20)
 	private String 	sucursal;
-	@Column(name= "pais", columnDefinition= "VARCHAR2(20)")
+	@Column(length= 20)
 	private String 	pais;
-	@Column(name= "saldo", columnDefinition= "NUMBER(12,0) NOT NULL")
+	@Column(columnDefinition= "NUMBER(12,0) NOT NULL")
 	private Integer saldo;
 	@Temporal(TemporalType.DATE)
 	@Column(name= "fecha_apertura")
 	private Date 	fechaApertura;
-	@Column(name= "estado", columnDefinition= "VARCHAR2(20)")
+	@Column(length= 20)
 	private String 	estado;
 	@OneToOne(mappedBy= "cuentaRef")
-	@JoinColumn(name= "segregada_id")
+	@JoinColumn(name= "SEGREGADA_ID")
 	private Segregada segregada;
 	
 	// Constructor TODO
@@ -44,10 +46,7 @@ public class CuentaReferencia implements Serializable{
 		
 	}
 	
-	// Getters y Setters
-	
-	
-	
+	// ------ GETTERS & SETTERS ------
 
 	/**
 	 * @return nombre del banco de la cuenta referencia

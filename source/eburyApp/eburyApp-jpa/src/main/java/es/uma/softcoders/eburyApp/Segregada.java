@@ -14,18 +14,21 @@ import javax.persistence.Table;
 @Table(name= "SEGREGADA")
 public class Segregada implements Serializable{
 // La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
-
+	
+	// ---------- ATRIBUTOS ----------
+	
 	@Id
 	@GeneratedValue
 	private int id;	// TODO Sustituir por id heredado de Cuenta
 	
-	@Column(name= "comision", columnDefinition= "VARCHAR(20)")
+	@Column(length= 20)
 	private String comision;
 	@OneToOne
-	@JoinColumn(name= "cuenta_ref_id", columnDefinition= "NUMBER NOT NULL")
+	@JoinColumn(name= "CUENTA_REF_ID", columnDefinition= "NUMBER NOT NULL")
 	private CuentaReferencia cuentaRef;
-
-	// Getters y Setters
+	
+	// ------ GETTERS & SETTERS ------
+	
 	/**
 	 * @return la comisión de la cuenta segregada
 	 */
