@@ -19,10 +19,10 @@ public class Divisa implements Serializable{
 	@Column( nullable = false )
 	private String nombre;
 	
-	private char simbolo;
+	private Character simbolo;
 	
 	@Column( name = "cambio_euro", nullable = false )
-	private double cambioEuro;
+	private Long cambioEuro;
 	
 	public Divisa() {
 		
@@ -44,19 +44,19 @@ public class Divisa implements Serializable{
 		this.nombre = nombre;
 	}
 
-	public char getSimbolo() {
+	public Character getSimbolo() {
 		return simbolo;
 	}
 
-	public void setSimbolo(char simbolo) {
+	public void setSimbolo(Character simbolo) {
 		this.simbolo = simbolo;
 	}
 
-	public double getCambioEuro() {
+	public Long getCambioEuro() {
 		return cambioEuro;
 	}
 
-	public void setCambioEuro(double cambioEuro) {
+	public void setCambioEuro(Long cambioEuro) {
 		this.cambioEuro = cambioEuro;
 	}
 
@@ -74,9 +74,8 @@ public class Divisa implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Divisa other = (Divisa) obj;
-		return Objects.equals(abreviatura, other.abreviatura)
-				&& Double.doubleToLongBits(cambioEuro) == Double.doubleToLongBits(other.cambioEuro)
-				&& Objects.equals(nombre, other.nombre) && simbolo == other.simbolo;
+		return Objects.equals(abreviatura, other.abreviatura) && Objects.equals(cambioEuro, other.cambioEuro)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(simbolo, other.simbolo);
 	}
 
 	@Override
