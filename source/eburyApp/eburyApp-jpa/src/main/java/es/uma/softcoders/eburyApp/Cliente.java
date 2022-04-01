@@ -1,27 +1,18 @@
 package es.uma.softcoders.eburyApp;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 @Entity
-public class Cliente {
+public class Cliente implements Serializable{
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private long ID;
     
-    @Column (nullable = false , Unique = true)
+    @Column (nullable = false)
     private String Identificacion;
     
     @Column (nullable = false)
@@ -29,8 +20,8 @@ public class Cliente {
     
     @Column (nullable = false)
     private String estado;
-    
     @Column (nullable = false)
+
     @Temporal(TemporalType.DATE)
     private Date Fecha_Alta;
     
@@ -49,16 +40,17 @@ public class Cliente {
     @Column (nullable = false)
     private String Pais;
     
-
-    @OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
+	// RELACIONES
+	/*
+	@OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
     private List<Cuenta> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
     private List<Persona_autorizada> PersonasAut;
+	*/
+
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
-	public Cliente(){
-		
-	}
+	
 	
 	public long getID() {
 		return ID;
@@ -120,89 +112,40 @@ public class Cliente {
 	public void setPais(String pais) {
 		Pais = pais;
 	}
+	/*
 	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
+	
 	public List<Persona_autorizada> getPersonasAut() {
 		return PersonasAut;
 	}
 	public void setPersonasAut(List<Persona_autorizada> personasAut) {
 		PersonasAut = personasAut;
 	}
-	
+	*/
     @Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((Ciudad == null) ? 0 : Ciudad.hashCode());
-		result = prime * result + CodigoPostal;
-		result = prime * result + ((Direccion == null) ? 0 : Direccion.hashCode());
-		result = prime * result + ((Fecha_Alta == null) ? 0 : Fecha_Alta.hashCode());
-		result = prime * result + ((Fecha_Baja == null) ? 0 : Fecha_Baja.hashCode());
-		result = prime * result + (int) (ID ^ (ID >>> 32));
-		result = prime * result + ((Identificacion == null) ? 0 : Identificacion.hashCode());
-		result = prime * result + ((Pais == null) ? 0 : Pais.hashCode());
-		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
-		result = prime * result + ((tipo_cliente == null) ? 0 : tipo_cliente.hashCode());
-		return result;
+		int res = (int) this.ID;
+		res += this.Identificacion.toLowerCase().hashCode();
+		return res;
 	}
 	@Override
 	public boolean equals(Object obj) {
+		boolean res = false;
 		if (this == obj)
-			return true;
+			res = true;
 		if (obj == null)
-			return false;
+			res = false;
 		if (getClass() != obj.getClass())
-			return false;
+			res = false;
 		Cliente other = (Cliente) obj;
-		if (Ciudad == null) {
-			if (other.Ciudad != null)
-				return false;
-		} else if (!Ciudad.equals(other.Ciudad))
-			return false;
-		if (CodigoPostal != other.CodigoPostal)
-			return false;
-		if (Direccion == null) {
-			if (other.Direccion != null)
-				return false;
-		} else if (!Direccion.equals(other.Direccion))
-			return false;
-		if (Fecha_Alta == null) {
-			if (other.Fecha_Alta != null)
-				return false;
-		} else if (!Fecha_Alta.equals(other.Fecha_Alta))
-			return false;
-		if (Fecha_Baja == null) {
-			if (other.Fecha_Baja != null)
-				return false;
-		} else if (!Fecha_Baja.equals(other.Fecha_Baja))
-			return false;
-		if (ID != other.ID)
-			return false;
-		if (Identificacion == null) {
-			if (other.Identificacion != null)
-				return false;
-		} else if (!Identificacion.equals(other.Identificacion))
-			return false;
-		if (Pais == null) {
-			if (other.Pais != null)
-				return false;
-		} else if (!Pais.equals(other.Pais))
-			return false;
-		if (estado == null) {
-			if (other.estado != null)
-				return false;
-		} else if (!estado.equals(other.estado))
-			return false;
-		if (tipo_cliente == null) {
-			if (other.tipo_cliente != null)
-				return false;
-		} else if (!tipo_cliente.equals(other.tipo_cliente))
-			return false;
-		return true;
+		if (this.ID != other.getID() || !(this.Identificacion.equalsIgnoreCase(other.getIdentificacion())))
+			res = false;
+
+		return res;
 	}
-	
 }
