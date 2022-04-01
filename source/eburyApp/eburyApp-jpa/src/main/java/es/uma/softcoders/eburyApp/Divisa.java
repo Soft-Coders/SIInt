@@ -5,12 +5,17 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class Divisa implements Serializable{
 
+	public Divisa() {
+		
+	}
+	
+	// --------- ATRIBUTOS ---------
+	
 	@Id
 	@Column( length = 3 )
 	private String abreviatura;
@@ -23,46 +28,71 @@ public class Divisa implements Serializable{
 	@Column( name = "CAMBIO_EURO", nullable = false )
 	private Long cambioEuro;
 	
-	public Divisa() {
-		
-	}
 
+	// ------ GETTERS & SETTERS ------
+
+	/**
+	 * @return the abreviatura
+	 */
 	public String getAbreviatura() {
 		return abreviatura;
 	}
 
+	/**
+	 * actualiza la abreviatura
+	 */
 	public void setAbreviatura(String abreviatura) {
 		this.abreviatura = abreviatura;
 	}
 
+	/**
+	 * @return the nombre
+	 */
 	public String getNombre() {
 		return nombre;
 	}
 
+	/**
+	 * actualiza el nombre de la divisa
+	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
+	/**
+	 * @return the simbolo
+	 */
 	public Character getSimbolo() {
 		return simbolo;
 	}
 
+	/**
+	 * actualiza el simbolo de la divisa
+	 */
 	public void setSimbolo(Character simbolo) {
 		this.simbolo = simbolo;
 	}
 
+	/**
+	 * @return the cambioEuro
+	 */
 	public Long getCambioEuro() {
 		return cambioEuro;
 	}
 
+	/**
+	 * Actualiza el cambio a euro
+	 */
 	public void setCambioEuro(Long cambioEuro) {
 		this.cambioEuro = cambioEuro;
 	}
 
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(abreviatura, cambioEuro, nombre, simbolo);
+		return Objects.hash(simbolo);
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -73,15 +103,18 @@ public class Divisa implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Divisa other = (Divisa) obj;
-		return Objects.equals(abreviatura, other.abreviatura) && Objects.equals(cambioEuro, other.cambioEuro)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(simbolo, other.simbolo);
+		return Objects.equals(simbolo, other.simbolo);
 	}
+
 
 	@Override
 	public String toString() {
 		return "Divisa [abreviatura=" + abreviatura + ", nombre=" + nombre + ", simbolo=" + simbolo + ", cambioEuro="
 				+ cambioEuro + "]";
 	}
+
+	
+	
 	
 	
 	
