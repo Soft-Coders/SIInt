@@ -6,11 +6,12 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente implements Serializable{
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private long ID;
+    private Long ID;
     
     @Column (nullable = false)
     private String Identificacion;
@@ -40,22 +41,27 @@ public class Cliente implements Serializable{
     @Column (nullable = false)
     private String Pais;
     
+
 	// RELACIONES
-	/*
-	@OneToMany (mappedBy = "Cliente_cuenta") // Se usa en la relacion pero lo dejo definido
+	
+	@OneToMany (mappedBy = "") // Se usa en la relacion pero lo dejo definido
+	
     private List<Cuenta> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
     private List<Persona_autorizada> PersonasAut;
-	*/
+	
 
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
 	
+	public Cliente(){
+		
+	}
 	
-	public long getID() {
+	public Long getID() {
 		return ID;
 	}
-	public void setID(long iD) {
+	public void setID(Long iD) {
 		ID = iD;
 	}
 	public String getIdentificacion() {
@@ -112,14 +118,15 @@ public class Cliente implements Serializable{
 	public void setPais(String pais) {
 		Pais = pais;
 	}
-	/*
+	
+
 	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
-	
+	/*
 	public List<Persona_autorizada> getPersonasAut() {
 		return PersonasAut;
 	}
@@ -129,17 +136,17 @@ public class Cliente implements Serializable{
 	*/
     @Override
 	public int hashCode() {
-		int res = (int) this.ID;
+		int res = this.ID.hashCode();
 		res += this.Identificacion.toLowerCase().hashCode();
 		return res;
 	}
 	@Override
 	public boolean equals(Object obj) {
-		boolean res = false;
+		boolean res = true;
 		if (this == obj)
-			res = true;
+			return true;
 		if (obj == null)
-			res = false;
+			return false;
 		if (getClass() != obj.getClass())
 			res = false;
 		Cliente other = (Cliente) obj;
@@ -147,5 +154,10 @@ public class Cliente implements Serializable{
 			res = false;
 
 		return res;
+	}
+
+	@Override 
+	public String toString() {
+		return "Cliente[" + this.ID +" , " + this.Identificacion + " , " + this.tipo_cliente + "]";
 	}
 }

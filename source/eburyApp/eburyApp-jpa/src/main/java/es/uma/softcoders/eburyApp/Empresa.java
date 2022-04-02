@@ -9,6 +9,7 @@ import org.eclipse.persistence.internal.expressions.FromAliasExpression;
 import org.eclipse.persistence.internal.jpa.metadata.xml.EmptyElementConverter;
 
 @Entity
+@Table(name="EMPRESA")
 public class Empresa extends Cliente {
      // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
     @Column(name = "FECHA_NACIMIENTO", nullable = false, length = 30)
@@ -28,33 +29,11 @@ public class Empresa extends Cliente {
         return this.razonSocial;
     }
     
-    @Override
-    public int hashCode() {
-		int res = (int) this.getID();
-		res += this.getIdentificacion().toLowerCase().hashCode() + 
-        this.razonSocial.toLowerCase().hashCode();
-		return res;
+    // HASHCODE & EQUALS SE HEREDAN DE CLIENTE 
+
+    
+    public String toString() {
+		return "Empresa[" + this.getID() +" , " + this.getIdentificacion() + " , " + this.razonSocial+ "]";
 	}
-
-    @Override
-    public boolean equals(Object obj){
-        boolean res = false;
-		if (this == obj)
-			res = true;
-		if (obj == null)
-			res = false;
-		if (getClass() != obj.getClass())
-			res = false;
-
-		Empresa other = (Empresa) obj;
-
-		if (this.getID() != other.getID() || 
-        !(this.getIdentificacion().equalsIgnoreCase(other.getIdentificacion())))
-			res = false;
-
-        if (this.razonSocial != other.razonSocial)
-            res = false;
-		return res;
-    }
 
 }

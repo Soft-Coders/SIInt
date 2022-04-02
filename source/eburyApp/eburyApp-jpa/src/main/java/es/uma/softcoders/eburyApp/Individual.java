@@ -5,10 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder.In;
-
 import org.eclipse.persistence.internal.expressions.FromAliasExpression;
 
 @Entity
+@Table(name="INDIVIDUAL")
 public class Individual extends Cliente{
      // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
     @Column(length = 30, nullable = false)
@@ -46,34 +46,11 @@ public class Individual extends Cliente{
         this.fechaNacimiento = fech;
     }
 
-    @Override
-    public int hashCode() {
-		int res = (int) this.getID();
-		res += this.getIdentificacion().toLowerCase().hashCode() + 
-        this.nombre.toLowerCase().hashCode() + this.apellido.toLowerCase().hashCode();
-		return res;
+    //  HASHCODE & EQUALS SE HEREDAN DE CLIENTE
+
+    public String toString() {
+		return "Individual[" + this.getID() +" , " + this.getIdentificacion() + " , " + this.nombre + " , " + this.apellido + "]";
 	}
-
-    @Override
-    public boolean equals(Object obj){
-        boolean res = false;
-		if (this == obj)
-			res = true;
-		if (obj == null)
-			res = false;
-		if (getClass() != obj.getClass())
-			res = false;
-
-		Individual other = (Individual) obj;
-
-		if (this.getID() != other.getID() || 
-        !(this.getIdentificacion().equalsIgnoreCase(other.getIdentificacion())))
-			res = false;
-        if (this.nombre != other.nombre || this.apellido != other.apellido)
-            res = false;
-
-		return res;
-    }
 
     
 }
