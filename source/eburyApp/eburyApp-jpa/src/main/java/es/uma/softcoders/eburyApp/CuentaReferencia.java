@@ -30,10 +30,10 @@ public class CuentaReferencia implements Serializable{
 	private String 	sucursal;
 	@Column(length= 20)
 	private String 	pais;
-	@Column(columnDefinition= "NUMBER(12,0) NOT NULL")
+	@Column(scale = 12, precision = 2, nullable = false) 
 	private Integer saldo;
 	@Temporal(TemporalType.DATE)
-	@Column(name= "fecha_apertura")
+	@Column(name= "FECHA_APERTURA")
 	private Date 	fechaApertura;
 	@Column(length= 20)
 	private String 	estado;

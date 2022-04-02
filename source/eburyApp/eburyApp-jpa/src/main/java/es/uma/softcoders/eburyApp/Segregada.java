@@ -24,7 +24,7 @@ public class Segregada implements Serializable{
 	@Column(length= 20)
 	private String comision;
 	@OneToOne
-	@JoinColumn(name= "CUENTA_REF_ID", columnDefinition= "NUMBER NOT NULL")
+	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
 	
 	// ------ GETTERS & SETTERS ------
