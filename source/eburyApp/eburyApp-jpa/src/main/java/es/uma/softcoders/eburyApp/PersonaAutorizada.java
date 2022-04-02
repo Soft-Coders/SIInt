@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -21,8 +22,10 @@ public class PersonaAutorizada implements Serializable{
 	}
 	
 	// --------- ATRIBUTOS ---------
+	
 	@Id
 	@Column(nullable = false)
+	@GeneratedValue
 	private String id;
 	
 	@Column(nullable = false, unique = true)
@@ -148,7 +151,7 @@ public class PersonaAutorizada implements Serializable{
 	 * @throws Exception 
 	 */
 	public void setEstado(String estado) throws Exception {
-		if(estado=="ACTIVO"||estado=="BLOQUEADO"||estado=="BAJA") {
+		if(estado.equalsIgnoreCase("ACTIVO")||estado.equalsIgnoreCase("BLOQUEADO")||estado.equalsIgnoreCase("BAJA")) {
 			this.estado = estado;
 		} else {
 			throw new Exception("Estado no válido");
