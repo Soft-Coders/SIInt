@@ -11,7 +11,9 @@ public class IBAN implements Serializable{
 	
 	public IBAN() {}
 	
+	
 	// ----------- ATRIBUTOS -----------
+	
 	@Column(name="NUMERO_CUENTA", nullable=false)
 	private Long numeroCuenta;    //Solo la parte numérica
 	
@@ -20,18 +22,32 @@ public class IBAN implements Serializable{
 
 	
 	// ------ GETTERS & SETTERS ------ 
+	
+
+	/**
+	 * @return el numeroCuenta
+	 */
 	public Long getNumeroCuenta() {
 		return numeroCuenta;
 	}
 
+	/**
+	 * @param numeroCuenta es el código del IBAN sin la indicación del país al que procede
+	 */
 	public void setNumeroCuenta(Long numeroCuenta) {
 		this.numeroCuenta = numeroCuenta;
 	}
 
+	/**
+	 * @return el codigoPais
+	 */
 	public String getCodigoPais() {
 		return codigoPais;
 	}
 
+	/**
+	 * @param codigoPais es el inicio del IBAN, indica el país al que procede la cuenta bancaria
+	 */
 	public void setCodigoPais(String codigoPais) {
 		this.codigoPais = codigoPais;
 	}
