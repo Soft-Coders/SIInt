@@ -3,6 +3,9 @@
 	<persistence-unit name="eburyApp" transaction-type="RESOURCE_LOCAL">
 		<class>es.uma.softcoders.eburyApp.Cuenta</class>
 		<class>es.uma.softcoders.eburyApp.Cuenta_fintech</class>
+		<class>es.uma.softcoders.eburyApp.Cliente</class>
+		<class>es.uma.softcoders.eburyApp.Empresa</class>
+		<class>es.uma.softcoders.eburyApp.Individual</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
 			<property name="javax.persistence.jdbc.user" value=""/>
