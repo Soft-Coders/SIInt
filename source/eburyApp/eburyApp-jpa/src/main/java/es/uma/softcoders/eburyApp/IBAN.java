@@ -9,15 +9,16 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class IBAN implements Serializable{
 	
+	public IBAN() {}
+	
 	// ----------- ATRIBUTOS -----------
 	@Column(name="NUMERO_CUENTA", nullable=false)
 	private Long numeroCuenta;    //Solo la parte numérica
 	
 	@Column(name="CODIGO_PAIS", length=2, nullable=false)
 	private String codigoPais;  //El inicio del IBAN
-	
-	public IBAN() {}
 
+	
 	// ------ GETTERS & SETTERS ------ 
 	public Long getNumeroCuenta() {
 		return numeroCuenta;
