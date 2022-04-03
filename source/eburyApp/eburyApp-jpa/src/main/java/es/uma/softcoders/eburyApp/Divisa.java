@@ -6,6 +6,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Divisa implements Serializable{
@@ -27,6 +28,9 @@ public class Divisa implements Serializable{
 	
 	@Column( name = "CAMBIO_EURO", nullable = false )
 	private Long cambioEuro;
+	
+	@OneToMany(mappedBy="divisa")
+	private CuentaReferencia cuentaReferencia;
 	
 
 	// ------ GETTERS & SETTERS ------
