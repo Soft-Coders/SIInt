@@ -5,8 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
@@ -20,10 +18,6 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 // La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
 	
 	// ---------- ATRIBUTOS ----------
-	
-	@Id
-	@GeneratedValue
-	private int id;	// TODO Sustituir por id heredado de Cuenta
 	
 	@Column(name = "NOMBRE_BANCO", nullable = false, length = 20)
 	private String 	nombreBanco;
@@ -136,17 +130,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 		this.estado = estado;
 	}
 	
-// Para generar hashCode() e equals() se necesita a la clase padre Cuenta de la que hereda id
-	
-//	@Override
-//	public int hashCode() {
-//		//TODO
-//	}
-	
-//	@Override
-//	public boolean equals(Object obj) {
-//		//TODO
-//	}
+	// Los métodos equals() y hashCode() se heredan directamente de Cuenta
 	
 	@Override
 	public String toString() {
