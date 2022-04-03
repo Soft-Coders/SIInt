@@ -1,7 +1,6 @@
 package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
@@ -41,17 +40,14 @@ public class Cliente implements Serializable{
     @Column (nullable = false)
     private String Pais;
     
-
 	// RELACIONES
 	
-	@OneToMany (mappedBy = "") // Se usa en la relacion pero lo dejo definido
-	
-    private List<Cuenta> cuentas;
+	@OneToMany (mappedBy = "cliente") 
+    private List<CuentaFintech> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
-    private List<Persona_autorizada> PersonasAut;
+    private List<PersonaAutorizada> PersonasAut;
 	
-
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
 	
 	public Cliente(){
@@ -120,10 +116,10 @@ public class Cliente implements Serializable{
 	}
 	
 
-	public List<Cuenta> getCuentas() {
+	public List<CuentaFintech> getCuentas() {
 		return cuentas;
 	}
-	public void setCuentas(List<Cuenta> cuentas) {
+	public void setCuentas(List<CuentaFintech> cuentas) {
 		this.cuentas = cuentas;
 	}
 	/*

@@ -1,11 +1,7 @@
 package es.uma.softcoders.eburyApp;
-import java.io.Serializable;
 import java.util.Date;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder.In;
-import org.eclipse.persistence.internal.expressions.FromAliasExpression;
+
 
 @Entity
 @Table(name="INDIVIDUAL")
@@ -20,6 +16,11 @@ public class Individual extends Cliente{
     @Temporal(TemporalType.DATE)
     @Column(name = "FECHA_NACIMIENTO")
     private Date fechaNacimiento;
+
+    @OneToOne
+	@Column(name="INDIVIDUAL_USUARIO", nullable = false)
+	private Usuario usuario;
+
      // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
 
     public Individual(){
