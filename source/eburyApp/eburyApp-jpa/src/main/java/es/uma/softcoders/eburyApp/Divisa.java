@@ -1,6 +1,7 @@
 package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -30,7 +31,7 @@ public class Divisa implements Serializable{
 	private Long cambioEuro;
 	
 	@OneToMany(mappedBy="divisa")
-	private CuentaReferencia cuentaReferencia;
+	private List<CuentaReferencia> cuentaReferencia;
 	
 
 	// ------ GETTERS & SETTERS ------
