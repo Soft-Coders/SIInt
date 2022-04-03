@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="INDIVIDUAL")
 public class Individual extends Cliente{
-     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    // ---------- ATRIBUTOS ----------
     @Column(length = 30, nullable = false)
     private String nombre;
 
@@ -21,7 +21,7 @@ public class Individual extends Cliente{
 	@Column(name="INDIVIDUAL_USUARIO", nullable = false)
 	private Usuario usuario;
 
-     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    // ------ GETTERS & SETTERS ------
 
     public Individual(){
         super();

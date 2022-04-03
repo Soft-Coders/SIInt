@@ -4,11 +4,12 @@ import javax.persistence.*;
 @Entity
 @Table(name="EMPRESA")
 public class Empresa extends Cliente {
-     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    
+    // ---------- ATRIBUTOS ----------
     @Column(name = "FECHA_NACIMIENTO", nullable = false, length = 30)
     private String razonSocial;
     
-     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    // ------ GETTERS & SETTERS ------
      
     public Empresa(){
         super();
