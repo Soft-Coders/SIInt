@@ -2,9 +2,9 @@ package es.uma.softcoders.eburyApp;
 
 import java.util.Date;
 import java.util.Objects;
-
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -18,9 +18,15 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_FINTECH")
-@DiscriminatorValue(value="CUENTA_FINTECH")
+@DiscriminatorValue(value = "F")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="TIPO_FINTECH")  
+@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.INTEGER) 
+
+/*	Valores que toma TIPO_FINTECH:
+ *		P: PooledAccount
+ *		S: Segregada
+ */
+
 public class CuentaFintech extends Cuenta{
 	
 	public CuentaFintech() {}

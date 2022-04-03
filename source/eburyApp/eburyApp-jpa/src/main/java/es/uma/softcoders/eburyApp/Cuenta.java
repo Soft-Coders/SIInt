@@ -2,8 +2,8 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Objects;
-
 import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -11,7 +11,13 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name="TIPO_CUENTA")
+@DiscriminatorColumn(name = "TIPO_CUENTA", discriminatorType = DiscriminatorType.CHAR)
+
+/*	Valores que toma TIPO_CUENTA:
+ *		R:  CuentaReferencia
+ *		F:  CuentaFintech
+ */
+
 public class Cuenta implements Serializable{
 	
 	public Cuenta() {}
