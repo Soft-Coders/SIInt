@@ -15,9 +15,14 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="CUENTA_REFERENCIA")
 public class CuentaReferencia extends Cuenta implements Serializable{
-// La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -1762735924713432275L;	
 	
 	// ---------- ATRIBUTOS ----------
+	
+	// ID es heredado de Cuenta
 	
 	@Column(name = "NOMBRE_BANCO", nullable = false, length = 20)
 	private String 	nombreBanco;
@@ -39,9 +44,9 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@JoinColumn(name = "DIVISA_ID", nullable = false)
 	private Divisa divisa;
 	
-	// Constructor TODO
+	// Constructor
 	public CuentaReferencia() {
-		
+		super();
 	}
 	
 	// ------ GETTERS & SETTERS ------
