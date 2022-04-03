@@ -49,7 +49,7 @@ public class Cliente implements Serializable{
     private List<Cuenta> cuentas;
     
     @OneToMany (mappedBy = "Persona_aut")
-    private List<Persona_autorizada> PersonasAut;
+    private List<PersonaAutorizada> PersonasAut;
 	
 
     // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------

@@ -2,12 +2,16 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -33,7 +37,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
-	private Integer saldo;
+	private Double saldo;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
@@ -45,6 +49,12 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "DIVISA_ID", nullable = false)
 	private Divisa divisa;
+	@ManyToMany
+	@JoinTable(name = "DEPOSITADA_EN",
+			joinColumns = {@JoinColumn(name = "CUENTA_REFERENCIA_FK")},
+			inverseJoinColumns = {@JoinColumn(name = "POOLED_FK")})
+	@MapKeyColumn(name = "SALDO", nullable = false)
+	private Map<Double, Pooled> cuentasPooled;
 	
 	// Constructor
 	public CuentaReferencia() {
@@ -98,14 +108,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * @return el saldo de la cuenta referencia
 	 */
-	public Integer getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
 	/**
 	 * @param saldo el saldo de la cuenta referencia
 	 */
-	public void setSaldo(Integer saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 
