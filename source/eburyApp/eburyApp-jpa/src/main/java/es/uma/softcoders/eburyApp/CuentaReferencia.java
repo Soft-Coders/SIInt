@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,6 +15,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_REFERENCIA")
+@DiscriminatorValue(value = "R")
 public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * serialVersionUID

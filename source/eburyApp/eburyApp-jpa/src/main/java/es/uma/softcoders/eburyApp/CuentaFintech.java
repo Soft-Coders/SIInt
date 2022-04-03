@@ -20,7 +20,7 @@ import javax.persistence.TemporalType;
 @Table(name="CUENTA_FINTECH")
 @DiscriminatorValue(value = "F")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.INTEGER) 
+@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
 
 /*	Valores que toma TIPO_FINTECH:
  *		P: PooledAccount
