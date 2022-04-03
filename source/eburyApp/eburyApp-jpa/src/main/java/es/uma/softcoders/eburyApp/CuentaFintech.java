@@ -4,17 +4,23 @@ import java.util.Date;
 import java.util.Objects;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_FINTECH")
+@DiscriminatorValue(value="CUENTA_FINTECH")
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name="TIPO_FINTECH")  
 public class CuentaFintech extends Cuenta{
 	
 	public CuentaFintech() {}
@@ -35,6 +41,9 @@ public class CuentaFintech extends Cuenta{
 	
 	private String clasificacion;
 	
+	@ManyToOne
+	@JoinColumn(name="CLIENTE_FK", nullable=false)
+	private Cliente cliente;
 	
 	// ------ GETTERS & SETTERS ------ 
 	
@@ -94,11 +103,25 @@ public class CuentaFintech extends Cuenta{
 		this.clasificacion = clasificacion;
 	}
 
+	/**
+	 * @return el cliente dueño de la cuentaFintech
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente indica el id del dueño de la cuentaFintech
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result;
+		result = prime * result + Objects.hash(cliente);
 		return result;
 	}
 
@@ -111,13 +134,15 @@ public class CuentaFintech extends Cuenta{
 		if (getClass() != obj.getClass())
 			return false;
 		CuentaFintech other = (CuentaFintech) obj;
-		return super.getIban() == other.getIban();
+		return Objects.equals(cliente, other.cliente);
 	}
 
 	@Override
 	public String toString() {
-		return "CuentaFintech [IBAN=" + super.getIban() + ", estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre="
-				+ fechaCierre + ", clasificacion=" + clasificacion + "]";
+		return "CuentaFintech [estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre=" + fechaCierre
+				+ ", clasificacion=" + clasificacion + ", cliente=" + cliente + "]";
 	}
+
+	
 		
 }
