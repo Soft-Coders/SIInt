@@ -6,21 +6,21 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_FINTECH")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class CuentaFintech extends Cuenta{
 	
 	public CuentaFintech() {}
 	
 	
 	// ----------- ATRIBUTOS -----------
-	
-	@Id   	// Id de prueba, cambiar por el heredado
-	private int id;
 	
 	@Column(nullable=false)
 	private String estado;
@@ -38,20 +38,6 @@ public class CuentaFintech extends Cuenta{
 	
 	// ------ GETTERS & SETTERS ------ 
 	
-	/**
-	 * @return el id de prueba
-	 */
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	/**
 	 * @return el estado de la cuenta
 	 */
@@ -112,7 +98,7 @@ public class CuentaFintech extends Cuenta{
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(clasificacion, estado, fechaApertura, fechaCierre, id);
+		result = prime * result;
 		return result;
 	}
 
@@ -125,14 +111,12 @@ public class CuentaFintech extends Cuenta{
 		if (getClass() != obj.getClass())
 			return false;
 		CuentaFintech other = (CuentaFintech) obj;
-		return Objects.equals(clasificacion, other.clasificacion) && Objects.equals(estado, other.estado)
-				&& Objects.equals(fechaApertura, other.fechaApertura) && Objects.equals(fechaCierre, other.fechaCierre)
-				&& id == other.id;
+		return super.getIban() == other.getIban();
 	}
 
 	@Override
 	public String toString() {
-		return "CuentaFintech [id=" + id + ", estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre="
+		return "CuentaFintech [IBAN=" + super.getIban() + ", estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre="
 				+ fechaCierre + ", clasificacion=" + clasificacion + "]";
 	}
 		
