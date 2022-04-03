@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,7 +16,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_REFERENCIA")
-public class CuentaReferencia implements Serializable{
+public class CuentaReferencia extends Cuenta implements Serializable{
 // La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
 	
 	// ---------- ATRIBUTOS ----------
@@ -24,22 +25,25 @@ public class CuentaReferencia implements Serializable{
 	@GeneratedValue
 	private int id;	// TODO Sustituir por id heredado de Cuenta
 	
-	@Column(name= "NOMBRE_BANCO", nullable= false, length= 20)
+	@Column(name = "NOMBRE_BANCO", nullable = false, length = 20)
 	private String 	nombreBanco;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	sucursal;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
 	private Integer saldo;
 	@Temporal(TemporalType.DATE)
-	@Column(name= "FECHA_APERTURA")
+	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	estado;
-	@OneToOne(mappedBy= "cuentaRef")
-	@JoinColumn(name= "SEGREGADA_ID")
+	@OneToOne(mappedBy = "cuentaRef")
+	@JoinColumn(name = "SEGREGADA_ID")
 	private Segregada segregada;
+	@ManyToOne
+	@JoinColumn(name = "DIVISA_ID", nullable = false)
+	private Divisa divisa;
 	
 	// Constructor TODO
 	public CuentaReferencia() {
