@@ -34,6 +34,9 @@ public class Usuario implements Serializable{
 	@OneToOne(mappedBy="usuario")
 	private PersonaAutorizada personaAutorizada;
 	
+	@OneToOne(mappedBy="INDIVIDUAL_USUARIO")
+	private Individual individual;
+	
 	
 	// ------ GETTERS & SETTERS ------
 
