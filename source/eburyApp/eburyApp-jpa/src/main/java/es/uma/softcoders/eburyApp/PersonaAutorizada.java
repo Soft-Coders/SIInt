@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -52,6 +54,10 @@ public class PersonaAutorizada implements Serializable{
 	@Column(name = "FECHA_FIN")
 	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
+	
+	@OneToOne
+	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)
+	private Usuario usuario;
 
 	// ------ GETTERS & SETTERS ------
 	
