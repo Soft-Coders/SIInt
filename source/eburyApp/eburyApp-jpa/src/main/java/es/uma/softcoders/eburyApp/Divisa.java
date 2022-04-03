@@ -30,7 +30,7 @@ public class Divisa implements Serializable{
 	@Column( name = "CAMBIO_EURO", nullable = false )
 	private Long cambioEuro;
 	
-	@OneToMany(mappedBy="DIVISA_ID")
+	@OneToMany(mappedBy="CUENTA_REFERENCIA_ID")
 	private List<CuentaReferencia> cuentaReferencia;
 	
 
