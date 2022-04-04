@@ -1,11 +1,13 @@
 package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Divisa implements Serializable{
@@ -27,6 +29,11 @@ public class Divisa implements Serializable{
 	
 	@Column( name = "CAMBIO_EURO", nullable = false )
 	private Long cambioEuro;
+	
+	// --------- RELACIONES ---------
+	
+	@OneToMany(mappedBy="divisa")
+	private List<CuentaReferencia> cuentaReferencia;
 	
 
 	// ------ GETTERS & SETTERS ------

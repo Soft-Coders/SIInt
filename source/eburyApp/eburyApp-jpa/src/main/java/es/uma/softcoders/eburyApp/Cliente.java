@@ -1,80 +1,74 @@
 package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "CLIENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente implements Serializable{
-    // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    // ---------- ATRIBUTOS ----------
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private Long ID;
+    private Long id;
     
     @Column (nullable = false)
-    private String Identificacion;
+    private String identificacion;
     
     @Column (nullable = false)
-    private String tipo_cliente;
+    private String tipoCliente;
     
     @Column (nullable = false)
     private String estado;
     @Column (nullable = false)
 
     @Temporal(TemporalType.DATE)
-    private Date Fecha_Alta;
+    private Date fechaAlta;
     
     @Temporal(TemporalType.DATE)
-    private Date Fecha_Baja;
+    private Date fechaBaja;
     
     @Column (nullable = false)
-    private String Direccion;
+    private String direccion;
     
     @Column (nullable = false)
-    private String Ciudad;
+    private String ciudad;
     
     @Column (nullable = false)
-    private int CodigoPostal;
+    private int codigoPostal;
     
     @Column (nullable = false)
-    private String Pais;
+    private String pais;
+    	
+	@OneToMany (mappedBy = "cliente") 
+    private List<CuentaFintech> cuentas;
     
 
-	// RELACIONES
 	
-	@OneToMany (mappedBy = "") // Se usa en la relacion pero lo dejo definido
-	
-    private List<Cuenta> cuentas;
-    
-    @OneToMany (mappedBy = "Persona_aut")
-    private List<Persona_autorizada> PersonasAut;
-	
-
-    // ATRIBUTOS ---------------------------------------------------------------------------------------------------------------------
+    // ------ GETTERS & SETTERS ------
 	
 	public Cliente(){
 		
 	}
 	
 	public Long getID() {
-		return ID;
+		return id;
 	}
 	public void setID(Long iD) {
-		ID = iD;
+		id = iD;
 	}
 	public String getIdentificacion() {
-		return Identificacion;
+		return identificacion;
 	}
-	public void setIdentificacion(String identificacion) {
-		Identificacion = identificacion;
+	public void setIdentificacion(String Identificacion) {
+		identificacion = Identificacion;
 	}
 	public String getTipo_cliente() {
-		return tipo_cliente;
+		return tipoCliente;
 	}
 	public void setTipo_cliente(String tipo_cliente) {
-		this.tipo_cliente = tipo_cliente;
+		this.tipoCliente = tipo_cliente;
 	}
 	public String getEstado() {
 		return estado;
@@ -83,47 +77,47 @@ public class Cliente implements Serializable{
 		this.estado = estado;
 	}
 	public Date getFecha_Alta() {
-		return Fecha_Alta;
+		return fechaAlta;
 	}
 	public void setFecha_Alta(Date fecha_Alta) {
-		Fecha_Alta = fecha_Alta;
+		fechaAlta = fecha_Alta;
 	}
 	public Date getFecha_Baja() {
-		return Fecha_Baja;
+		return fechaBaja;
 	}
 	public void setFecha_Baja(Date fecha_Baja) {
-		Fecha_Baja = fecha_Baja;
+		fechaBaja = fecha_Baja;
 	}
 	public String getDireccion() {
-		return Direccion;
+		return direccion;
 	}
-	public void setDireccion(String direccion) {
-		Direccion = direccion;
+	public void setDireccion(String Direccion) {
+		direccion = Direccion;
 	}
 	public String getCiudad() {
-		return Ciudad;
+		return ciudad;
 	}
-	public void setCiudad(String ciudad) {
-		Ciudad = ciudad;
+	public void setCiudad(String Ciudad) {
+		ciudad = Ciudad;
 	}
 	public int getCodigoPostal() {
-		return CodigoPostal;
+		return codigoPostal;
 	}
-	public void setCodigoPostal(int codigoPostal) {
-		CodigoPostal = codigoPostal;
+	public void setCodigoPostal(int CodigoPostal) {
+		codigoPostal = CodigoPostal;
 	}
 	public String getPais() {
-		return Pais;
+		return pais;
 	}
-	public void setPais(String pais) {
-		Pais = pais;
+	public void setPais(String Pais) {
+		pais = Pais;
 	}
 	
 
-	public List<Cuenta> getCuentas() {
+	public List<CuentaFintech> getCuentas() {
 		return cuentas;
 	}
-	public void setCuentas(List<Cuenta> cuentas) {
+	public void setCuentas(List<CuentaFintech> cuentas) {
 		this.cuentas = cuentas;
 	}
 	/*
@@ -136,8 +130,8 @@ public class Cliente implements Serializable{
 	*/
     @Override
 	public int hashCode() {
-		int res = this.ID.hashCode();
-		res += this.Identificacion.toLowerCase().hashCode();
+		int res = this.id.hashCode();
+		res += this.identificacion.toLowerCase().hashCode();
 		return res;
 	}
 	@Override
@@ -150,7 +144,7 @@ public class Cliente implements Serializable{
 		if (getClass() != obj.getClass())
 			res = false;
 		Cliente other = (Cliente) obj;
-		if (this.ID != other.getID() || !(this.Identificacion.equalsIgnoreCase(other.getIdentificacion())))
+		if (this.id!= other.getID() || !(this.identificacion.equalsIgnoreCase(other.getIdentificacion())))
 			res = false;
 
 		return res;
@@ -158,6 +152,6 @@ public class Cliente implements Serializable{
 
 	@Override 
 	public String toString() {
-		return "Cliente[" + this.ID +" , " + this.Identificacion + " , " + this.tipo_cliente + "]";
+		return "Cliente[" + this.id+" , " + this.identificacion + " , " + this.tipoCliente + "]";
 	}
 }

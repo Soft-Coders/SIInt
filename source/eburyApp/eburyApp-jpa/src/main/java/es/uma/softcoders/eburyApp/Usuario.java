@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario implements Serializable{
@@ -27,8 +28,17 @@ public class Usuario implements Serializable{
 	@Column(nullable=false, unique=true)
 	private String clave;
 	
+	// --------- RELACIONES ---------
+	
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
 	private boolean esAdministrativo;
+	
+	@OneToOne(mappedBy="usuario")
+	private PersonaAutorizada personaAutorizada;
+	
+	@OneToOne(mappedBy="usuario")
+	private Individual individual;
+	
 	
 	// ------ GETTERS & SETTERS ------
 

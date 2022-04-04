@@ -2,12 +2,16 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Map;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -15,35 +19,49 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_REFERENCIA")
-public class CuentaReferencia implements Serializable{
-// La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
+@DiscriminatorValue(value = "R")
+public class CuentaReferencia extends Cuenta implements Serializable{
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -1762735924713432275L;	
 	
 	// ---------- ATRIBUTOS ----------
 	
-	@Id
-	@GeneratedValue
-	private int id;	// TODO Sustituir por id heredado de Cuenta
+	// ID es heredado de Cuenta
 	
-	@Column(name= "NOMBRE_BANCO", nullable= false, length= 20)
+	@Column(name = "NOMBRE_BANCO", nullable = false, length = 20)
 	private String 	nombreBanco;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	sucursal;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
-	private Integer saldo;
+	private Double saldo;
 	@Temporal(TemporalType.DATE)
-	@Column(name= "FECHA_APERTURA")
+	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
-	@Column(length= 20)
+	@Column(length = 20)
 	private String 	estado;
-	@OneToOne(mappedBy= "cuentaRef")
-	@JoinColumn(name= "SEGREGADA_ID")
+	/*
+	@OneToOne(mappedBy = "cuentaRef")
+	@JoinColumn(name = "SEGREGADA_ID")
 	private Segregada segregada;
-	
-	// Constructor TODO
+	*/
+	@ManyToOne
+	@JoinColumn(name = "DIVISA_ID", nullable = false)
+	private Divisa divisa;
+	/*
+	@ManyToMany
+	@JoinTable(name = "DEPOSITADA_EN",
+			joinColumns = {@JoinColumn(name = "CUENTA_REFERENCIA_FK")},
+			inverseJoinColumns = {@JoinColumn(name = "POOLED_FK")})
+	@MapKeyColumn(name = "SALDO", nullable = false)
+	private Map<Double, Pooled> cuentasPooled;
+	*/
+	// Constructor
 	public CuentaReferencia() {
-		
+		super();
 	}
 	
 	// ------ GETTERS & SETTERS ------
@@ -93,14 +111,14 @@ public class CuentaReferencia implements Serializable{
 	/**
 	 * @return el saldo de la cuenta referencia
 	 */
-	public Integer getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
 	/**
 	 * @param saldo el saldo de la cuenta referencia
 	 */
-	public void setSaldo(Integer saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 
@@ -132,17 +150,7 @@ public class CuentaReferencia implements Serializable{
 		this.estado = estado;
 	}
 	
-// Para generar hashCode() e equals() se necesita a la clase padre Cuenta de la que hereda id
-	
-//	@Override
-//	public int hashCode() {
-//		//TODO
-//	}
-	
-//	@Override
-//	public boolean equals(Object obj) {
-//		//TODO
-//	}
+	// Los métodos equals() y hashCode() se heredan directamente de Cuenta
 	
 	@Override
 	public String toString() {

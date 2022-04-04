@@ -3,29 +3,35 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name= "SEGREGADA")
-public class Segregada implements Serializable{
-// La entidad implementa Serializable para poder ser enviada por la red en un array de bytes	
+@DiscriminatorValue(value = "S")
+public class Segregada extends CuentaFintech implements Serializable{
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -817987222673845151L;	
 	
 	// ---------- ATRIBUTOS ----------
 	
-	@Id
-	@GeneratedValue
-	private int id;	// TODO Sustituir por id heredado de Cuenta
+	// ID es heredado de CuentaFintech, que lo hereda de Cuenta
 	
 	@Column(length= 20)
 	private String comision;
+	/*
 	@OneToOne
 	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
+	*/
+	public Segregada() {
+		super();
+	}
 	
 	// ------ GETTERS & SETTERS ------
 	
@@ -43,20 +49,7 @@ public class Segregada implements Serializable{
 		this.comision = comision;
 	}
 
-	
-	
-	// Para generar hashCode() e equals() se necesita a la clase padre Cuenta de la que hereda id
-	
-//		@Override
-//		public int hashCode() {
-//			//TODO
-//		}
-		
-//		@Override
-//		public boolean equals(Object obj) {
-//			//TODO
-//		}
-	
+	// equals() y hashCode() son heredados de CuenteFintech, que los hereda de Cuenta 	
 	
 	@Override
 	public String toString() {
