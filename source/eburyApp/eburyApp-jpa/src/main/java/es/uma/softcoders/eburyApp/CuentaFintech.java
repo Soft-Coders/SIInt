@@ -145,8 +145,9 @@ public class CuentaFintech extends Cuenta{
 
 	@Override
 	public String toString() {
-		return "CuentaFintech [estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre=" + fechaCierre
-				+ ", clasificacion=" + clasificacion + ", cliente=" + cliente + "]";
+		return "CuentaFintech = {\n\testado: " + estado + ",\n\tfechaApertura: " + fechaApertura + 
+				",\n\tfechaCierre: " + fechaCierre + ",\n\tclasificacion: " + clasificacion + 
+				",\n\tcliente: " + cliente + "\n}";
 	}
 
 	
