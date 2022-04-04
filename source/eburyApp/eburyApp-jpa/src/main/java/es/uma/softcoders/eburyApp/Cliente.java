@@ -44,8 +44,7 @@ public class Cliente implements Serializable{
 	@OneToMany (mappedBy = "cliente") 
     private List<CuentaFintech> cuentas;
     
-    @OneToMany (mappedBy = "Persona_aut")
-    private List<PersonaAutorizada> PersonasAut;
+
 	
     // ------ GETTERS & SETTERS ------
 	
