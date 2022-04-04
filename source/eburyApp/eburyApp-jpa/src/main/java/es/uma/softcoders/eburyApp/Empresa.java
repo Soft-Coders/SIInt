@@ -1,5 +1,5 @@
 package es.uma.softcoders.eburyApp;
-import java.util.List;
+import java.util.Map;
 
 import javax.persistence.*;
 
@@ -10,9 +10,6 @@ public class Empresa extends Cliente {
     // ---------- ATRIBUTOS ----------
     @Column(name = "FECHA_NACIMIENTO", nullable = false, length = 30)
     private String razonSocial;
-    
-    @OneToMany (mappedBy = "Persona_aut")
-    private List<PersonaAutorizada> PersonasAut;
     
     // ------ GETTERS & SETTERS ------
      
@@ -27,6 +24,15 @@ public class Empresa extends Cliente {
     public String getRazonSocial(){
         return this.razonSocial;
     }
+    
+    // --------- RELACIONES ---------
+    
+    @ManyToMany
+	@JoinTable(name = "AUTORIZACION",
+			joinColumns = {@JoinColumn(name = "EMPRESA_FK")},
+			inverseJoinColumns = {@JoinColumn(name = "PERSONA_AUTORIZADA_FK")})
+	@MapKeyColumn(name = "TIPO", nullable = false)
+	private Map<String, PersonaAutorizada> autorizacion;
     
     // HASHCODE & EQUALS SE HEREDAN DE CLIENTE 
 
