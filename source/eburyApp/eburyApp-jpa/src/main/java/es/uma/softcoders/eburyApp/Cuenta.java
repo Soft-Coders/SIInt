@@ -2,13 +2,22 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Objects;
-
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
-// @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "TIPO_CUENTA", discriminatorType = DiscriminatorType.CHAR)
+
+/*	Valores que toma TIPO_CUENTA:
+ *		R:  CuentaReferencia
+ *		F:  CuentaFintech
+ */
+
 public class Cuenta implements Serializable{
 	
 	public Cuenta() {}
@@ -66,7 +75,7 @@ public class Cuenta implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Cuenta other = (Cuenta) obj;
-		return Objects.equals(iban, other.iban) && Objects.equals(swift, other.swift);
+		return Objects.equals(iban, other.iban);
 	}
 
 	@Override
