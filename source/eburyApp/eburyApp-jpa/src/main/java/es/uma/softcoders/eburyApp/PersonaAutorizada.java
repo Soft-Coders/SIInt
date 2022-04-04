@@ -55,6 +55,8 @@ public class PersonaAutorizada implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date fechaFin;
 	
+	// --------- RELACIONES ---------
+	
 	@OneToOne
 	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)
 	private Usuario usuario;

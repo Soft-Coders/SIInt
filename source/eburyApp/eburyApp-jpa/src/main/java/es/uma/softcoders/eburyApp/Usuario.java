@@ -28,6 +28,8 @@ public class Usuario implements Serializable{
 	@Column(nullable=false, unique=true)
 	private String clave;
 	
+	// --------- RELACIONES ---------
+	
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
 	private boolean esAdministrativo;
 	
