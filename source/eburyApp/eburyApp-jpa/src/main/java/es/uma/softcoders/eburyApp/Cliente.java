@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "CLIENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente implements Serializable{
     // ---------- ATRIBUTOS ----------

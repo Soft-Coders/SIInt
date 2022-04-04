@@ -18,7 +18,7 @@ public class Individual extends Cliente{
     private Date fechaNacimiento;
 
     @OneToOne
-	@Column(name="INDIVIDUAL_USUARIO", nullable = false)
+	@JoinColumn(name="INDIVIDUAL_USUARIO", nullable = false)
 	private Usuario usuario;
 
     // ------ GETTERS & SETTERS ------
