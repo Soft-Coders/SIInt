@@ -33,10 +33,10 @@ public class Usuario implements Serializable{
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
 	private boolean esAdministrativo;
 	
-	@OneToOne(mappedBy="PERSONA_AUTORIZADA_USUARIO")
+	@OneToOne(mappedBy="usuario")
 	private PersonaAutorizada personaAutorizada;
 	
-	@OneToOne(mappedBy="INDIVIDUAL_USUARIO")
+	@OneToOne(mappedBy="usuario")
 	private Individual individual;
 	
 	

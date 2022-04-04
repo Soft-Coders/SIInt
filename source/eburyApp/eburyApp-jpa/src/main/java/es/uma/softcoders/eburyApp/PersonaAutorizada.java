@@ -60,7 +60,7 @@ public class PersonaAutorizada implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-	@ManyToMany(mappedBy = "AUTORIZACION")
+	@ManyToMany(mappedBy = "autorizacion")
 	@MapKeyColumn(name = "TIPO", nullable = false)
 	private Map<String, Empresa> autorizacion;
 	

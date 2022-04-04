@@ -32,7 +32,7 @@ public class Divisa implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-	@OneToMany(mappedBy="CUENTA_REFERENCIA_ID")
+	@OneToMany(mappedBy="divisa")
 	private List<CuentaReferencia> cuentaReferencia;
 	
 

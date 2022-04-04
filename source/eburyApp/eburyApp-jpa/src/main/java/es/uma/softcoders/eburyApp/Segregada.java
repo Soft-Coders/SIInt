@@ -24,10 +24,11 @@ public class Segregada extends CuentaFintech implements Serializable{
 	
 	@Column(length= 20)
 	private String comision;
+	/*
 	@OneToOne
 	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
-	
+	*/
 	public Segregada() {
 		super();
 	}

@@ -43,19 +43,22 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	private Date 	fechaApertura;
 	@Column(length = 20)
 	private String 	estado;
+	/*
 	@OneToOne(mappedBy = "cuentaRef")
 	@JoinColumn(name = "SEGREGADA_ID")
 	private Segregada segregada;
+	*/
 	@ManyToOne
 	@JoinColumn(name = "DIVISA_ID", nullable = false)
 	private Divisa divisa;
+	/*
 	@ManyToMany
 	@JoinTable(name = "DEPOSITADA_EN",
 			joinColumns = {@JoinColumn(name = "CUENTA_REFERENCIA_FK")},
 			inverseJoinColumns = {@JoinColumn(name = "POOLED_FK")})
 	@MapKeyColumn(name = "SALDO", nullable = false)
 	private Map<Double, Pooled> cuentasPooled;
-	
+	*/
 	// Constructor
 	public CuentaReferencia() {
 		super();
