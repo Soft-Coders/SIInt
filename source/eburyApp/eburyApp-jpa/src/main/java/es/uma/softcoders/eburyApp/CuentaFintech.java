@@ -47,9 +47,13 @@ public class CuentaFintech extends Cuenta{
 	
 	private String clasificacion;
 	
+	
+	// ---------- RELACIONES -----------
+	
 	@ManyToOne
 	@JoinColumn(name="CLIENTE_FK", nullable=false)
 	private Cliente cliente;
+	
 	
 	// ------ GETTERS & SETTERS ------ 
 	
