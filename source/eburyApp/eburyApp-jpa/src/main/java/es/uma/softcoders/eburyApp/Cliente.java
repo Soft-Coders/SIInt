@@ -150,8 +150,24 @@ public class Cliente implements Serializable{
 		return res;
 	}
 
-	@Override 
+	@Override
 	public String toString() {
-		return "Cliente[" + this.id+" , " + this.identificacion + " , " + this.tipoCliente + "]";
+		return "Cliente = {\n\tid: " + id + ", \n\tidentificacion: " + identificacion + ", \n\rtipoCliente: " + 
+				tipoCliente + ", \n\testado: " + estado + ", \n\tfechaAlta: " + fechaAlta + ", \n\tfechaBaja: " + 
+				fechaBaja + ", \n\tdireccion: " + direccion + ", \n\tciudad: " + ciudad + ", \n\tcodigoPostal: " + 
+				codigoPostal + ", \n\tpais: " + pais + ", \n\tcuentas: " + cuentas + "\n}";
 	}
+	
+	/*
+	 * Método de apoyo para evitar bucles en el toString() de la clase CuentaFintech.java.
+	 * Muestra por pantalla todas las variables de Cliente, exceptuando la lista de cuentas.
+	 */
+	public String toStringRelacionCuentaFintech() {
+		return "Cliente = {\n\tid: " + id + ", \n\tidentificacion: " + identificacion + ", \n\rtipoCliente: " + 
+				tipoCliente + ", \n\testado: " + estado + ", \n\tfechaAlta: " + fechaAlta + ", \n\tfechaBaja: " + 
+				fechaBaja + ", \n\tdireccion: " + direccion + ", \n\tciudad: " + ciudad + ", \n\tcodigoPostal: " + 
+				codigoPostal + ", \n\tpais: " + pais + "\n}";
+	}
+
+	
 }
