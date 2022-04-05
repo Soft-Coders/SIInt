@@ -2,26 +2,29 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Objects;
+
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-
-
 public class Cuenta implements Serializable{
 	
 	public Cuenta() {}
 	
-	
 	// ----------- ATRIBUTOS -----------
 	
-	@EmbeddedId
-	private IBAN iban;
+	@Id
+	@Column(nullable=false)
+	private String iban;
 	
 	private String swift;
 
@@ -31,14 +34,14 @@ public class Cuenta implements Serializable{
 	/**
 	 * @return el iban
 	 */
-	public IBAN getIban() {
+	public String getIban() {
 		return iban;
 	}
 
 	/**
 	 * @param iban es la clave primaria de la cuenta
 	 */
-	public void setIban(IBAN iban) {
+	public void setIban(String iban) {
 		this.iban = iban;
 	}
 

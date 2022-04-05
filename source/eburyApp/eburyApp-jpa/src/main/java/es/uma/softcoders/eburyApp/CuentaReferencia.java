@@ -4,14 +4,19 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.MapKeyJoinColumns;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -19,7 +24,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_REFERENCIA")
-
 public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * serialVersionUID
@@ -43,6 +47,8 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	private Date 	fechaApertura;
 	@Column(length = 20)
 	private String 	estado;
+	
+	// --------- RELACIONES ---------
 	/*
 	@OneToOne(mappedBy = "cuentaRef")
 	@JoinColumn(name = "SEGREGADA_ID")
@@ -51,14 +57,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "DIVISA_ID", nullable = false)
 	private Divisa divisa;
-	/*
-	@ManyToMany
-	@JoinTable(name = "DEPOSITADA_EN",
-			joinColumns = {@JoinColumn(name = "CUENTA_REFERENCIA_FK")},
-			inverseJoinColumns = {@JoinColumn(name = "POOLED_FK")})
-	@MapKeyColumn(name = "SALDO", nullable = false)
-	private Map<Pooled, Double> cuentasPooled;
-	*/
+	
+    @ElementCollection
+    @CollectionTable(name="DEPOSITADA_EN",
+                     joinColumns = @JoinColumn(name="CUENTA_REFERENCIA_FK"))
+    @Column(name="SALDO")
+    @MapKeyJoinColumn(name="POOLED_FK", referencedColumnName="iban")
+    private Map<Pooled, Long> depositadaEn;
+	
 	// Constructor
 	public CuentaReferencia() {
 		super();

@@ -6,7 +6,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -19,7 +21,7 @@ public class Usuario implements Serializable{
 	// --------- ATRIBUTOS ---------
 	
 	@Id
-	@GeneratedValue
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	
 	@Column(nullable=false, unique=true)

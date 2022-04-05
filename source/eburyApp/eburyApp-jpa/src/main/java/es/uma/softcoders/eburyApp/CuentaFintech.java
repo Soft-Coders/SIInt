@@ -21,22 +21,6 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="CUENTA_FINTECH")
-<<<<<<< HEAD
-//@Inheritance(strategy = InheritanceType.JOINED)
-/*@PrimaryKeyJoinColumns({
-	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_FINTECH", referencedColumnName = "CODIGO_PAIS"),
-	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_FINTECH", referencedColumnName = "NUMERO_CUENTA")
-	})
-	*/
-//@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
-
-/*	Valores que toma TIPO_FINTECH:
- *		P: Pooled
- *		S: Segregada
- */
-=======
->>>>>>> 1c4463a77a688a7f7a03fe0e67d73846625b6a2c
-
 public class CuentaFintech extends Cuenta{
 	
 	public CuentaFintech() {}

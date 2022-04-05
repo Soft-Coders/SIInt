@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
@@ -33,8 +34,8 @@ public class PersonaAutorizada implements Serializable{
 	
 	@Id
 	@Column(nullable = false)
-	@GeneratedValue
-	private String id;
+	//@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
 	
 	@Column(nullable = false, unique = true)
 	private String identificacion;
@@ -63,23 +64,11 @@ public class PersonaAutorizada implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-	/*
-	@ManyToMany(mappedBy = "autorizacion")
-	@MapKeyColumn(name = "TIPO", nullable = false)
-	private Map<String, Empresa> autorizacion;
-	*/
-	
-	//ElementCollection
-    //CollectionTable
-    //	JoinColumn (nombreb)
-    //MapKeyJoinColumns (nombrea)
-    //Column()
-	
     @ElementCollection
     @CollectionTable(name="AUTORIZACION",
-                     joinColumns=@JoinColumn(name="Empresa"))
+                     joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
+    @MapKeyJoinColumn(name="EMPRESA_FK", referencedColumnName="id")
     @Column(name="TIPO")
-    @MapKeyJoinColumn(name="EMPRESA_FK", referencedColumnName="ID")
     private Map<Empresa, Character> autorizacion;
 	
 	@OneToOne
@@ -91,14 +80,14 @@ public class PersonaAutorizada implements Serializable{
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	/**
 	 * actualiza el ID del propietario
 	 */
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

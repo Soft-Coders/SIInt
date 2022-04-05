@@ -26,25 +26,12 @@ public class Empresa extends Cliente {
     }
     
     // --------- RELACIONES ---------
-    /*
-    @ManyToMany
-	@JoinTable(name = "AUTORIZACION",
-			joinColumns = {@JoinColumn(name = "EMPRESA_FK")},
-			inverseJoinColumns = {@JoinColumn(name = "PERSONA_AUTORIZADA_FK")})
-	@MapKeyColumn(name = "TIPO", nullable = false)
-	private Map<String, PersonaAutorizada> autorizacion;
-    
-    
-    @ElementCollection
-    @CollectionTable(name="AUTORIZACION", joinColumns = @JoinColumn(name="PERSONA_AUTORIZADA_FK"))
-    @MapKeyJoinColumns(name="EMPRESA_FK")
-    */
     
     @ElementCollection
     @CollectionTable(name="AUTORIZACION",
-                     joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
+                     joinColumns=@JoinColumn(name="EMPRESA_FK"))
+    @MapKeyJoinColumn(name="PERSONA_AUTORIZADA_FK", referencedColumnName="id")
     @Column(name="TIPO")
-    @MapKeyJoinColumn(name="PersonaAutorizada", referencedColumnName="ID")
     private Map<PersonaAutorizada, Character> autorizacion;
     
     // HASHCODE & EQUALS SE HEREDAN DE CLIENTE 

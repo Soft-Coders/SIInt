@@ -10,9 +10,11 @@ import javax.persistence.*;
 @Table(name = "CLIENTE")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente implements Serializable{
+	
     // ---------- ATRIBUTOS ----------
+	
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    //@GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     
     @Column (nullable = false)
@@ -42,6 +44,8 @@ public class Cliente implements Serializable{
     
     @Column (nullable = false)
     private String pais;
+    
+    // --------- RELACIONES ---------
     	
 	@OneToMany (mappedBy = "cliente") 
     private List<CuentaFintech> cuentas;
