@@ -1,19 +1,10 @@
 package es.uma.softcoders.eburyApp;
 
 import java.util.Date;
-import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrimaryKeyJoinColumns;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,21 +12,6 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name="CUENTA_FINTECH")
-<<<<<<< HEAD
-//@Inheritance(strategy = InheritanceType.JOINED)
-/*@PrimaryKeyJoinColumns({
-	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_FINTECH", referencedColumnName = "CODIGO_PAIS"),
-	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_FINTECH", referencedColumnName = "NUMERO_CUENTA")
-	})
-	*/
-//@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
-
-/*	Valores que toma TIPO_FINTECH:
- *		P: Pooled
- *		S: Segregada
- */
-=======
->>>>>>> 1c4463a77a688a7f7a03fe0e67d73846625b6a2c
 
 public class CuentaFintech extends Cuenta{
 	
