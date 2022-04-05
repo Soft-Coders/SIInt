@@ -154,7 +154,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "CuentaReferencia [nombreBanco=" + nombreBanco + ", sucursal=" + sucursal + ", pais=" + pais	//TODO ampliar con id de padre
-				+ ", estado=" + estado + "]";
+		return "CuentaReferencia = {\n\t"+ super.toString() +"\n\tnombreBanco: " + nombreBanco + 
+				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + "\n}";
 	}
 }
