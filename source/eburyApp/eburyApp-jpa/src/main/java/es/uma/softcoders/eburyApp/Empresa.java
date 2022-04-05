@@ -38,7 +38,7 @@ public class Empresa extends Cliente {
 
     
     public String toString() {
-		return "Empresa[" + this.getID() +" , " + this.getIdentificacion() + " , " + this.razonSocial+ "]";
+		return "Empresa = {\n\t" + super.toString() + "\n\trazonSocial: " + razonSocial + "\n}";
 	}
 
 }

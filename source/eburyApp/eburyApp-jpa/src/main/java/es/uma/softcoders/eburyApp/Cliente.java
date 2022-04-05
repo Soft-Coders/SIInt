@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.*;
 
@@ -124,14 +123,8 @@ public class Cliente implements Serializable{
 	public void setCuentas(List<CuentaFintech> cuentas) {
 		this.cuentas = cuentas;
 	}
-	/*
-	public List<Persona_autorizada> getPersonasAut() {
-		return PersonasAut;
-	}
-	public void setPersonasAut(List<Persona_autorizada> personasAut) {
-		PersonasAut = personasAut;
-	}
-	*/
+	
+	
     @Override
 	public int hashCode() {
 		int res = this.id.hashCode();
