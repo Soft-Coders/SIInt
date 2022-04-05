@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
 
 /*	Valores que toma TIPO_FINTECH:
- *		P: PooledAccount
+ *		P: Pooled
  *		S: Segregada
  */
 
@@ -145,8 +145,9 @@ public class CuentaFintech extends Cuenta{
 
 	@Override
 	public String toString() {
-		return "CuentaFintech [estado=" + estado + ", fechaApertura=" + fechaApertura + ", fechaCierre=" + fechaCierre
-				+ ", clasificacion=" + clasificacion + ", cliente=" + cliente + "]";
+		return "CuentaFintech = {\n\t"+ super.toString() +"\n\testado: " + estado + ",\n\tfechaApertura: " + fechaApertura + 
+				",\n\tfechaCierre: " + fechaCierre + ",\n\tclasificacion: " + clasificacion + 
+				",\n\tcliente: " + cliente + "\n}";
 	}
 
 	

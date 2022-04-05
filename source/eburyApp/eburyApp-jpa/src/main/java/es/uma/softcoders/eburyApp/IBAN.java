@@ -71,7 +71,7 @@ public class IBAN implements Serializable{
 
 	@Override
 	public String toString() {
-		return "IBAN [numeroCuenta=" + numeroCuenta + ", codigoPais=" + codigoPais + "]";
+		return "IBAN = {\n\tnumeroCuenta: " + numeroCuenta + ", \n\tcodigoPais: " + codigoPais + "\n}";
 	}
 	
 }
