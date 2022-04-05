@@ -116,8 +116,8 @@ public class Divisa implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Divisa [abreviatura=" + abreviatura + ", nombre=" + nombre + ", simbolo=" + simbolo + ", cambioEuro="
-				+ cambioEuro + "]";
+		return "Divisa = {\n\tabreviatura:" + abreviatura + ", \n\tnombre:" + nombre + ", \n\tsimbolo:" + simbolo + ", \n\tcambioEuro:"
+				+ cambioEuro + "\n}";
 	}
 
 	

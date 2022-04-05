@@ -54,6 +54,5 @@ public class Individual extends Cliente{
     public String toString() {
     	return "Individual = {\n\t" + super.toString() + "\n\tnombre: " + nombre + "\n\tapellido: " + apellido + "\n\tfechaNacimiento: " + fechaNacimiento + "\n}";
 	}
-
     
 }

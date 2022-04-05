@@ -35,5 +35,13 @@ public class Pooled extends CuentaFintech implements Serializable{
     @Column(name="SALDO")
     @MapKeyJoinColumn(name="CUENTA_REFERENCIA_FK", referencedColumnName="iban")
     private Map<CuentaReferencia, Long> depositadaEn;
+
+	@Override
+	public String toString() {
+		return "Pooled = {\n\t" + super.toString() + "\n}";
+	}
+    
+    
+    
     
 }
