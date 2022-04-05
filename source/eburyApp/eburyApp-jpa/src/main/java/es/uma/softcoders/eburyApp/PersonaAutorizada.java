@@ -5,13 +5,16 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -71,6 +74,13 @@ public class PersonaAutorizada implements Serializable{
     //	JoinColumn (nombreb)
     //MapKeyJoinColumns (nombrea)
     //Column()
+	
+    @ElementCollection
+    @CollectionTable(name="AUTORIZACION",
+                     joinColumns=@JoinColumn(name="Empresa"))
+    @Column(name="TIPO")
+    @MapKeyJoinColumn(name="EMPRESA_FK", referencedColumnName="ID")
+    private Map<Empresa, Character> autorizacion;
 	
 	@OneToOne
 	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)

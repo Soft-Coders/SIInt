@@ -17,8 +17,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="CUENTA_FINTECH")
 @DiscriminatorValue(value = "F")
+@Table(name="CUENTA_FINTECH")
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
 

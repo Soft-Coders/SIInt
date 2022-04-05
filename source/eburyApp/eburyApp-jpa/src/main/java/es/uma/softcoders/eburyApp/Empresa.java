@@ -33,13 +33,19 @@ public class Empresa extends Cliente {
 			inverseJoinColumns = {@JoinColumn(name = "PERSONA_AUTORIZADA_FK")})
 	@MapKeyColumn(name = "TIPO", nullable = false)
 	private Map<String, PersonaAutorizada> autorizacion;
+    
+    
+    @ElementCollection
+    @CollectionTable(name="AUTORIZACION", joinColumns = @JoinColumn(name="PERSONA_AUTORIZADA_FK"))
+    @MapKeyJoinColumns(name="EMPRESA_FK")
     */
     
-    //ElementCollection
-    //CollectionTable
-    //	JoinColumn (nombrea)
-    //MapKeyJoinColumns (nombreb)
-    //Column()
+    @ElementCollection
+    @CollectionTable(name="AUTORIZACION",
+                     joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
+    @Column(name="TIPO")
+    @MapKeyJoinColumn(name="PersonaAutorizada", referencedColumnName="ID")
+    private Map<PersonaAutorizada, Character> autorizacion;
     
     // HASHCODE & EQUALS SE HEREDAN DE CLIENTE 
 

@@ -10,7 +10,7 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 
 @Entity
-@Table(name= "SEGREGADA")
+@Table(name= "POOLED")
 @DiscriminatorValue(value = "P")
 public class Pooled extends CuentaFintech implements Serializable{
 	/**
