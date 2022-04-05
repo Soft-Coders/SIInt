@@ -13,11 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name= "SEGREGADA")
-@PrimaryKeyJoinColumns({
-	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_SEG", referencedColumnName = "CODIGO_PAIS_FINTECH"),
-	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_SEG", referencedColumnName = "NUMERO_CUENTA_FINTECH")
-	})
-//@DiscriminatorValue(value = "S")
+
 public class Segregada extends CuentaFintech implements Serializable{
 	/**
 	 * serialVersionUID
