@@ -1,6 +1,6 @@
 ## Ignacio Lopezosa Serrano
 ### ¿Qué has hecho hasta ahora?
-- Realizado entidades CuentaReferencia, Segregada y Pooled
+- Realizado entidad Pooled
 - Realizadas relaciones CuentaReferencia<->Segregada, CuentaReferencia<->Pooled CuentaReferencia->Divisa
 - Investigado y encontrado posible solución a relación ManyToMany con atributo
 - Resuelto (aparentemente) el problema del tagger.yml
