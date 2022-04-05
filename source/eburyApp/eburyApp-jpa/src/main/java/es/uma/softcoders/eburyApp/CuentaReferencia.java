@@ -57,7 +57,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 			joinColumns = {@JoinColumn(name = "CUENTA_REFERENCIA_FK")},
 			inverseJoinColumns = {@JoinColumn(name = "POOLED_FK")})
 	@MapKeyColumn(name = "SALDO", nullable = false)
-	private Map<Double, Pooled> cuentasPooled;
+	private Map<Pooled, Double> cuentasPooled;
 	*/
 	// Constructor
 	public CuentaReferencia() {

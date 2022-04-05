@@ -24,7 +24,7 @@ public class Pooled extends CuentaFintech implements Serializable{
 	// ID es heredado de CuentaFintech, que lo hereda de Cuenta
 	@ManyToMany(mappedBy = "cuentasPooled")
 	@MapKeyColumn(name = "SALDO", nullable = false)
-	private Map<Double, CuentaReferencia> cuentasRef;
+	private Map<CuentaReferencia, Double> cuentasRef;
 	
 	*/
 }
