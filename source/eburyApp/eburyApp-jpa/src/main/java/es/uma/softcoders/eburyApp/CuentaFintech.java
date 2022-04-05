@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 @DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
 
 /*	Valores que toma TIPO_FINTECH:
- *		P: PooledAccount
+ *		P: Pooled
  *		S: Segregada
  */
 
