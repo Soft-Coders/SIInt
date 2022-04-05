@@ -6,18 +6,11 @@ import java.util.Map;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyJoinColumn;
-import javax.persistence.MapKeyJoinColumns;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -156,11 +149,48 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 		this.estado = estado;
 	}
 	
+	/**
+	 * @return la divisa usada en la cuenta
+	 */
+	public Divisa getDivisa() {
+		return divisa;
+	}
+
+	/**
+	 * @param divisa la divisa usada en la cuenta
+	 */
+	public void setDivisa(Divisa divisa) {
+		this.divisa = divisa;
+	}
+
+	/**
+	 * @return Map de Pooled Accounts depositadas en esta cuenta con el saldo de esa Pooled Account
+	 */
+	public Map<Pooled, Long> getDepositadaEn() {
+		return depositadaEn;
+	}
+
+	/**
+	 * @param depositadaEn the depositadaEn to set
+	 * @warning NO USAR
+	 */
+//	public void setDepositadaEn(Map<Pooled, Long> depositadaEn) {
+//		this.depositadaEn = depositadaEn;
+//	}
+
+	/**
+	 * @return the serialversionuid
+	 */
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
 	// Los métodos equals() y hashCode() se heredan directamente de Cuenta
-	
+
 	@Override
 	public String toString() {
 		return "CuentaReferencia = {\n\t"+ super.toString() +"\n\tnombreBanco: " + nombreBanco + 
-				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + "\n}";
+				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + 
+				",\n\tdivisa: " + divisa + "\n}";
 	}
 }
