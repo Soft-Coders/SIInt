@@ -24,22 +24,7 @@ public class Empresa extends Cliente {
     public String getRazonSocial(){
         return this.razonSocial;
     }
-    
-    // --------- RELACIONES ---------
-    /*
-    @ManyToMany
-	@JoinTable(name = "AUTORIZACION",
-			joinColumns = {@JoinColumn(name = "EMPRESA_FK")},
-			inverseJoinColumns = {@JoinColumn(name = "PERSONA_AUTORIZADA_FK")})
-	@MapKeyColumn(name = "TIPO", nullable = false)
-	private Map<String, PersonaAutorizada> autorizacion;
-    
-    
-    @ElementCollection
-    @CollectionTable(name="AUTORIZACION", joinColumns = @JoinColumn(name="PERSONA_AUTORIZADA_FK"))
-    @MapKeyJoinColumns(name="EMPRESA_FK")
-    */
-    
+
     @ElementCollection
     @CollectionTable(name="AUTORIZACION",
                      joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
@@ -51,7 +36,7 @@ public class Empresa extends Cliente {
 
     
     public String toString() {
-		return "Empresa[" + this.getID() +" , " + this.getIdentificacion() + " , " + this.razonSocial+ "]";
+		return "Empresa = {\n\t" + super.toString() + "\n\trazonSocial: " + razonSocial + "\n}";
 	}
 
 }

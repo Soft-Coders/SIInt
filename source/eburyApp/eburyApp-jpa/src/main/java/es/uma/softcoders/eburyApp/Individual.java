@@ -58,7 +58,7 @@ public class Individual extends Cliente{
     //  HASHCODE & EQUALS SE HEREDAN DE CLIENTE
 
     public String toString() {
-		return "Individual[" + this.getID() +" , " + this.getIdentificacion() + " , " + this.nombre + " , " + this.apellido + "]";
+		return "Individual = {\n\t" + super.toString() + "\n\trazonSocial: " + this.razonSocial + "\n}";
 	}
 
     
