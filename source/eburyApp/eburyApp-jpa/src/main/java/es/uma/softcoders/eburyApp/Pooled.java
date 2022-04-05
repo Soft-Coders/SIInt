@@ -7,11 +7,17 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.MapKeyColumn;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
 import javax.persistence.Table;
 
 @Entity
 @Table(name= "POOLED")
-@DiscriminatorValue(value = "P")
+@PrimaryKeyJoinColumns({
+	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_POOL", referencedColumnName = "CODIGO_PAIS_FINTECH"),
+	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_POOL", referencedColumnName = "NUMERO_CUENTA_FINTECH")
+	})
+//@DiscriminatorValue(value = "P")
 public class Pooled extends CuentaFintech implements Serializable{
 	/**
 	 * serialVersionUID

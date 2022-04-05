@@ -7,11 +7,17 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.PrimaryKeyJoinColumns;
 import javax.persistence.Table;
 
 @Entity
 @Table(name= "SEGREGADA")
-@DiscriminatorValue(value = "S")
+@PrimaryKeyJoinColumns({
+	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_SEG", referencedColumnName = "CODIGO_PAIS_FINTECH"),
+	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_SEG", referencedColumnName = "NUMERO_CUENTA_FINTECH")
+	})
+//@DiscriminatorValue(value = "S")
 public class Segregada extends CuentaFintech implements Serializable{
 	/**
 	 * serialVersionUID
@@ -53,7 +59,7 @@ public class Segregada extends CuentaFintech implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Segregada [comision=" + comision + "]";	//TODO ampliar con id de padre
+		return "Segregada [comision=" + comision + super.getEstado() +"]";	//TODO ampliar con id de padre
 	}
 	
 }

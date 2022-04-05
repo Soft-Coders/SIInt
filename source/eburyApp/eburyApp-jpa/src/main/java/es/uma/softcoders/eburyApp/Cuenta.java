@@ -11,7 +11,7 @@ import javax.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "TIPO_CUENTA", discriminatorType = DiscriminatorType.CHAR)
+//@DiscriminatorColumn(name = "TIPO_CUENTA", discriminatorType = DiscriminatorType.CHAR)
 
 /*	Valores que toma TIPO_CUENTA:
  *		R:  CuentaReferencia

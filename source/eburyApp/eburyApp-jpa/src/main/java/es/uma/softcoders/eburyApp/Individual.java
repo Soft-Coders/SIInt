@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp;
 import java.util.Date;
+import java.util.Map;
+
 import javax.persistence.*;
 
 
@@ -20,6 +22,12 @@ public class Individual extends Cliente{
     @OneToOne
 	@JoinColumn(name="INDIVIDUAL_USUARIO", nullable = false)
 	private Usuario usuario;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+	@CollectionTable(name = "AUTORIZACION", joinColumns = @JoinColumn(name = "INDIVIDUAL_FK"))
+	@MapKeyJoinColumn(name = "PERSONA_AUT_FK")   
+	private Map<PersonaAutorizada,String> personaAut; 
+	
 
     // ------ GETTERS & SETTERS ------
 

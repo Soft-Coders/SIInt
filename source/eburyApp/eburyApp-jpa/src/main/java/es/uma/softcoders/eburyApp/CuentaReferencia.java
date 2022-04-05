@@ -19,7 +19,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="CUENTA_REFERENCIA")
-@DiscriminatorValue(value = "R")
+//@DiscriminatorValue(value = "R")
 public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * serialVersionUID

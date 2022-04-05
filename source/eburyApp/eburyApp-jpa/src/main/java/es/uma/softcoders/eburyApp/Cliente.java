@@ -2,6 +2,8 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import javax.persistence.*;
 
 @Entity
@@ -43,9 +45,7 @@ public class Cliente implements Serializable{
     	
 	@OneToMany (mappedBy = "cliente") 
     private List<CuentaFintech> cuentas;
-    
 
-	
     // ------ GETTERS & SETTERS ------
 	
 	public Cliente(){
