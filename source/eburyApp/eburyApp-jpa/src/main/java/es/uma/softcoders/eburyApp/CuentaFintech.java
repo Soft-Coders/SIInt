@@ -20,8 +20,8 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 @Entity
-//@DiscriminatorValue(value = "F")
 @Table(name="CUENTA_FINTECH")
+<<<<<<< HEAD
 //@Inheritance(strategy = InheritanceType.JOINED)
 /*@PrimaryKeyJoinColumns({
 	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_FINTECH", referencedColumnName = "CODIGO_PAIS"),
@@ -34,6 +34,8 @@ import javax.persistence.Transient;
  *		P: Pooled
  *		S: Segregada
  */
+=======
+>>>>>>> 1c4463a77a688a7f7a03fe0e67d73846625b6a2c
 
 public class CuentaFintech extends Cuenta{
 	
