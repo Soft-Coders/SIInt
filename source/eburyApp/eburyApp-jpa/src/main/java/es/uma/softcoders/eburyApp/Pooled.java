@@ -13,10 +13,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name= "POOLED")
-@PrimaryKeyJoinColumns({
+/*@PrimaryKeyJoinColumns({
 	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_POOL", referencedColumnName = "CODIGO_PAIS_FINTECH"),
 	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_POOL", referencedColumnName = "NUMERO_CUENTA_FINTECH")
-	})
+	})*/
 //@DiscriminatorValue(value = "P")
 public class Pooled extends CuentaFintech implements Serializable{
 	/**

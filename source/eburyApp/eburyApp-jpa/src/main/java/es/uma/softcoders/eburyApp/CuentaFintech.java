@@ -22,11 +22,12 @@ import javax.persistence.Transient;
 @Entity
 //@DiscriminatorValue(value = "F")
 @Table(name="CUENTA_FINTECH")
-@Inheritance(strategy = InheritanceType.JOINED)
-@PrimaryKeyJoinColumns({
+//@Inheritance(strategy = InheritanceType.JOINED)
+/*@PrimaryKeyJoinColumns({
 	@PrimaryKeyJoinColumn(name = "CODIGO_PAIS_FINTECH", referencedColumnName = "CODIGO_PAIS"),
 	@PrimaryKeyJoinColumn(name = "NUMERO_CUENTA_FINTECH", referencedColumnName = "NUMERO_CUENTA")
 	})
+	*/
 //@DiscriminatorColumn(name = "TIPO_FINTECH", discriminatorType = DiscriminatorType.CHAR) 
 
 /*	Valores que toma TIPO_FINTECH:
