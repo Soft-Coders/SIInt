@@ -80,7 +80,7 @@ public class Cuenta implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Cuenta {\n\tiban: " + iban + ",\n\tswift: " + swift + "\n}";
+		return "Cuenta = {\n\tiban: " + iban + ",\n\tswift: " + swift + "\n}";
 	}
 	
 }

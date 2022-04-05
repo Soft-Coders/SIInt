@@ -239,9 +239,10 @@ public class PersonaAutorizada implements Serializable{
 
 	@Override
 	public String toString() {
-		return "PersonaAutorizada [id=" + id + ", identificacion=" + identificacion + ", nombre=" + nombre
-				+ ", apellidos=" + apellidos + ", direccion=" + direccion + ", fechaNacimiento=" + fechaNacimiento
-				+ ", estado=" + estado + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + "]";
+		return "PersonaAutorizada = {\n\tid: " + id + ", \n\tidentificacion: " + identificacion +
+				", \n\tnombre: " + nombre + ", \n\tapellidos: " + apellidos + ", \n\tdireccion: " + 
+				direccion + ", \n\tfechaNacimiento: " + fechaNacimiento + ", \n\testado: " + estado + 
+				", \n\tfechaInicio: " + fechaInicio + ", \n\tfechaFin: " + fechaFin + "\n}";
 	}
 	
 	

@@ -117,8 +117,8 @@ public class Usuario implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Usuario [Id=" + Id + ", usuario=" + usuario + ", clave=" + clave + ", esAdministrativo="
-				+ esAdministrativo + "]";
+		return "Usuario = {\n\tId: " + Id + ", \n\tusuario: " + usuario + ", \n\tclave: " + clave + 
+				", \n\tesAdministrativo: " + esAdministrativo + "\n}";
 	}
 	
 	
