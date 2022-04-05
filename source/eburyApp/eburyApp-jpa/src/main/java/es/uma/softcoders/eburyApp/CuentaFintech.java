@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @DiscriminatorValue(value = "F")
@@ -44,12 +45,19 @@ public class CuentaFintech extends Cuenta{
 	@Column(name="FECHA_CIERRE")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCierre;
-	
+
+	/* En un principio no es necesario almacenar clasificacion en la base de datos,
+	 * mas está modelada así que la añadimos por si fuese necesaria en un futuro */
+	@Transient  
 	private String clasificacion;
+	
+	
+	// ---------- RELACIONES -----------
 	
 	@ManyToOne
 	@JoinColumn(name="CLIENTE_FK", nullable=false)
 	private Cliente cliente;
+	
 	
 	// ------ GETTERS & SETTERS ------ 
 	
@@ -123,26 +131,10 @@ public class CuentaFintech extends Cuenta{
 		this.cliente = cliente;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(cliente);
-		return result;
-	}
+	
+	// equals() y hashCode() se heredan del padre
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CuentaFintech other = (CuentaFintech) obj;
-		return Objects.equals(cliente, other.cliente);
-	}
-
+	
 	@Override
 	public String toString() {
 		return "CuentaFintech = {\n\t"+ super.toString() +"\n\testado: " + estado + ",\n\tfechaApertura: " + fechaApertura + 

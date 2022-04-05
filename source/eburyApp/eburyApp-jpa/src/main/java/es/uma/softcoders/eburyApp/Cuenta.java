@@ -63,7 +63,7 @@ public class Cuenta implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(iban, swift);
+		return Objects.hash(iban);
 	}
 
 	@Override

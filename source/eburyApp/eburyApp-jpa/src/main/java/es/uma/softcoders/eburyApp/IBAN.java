@@ -23,7 +23,6 @@ public class IBAN implements Serializable{
 	
 	// ------ GETTERS & SETTERS ------ 
 	
-
 	/**
 	 * @return el numeroCuenta
 	 */
