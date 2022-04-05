@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -32,7 +33,13 @@ public class Pooled extends CuentaFintech implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Pooled = {\n\t" + super.toString() + "\n}";
+		StringJoiner depositadaEnStr = new StringJoiner(",\n\t","{\n", "\n}");
+		
+		for(Map.Entry<CuentaReferencia, Long> entry : depositadaEn.entrySet()) {
+			depositadaEnStr.add("CuentaReferencia: " + entry.getKey().getIban() + ", Saldo: " + entry.getValue().longValue());
+		}
+		
+		return "Pooled = {\n\t" + super.toString() + ",\n\tdepositadaEn: " + depositadaEnStr + "\n}";
 	}
     
     
