@@ -11,7 +11,8 @@ import javax.persistence.InheritanceType;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cuenta implements Serializable{
-	
+
+
 	public Cuenta() {}
 	
 	// ----------- ATRIBUTOS -----------

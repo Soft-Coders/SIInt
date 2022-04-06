@@ -190,14 +190,8 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 
 	@Override
 	public String toString() {
-		StringJoiner depositadaEnStr = new StringJoiner(",","{", "\n\t}");
-		
-		for(Map.Entry<Pooled, Long> entry : depositadaEn.entrySet()) {
-			depositadaEnStr.add("\n\tPooledAccount: " + entry.getKey().getIban() + ", Saldo: " + entry.getValue().longValue());
-		}
-		
 		return "CuentaReferencia = {\n\t"+ super.toString() +"\n\tnombreBanco: " + nombreBanco + 
 				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + 
-				",\n\tdivisa: " + divisa.getAbreviatura() + ",\n\tdepositadaEn: " + depositadaEnStr + "\n}";
+				",\n\tdivisa: " + divisa.getAbreviatura() + "\n}";
 	}
 }

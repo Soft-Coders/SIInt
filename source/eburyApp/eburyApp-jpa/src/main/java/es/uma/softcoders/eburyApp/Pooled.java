@@ -33,13 +33,7 @@ public class Pooled extends CuentaFintech implements Serializable{
 
 	@Override
 	public String toString() {
-		StringJoiner depositadaEnStr = new StringJoiner(",\n\t","{\n", "\n}");
-		
-		for(Map.Entry<CuentaReferencia, Long> entry : depositadaEn.entrySet()) {
-			depositadaEnStr.add("CuentaReferencia: " + entry.getKey().getIban() + ", Saldo: " + entry.getValue().longValue());
-		}
-		
-		return "Pooled = {\n\t" + super.toString() + ",\n\tdepositadaEn: " + depositadaEnStr + "\n}";
+		return "Pooled = {\n\t" + super.toString() + "\n}";
 	}
     
     
