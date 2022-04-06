@@ -123,10 +123,7 @@ public class CuentaFintech extends Cuenta{
 	@Override
 	public String toString() {
 		return "CuentaFintech = {\n\t"+ super.toString() +"\n\testado: " + estado + ",\n\tfechaApertura: " + fechaApertura + 
-				",\n\tfechaCierre: " + fechaCierre + ",\n\tclasificacion: " + clasificacion + 
-				",\n\tcliente: " + cliente.toStringRelacionCuentaFintech() + "\n}";
+				",\n\tfechaCierre: " + fechaCierre + ",\n\tclasificacion: " + clasificacion + "\n}";
 	}
-
 	
-		
 }
