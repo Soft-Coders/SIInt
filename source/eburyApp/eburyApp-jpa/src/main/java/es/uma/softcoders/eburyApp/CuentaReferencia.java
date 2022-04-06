@@ -191,7 +191,6 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@Override
 	public String toString() {
 		return "CuentaReferencia = {\n\t"+ super.toString() +"\n\tnombreBanco: " + nombreBanco + 
-				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + 
-				",\n\tdivisa: " + divisa.getAbreviatura() + "\n}";
+				", \n\tsucursal: " + sucursal + ", \n\tpais: " + pais + ", \n\testado: " + estado + "\n}";
 	}
 }
