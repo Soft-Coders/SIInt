@@ -17,7 +17,6 @@ public class Cuenta implements Serializable{
 	// ----------- ATRIBUTOS -----------
 	
 	@Id
-	@Column(nullable=false)
 	private String iban;
 	
 	private String swift;
