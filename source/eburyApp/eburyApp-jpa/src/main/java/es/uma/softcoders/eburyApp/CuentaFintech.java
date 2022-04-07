@@ -34,11 +34,6 @@ public class CuentaFintech extends Cuenta{
 	@Column(name="FECHA_CIERRE")
 	@Temporal(TemporalType.DATE)
 	private Date fechaCierre;
-
-	/* En un principio no es necesario almacenar clasificacion en la base de datos,
-	 * mas está modelada así que la añadimos por si fuese necesaria en un futuro */
-	@Transient  
-	private String clasificacion;
 	
 	
 	// ---------- RELACIONES -----------
@@ -91,20 +86,7 @@ public class CuentaFintech extends Cuenta{
 	public void setFechaCierre(Date fechaCierre) {
 		this.fechaCierre = fechaCierre;
 	}
-
-	/**
-	 * @return clasificacion
-	 */
-	public String getClasificacion() {
-		return clasificacion;
-	}
-
-	/**
-	 * @param clasificacion indica el tipo de cuenta
-	 */
-	public void setClasificacion(String clasificacion) {
-		this.clasificacion = clasificacion;
-	}
+	
 	
 	// equals() y hashCode() se heredan del padre
 
