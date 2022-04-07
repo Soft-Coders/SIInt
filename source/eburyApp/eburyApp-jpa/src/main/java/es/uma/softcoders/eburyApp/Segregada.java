@@ -45,9 +45,23 @@ public class Segregada extends CuentaFintech implements Serializable{
 	public void setComision(String comision) {
 		this.comision = comision;
 	}
+	
+	/**
+	 * @return la CuentaReferencia asociada
+	 */
+	public CuentaReferencia getCuentaRef() {
+		return cuentaRef;
+	}
+	
+	/**
+	 * @param cuentaRef la cuentaReferencia asociada
+	 */
+	public void setCuentaRef(CuentaReferencia cuentaRef) {
+		this.cuentaRef = cuentaRef;
+	}
 
 	// equals() y hashCode() son heredados de CuenteFintech, que los hereda de Cuenta 	
-	
+
 	@Override
 	public String toString() {
 		return "Segregada = {\n\t" + super.toString() + ",\n\tcomision: " + comision  +"\n}";	//TODO ampliar con id de padre

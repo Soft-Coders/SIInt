@@ -148,6 +148,20 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	}
 	
 	/**
+	 * @return the segregada
+	 */
+	public Segregada getSegregada() {
+		return segregada;
+	}
+	
+	/**
+	 * @param segregada the segregada to set
+	 */
+	public void setSegregada(Segregada segregada) {
+		this.segregada = segregada;
+	}
+	
+	/**
 	 * @return la divisa usada en la cuenta
 	 */
 	public Divisa getDivisa() {
@@ -170,17 +184,9 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 
 	/**
 	 * @param depositadaEn the depositadaEn to set
-	 * @warning NO USAR
 	 */
-//	public void setDepositadaEn(Map<Pooled, Long> depositadaEn) {
-//		this.depositadaEn = depositadaEn;
-//	}
-
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setDepositadaEn(Map<Pooled, Long> depositadaEn) {
+		this.depositadaEn = depositadaEn;
 	}
 
 	// Los métodos equals() y hashCode() se heredan directamente de Cuenta

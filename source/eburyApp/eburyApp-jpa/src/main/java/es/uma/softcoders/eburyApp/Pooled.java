@@ -32,6 +32,22 @@ public class Pooled extends CuentaFintech implements Serializable{
     @MapKeyJoinColumn(name="CUENTA_REFERENCIA_FK", referencedColumnName="iban")
     private Map<CuentaReferencia, Long> depositadaEn;
 
+    // ------ GETTERS & SETTERS ------
+    
+	/**
+	 * @return CuentasReferencia asociadas con sus respectivos saldos
+	 */
+	public Map<CuentaReferencia, Long> getDepositadaEn() {
+		return depositadaEn;
+	}
+
+	/**
+	 * @param depositadaEn las CuentasReferencia asociadas con sus respectivos saldos
+	 */
+	public void setDepositadaEn(Map<CuentaReferencia, Long> depositadaEn) {
+		this.depositadaEn = depositadaEn;
+	}
+
 	@Override
 	public String toString() {
 		return "Pooled = {\n\t" + super.toString() + "\n}";
