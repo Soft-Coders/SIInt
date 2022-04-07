@@ -1,0 +1,16 @@
+# Pablo
+- Hola mundo VueJS
+- Actualizar CONTRIBUTING.md para Gitflow por entregas
+- Script para Sprints
+- Interiorizar la rúbrica
+- Crear #log (discord)
+- Community Standards - Elegir licencia
+- Enterarme de Maven, JPA y EJB
+- Añadir modus operandi de Maven a README.md
+- Cambiar nombre canal de discord con webhook #tags -> #log
+- Entidad Persona Autorizada
+- Entidad Divisa
+- Entidad Usuario
+- Relaciones de Persona Autorizada
+- Relaciones de Divisa
+- Relaciones de Usuario
