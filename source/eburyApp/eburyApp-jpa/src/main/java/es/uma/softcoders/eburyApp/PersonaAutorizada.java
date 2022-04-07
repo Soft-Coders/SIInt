@@ -208,6 +208,36 @@ public class PersonaAutorizada implements Serializable{
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+	
+	
+
+	/**
+	 * @return the autorizacion
+	 */
+	public Map<Empresa, Character> getAutorizacion() {
+		return autorizacion;
+	}
+
+	/**
+	 * actualiza el tipo de autorización asociada a la persona autorizada
+	 */
+	public void setAutorizacion(Map<Empresa, Character> autorizacion) {
+		this.autorizacion = autorizacion;
+	}
+
+	/**
+	 * @return the usuario
+	 */
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	/**
+	 * actualiza el usuario asociado a la persona autorizada
+	 */
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 
 	@Override
 	public int hashCode() {

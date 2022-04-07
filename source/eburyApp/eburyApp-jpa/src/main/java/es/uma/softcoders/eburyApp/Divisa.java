@@ -97,6 +97,20 @@ public class Divisa implements Serializable{
 	}
 
 
+	/**
+	 * @return the cuentaReferencia
+	 */
+	public List<CuentaReferencia> getCuentaReferencia() {
+		return cuentaReferencia;
+	}
+
+	/**
+	 * actualiza las cuentas referencia asociadas a divisa
+	 */
+	public void setCuentaReferencia(List<CuentaReferencia> cuentaReferencia) {
+		this.cuentaReferencia = cuentaReferencia;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(simbolo);

@@ -100,6 +100,34 @@ public class Usuario implements Serializable{
 		this.esAdministrativo = esAdministrativo;
 	}
 
+	/**
+	 * @return the personaAutorizada
+	 */
+	public PersonaAutorizada getPersonaAutorizada() {
+		return personaAutorizada;
+	}
+
+	/**
+	 * actualiza la persona autorizada asociada al usuario
+	 */
+	public void setPersonaAutorizada(PersonaAutorizada personaAutorizada) {
+		this.personaAutorizada = personaAutorizada;
+	}
+
+	/**
+	 * @return the individual
+	 */
+	public Individual getIndividual() {
+		return individual;
+	}
+
+	/**
+	 * actualiza la cuenta individual asociada a usuario
+	 */
+	public void setIndividual(Individual individual) {
+		this.individual = individual;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(Id);
