@@ -21,7 +21,7 @@ public class Usuario implements Serializable{
 	// --------- ATRIBUTOS ---------
 	
 	@Id
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long Id;
 	
 	@Column(nullable=false, unique=true)
@@ -40,7 +40,6 @@ public class Usuario implements Serializable{
 	
 	@OneToOne(mappedBy="usuario")
 	private Individual individual;
-	
 	
 	// ------ GETTERS & SETTERS ------
 
@@ -122,7 +121,5 @@ public class Usuario implements Serializable{
 		return "Usuario = {\n\tId: " + Id + ", \n\tusuario: " + usuario + ", \n\tclave: " + clave + 
 				", \n\tesAdministrativo: " + esAdministrativo + "\n}";
 	}
-	
-	
 	
 }

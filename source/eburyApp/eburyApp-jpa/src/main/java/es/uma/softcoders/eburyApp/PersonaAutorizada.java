@@ -34,7 +34,7 @@ public class PersonaAutorizada implements Serializable{
 	
 	@Id
 	@Column(nullable = false)
-	//@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	@Column(nullable = false, unique = true)

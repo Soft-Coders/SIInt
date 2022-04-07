@@ -8,7 +8,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="INDIVIDUAL")
 public class Individual extends Cliente{
+	
     // ---------- ATRIBUTOS ----------
+	
     @Column(length = 30, nullable = false)
     private String nombre;
 
