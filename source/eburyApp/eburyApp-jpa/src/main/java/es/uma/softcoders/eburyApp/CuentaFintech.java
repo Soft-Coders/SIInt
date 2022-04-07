@@ -105,21 +105,6 @@ public class CuentaFintech extends Cuenta{
 	public void setClasificacion(String clasificacion) {
 		this.clasificacion = clasificacion;
 	}
-
-	/**
-	 * @return el cliente dueño de la cuentaFintech
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	/**
-	 * @param cliente indica el id del dueño de la cuentaFintech
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	
 	// equals() y hashCode() se heredan del padre
 
