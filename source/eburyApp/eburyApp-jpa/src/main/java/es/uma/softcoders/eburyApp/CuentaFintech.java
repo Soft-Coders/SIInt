@@ -1,5 +1,6 @@
 package es.uma.softcoders.eburyApp;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,7 +13,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="CUENTA_FINTECH")
 
-public class CuentaFintech extends Cuenta{
+public class CuentaFintech extends Cuenta implements Serializable{
 	
 	private static final long serialVersionUID = -6441702807546365605L;
 
