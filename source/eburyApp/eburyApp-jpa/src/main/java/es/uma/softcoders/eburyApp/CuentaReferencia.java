@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -12,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,9 +19,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name="CUENTA_REFERENCIA")
 public class CuentaReferencia extends Cuenta implements Serializable{
-	/**
-	 * serialVersionUID
-	 */
+
 	private static final long serialVersionUID = -1762735924713432275L;	
 	
 	// ---------- ATRIBUTOS ----------
@@ -43,11 +41,10 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	private String 	estado;
 	
 	// --------- RELACIONES ---------
-	/*
+	
 	@OneToOne(mappedBy = "cuentaRef")
-	@JoinColumn(name = "SEGREGADA_ID")
 	private Segregada segregada;
-	*/
+	
 	@ManyToOne
 	@JoinColumn(name = "DIVISA_ID", nullable = false)
 	private Divisa divisa;

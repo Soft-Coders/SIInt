@@ -10,9 +10,15 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente implements Serializable{
 	
-    // ---------- ATRIBUTOS ----------
+	private static final long serialVersionUID = 2924062538262296321L;
 	
-    @Id
+	public Cliente(){
+		
+	}
+	
+	// ---------- ATRIBUTOS ----------
+
+	@Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
     
@@ -50,10 +56,6 @@ public class Cliente implements Serializable{
     private List<CuentaFintech> cuentas;
 
     // ------ GETTERS & SETTERS ------
-	
-	public Cliente(){
-		
-	}
 	
 	public Long getID() {
 		return id;

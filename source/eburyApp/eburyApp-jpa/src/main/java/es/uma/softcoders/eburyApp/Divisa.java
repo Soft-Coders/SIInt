@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Divisa implements Serializable{
 
+	private static final long serialVersionUID = -2958945073501018190L;
+
 	public Divisa() {
 		
 	}

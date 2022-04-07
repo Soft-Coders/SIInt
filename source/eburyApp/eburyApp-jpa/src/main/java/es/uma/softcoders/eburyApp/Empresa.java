@@ -7,7 +7,10 @@ import javax.persistence.*;
 @Table(name="EMPRESA")
 public class Empresa extends Cliente {
     
-    // ---------- ATRIBUTOS ----------
+	private static final long serialVersionUID = 1735503934250648278L;
+	
+	// ---------- ATRIBUTOS ----------
+	
     @Column(name = "FECHA_NACIMIENTO", nullable = false, length = 30)
     private String razonSocial;
     

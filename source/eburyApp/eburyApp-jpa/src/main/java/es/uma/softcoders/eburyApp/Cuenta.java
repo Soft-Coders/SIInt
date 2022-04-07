@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -12,8 +11,11 @@ import javax.persistence.InheritanceType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cuenta implements Serializable{
 
+	private static final long serialVersionUID = 4905707791439895391L;
 
-	public Cuenta() {}
+	public Cuenta() {
+		
+	}
 	
 	// ----------- ATRIBUTOS -----------
 	

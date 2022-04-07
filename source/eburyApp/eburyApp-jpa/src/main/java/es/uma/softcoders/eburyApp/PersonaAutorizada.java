@@ -13,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.MapKeyJoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,6 +23,8 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name ="PERSONA_AUTORIZADA")
 public class PersonaAutorizada implements Serializable{
+
+	private static final long serialVersionUID = -5001230879942182320L;
 
 	public PersonaAutorizada() {
 		

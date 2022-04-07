@@ -4,15 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name= "SEGREGADA")
 public class Segregada extends CuentaFintech implements Serializable{
-	/**
-	 * serialVersionUID
-	 */
+
 	private static final long serialVersionUID = -817987222673845151L;	
+	
+	public Segregada() {
+		
+	}
 	
 	// ---------- ATRIBUTOS ----------
 	
@@ -20,15 +24,12 @@ public class Segregada extends CuentaFintech implements Serializable{
 	
 	@Column(length= 20)
 	private String comision;
-	/*
+	
 	@OneToOne
 	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
-	*/
-	public Segregada() {
-		super();
-	}
 	
+
 	// ------ GETTERS & SETTERS ------
 	
 	/**

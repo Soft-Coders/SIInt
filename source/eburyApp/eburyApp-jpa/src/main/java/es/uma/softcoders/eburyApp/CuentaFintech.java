@@ -15,7 +15,11 @@ import javax.persistence.Transient;
 
 public class CuentaFintech extends Cuenta{
 	
-	public CuentaFintech() {}
+	private static final long serialVersionUID = -6441702807546365605L;
+
+	public CuentaFintech() {
+		
+	}
 	
 	
 	// ----------- ATRIBUTOS -----------

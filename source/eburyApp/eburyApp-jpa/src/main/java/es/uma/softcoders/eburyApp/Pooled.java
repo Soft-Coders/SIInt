@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Map;
-import java.util.StringJoiner;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -15,10 +14,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name= "POOLED")
 public class Pooled extends CuentaFintech implements Serializable{
-	/**
-	 * serialVersionUID
-	 */
+	
 	private static final long serialVersionUID = 6420219173607591585L;
+	
+	public Pooled() {
+		
+	}
 	
 	// ---------- ATRIBUTOS ----------
 	

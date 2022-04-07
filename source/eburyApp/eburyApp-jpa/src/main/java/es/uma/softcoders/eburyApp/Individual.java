@@ -1,6 +1,5 @@
 package es.uma.softcoders.eburyApp;
 import java.util.Date;
-import java.util.Map;
 
 import javax.persistence.*;
 
@@ -9,9 +8,11 @@ import javax.persistence.*;
 @Table(name="INDIVIDUAL")
 public class Individual extends Cliente{
 	
-    // ---------- ATRIBUTOS ----------
+	private static final long serialVersionUID = 6599653177154446587L;
 	
-    @Column(length = 30, nullable = false)
+	// ---------- ATRIBUTOS ----------
+
+	@Column(length = 30, nullable = false)
     private String nombre;
 
     @Column(length = 40, nullable = false)
