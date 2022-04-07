@@ -64,7 +64,7 @@ public class Segregada extends CuentaFintech implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Segregada = {\n\t" + super.toString() + ",\n\tcomision: " + comision  +"\n}";	//TODO ampliar con id de padre
+		return "Segregada = {\n\t" + super.toString() + ",\n\tcomision: " + comision  +"\n}";
 	}
 	
 }
