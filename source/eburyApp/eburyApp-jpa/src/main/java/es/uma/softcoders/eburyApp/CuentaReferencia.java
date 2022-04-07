@@ -58,7 +58,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	
 	// Constructor
 	public CuentaReferencia() {
-		super();
+		
 	}
 	
 	// ------ GETTERS & SETTERS ------
