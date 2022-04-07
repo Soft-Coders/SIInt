@@ -1,4 +1,5 @@
 package es.uma.softcoders.eburyApp;
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -6,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="INDIVIDUAL")
-public class Individual extends Cliente{
+public class Individual extends Cliente implements Serializable{
 	
 	private static final long serialVersionUID = 6599653177154446587L;
 	
