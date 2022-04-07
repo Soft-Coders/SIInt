@@ -1,4 +1,4 @@
-<h1>Marta Maleno</h1> 
+## Marta Maleno
 - Entidades Cuenta.java y CuentaFintech.java
 - Relaciones de las entidades
 - Crear hoja de requisitos
