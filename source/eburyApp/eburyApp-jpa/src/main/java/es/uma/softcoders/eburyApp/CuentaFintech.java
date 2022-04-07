@@ -87,6 +87,20 @@ public class CuentaFintech extends Cuenta{
 		this.fechaCierre = fechaCierre;
 	}
 	
+	/**
+ 	 * @return el cliente dueño de la cuentaFintech
+ 	 */
+ 	public Cliente getCliente() {
+ 		return cliente;
+ 	}
+
+ 	/**
+ 	 * @param cliente indica el id del dueño de la cuentaFintech
+ 	 */
+ 	public void setCliente(Cliente cliente) {
+ 		this.cliente = cliente;
+ 	}
+	
 	
 	// equals() y hashCode() se heredan del padre
 
