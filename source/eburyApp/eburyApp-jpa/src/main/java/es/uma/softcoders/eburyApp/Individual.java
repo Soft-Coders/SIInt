@@ -51,6 +51,19 @@ public class Individual extends Cliente{
     public void setFechaNacimiento(Date fech){
         this.fechaNacimiento = fech;
     }
+    /**
+	 * @return el usuario asociado al cliente individual
+	 */
+    public Usuario getUsuario(){
+        return this.usuario;
+    }
+
+    /**
+	 * @param us el usuario a asociar a un cliente
+	 */
+    public void setUsuario(Usuario us){
+        this.usuario = us;
+    }
 
     //  HASHCODE & EQUALS SE HEREDAN DE CLIENTE
 

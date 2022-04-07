@@ -27,6 +27,20 @@ public class Empresa extends Cliente {
     public String getRazonSocial(){
         return this.razonSocial;
     }
+
+    /**
+	 * @param aut el mapa de autorizaciones de una empresa
+	 */
+    public void setAutorizacion(Map<PersonaAutorizada, Character> aut){
+        this.autorizacion = aut;
+    }
+    
+    /**
+	 * @return el mapa de autorizaciones de una empresa
+	 */
+    public Map<PersonaAutorizada, Character> getAutorizacion(){
+        return this.autorizacion;
+    }
     
     // --------- RELACIONES ---------
     

@@ -118,10 +118,16 @@ public class Cliente implements Serializable{
 		pais = Pais;
 	}
 	
-
+	
+	/**
+	 * @return la lista de cuentas del cliente
+	 */
 	public List<CuentaFintech> getCuentas() {
 		return cuentas;
 	}
+	/**
+	 * @param cuentas la lista de cuentas fintech del cliente
+	 */
 	public void setCuentas(List<CuentaFintech> cuentas) {
 		this.cuentas = cuentas;
 	}
