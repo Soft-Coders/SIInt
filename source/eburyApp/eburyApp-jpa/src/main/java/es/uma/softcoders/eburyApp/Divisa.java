@@ -37,6 +37,13 @@ public class Divisa implements Serializable{
 	@OneToMany(mappedBy="divisa")
 	private List<CuentaReferencia> cuentaReferencia;
 	
+	@OneToMany
+	@JoinColumn(mappedBy="divisaReceptor")
+	private Divisa transaccionReceptor;
+	
+	@OneToMany
+	@JoinColumn(mappedBy="divisaEmisor")
+	private Divisa transaccionEmisor;
 
 	// ------ GETTERS & SETTERS ------
 
