@@ -16,6 +16,7 @@
 		<class>es.uma.softcoders.eburyApp.Segregada</class>
         <class>es.uma.softcoders.eburyApp.CuentaReferencia</class>
         <class>es.uma.softcoders.eburyApp.Pooled</class>
+        <class>es.uma.softcoders.eburyApp.Pooled</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
     	<property name="javax.persistence.schema-generation.database.action" value="create"/>
