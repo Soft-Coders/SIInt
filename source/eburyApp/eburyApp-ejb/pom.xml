@@ -38,6 +38,11 @@
 			<version>1.4.200</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    		<groupId>es.uma.informatica.sii</groupId>
+    		<artifactId>anotaciones</artifactId>
+    		<version>1.0.0</version>
+		</dependency>
 	</dependencies>
 
 		<build>
