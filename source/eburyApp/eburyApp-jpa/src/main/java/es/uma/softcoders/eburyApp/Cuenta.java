@@ -25,6 +25,17 @@ public class Cuenta implements Serializable{
 	private String swift;
 
 	
+	// ---------- RELACIONES -----------
+	
+	@OneToMany
+	@JoinColumn(mappedBy = origen)
+	private Transaccion transaccion;
+	
+	@OneToMany
+	@JoinColumn(mappedBy = destino)
+	private Transaccion transaccion;
+	
+	
 	// ------ GETTERS & SETTERS ------
 	
 	/**
