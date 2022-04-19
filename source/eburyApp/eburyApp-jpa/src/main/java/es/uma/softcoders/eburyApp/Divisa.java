@@ -7,6 +7,7 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -37,13 +38,13 @@ public class Divisa implements Serializable{
 	@OneToMany(mappedBy="divisa")
 	private List<CuentaReferencia> cuentaReferencia;
 	
-	@OneToMany
-	@JoinColumn(mappedBy="divisaReceptor")
-	private Divisa transaccionReceptor;
+	@OneToMany(mappedBy="divisaReceptor")
+	@JoinColumn(name = "TRANSACCION_RECEPTOR")
+	private List<Transaccion> transaccionReceptor;
 	
-	@OneToMany
-	@JoinColumn(mappedBy="divisaEmisor")
-	private Divisa transaccionEmisor;
+	@OneToMany(mappedBy="divisaEmisor")
+	@JoinColumn(name = "TRANSACCION_EMISOR")
+	private List<Transaccion> transaccionEmisor;
 
 	// ------ GETTERS & SETTERS ------
 

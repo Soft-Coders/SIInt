@@ -1,11 +1,14 @@
 package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -27,13 +30,13 @@ public class Cuenta implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@OneToMany
-	@JoinColumn(mappedBy = origen)
-	private Transaccion transaccion;
+	@OneToMany(mappedBy = "origen")
+	@JoinColumn(name = "TRANSACCION_ORIGEN_FK", nullable = true) // ES NULLABLE?  TODO
+	private List<Transaccion> transaccionOrigen;
 	
-	@OneToMany
-	@JoinColumn(mappedBy = destino)
-	private Transaccion transaccion;
+	@OneToMany(mappedBy = "destino")
+	@JoinColumn(name = "TRANSACCION_DESTINO", nullable = true) // ES NULLABLE?  TODO
+	private List<Transaccion> transaccionDestino;
 	
 	
 	// ------ GETTERS & SETTERS ------
