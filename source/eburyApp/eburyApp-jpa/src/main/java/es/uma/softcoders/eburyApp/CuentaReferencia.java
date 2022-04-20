@@ -22,6 +22,27 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 
 	private static final long serialVersionUID = -1762735924713432275L;	
 	
+	public CuentaReferencia() {
+		
+	}
+	
+	public CuentaReferencia(String nombreBanco, Double saldo, Divisa divisa) {
+		this.nombreBanco = nombreBanco;
+		this.saldo       = saldo;
+		this.divisa      = divisa;
+	}
+	
+	public CuentaReferencia(String nombreBanco, String sucursal, String pais,
+			Double saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
+		this.nombreBanco   = nombreBanco;
+		this.sucursal      = sucursal;
+		this.pais          = pais;
+		this.saldo         = saldo;
+		this.fechaApertura = fechaApertura;
+		this.estado        = estado;
+		this.segregada     = segregada;
+		this.divisa        = divisa;
+	}
 	// ---------- ATRIBUTOS ----------
 	
 	// ID es heredado de Cuenta
@@ -56,10 +77,6 @@ public class CuentaReferencia extends Cuenta implements Serializable{
     @MapKeyJoinColumn(name="POOLED_FK", referencedColumnName="iban")
     private Map<Pooled, Long> depositadaEn;
 	
-	// Constructor
-	public CuentaReferencia() {
-		
-	}
 	
 	// ------ GETTERS & SETTERS ------
 
