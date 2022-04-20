@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import java.lang.NullPointerException;
+
 @Entity
 public class Divisa implements Serializable{
 
@@ -17,6 +19,17 @@ public class Divisa implements Serializable{
 
 	public Divisa() {
 		
+	}
+	
+	public Divisa(String abreviatura, String nombre, Character simbolo, Long cambioEuro) throws NullPointerException{
+		try{
+			this.abreviatura = abreviatura;
+		}catch(NullPointerException a){
+			System.out.println("el campo abreviatura no puede ser null");
+		}
+		this.nombre = nombre;
+		this.simbolo = simbolo;
+		this.cambioEuro = cambioEuro;
 	}
 	
 	// --------- ATRIBUTOS ---------

@@ -19,6 +19,30 @@ public class Usuario implements Serializable{
 		
 	}
 	
+	public Usuario(Long Id, String usuario, String clave) throws NullPointerException{
+		
+		if(Id != null) {
+			System.out.println("El id tiene que ser nulo");
+		}else {
+			this.Id=null;
+		}
+		
+		try{
+			this.usuario = usuario;
+
+		}catch(NullPointerException a){
+			System.out.println("el campo usuario no puede ser null");
+		}	
+		
+		try{
+			this.clave = clave;
+
+		}catch(NullPointerException a){
+			System.out.println("el campo clave no puede ser null");
+		}
+		
+	}
+	
 	// --------- ATRIBUTOS ---------
 	
 	@Id
