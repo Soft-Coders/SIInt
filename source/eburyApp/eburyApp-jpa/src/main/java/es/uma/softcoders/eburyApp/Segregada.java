@@ -18,6 +18,15 @@ public class Segregada extends CuentaFintech implements Serializable{
 		
 	}
 	
+	public Segregada(CuentaReferencia cuentaRef) {
+		this.cuentaRef = cuentaRef;
+	}
+	
+	public Segregada(String comision,CuentaReferencia cuentaRef) {
+		this.comision  = comision;
+		this.cuentaRef = cuentaRef;
+	}
+	
 	// ---------- ATRIBUTOS ----------
 	
 	// ID es heredado de CuentaFintech, que lo hereda de Cuenta

@@ -21,6 +21,10 @@ public class Pooled extends CuentaFintech implements Serializable{
 		
 	}
 	
+	public Pooled(Map<CuentaReferencia, Long> depositadaEn) {
+		this.depositadaEn = depositadaEn;
+	}
+	
 	// ---------- ATRIBUTOS ----------
 	
 	// ID es heredado de CuentaFintech, que lo hereda de Cuenta
