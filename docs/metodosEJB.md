@@ -10,7 +10,6 @@
             `public void loginPersonaAutorizada(String cuenta, String clave)`
 - RF 11 ->  `public void informeHolanda()`
 - RF*   ->  `public void verificarCuenta(Cuenta cuenta)`
-- RF**  ->  `public void string producto()`
 - RF 18 -> `public void cambioDivisa(Cuenta c, double cantidad)`
 
 
