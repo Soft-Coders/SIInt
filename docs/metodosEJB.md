@@ -11,10 +11,8 @@
           `public void loginPersonaAutorizada(String cuenta, String clave)`
 - RF11 -> `public void informeHolanda()`
 - RF*  -> `public void verificarCuenta(Cuenta cuenta)`
-- RF** -> `public void string producto()`
 - RF15 -> Condición extra a controlar en: `cambioDivisa()`. Podría requerir un nuevo atributo o estructura de control para `personaAutorizada`.
 - RF17 y 18 -> `public void cambioDivisa(Cuenta c, double cantidad)`
-
 
 
 >/* A la hora de crear una cuentafintech que no tiene asociada una cuenta referencia, se le crea una vacía automáticamente? (Aplicable también a cliente/personaautorizada con usuario). Otra idea sería tener una cuentareferencia por defecto para estos casos */
