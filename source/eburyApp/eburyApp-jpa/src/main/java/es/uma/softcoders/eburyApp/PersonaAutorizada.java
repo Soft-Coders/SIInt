@@ -30,43 +30,20 @@ public class PersonaAutorizada implements Serializable{
 		
 	}
 	
-	//Como lanzo una excepcion para id para que no me pasen por parametro un id que no es nulo?
-	public PersonaAutorizada(Long id, String identificacion, String nombre, String apellidos, String direccion, String estado, Date fechaNacimiento, Date  fechaInicio, Date fechaFin) {
-		if(id != null) {
-			System.out.println("id debe de ser nulo");
-		}
-		else {
-			this.id = id;
-		}
+	public PersonaAutorizada(String identificacion, String nombre, String apellidos, String direccion) {
 		
-		try{
-			this.identificacion = identificacion;
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+	}
+	
+	public PersonaAutorizada(String identificacion, String nombre, String apellidos, String direccion, String estado, Date fechaNacimiento, Date  fechaInicio, Date fechaFin) {
 
-		}catch(NullPointerException a){
-			System.out.println("el campo identificacion no puede ser null");
-		}
-		
-		try{
-			this.nombre = nombre;
-
-		}catch(NullPointerException a){
-			System.out.println("el campo nombre no puede ser null");
-		}
-		
-		try{
-			this.apellidos = apellidos;
-
-		}catch(NullPointerException a){
-			System.out.println("el campo apellidos no puede ser null");
-		}
-		
-		try{
-			this.direccion = direccion;
-
-		}catch(NullPointerException a){
-			System.out.println("el campo direccion no puede ser null");
-		}
-		
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
 		this.estado = estado;
 		this.fechaNacimiento = fechaNacimiento;
 		this.fechaInicio = fechaInicio;
