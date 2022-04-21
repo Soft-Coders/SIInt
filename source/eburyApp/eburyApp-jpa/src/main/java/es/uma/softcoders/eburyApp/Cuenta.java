@@ -20,6 +20,15 @@ public class Cuenta implements Serializable{
 		
 	}
 	
+	public Cuenta(String iban) {
+		this.iban = iban;
+	}
+
+	public Cuenta(String iban, String swift) {
+		this.iban = iban;
+		this.swift = swift;
+	}
+	
 	// ----------- ATRIBUTOS -----------
 	
 	@Id
