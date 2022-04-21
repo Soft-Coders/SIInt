@@ -32,6 +32,11 @@ public class Individual extends Cliente implements Serializable{
     public Individual(){
         super();
     }
+    public Individual(String nom, String ape){
+        super();
+        this.nombre = nom;
+        this.apellido = ape;
+    }
 
     public String getNombre(){
         return this.nombre;
