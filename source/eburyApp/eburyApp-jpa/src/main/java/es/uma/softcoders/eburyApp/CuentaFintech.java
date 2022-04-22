@@ -26,9 +26,17 @@ public class CuentaFintech extends Cuenta implements Serializable{
 		this.fechaApertura = new Date();
 	}
 	
-	/* No he añadido el constructor de todos los parámetros porque
-	 * no le veo sentido a establecer la fecha de cierre de una cuenta
-	 * en el momento de su creación */
+	public CuentaFintech(String estado, Date fechaApertura) {
+		this.estado = estado;
+		this.fechaApertura = fechaApertura;
+	}
+	
+	public CuentaFintech(String estado, Date fechaApertura, Date fechaCierre) {
+		this.estado = estado;
+		this.fechaApertura = fechaApertura;
+		this.fechaCierre = fechaCierre;
+	}
+	
 	
 	// ----------- ATRIBUTOS -----------
 	
