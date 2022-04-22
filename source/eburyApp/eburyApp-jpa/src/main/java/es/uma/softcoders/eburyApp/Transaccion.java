@@ -20,7 +20,7 @@ public class Transaccion implements Serializable{
 	private static final long serialVersionUID = 6259768208959563654L;
 	
 	public Transaccion() {
-		
+		super();
 	}
 	
 	public Transaccion(Date fechaInstruccion, String tipo, Divisa divisaEmisor, 

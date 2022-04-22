@@ -18,7 +18,7 @@ public class CuentaFintech extends Cuenta implements Serializable{
 	private static final long serialVersionUID = -6441702807546365605L;
 
 	public CuentaFintech() {
-		
+		super();
 	}
 	
 	public CuentaFintech(String estado) {

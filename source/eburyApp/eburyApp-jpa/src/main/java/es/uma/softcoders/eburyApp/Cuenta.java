@@ -17,7 +17,7 @@ public class Cuenta implements Serializable{
 	private static final long serialVersionUID = 4905707791439895391L;
 
 	public Cuenta() {
-		
+		super();
 	}
 	
 	public Cuenta(String iban) {

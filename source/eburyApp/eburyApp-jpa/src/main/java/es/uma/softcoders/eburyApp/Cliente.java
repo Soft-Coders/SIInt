@@ -13,7 +13,7 @@ public class Cliente implements Serializable{
 	private static final long serialVersionUID = 2924062538262296321L;
 	
 	public Cliente(){
-		
+		super();
 	}
 	public Cliente(String ident, String tipoCli, String est, Date fechAlt, String dire, String ciud, int codPos, String Pais){
 

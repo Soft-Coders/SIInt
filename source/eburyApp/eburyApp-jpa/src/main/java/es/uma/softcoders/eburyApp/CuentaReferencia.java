@@ -23,7 +23,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	private static final long serialVersionUID = -1762735924713432275L;	
 	
 	public CuentaReferencia() {
-		
+		super();
 	}
 	
 	public CuentaReferencia(String nombreBanco, Double saldo, Divisa divisa) {

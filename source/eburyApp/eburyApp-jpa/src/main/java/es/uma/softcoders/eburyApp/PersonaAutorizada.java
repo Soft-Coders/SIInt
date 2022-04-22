@@ -27,7 +27,7 @@ public class PersonaAutorizada implements Serializable{
 	private static final long serialVersionUID = -5001230879942182320L;
 
 	public PersonaAutorizada() {
-		
+		super();
 	}
 	
 	public PersonaAutorizada(String identificacion, String nombre, String apellidos, String direccion) {
