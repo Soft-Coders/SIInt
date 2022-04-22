@@ -23,7 +23,7 @@
 | RF8 | Eliminar autorizados de una cuenta |La aplicación permitirá a un administrativo dar de baja a personas autorizadas a operar con cuentas cuyos clientes sean personas jurídicas. Estas personas no se eliminan del sistema, ya que podría ser necesario que la información conste para alguna auditoría o informe. Una persona autorizada que esté de baja no puede acceder a la cuenta en la que se encontraba autorizada. |
 | RF9 | Cierre de una cuenta | La aplicación permitirá a un administrativo cerrar una cuenta bancaria. Solo se puede cerrar una cuenta que tenga saldo 0 (en todas sus divisas). Una cuenta cerrada no se elimina, por si es necesario reportarla en algún informe. |
 | RF10 | Acceso a la aplicación de clientes y autorizados | Los clientes que sean personas físicas y los autorizados a cuentas de clientes que son personas jurídicas podrán acceder a la aplicación (con usuario y contraseña) para ver las cuentas a las que tienen acceso y consultar sus transacciones y cualquier otra información. Un cliente que es persona jurídica no puede tener acceso a la aplicación. |
-| RF11 | Generación de informes para Holanda | La aplicación implementará una API REST con tres  _endpoints_  que proporcionen la información de las cuentas y los clientes. Los detalles sobre la información a devolver se encuentran en la presentación de eBury. En el caso de que algún campo no esté disponible en el modelo de datos se devuelve "non-existent".
+| RF11 | Generación de informes para Holanda | La aplicación implementará una API REST con tres  [endpoints](#endpoints-api) que proporcionen la información de las cuentas y los clientes. Los detalles sobre la información a devolver se encuentran en la [presentación de eBury](#información-a-devolver-holanda). En el caso de que algún campo no esté disponible en el modelo de datos se devuelve "non-existent".
 | RF12 | Generación de informes para Alemania | La aplicación será capaz de generar un fichero CSV con la información que exige Alemania (ver esta información en la presentación de eBury). Deberá haber un botón de descarga para que una persona administrativa de la empresa pueda descargarlo y posteriormente subirlo al SFTP (ajeno a la aplicación). Hay dos tipos de informes: el inicial y el periódico (con menos información). El usuario administrativo deberá poder escoger entre estos dos informes.|
 | RF15 | Distintos tipos de autorizados | La aplicación distinguirá dos tipos de autorizados: aquellos que solo pueden ver las cuentas y datos asociados (como transacciones) y aquellos que, además, pueden realizar operaciones (transacciones y cambios de divisa). |
 | RF17 | Cambio de divisas realizadas por el cliente/autorizado | La aplicación permitirá a un cliente/autorizado realizar un cambio de divisas en una cuenta agrupada (_pooled_). El cambio de divisas se considerará una transacción especial donde el origen y destino es la misma cuenta. Para poder realizar un cambio de divisas será necesario que la cuenta tenga saldos en las divisas de origen y destino. Los saldos de las cuentas asociadas con la cuenta agrupada deberá actualizarse también. No será posible realizar un cambio de divisas en cuentas segregadas.|
@@ -63,3 +63,19 @@
 - [ ] Autorizado
 - [ ] Cuenta
 - [ ] Transacciones
+
+### Información a devolver Holanda
+- Reporte que proporciona los datos de todas las cuentas dedicadas y segregadas a clientes en los últimos tres años
+- Incluye todas las cuentas bancarias que se encuentren activas y los datos del cliente, así como los datos de todas las personas relacionadas que se encuentren autorizadas
+- Incluye direcciones de la empresa y de las personas actualizadas que se consideran válidas
+
+    #### Endpoints API
+        1. Producto: Devuelve todas las cuentas que se han abierto asociadas a clientes (las cuentas asociadas - IBAN se conocen como productos) si no se envia ningun parametro.
+        Se deben devolver solo cuentas activas o inactivas si en la petición se pide solo dicha información o devolver una única cuenta o IBAN si la petición sólo hace referencia a la misma.
+        2. Clientes: Devuelve todos los datos del cliente, personas autorizadas y direcciones dado nombre y apellido del cliente, período de fechas y dirección.
+        3. Healthcheck: Comprueba que la conexión está disponible 
+
+
+
+
+

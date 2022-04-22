@@ -42,6 +42,8 @@
   <modules>
       
     <module>eburyApp-jpa</module>
+
+    <module>eburyApp-ejb</module>
       
   </modules>
 </project>

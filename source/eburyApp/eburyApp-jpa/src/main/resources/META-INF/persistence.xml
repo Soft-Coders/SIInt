@@ -12,6 +12,7 @@
 		<class>es.uma.softcoders.eburyApp.Segregada</class>
         <class>es.uma.softcoders.eburyApp.CuentaReferencia</class>
         <class>es.uma.softcoders.eburyApp.Pooled</class>
+        <class>es.uma.softcoders.eburyApp.Transaccion</class>
         <properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
 			<property name="javax.persistence.jdbc.user" value=""/>
