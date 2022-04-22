@@ -6,7 +6,7 @@
 - RF4  -> `public void bajaCliente(Cliente c)`
 - RF5  -> `public void crearCuentaFintech(Cuenta c, Cuenta[] referencias)`
 - RF6  -> `public void crearAutorizado(PersonaAutorizada p)`
-          `public void agregarAutorizado(PersonaAutorizada p)`
+          `public void agregarAutorizado(PersonaAutorizada p, Cliente c)`
 - RF7  -> `public void modificarAutorizado(PersonaAutorizada p, String autorizado)`
 - RF8  -> `public void eliminarAutorizado(PersonaAutorizada p)`
 - RF9  -> `public void cerrarCuenta(String cuenta)`
