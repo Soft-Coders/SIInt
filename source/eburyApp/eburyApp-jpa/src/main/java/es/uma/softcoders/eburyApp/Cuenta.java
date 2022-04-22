@@ -17,7 +17,16 @@ public class Cuenta implements Serializable{
 	private static final long serialVersionUID = 4905707791439895391L;
 
 	public Cuenta() {
-		
+		super();
+	}
+	
+	public Cuenta(String iban) {
+		this.iban = iban;
+	}
+
+	public Cuenta(String iban, String swift) {
+		this.iban = iban;
+		this.swift = swift;
 	}
 	
 	// ----------- ATRIBUTOS -----------

@@ -20,6 +20,11 @@ public class Empresa extends Cliente implements Serializable{
     public Empresa(){
         super();
     }
+    
+    public Empresa(String raz){
+        super();
+        this.razonSocial = raz;
+    }
 
     public void setRazonSocial(String razSoc){
         this.razonSocial = razSoc;

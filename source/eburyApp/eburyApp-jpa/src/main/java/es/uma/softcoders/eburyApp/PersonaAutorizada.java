@@ -27,7 +27,27 @@ public class PersonaAutorizada implements Serializable{
 	private static final long serialVersionUID = -5001230879942182320L;
 
 	public PersonaAutorizada() {
+		super();
+	}
+	
+	public PersonaAutorizada(String identificacion, String nombre, String apellidos, String direccion) {
 		
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+	}
+	
+	public PersonaAutorizada(String identificacion, String nombre, String apellidos, String direccion, String estado, Date fechaNacimiento, Date  fechaInicio, Date fechaFin) {
+
+		this.identificacion = identificacion;
+		this.nombre = nombre;
+		this.apellidos = apellidos;
+		this.direccion = direccion;
+		this.estado = estado;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaInicio = fechaInicio;
+		this.fechaFin = fechaFin;
 	}
 	
 	// --------- ATRIBUTOS ---------

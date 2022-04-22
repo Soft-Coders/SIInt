@@ -18,7 +18,11 @@ public class Pooled extends CuentaFintech implements Serializable{
 	private static final long serialVersionUID = 6420219173607591585L;
 	
 	public Pooled() {
-		
+		super();
+	}
+	
+	public Pooled(Map<CuentaReferencia, Long> depositadaEn) {
+		this.depositadaEn = depositadaEn;
 	}
 	
 	// ---------- ATRIBUTOS ----------

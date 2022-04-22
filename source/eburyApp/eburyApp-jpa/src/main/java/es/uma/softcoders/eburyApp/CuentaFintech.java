@@ -18,7 +18,23 @@ public class CuentaFintech extends Cuenta implements Serializable{
 	private static final long serialVersionUID = -6441702807546365605L;
 
 	public CuentaFintech() {
-		
+		super();
+	}
+	
+	public CuentaFintech(String estado) {
+		this.estado = estado;
+		this.fechaApertura = new Date();
+	}
+	
+	public CuentaFintech(String estado, Date fechaApertura) {
+		this.estado = estado;
+		this.fechaApertura = fechaApertura;
+	}
+	
+	public CuentaFintech(String estado, Date fechaApertura, Date fechaCierre) {
+		this.estado = estado;
+		this.fechaApertura = fechaApertura;
+		this.fechaCierre = fechaCierre;
 	}
 	
 	

@@ -20,7 +20,32 @@ public class Transaccion implements Serializable{
 	private static final long serialVersionUID = 6259768208959563654L;
 	
 	public Transaccion() {
-		
+		super();
+	}
+	
+	public Transaccion(Date fechaInstruccion, String tipo, Divisa divisaEmisor, 
+			Divisa divisaReceptor, Cuenta origen, Cuenta destino) {
+		this.fechaInstruccion = fechaInstruccion;
+		this.tipo             = tipo;
+		this.divisaEmisor     = divisaEmisor;
+		this.divisaReceptor   = divisaReceptor;
+		this.origen           = origen;
+		this.destino          = destino;
+	}
+	
+	public Transaccion(Date fechaInstruccion, Integer cantidad, Date fechaEjecucion,
+			String tipo, Integer comision, String internacional, Divisa divisaReceptor, 
+			Divisa divisaEmisor, Cuenta origen, Cuenta destino) {
+		this.fechaInstruccion = fechaInstruccion;
+		this.cantidad         = cantidad;
+		this.fechaEjecucion   = fechaEjecucion;
+		this.tipo             = tipo;
+		this.comision         = comision;
+		this.internacional    = internacional;
+		this.divisaReceptor   = divisaReceptor;
+		this.divisaEmisor     = divisaEmisor;
+		this.origen           = origen;
+		this.destino          = destino;
 	}
 	
 	// ----------- ATRIBUTOS -----------
@@ -43,7 +68,7 @@ public class Transaccion implements Serializable{
 	@Column(nullable = false)
 	private String tipo;
 	
-	// En ABD se ha considerado como la cantidad completa, no el porcentaje. LO CAMBIAMOS?
+	// En ABD se ha considerado como la cantidad completa, no el porcentaje.
 	private Integer comision;
 	
 	private String internacional;

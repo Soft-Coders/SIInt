@@ -10,13 +10,28 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+
 @Entity
 public class Divisa implements Serializable{
 
 	private static final long serialVersionUID = -2958945073501018190L;
 
 	public Divisa() {
+		super();
+	}
+	
+	public Divisa(String abreviatura, String nombre, Long cambioEuro) {
 		
+		this.abreviatura = abreviatura;
+		this.nombre = nombre;
+		this.cambioEuro = cambioEuro;
+	}
+	public Divisa(String abreviatura, String nombre, Character simbolo, Long cambioEuro) {
+		
+		this.abreviatura = abreviatura;	
+		this.nombre = nombre;
+		this.simbolo = simbolo;
+		this.cambioEuro = cambioEuro;
 	}
 	
 	// --------- ATRIBUTOS ---------

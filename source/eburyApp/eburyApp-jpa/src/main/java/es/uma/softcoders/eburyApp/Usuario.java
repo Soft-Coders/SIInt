@@ -16,7 +16,13 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = -1977601704778764068L;
 
 	public Usuario() {
+		super();
+	}
+	
+	public Usuario(String usuario, String clave) throws NullPointerException{
 		
+		this.usuario = usuario;
+		this.clave = clave;
 	}
 	
 	// --------- ATRIBUTOS ---------

@@ -15,7 +15,16 @@ public class Segregada extends CuentaFintech implements Serializable{
 	private static final long serialVersionUID = -817987222673845151L;	
 	
 	public Segregada() {
-		
+		super();
+	}
+	
+	public Segregada(CuentaReferencia cuentaRef) {
+		this.cuentaRef = cuentaRef;
+	}
+	
+	public Segregada(String comision,CuentaReferencia cuentaRef) {
+		this.comision  = comision;
+		this.cuentaRef = cuentaRef;
 	}
 	
 	// ---------- ATRIBUTOS ----------

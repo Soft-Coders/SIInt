@@ -13,7 +13,33 @@ public class Cliente implements Serializable{
 	private static final long serialVersionUID = 2924062538262296321L;
 	
 	public Cliente(){
-		
+		super();
+	}
+	public Cliente(String ident, String tipoCli, String est, Date fechAlt, String dire, String ciud, int codPos, String Pais){
+
+		this.identificacion = ident;
+		this.tipoCliente = tipoCli;
+		this.estado = est;
+		this.fechaAlta = fechAlt;
+		this.direccion = dire;
+		this.ciudad = ciud;
+		this.codigoPostal = codPos;
+		this.pais = Pais;
+
+	}
+
+	public Cliente(String ident, String tipoCli, String est, Date fechAlt, Date fechBaj, String dire, String ciud, int codPos, String Pais){
+
+		this.identificacion = ident;
+		this.tipoCliente = tipoCli;
+		this.estado = est;
+		this.fechaAlta = fechAlt;
+		this.fechaBaja = fechBaj;
+		this.direccion = dire;
+		this.ciudad = ciud;
+		this.codigoPostal = codPos;
+		this.pais = Pais;
+
 	}
 	
 	// ---------- ATRIBUTOS ----------
@@ -30,8 +56,8 @@ public class Cliente implements Serializable{
     
     @Column (nullable = false)
     private String estado;
-    @Column (nullable = false)
 
+    @Column (nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaAlta;
     
