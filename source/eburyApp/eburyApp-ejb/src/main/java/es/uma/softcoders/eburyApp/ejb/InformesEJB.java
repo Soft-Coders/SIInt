@@ -150,6 +150,11 @@ public class InformesEJB implements Informes{
 				hql.concat("C.ciudad = '" + city + "'");
 			}
 			if(postalCode != null) {
+				try {
+					Integer.parseInt(postalCode);	// Comprobando formato de número
+				}catch(NumberFormatException e) {
+					throw new InvalidJSONQueryException("address.postalCode NOT VALID");
+				}
 				if(hql.length() > queryLength)
 					hql.concat(" AND ");
 				hql.concat("C.codigoPostal = " + postalCode);
