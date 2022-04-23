@@ -8,7 +8,7 @@ public class InvalidJSONQueryException extends Exception {
 		super();
 	}
 	
-	public InvalidJSONQueryException(String e) {
-		super(e);
+	public InvalidJSONQueryException(String msg) {
+		super(msg);
 	}
 }
