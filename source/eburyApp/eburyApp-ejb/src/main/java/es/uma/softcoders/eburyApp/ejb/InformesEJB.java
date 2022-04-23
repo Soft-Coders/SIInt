@@ -45,10 +45,10 @@ public class InformesEJB implements Informes{
 		List<Object> results;
 		// Elegir funcionamiento según "questionType"
 		switch(questionType) {
-		case "Product":
+		case "Product":case "product":case "PRODUCT":
 			results = product(spObj);
 			break;
-		case "Customer":
+		case "Customer":case "customer":case "CUSTOMER":
 			results = customer(spObj);
 			break;
 		default:
