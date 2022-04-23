@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 
 import org.json.simple.JSONObject;
@@ -18,7 +20,7 @@ public class InformesEJB implements Informes{
 	 * @author Ignacio Lopezosa
 	 */
 	@Override
-	public void informeHolanda(String json) throws InvalidJSONQueryException {
+	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException {
 		Object file = JSONValue.parse(json);
 		JSONObject jsonObj = (JSONObject) file;
 		
@@ -33,27 +35,32 @@ public class InformesEJB implements Informes{
 		if(questionType == null)
 			throw new InvalidJSONQueryException("questionType NOT FOUND");
 		
+		List<Object> query;
 		// Elegir funcionamiento según "questionType"
 		switch(questionType) {
 		case "Product":
-			product(spObj);
+			query = product(spObj);
 			break;
 		case "Customer":
-			customer(spObj);
+			query = customer(spObj);
 			break;
 		default:
 			throw new InvalidJSONQueryException("questionType NOT VALID");	
 		}
+		return query;
 	}
 
 	/** Método privado que contiene la lógica para gestión de consultas de <b>Cuentas</b> a través de API REST. Usado en informes de Holanda.
 	 * 
 	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
+	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
 	 * */
-	private void product(JSONObject searchParameters) {
-		// TODO Auto-generated method stub
+	private List<Object> product(JSONObject searchParameters) {
 		
+		
+		
+		return null;
 	}
 	
 	/**
@@ -61,8 +68,10 @@ public class InformesEJB implements Informes{
 	 * 
 	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
+	 * @return Lista de las <b>Clientes</b>que cumplen las condiciones de la consulta
 	 */
-	private void customer(JSONObject searchParameters) {
+	private List<Object> customer(JSONObject searchParameters) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
