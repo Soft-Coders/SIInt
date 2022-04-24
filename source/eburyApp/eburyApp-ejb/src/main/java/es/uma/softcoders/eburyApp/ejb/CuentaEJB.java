@@ -7,6 +7,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 
 
 /**
@@ -22,22 +24,21 @@ public class CuentaEJB implements GestionCuenta{
 	private EntityManager em;
 
 	@Override
-	public void crearCuentaFintech(CuentaFintech cf) {
-		/*try {
-			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
-				throw new CuentaExistenteException;
-			}
-		} catch(CuentaExistenteException e){
-			
-		}*/
+	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException {
+		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
+			throw new CuentaExistenteException();
+		}
 		
 		// TODO EXCEPCIONES
 		em.persist(cf);
 	}
 
 	@Override
-	public void cerrarCuentaFintech(String cuentafin) {
+	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException {
 		CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
+		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
+			throw new CuentaNoExistenteException();
+		}
 		// TODO EXCEPCIONES
 		em.remove(cf);
 	}
