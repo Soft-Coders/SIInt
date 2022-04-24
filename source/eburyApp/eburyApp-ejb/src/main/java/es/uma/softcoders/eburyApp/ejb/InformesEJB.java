@@ -1,17 +1,30 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+
+import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.exceptions.FailedCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 @Stateless
@@ -183,7 +196,7 @@ public class InformesEJB implements Informes{
 					hql.concat("C.direccion = '" + street + "'");
 				}
 				if(city != null) {
-					if(!city.equalsIgnoreCase("netherlands") && !city.equalsIgnoreCase("nl"))
+					if(!city.equalsIgnoreCase("netherlands") && !city.equalsIgnoreCase("NL") && !city.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
@@ -260,17 +273,118 @@ public class InformesEJB implements Informes{
 		List<Object> results = query.getResultList();
 		return results;
 	}
-
+	
+	/**
+	 * Método encargado de crear el fichero CSV con los datos pertinentes al primer informe de Alemania.
+	 * 
+	 * @param path Ubicación donde guardar el fichero CSV
+	 * @author Ignacio Lopezosa
+	 * @return void
+	 * @throws FailedCSVException
+	 */
+	@SuppressWarnings("deprecation")
 	@Override
-	public void informeAlemaniaInicio(String path) {
+	public void informeAlemaniaInicio(String path) throws FailedCSVException {
 		
-		String hql      = "SELECT CF.iban FROM CuentaFintech CF";
-		Query query     = em.createQuery(hql);
-		List<String> cuentas = query.getResultList();
+		String hql = "FROM CuentaFintech CF WHERE CF.fechaApertura > :fiveYearsAgo";
+		Date fiveYearsAgo = new Date();
+		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
+		Query query = em.createQuery(hql);
+		query.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+		List<CuentaFintech> cuentas = query.getResultList();
 		
-		for(String cuenta : cuentas) {
+		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)){
 			
+			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
+			
+			for(CuentaFintech cf : cuentas){
+				
+				String iban      = cf.getIban();
+				if(iban.length() < 5 || iban.length() > 34)
+					throw new FailedCSVException("iban NOT VALID");
+				Cliente c = cf.getCliente();
+				if(c instanceof Individual) {
+					String apellido  = ((Individual) c).getApellido();
+					String nombre    = ((Individual) c).getNombre();
+					String direccion = c.getDireccion();
+					String ciudad    = c.getCiudad();
+					int codigoPostal = c.getCodigoPostal();
+					String pais      = c.getPais();
+					String identity  = c.getIdentificacion();
+					Date nacimiento  = ((Individual) c).getFechaNacimiento();
+					
+					// Checks:
+					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
+						throw new FailedCSVException("pais NOT VALID");
+					if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+						throw new FailedCSVException("nacimiento NOT VALID");
+					
+					// CSV construction
+					// Solo se comprueba que no sean null los atributos en los que `nullable = true`
+					String birth;
+					if(nacimiento == null)
+						birth = "noexistente";
+					else
+						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+					p.printRecord(iban, apellido, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.println();
+				}
+				else if(c instanceof Empresa){
+					
+					Set<PersonaAutorizada> persAuts = ((Empresa) c).getAutorizacion().keySet();
+					for(PersonaAutorizada pa : persAuts) {
+						String apellidos = pa.getApellidos();
+						String nombre    = pa.getNombre();
+						String direccion = pa.getDireccion();
+						String ciudad    = "noexistente";
+						String cp        = "noexistente";
+						String pais      = "noexistente";
+						String identity  = pa.getIdentificacion();
+						Date nacimiento  = pa.getFechaNacimiento();
+						
+						// Checks:
+						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+							throw new FailedCSVException("nacimiento NOT VALID");
+						
+						// CSV construction
+						// Solo se comprueba que no sean null los atributos en los que `nullable = true`
+						String birth;
+						if(nacimiento == null)
+							birth = "noexistente";
+						else
+							birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+						p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
+						p.println();
+					}
+				}
+				else {
+					String apellidos = "noexistente";
+					String nombre    = "noexistente";
+					String direccion = c.getDireccion();
+					String ciudad    = c.getCiudad();
+					int codigoPostal = c.getCodigoPostal();
+					String pais      = c.getPais();
+					String identity  = c.getIdentificacion();
+					String birth     = "noexistente";
+					
+					// Checks:
+					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
+						throw new FailedCSVException("pais NOT VALID");
+					
+					// CSV construction
+					p.printRecord(iban, apellidos, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.println();
+				}
+			}
+			
+		}catch(IOException e) {
+			throw new FailedCSVException("IOException INTERRUPTED CSV");
+		}catch(ClassCastException e) {
+			throw new FailedCSVException("CSV parameter COULD NOT BE CAST PROPERLY");
+		}catch(Exception e) {
+			throw new FailedCSVException("CSV ERROR");
 		}
+		
 	}
 	
 	@Override
