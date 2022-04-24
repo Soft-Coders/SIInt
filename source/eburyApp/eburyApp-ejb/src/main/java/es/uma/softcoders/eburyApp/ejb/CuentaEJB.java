@@ -26,7 +26,7 @@ public class CuentaEJB implements GestionCuenta{
 	@Override
 	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException {
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
-			throw new CuentaExistenteException();
+			throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 		}
 		
 		// TODO EXCEPCIONES
@@ -37,7 +37,7 @@ public class CuentaEJB implements GestionCuenta{
 	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException {
 		CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
-			throw new CuentaNoExistenteException();
+			throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
 		}
 		// TODO EXCEPCIONES
 		em.remove(cf);

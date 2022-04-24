@@ -2,6 +2,9 @@ package es.uma.softcoders.eburyApp.ejb;
 
 import javax.ejb.Local;
 
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
+
 @Local
 public interface GestionTransaccion {
 	
@@ -19,7 +22,9 @@ public interface GestionTransaccion {
 	 * @param divOrigen divisa desde la que se realiza el cambio
 	 * @param divDestino divisa objetivo del cambio
 	 * @param cantidad cuantía a cambiar, introducida en la divisa de origen
+	 * @throws CuentaNoExistenteException 
+	 * @throws DivisaInexistenteException 
 	 * @author Marta Maleno Escudero
 	 *  */
-	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad);
+	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad) throws CuentaNoExistenteException, DivisaInexistenteException;
 }
