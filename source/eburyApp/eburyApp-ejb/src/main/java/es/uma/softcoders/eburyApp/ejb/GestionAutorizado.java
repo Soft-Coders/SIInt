@@ -4,6 +4,7 @@ import javax.ejb.Local;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 
@@ -18,7 +19,7 @@ public interface GestionAutorizado {
 	 * Las personas autorizadas serán las que podrán entrar en la aplicación 
 	 * para realizar operaciones con la cuenta.
 	 */
-	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException;
+	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException;
 	
 	/*
 	 * La aplicación permitirá a un administrativo modificar los datos de las 

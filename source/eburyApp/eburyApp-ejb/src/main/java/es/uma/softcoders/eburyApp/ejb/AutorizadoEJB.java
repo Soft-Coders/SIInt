@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 
@@ -20,7 +21,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 	private EntityManager em;
 	
 	@Override
-	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException {
+	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException{
 		Empresa empresaEntity = em.find(Empresa.class, empresa);
 		if(empresaEntity == null) {
 			throw new EmpresaNoEncontradaException("Empresa no encontrada");
@@ -31,18 +32,23 @@ public class AutorizadoEJB implements GestionAutorizado {
 			em.persist(personaAutorizadaEntity);
 		} 
 		
-		Map<PersonaAutorizada, Character> listaPersonasAutorizadas = empresaEntity.getAutorizacion();
+		if(cuenta != 'L' || cuenta != 'O') {
+			throw new CuentaNoCoincidenteException("El caracter de cuenta no es válido, prueba con L (Lectura) o con O (Operativa)");
+		}
 		
+		Map<PersonaAutorizada, Character> listaPersonasAutorizadas = empresaEntity.getAutorizacion();
 		if(listaPersonasAutorizadas.get(p) == null) {
 			listaPersonasAutorizadas.put(p, cuenta);
 			empresaEntity.setAutorizacion(listaPersonasAutorizadas);
 		} else {
 			throw new PersonaAutorizadaExistenteException("Persona autorizada ya registrada en la empresa");
 		}
+		
+		
 	}
 	
 	public void modificarAutorizado(PersonaAutorizada p, String autorizado) {
-	
+		
 	}
 	
 	public void eliminarAutorizado(String personaAut) {
