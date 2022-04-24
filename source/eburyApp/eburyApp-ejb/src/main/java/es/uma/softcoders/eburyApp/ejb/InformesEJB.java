@@ -143,7 +143,7 @@ public class InformesEJB implements Informes{
 				firstName   = (String) name.get("fisrtName");	
 				lastName    = (String) name.get("lastName");
 			}
-			String addressStr  = (String) spObj.get("address");					// Get String
+			String addressStr  = (String) spObj.get("address");				// Get String
 			String street      = null;	
 			String city        = null;
 			String postalCode  = null;
@@ -183,6 +183,8 @@ public class InformesEJB implements Informes{
 					hql.concat("C.direccion = '" + street + "'");
 				}
 				if(city != null) {
+					if(!city.equalsIgnoreCase("netherlands") && !city.equalsIgnoreCase("nl"))
+						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
 					hql.concat("C.ciudad = '" + city + "'");
@@ -260,13 +262,19 @@ public class InformesEJB implements Informes{
 	}
 
 	@Override
-	public void informeAlemaniaInicio() {
-		// TODO Auto-generated method stub
+	public void informeAlemaniaInicio(String path) {
 		
+		String hql      = "SELECT CF.iban FROM CuentaFintech CF";
+		Query query     = em.createQuery(hql);
+		List<String> cuentas = query.getResultList();
+		
+		for(String cuenta : cuentas) {
+			
+		}
 	}
 	
 	@Override
-	public void informeAlemaniaPeriodico() {
+	public void informeAlemaniaPeriodico(String path) {
 		// TODO Auto-generated method stub
 		
 	}

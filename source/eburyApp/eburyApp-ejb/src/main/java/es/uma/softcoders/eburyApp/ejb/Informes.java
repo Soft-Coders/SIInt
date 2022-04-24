@@ -9,6 +9,6 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 @Local
 public interface Informes {
 	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException;
-	public void informeAlemaniaInicio();
-	public void informeAlemaniaPeriodico();
+	public void informeAlemaniaPeriodico(String path);
+	public void informeAlemaniaInicio(String path);
 }
