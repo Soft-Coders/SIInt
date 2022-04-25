@@ -408,7 +408,7 @@ public class InformesEJB implements Informes{
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)) {
 			
-p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
+			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
 			
 			for(CuentaFintech cf : cuentas){
 				
