@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp.ejb;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -20,10 +21,13 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
@@ -93,31 +97,38 @@ public class InformesEJB implements Informes{
 	 * */
 	private List<Object> product(JSONObject spObj) throws InvalidJSONQueryException {
 		
-		Query query;
+		List<Object> results = new ArrayList<>();
+		Query querySegregadas, queryReferencia;
 		try {
-			String hql           = "FROM CuentaFintech CF";
+			String predicate     = "";
 			String status        = (String) spObj.get("status");
 			String productNumber = (String) spObj.get("productNumber");
 			
 			if(status != null || productNumber != null) {
-				hql.concat(" WHERE ");	
-				int queryLength = hql.length();
+				predicate.concat(" WHERE ");	
+				int queryLength = predicate.length();
 				
 				if(status.equalsIgnoreCase("active"))
-					hql.concat("CF.estado = 'ACTIVO'");		//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado = 'ACTIVO'");		//TODO Determinar nomenclatura de CuentaFintech.estado
 				else if(status.equalsIgnoreCase("inactive"))
-					hql.concat("CF.estado = 'INACTIVO'");	//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado = 'INACTIVO'");	//TODO Determinar nomenclatura de CuentaFintech.estado
 				else
 					throw new InvalidJSONQueryException("status NOT VALID");
 				
 				if(productNumber != null) {
-					if(hql.length() > queryLength)			// Se ha modificado query?
-						hql.concat(" AND ");
-					hql.concat("CF.iban = '" + productNumber + "'");
+					if(predicate.length() > queryLength)			// Se ha modificado query?
+						predicate.concat(" AND ");
+					predicate.concat("C.iban = '" + productNumber + "'");
 				}
 			}
-			query = em.createQuery(hql);
 			
+			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
+			queryReferencia = em.createQuery("FROM CuentaReferencia C" + predicate + " AND C.depositadaEn IS NOT NULL");
+			
+			List<Object> resultsSegregadas = querySegregadas.getResultList();
+			List<Object> resultsReferencia = querySegregadas.getResultList();
+			results.addAll(resultsSegregadas);
+			results.addAll(resultsReferencia);
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("product COULD NOT BE CAST PROPERLY");
 		}catch(IllegalArgumentException e) {
@@ -126,8 +137,6 @@ public class InformesEJB implements Informes{
 			throw new InvalidJSONQueryException("product ERROR");
 		}
 		
-		@SuppressWarnings("unchecked")
-		List<Object> results = query.getResultList();
 		return results;
 	}
 	
@@ -287,29 +296,32 @@ public class InformesEJB implements Informes{
 	@Override
 	public void informeAlemaniaInicio(String path) throws FailedInitialCSVException {
 		
-		String hql = "FROM CuentaFintech CF WHERE CF.fechaApertura > :fiveYearsAgo";
+		String predicate = " WHERE C.fechaApertura > :fiveYearsAgo";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
-		Query query = em.createQuery(hql);
-		query.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
-		List<CuentaFintech> cuentas = query.getResultList();
+		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
+		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
+		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
+		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)){
 			
 			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
 			
-			for(CuentaFintech cf : cuentas){
+			for(Segregada s : cuentasSegregadas){
 				
-				String iban      = cf.getIban();
+				String iban      = s.getIban();
 				if(iban.length() < 5 || iban.length() > 34)
 					throw new FailedInitialCSVException("iban NOT VALID");
-				Cliente c = cf.getCliente();
+				Cliente c = s.getCliente();
 				if(c instanceof Individual) {
 					String apellido  = ((Individual) c).getApellido();
 					String nombre    = ((Individual) c).getNombre();
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
-					int codigoPostal = c.getCodigoPostal();
+					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					Date nacimiento  = ((Individual) c).getFechaNacimiento();
@@ -327,7 +339,7 @@ public class InformesEJB implements Informes{
 						birth = "noexistente";
 					else
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
-					p.printRecord(iban, apellido, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
 				else if(c instanceof Empresa){
@@ -363,7 +375,7 @@ public class InformesEJB implements Informes{
 					String nombre    = "noexistente";
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
-					int codigoPostal = c.getCodigoPostal();
+					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					String birth     = "noexistente";
@@ -373,9 +385,30 @@ public class InformesEJB implements Informes{
 						throw new FailedInitialCSVException("pais NOT VALID");
 					
 					// CSV construction
-					p.printRecord(iban, apellidos, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
+			}
+			
+			for(CuentaReferencia cr : cuentasReferencia) {
+				
+				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
+				// https://find-and-update.company-information.service.gov.uk/company/07088713
+				String iban      = cr.getIban();
+				if(iban.length() < 5 || iban.length() > 34)
+					throw new FailedInitialCSVException("iban NOT VALID");
+				String apellido  = "noexistente";
+				String nombre    = "Ebury Partners UK Ltd";
+				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
+				String ciudad    = "London";
+				String cp        = "SW1E 5JL";
+				String pais      = "United Kingdom";
+				String identity  = "07088713";
+				String birth     = "2009-11-27";
+				
+				// CSV construction
+				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
+				p.println();
 			}
 			
 		}catch(IOException e) {
@@ -398,24 +431,26 @@ public class InformesEJB implements Informes{
 	@Override
 	public void informeAlemaniaPeriodico(String path) throws FailedPeriodicCSVException {
 		
-		// Esta sentencia hql acepta como Activa una cuenta que tenga de estado 'ACTIVA', 'ACTIVO' o 'ACTIVE'
-		String hql = "FROM CuentaFintech CF WHERE CF.fechaApertura > :fiveYearsAgo AND CF.estado like 'ACTIV[AOE]'";
+		String predicate = " WHERE C.fechaApertura > :fiveYearsAgo AND C.estado like 'ACTIV[AOE]'";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
-		Query query = em.createQuery(hql);
-		query.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
-		List<CuentaFintech> cuentas = query.getResultList();
+		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
+		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
+		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
+		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)) {
 			
 			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
 			
-			for(CuentaFintech cf : cuentas){
+			for(Segregada s : cuentasSegregadas){
 				
-				String iban      = cf.getIban();
+				String iban      = s.getIban();
 				if(iban.length() < 5 || iban.length() > 34)
 					throw new FailedInitialCSVException("iban NOT VALID");
-				Cliente c = cf.getCliente();
+				Cliente c = s.getCliente();
 				// Si Cliente NO ACTIVO pasa a siguiente cliente
 				if(!c.getEstado().equalsIgnoreCase("ACTIVO") || !c.getEstado().equalsIgnoreCase("ACTIVA") || !c.getEstado().equalsIgnoreCase("ACTIVE"))
 					continue;
@@ -424,7 +459,7 @@ public class InformesEJB implements Informes{
 					String nombre    = ((Individual) c).getNombre();
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
-					int codigoPostal = c.getCodigoPostal();
+					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					Date nacimiento  = ((Individual) c).getFechaNacimiento();
@@ -442,7 +477,7 @@ public class InformesEJB implements Informes{
 						birth = "noexistente";
 					else
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
-					p.printRecord(iban, apellido, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
 				else if(c instanceof Empresa){
@@ -481,7 +516,7 @@ public class InformesEJB implements Informes{
 					String nombre    = "noexistente";
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
-					int codigoPostal = c.getCodigoPostal();
+					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					String birth     = "noexistente";
@@ -491,10 +526,32 @@ public class InformesEJB implements Informes{
 						throw new FailedInitialCSVException("pais NOT VALID");
 					
 					// CSV construction
-					p.printRecord(iban, apellidos, nombre, direccion, ciudad, codigoPostal, pais, identity, birth);
+					p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
 			}
+			
+			for(CuentaReferencia cr : cuentasReferencia) {
+				
+				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
+				// https://find-and-update.company-information.service.gov.uk/company/07088713
+				String iban      = cr.getIban();
+				if(iban.length() < 5 || iban.length() > 34)
+					throw new FailedInitialCSVException("iban NOT VALID");
+				String apellido  = "noexistente";
+				String nombre    = "Ebury Partners UK Ltd";
+				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
+				String ciudad    = "London";
+				String cp        = "SW1E 5JL";
+				String pais      = "United Kingdom";
+				String identity  = "07088713";
+				String birth     = "2009-11-27";
+				
+				// CSV construction
+				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
+				p.println();
+			}
+
 		} catch(IOException e) {
 			throw new FailedPeriodicCSVException("IOException INTERRUPTED PERIODIC CSV");
 		} catch(ClassCastException e) {
