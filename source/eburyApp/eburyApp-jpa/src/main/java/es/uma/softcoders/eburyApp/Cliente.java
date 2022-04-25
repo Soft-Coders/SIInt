@@ -71,7 +71,7 @@ public class Cliente implements Serializable{
     private String ciudad;
     
     @Column (nullable = false)
-    private int codigoPostal;
+    private String codigoPostal;
     
     @Column (nullable = false)
     private String pais;
@@ -131,7 +131,7 @@ public class Cliente implements Serializable{
 	public void setCiudad(String Ciudad) {
 		ciudad = Ciudad;
 	}
-	public int getCodigoPostal() {
+	public String getCodigoPostal() {
 		return codigoPostal;
 	}
 	public void setCodigoPostal(int CodigoPostal) {
