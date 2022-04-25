@@ -24,7 +24,7 @@ public class LoginEJB implements GestionLogin {
 		}
 
 		if(u.getClave() != clave){
-			throw new ClaveIncorrectaException("");
+			throw new ClaveIncorrectaException("Clave incorrecta");
 		}
 
 	}
