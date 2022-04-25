@@ -19,7 +19,6 @@ import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 public class TransaccionEJB implements GestionTransaccion{
 	
 	/* 1*** DEBERÍA COMPROBAR QUE EXISTEN LAS DIVISAS/QUE TIENEN DIVISAS ASOCIADAS LAS CUENTAREFERENCIAS????? */
-	/* LINEA 127 - en la entidad Transacción, cantidad debería ser Double */
 	/* No sé para qué sirve el LOG, lo tiene el profe pero no se usa */
 	
 	private static final Logger LOG = Logger.getLogger(CuentaEJB.class.getCanonicalName());
@@ -28,7 +27,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	private EntityManager em;
 	
 	@Override
-	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad) 
+	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) 
 	throws CuentaNoExistenteException, DivisaInexistenteException {
 		// TODO 
 		Pooled cp = em.find(Pooled.class, cuentaPool);  //cp: Objeto de la cuenta Pooled
@@ -53,7 +52,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		if (divisaO == null) throw new DivisaInexistenteException("DIVISA ORIGEN INEXISTENTE");
 		if (divisaD == null) throw new DivisaInexistenteException("DIVISA DESTINO INEXISTENTE");
 		
-		Double cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
+		Long cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
 		try {
 			transferenciaEntreCuentas(corigen, cdestino, cantidad, cambioADestino);
 		} catch (SaldoInsuficienteException e) {
@@ -100,29 +99,30 @@ public class TransaccionEJB implements GestionTransaccion{
 	 * Este método devuelve el valor de la cantidad introducida en la divisa origen
 	 * una vez pasada a la divisa destino
 	 * */
-	private Double calculoCambio(Divisa divOrigen, Divisa divDestino, Double cantidad) {
+	private Long calculoCambio(Divisa divOrigen, Divisa divDestino, Long cantidad) {
 		return cantidad * divOrigen.getCambioEuro() / divDestino.getCambioEuro();  
 	}
 	
 	/**
 	 * Este método resta la cantidad cant a la cuenta origen y le suma cantCambiada a la cuenta destino
 	 * */
-	private void transferenciaEntreCuentas(CuentaReferencia corigen, CuentaReferencia cdestino, Double cant, Double cantCambiada) 
+	private void transferenciaEntreCuentas(CuentaReferencia corigen, CuentaReferencia cdestino, Long cant, Long cantCambiada) 
 	throws SaldoInsuficienteException{
-		Double a = corigen.getSaldo();  // a: saldo original en origen
+		Long a = corigen.getSaldo();  // a: saldo original en origen
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
 		else{
 			corigen.setSaldo(a - cant);
-			Double b = cdestino.getSaldo();
+			Long b = cdestino.getSaldo();
 			cdestino.setSaldo(b + cantCambiada);
 		}
+		// TODO actualizar también depositadaEn de la pooled con las dos cuentaReferencias
 	}
 	
 	/**
 	 * Este método crea una Transacción con los datos de el cambio de divisa */
-	private void crearTransaccionCambioDivisas(Pooled pool, Divisa demisor, Divisa dreceptor, Double cantidad) {
+	private void crearTransaccionCambioDivisas(Pooled pool, Divisa demisor, Divisa dreceptor, Long cantidad) {
 		Date ahora = new Date();
 		Transaccion trans = new Transaccion(ahora, "Cambio Divisas", demisor, dreceptor, pool, pool);
 		// trans.setCantidad(cantidad);

@@ -37,7 +37,7 @@ public class CuentaEJB implements GestionCuenta{
 	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException {
 		CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
-			throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
+			throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTEx");
 		}
 		// TODO EXCEPCIONES
 		em.remove(cf);

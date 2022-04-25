@@ -26,5 +26,5 @@ public interface GestionTransaccion {
 	 * @throws DivisaInexistenteException 
 	 * @author Marta Maleno Escudero
 	 *  */
-	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad) throws CuentaNoExistenteException, DivisaInexistenteException;
+	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) throws CuentaNoExistenteException, DivisaInexistenteException;
 }
