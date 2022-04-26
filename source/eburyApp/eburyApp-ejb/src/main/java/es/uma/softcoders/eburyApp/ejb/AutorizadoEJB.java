@@ -14,6 +14,7 @@ import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
+import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 
 @Stateless
 public class AutorizadoEJB implements GestionAutorizado {
@@ -22,7 +23,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 	private EntityManager em;
 	
 	@Override
-	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException{
+	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
 		Empresa empresaEntity = em.find(Empresa.class, empresa);
 		if(empresaEntity == null) {
 			throw new EmpresaNoEncontradaException("Empresa no encontrada");
@@ -31,7 +32,11 @@ public class AutorizadoEJB implements GestionAutorizado {
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, p.getId());
 		if(personaAutorizadaEntity == null) {
 			em.persist(p);
-		} 
+		}
+		
+		if(p.getUsuario() == null) {
+			throw new UsuarioNoVinculadoException("Debe de haber un usuario vinculado");
+		}
 		
 		if(cuenta != 'L' || cuenta != 'O') {
 			throw new CuentaNoCoincidenteException("El caracter de cuenta no es válido, prueba con L (Lectura) o con O (Operativa)");
@@ -125,7 +130,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
 		}
-		personaAutorizadaEntity.setEstado("BLOQUEADO");
+		personaAutorizadaEntity.setEstado("INACTIVO");
 	}
 	
 }

@@ -9,6 +9,7 @@ import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
+import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 
 
 
@@ -21,7 +22,7 @@ public interface GestionAutorizado {
 	 * Las personas autorizadas serán las que podrán entrar en la aplicación 
 	 * para realizar operaciones con la cuenta.
 	 */
-	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException;
+	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException;
 	
 	/*
 	 * La aplicación permitirá a un administrativo modificar los datos de las 
