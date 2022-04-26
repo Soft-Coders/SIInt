@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class SaldoInsuficienteException extends Exception{
+public class SaldoInsuficienteException extends EburyAppException{
 	
 	public SaldoInsuficienteException() {}
 	public SaldoInsuficienteException(String msg) {
