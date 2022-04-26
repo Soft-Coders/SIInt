@@ -21,8 +21,6 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
 import es.uma.softcoders.eburyApp.Cliente;
-import es.uma.softcoders.eburyApp.Cuenta;
-import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
