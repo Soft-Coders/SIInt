@@ -113,12 +113,30 @@ public class ClienteEJB implements GestionCliente {
         clienteEntity.setCodigoPostal(c.getCodigoPostal());
         clienteEntity.setPais(c.getPais());
 
-        if(clienteEntity instanceof Empresa){
-            Empresa e = (Empresa) clienteEntity;
-            em.persist(e);
-        }else if(clienteEntity instanceof Individual){
-            Individual i = (Individual) clienteEntity;
-            em.persist(i);
+        if(clienteEntity instanceof Empresa && c instanceof Empresa){
+            Empresa empIn = (Empresa) c;
+            Empresa empOut = (Empresa) clienteEntity;
+
+            if(empIn.getRazonSocial() != null)            
+                empOut.setRazonSocial(empIn.getRazonSocial());
+
+            em.persist(empOut);
+
+        }else if(clienteEntity instanceof Individual && c instanceof Individual){
+            Individual indIn = (Individual) c;
+            Individual indOut = (Individual) clienteEntity;
+
+            if(indIn.getNombre() != null)
+                indOut.setNombre(indIn.getNombre()); 
+
+            if(indIn.getApellido() != null)
+                indOut.setApellido(indIn.getApellido());
+                
+            if(indIn.getFechaNacimiento() != null)
+                indOut.setFechaNacimiento(indIn.getFechaNacimiento());
+                
+            em.persist(indOut);
+
         }else{
             em.persist(clienteEntity);
         }
