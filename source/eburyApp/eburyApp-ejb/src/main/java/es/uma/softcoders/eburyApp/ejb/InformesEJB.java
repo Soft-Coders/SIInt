@@ -31,7 +31,7 @@ import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 @Stateless
-public class InformesEJB implements Informes{
+public class InformesEJB implements GestionInformes{
 	
 	@PersistenceContext(unitName = "eburyAppEjb")
 	private EntityManager em;
@@ -306,7 +306,7 @@ public class InformesEJB implements Informes{
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)){
 			
-			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
+			p.printRecord("IBAN", "Last_Name", "First_Name", "Street", "City", "Post_Code", "Country", "Identification_Number", "Date_Of_Birth");	// HEADER
 			
 			for(Segregada s : cuentasSegregadas){
 				
@@ -555,7 +555,7 @@ public class InformesEJB implements Informes{
 		} catch(ClassCastException e) {
 			throw new FailedPeriodicCSVException("PERIODIC CSV parameter COULD NOT BE CAST PROPERLY");
 		} catch(Exception e) {
-			throw new FailedPeriodicCSVException(" PERIODICCSV ERROR");
+			throw new FailedPeriodicCSVException("PERIODIC CSV ERROR");
 		}
 	}
 }

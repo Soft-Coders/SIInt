@@ -9,7 +9,7 @@ import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 @Local
-public interface Informes {
+public interface GestionInformes {
 	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException;
 	public void informeAlemaniaPeriodico(String path) throws FailedPeriodicCSVException;
 	public void informeAlemaniaInicio(String path) throws FailedInitialCSVException;
