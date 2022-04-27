@@ -96,7 +96,8 @@ public class InformesEJB implements GestionInformes{
 	private List<Object> product(JSONObject spObj) throws InvalidJSONQueryException {
 		
 		List<Object> results = new ArrayList<>();
-		Query querySegregadas, queryReferencia;
+		Query querySegregadas;
+//		Query queryReferencia;
 		try {
 			String predicate     = "";
 			String status        = (String) spObj.get("status");
@@ -121,12 +122,12 @@ public class InformesEJB implements GestionInformes{
 			}
 			
 			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
-			queryReferencia = em.createQuery("FROM CuentaReferencia C" + predicate + " AND C.depositadaEn IS NOT NULL");
+//			queryReferencia = em.createQuery("FROM CuentaReferencia C" + predicate + " AND C.depositadaEn IS NOT NULL");
 			
 			List<Object> resultsSegregadas = querySegregadas.getResultList();
-			List<Object> resultsReferencia = querySegregadas.getResultList();
+//			List<Object> resultsReferencia = querySegregadas.getResultList();
 			results.addAll(resultsSegregadas);
-			results.addAll(resultsReferencia);
+//			results.addAll(resultsReferencia);
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("product COULD NOT BE CAST PROPERLY");
 		}catch(IllegalArgumentException e) {
@@ -298,11 +299,11 @@ public class InformesEJB implements GestionInformes{
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
-		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
+//		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
-		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+//		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
 		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
-		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
+//		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)){
 			
@@ -388,26 +389,26 @@ public class InformesEJB implements GestionInformes{
 				}
 			}
 			
-			for(CuentaReferencia cr : cuentasReferencia) {
-				
-				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
-				// https://find-and-update.company-information.service.gov.uk/company/07088713
-				String iban      = cr.getIban();
-				if(iban.length() < 5 || iban.length() > 34)
-					throw new FailedInitialCSVException("iban NOT VALID");
-				String apellido  = "noexistente";
-				String nombre    = "Ebury Partners UK Ltd";
-				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
-				String ciudad    = "London";
-				String cp        = "SW1E 5JL";
-				String pais      = "United Kingdom";
-				String identity  = "07088713";
-				String birth     = "2009-11-27";
-				
-				// CSV construction
-				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
-				p.println();
-			}
+//			for(CuentaReferencia cr : cuentasReferencia) {
+//				
+//				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
+//				// https://find-and-update.company-information.service.gov.uk/company/07088713
+//				String iban      = cr.getIban();
+//				if(iban.length() < 5 || iban.length() > 34)
+//					throw new FailedInitialCSVException("iban NOT VALID");
+//				String apellido  = "noexistente";
+//				String nombre    = "Ebury Partners UK Ltd";
+//				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
+//				String ciudad    = "London";
+//				String cp        = "SW1E 5JL";
+//				String pais      = "United Kingdom";
+//				String identity  = "07088713";
+//				String birth     = "2009-11-27";
+//				
+//				// CSV construction
+//				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
+//				p.println();
+//			}
 			
 		}catch(IOException e) {
 			throw new FailedInitialCSVException("IOException INTERRUPTED INITIAL CSV");
@@ -433,11 +434,11 @@ public class InformesEJB implements GestionInformes{
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
-		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
+//		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
-		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
+//		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
 		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
-		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
+//		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)) {
 			
@@ -529,26 +530,26 @@ public class InformesEJB implements GestionInformes{
 				}
 			}
 			
-			for(CuentaReferencia cr : cuentasReferencia) {
-				
-				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
-				// https://find-and-update.company-information.service.gov.uk/company/07088713
-				String iban      = cr.getIban();
-				if(iban.length() < 5 || iban.length() > 34)
-					throw new FailedInitialCSVException("iban NOT VALID");
-				String apellido  = "noexistente";
-				String nombre    = "Ebury Partners UK Ltd";
-				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
-				String ciudad    = "London";
-				String cp        = "SW1E 5JL";
-				String pais      = "United Kingdom";
-				String identity  = "07088713";
-				String birth     = "2009-11-27";
-				
-				// CSV construction
-				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
-				p.println();
-			}
+//			for(CuentaReferencia cr : cuentasReferencia) {
+//				
+//				// Toda la información de Ebury ha sido obtenida del servicio de información de empresas del gobierno de Reino Unido
+//				// https://find-and-update.company-information.service.gov.uk/company/07088713
+//				String iban      = cr.getIban();
+//				if(iban.length() < 5 || iban.length() > 34)
+//					throw new FailedInitialCSVException("iban NOT VALID");
+//				String apellido  = "noexistente";
+//				String nombre    = "Ebury Partners UK Ltd";
+//				String direccion = "Third Floor 80-100 Victoria Street, Cardinal Place";
+//				String ciudad    = "London";
+//				String cp        = "SW1E 5JL";
+//				String pais      = "United Kingdom";
+//				String identity  = "07088713";
+//				String birth     = "2009-11-27";
+//				
+//				// CSV construction
+//				p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
+//				p.println();
+//			}
 
 		} catch(IOException e) {
 			throw new FailedPeriodicCSVException("IOException INTERRUPTED PERIODIC CSV");
