@@ -13,7 +13,9 @@ import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
+import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
+import es.uma.softcoders.eburyApp.exceptions.EmpresaSinUsuarioException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
@@ -58,7 +60,7 @@ public class ClienteEJB implements GestionCliente {
             Map<PersonaAutorizada, Character> m = e.getAutorizacion();
             Set<PersonaAutorizada> pAs= m.keySet();
              if (pAs == null){
-
+                throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
              }
 
             em.persist(e);
@@ -145,6 +147,20 @@ public class ClienteEJB implements GestionCliente {
 
     @Override
     public void comprobarCliente(String cliente) {
+        Cliente clienteEntity = em.find(Cliente.class, cliente);
+
+        if (clienteEntity instanceof Empresa)
+            throw new ClienteNuloException("El cliente es una empresa");
+
+        if(clienteEntity instanceof Individual){
+            Individual i = (Individual) clienteEntity;
+            if(i.getUsuario()==null){
+                throw new ClienteNoValidoException("El cliente no posee usuario");
+            }
+            if(i.getEstado() != "ACTIVO"){
+                throw new ClienteNoValidoException("El cliente no está activo");
+            }
+        }
 
     }
 
