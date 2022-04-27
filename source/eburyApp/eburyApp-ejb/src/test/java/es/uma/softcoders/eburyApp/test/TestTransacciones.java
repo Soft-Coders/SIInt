@@ -28,20 +28,13 @@ public class TestTransacciones {
 	@Before
 	public void setup() throws NamingException  {
 		gestionTransaccion = (GestionTransaccion) SuiteTest.ctx.lookup(TRANSACCION_EJB);
-		//BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
 	@Test
 	public void testCambioDivisa() {
 		
 		try {
-			//Cuenta pooled
-			Pooled pPrueba = new Pooled();
-
-			
-			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
 			
 			//Prueba de transaccion
 			gestionTransaccion.cambioDivisa(pPrueba.getIban(), dDolar.getAbreviatura(), dEuro.getAbreviatura(), (long)100);

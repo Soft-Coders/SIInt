@@ -50,7 +50,7 @@
 		</dependency>
 	</dependencies>
 
-		<build>
+	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -62,4 +62,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<repositories>
+        <repository>
+            <id>spring</id>
+            <url>http://repo.spring.io/plugins-release</url>
+        </repository>
+    </repositories>
 </project>
