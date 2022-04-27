@@ -1,7 +1,6 @@
 package es.uma.softcoders.eburyApp.test;
 
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;

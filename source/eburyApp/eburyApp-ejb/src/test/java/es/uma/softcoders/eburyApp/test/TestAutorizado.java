@@ -1,16 +1,35 @@
 package es.uma.softcoders.eburyApp.test;
 
-public class TestAutorizado {
-/*
- * private static final Logger LOG = Logger.getLogger(Trazabilidad.class.getCanonicalName());
+import static org.junit.Assert.fail;
 
-	private static final String PRODUCTOS_EJB = "java:global/classes/ProductosEJB";
-	private static final String LOTES_EJB = "java:global/classes/LotesEJB";
-	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "TrazabilidadTest";
+import javax.naming.NamingException;
+import org.junit.Before;
+import org.junit.Test;
+
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.ejb.GestionAutorizado;
+
+public class TestAutorizado {
+
+	private static final String AUTORIZADO_EJB = "java:global/classes/AutorizadoEJB";
+	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
+	private GestionAutorizado gestionAutorizado;
 	
-	private GestionLotes gestionLotes;
-	private GestionProductos gestionProductos;
+	@Before
+	public void setup() throws NamingException{
+		gestionAutorizado = (GestionAutorizado) SuiteTest.ctx.lookup(AUTORIZADO_EJB);
+		BaseDatosAutorizado.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+	}
+	
+	@Test
+	public void testAutorizadosCreados() {
+		try {
+			
+		} catch (Exception e) {
+			fail("No debería lanzar esta excepción");
+		}
+		
+	}
 	
 	
- */
 }

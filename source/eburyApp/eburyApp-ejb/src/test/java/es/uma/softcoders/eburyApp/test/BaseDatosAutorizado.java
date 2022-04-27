@@ -7,6 +7,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 
 public class BaseDatosAutorizado {
@@ -39,6 +41,23 @@ public class BaseDatosAutorizado {
 			em.persist(cliente);
 		}
 		
+		Empresa em1 = new Empresa();
+		Empresa em2 = new Empresa();
+		Empresa em3 = new Empresa("Aldi");
+		Empresa em4 = new Empresa("IKEA");
+		
+		for (Empresa empresa: new Empresa [] {em1, em2, em3, em4}) {
+			em.persist(empresa);
+		}
+		
+		Individual in1 = new Individual("Manuel", "González");
+		Individual in2 = new Individual("Lucía", "Ferre");
+		Individual in3 = new Individual();
+		Individual in4 = new Individual();
+		
+		for (Individual individual: new Individual [] {in1, in2, in3, in4}) {
+			em.persist(individual);
+		}
 		
 		//------------------------------------------------------
 		em.getTransaction().commit();
