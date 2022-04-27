@@ -33,7 +33,7 @@ public class Transaccion implements Serializable{
 		this.destino          = destino;
 	}
 	
-	public Transaccion(Date fechaInstruccion, Integer cantidad, Date fechaEjecucion,
+	public Transaccion(Date fechaInstruccion, Long cantidad, Date fechaEjecucion,
 			String tipo, Integer comision, String internacional, Divisa divisaReceptor, 
 			Divisa divisaEmisor, Cuenta origen, Cuenta destino) {
 		this.fechaInstruccion = fechaInstruccion;
@@ -59,7 +59,7 @@ public class Transaccion implements Serializable{
 	private Date fechaInstruccion;
 	
 	@Column(nullable = false)
-	private Integer cantidad;
+	private Long cantidad;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_EJECUCION")
@@ -77,12 +77,10 @@ public class Transaccion implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="DIVISA_RECEPTOR_FK", nullable=false)
-	@Column(name = "DIVISA_RECEPTOR")
 	private Divisa divisaReceptor;
 	
 	@ManyToOne
 	@JoinColumn(name="DIVISA_EMISOR_FK", nullable=false)
-	@Column(name = "DIVISA_EMISOR")
 	private Divisa divisaEmisor;
 	
 	@ManyToOne
@@ -131,7 +129,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @return la cantidad de la transacción
 	 */
-	public Integer getCantidad() {
+	public Long getCantidad() {
 		return cantidad;
 	}
 
@@ -139,7 +137,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @param cantidad la cantidad de la transacción
 	 */
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
 	}
 
