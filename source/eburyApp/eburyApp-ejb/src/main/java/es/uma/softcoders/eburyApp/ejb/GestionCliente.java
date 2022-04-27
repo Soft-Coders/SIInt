@@ -26,6 +26,8 @@ public interface GestionCliente {
 	 */
     public void comprobarCliente(String cliente);
 
+    public void comprobarAutorizado(String aut);
+
     /*
      * La aplicacion permitirá dar de baja a un cliente cambiando su estado a INACTIVO
 	 */

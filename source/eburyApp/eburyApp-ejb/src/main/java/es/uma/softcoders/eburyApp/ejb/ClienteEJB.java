@@ -11,6 +11,7 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.exceptions.AutorizadoNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
@@ -162,6 +163,18 @@ public class ClienteEJB implements GestionCliente {
             }
         }
 
+    }
+
+    @Override
+    public void comprobarAutorizado(String aut){
+        PersonaAutorizada pAut = em.find(PersonaAutorizada.class, aut);
+        if (pAut.getEstado() != "ACTIVO")
+            throw new AutorizadoNoValidoException("El autorizado NO está activo");
+        Map<Empresa, Character> m = pAut.getAutorizacion();    
+        if (m.isEmpty())
+            throw new AutorizadoNoValidoException("La persona NO está autorizada");
+        if (pAut.getUsuario()==null)
+            throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
     }
 
     @Override
