@@ -13,18 +13,18 @@ import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Transaccion;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 
 @Stateless
 public class TransaccionEJB implements GestionTransaccion{
 	
-	@PersistenceContext(unitName="eburyAppEjb")
+	@PersistenceContext(name="eburyAppEjb")
 	private EntityManager em;
 	
 	@Override
 	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) 
-	throws CuentaNoExistenteException, DivisaInexistenteException {
-		// TODO 
+	throws EburyAppException { 
 		Pooled cp = em.find(Pooled.class, cuentaPool);  //cp: Objeto de la cuenta Pooled
 		
 		// Si no existe la cuenta se lanza una excepción
