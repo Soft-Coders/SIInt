@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class CuentaNoExistenteException extends Exception{
+public class CuentaNoExistenteException extends EburyAppException{
 	
 	public CuentaNoExistenteException() {}
 	

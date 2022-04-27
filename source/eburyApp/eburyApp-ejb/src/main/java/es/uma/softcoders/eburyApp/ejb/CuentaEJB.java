@@ -15,7 +15,9 @@ import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 @Stateless
 public class CuentaEJB implements GestionCuenta{
 
+
 	@PersistenceContext(name="eburyAppEjb")
+
 	private EntityManager em;
 
 	@Override

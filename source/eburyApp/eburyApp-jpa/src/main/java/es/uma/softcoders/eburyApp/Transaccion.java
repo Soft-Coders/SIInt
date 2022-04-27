@@ -77,12 +77,10 @@ public class Transaccion implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="DIVISA_RECEPTOR_FK", nullable=false)
-	@Column(name = "DIVISA_RECEPTOR")
 	private Divisa divisaReceptor;
 	
 	@ManyToOne
 	@JoinColumn(name="DIVISA_EMISOR_FK", nullable=false)
-	@Column(name = "DIVISA_EMISOR")
 	private Divisa divisaEmisor;
 	
 	@ManyToOne
