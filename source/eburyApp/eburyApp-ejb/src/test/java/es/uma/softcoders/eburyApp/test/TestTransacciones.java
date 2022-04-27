@@ -14,6 +14,7 @@ import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Transaccion;
 import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
+import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
@@ -27,7 +28,7 @@ public class TestTransacciones {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionTransaccion = (GestionTransaccion) SuiteTest.ctx.lookup(TRANSACCION_EJB);
+		gestionTransaccion = (GestionTransaccion) new TransaccionEJB();
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
@@ -37,6 +38,7 @@ public class TestTransacciones {
 		try {
 			//Cuenta pooled
 			Pooled pPrueba = new Pooled();
+			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
 
 			
 			//Divisas
@@ -48,12 +50,15 @@ public class TestTransacciones {
 			
 		}catch(DivisaInexistenteException|CuentaNoExistenteException e) {
 			fail("No debería de lanzar esta excepcion");
+		}catch(Exception e) {
+			fail("No debería lanzar ninguna excepción");
 		}
 		
 		try {
 			
 			//Cuenta pooled
 			Pooled pPrueba = new Pooled();
+			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
 			
 			//Divisas
 			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
@@ -64,12 +69,15 @@ public class TestTransacciones {
 			
 		}catch(DivisaInexistenteException|CuentaNoExistenteException e) {
 			fail("No debería de lanzar esta excepcion");
+		}catch(Exception e) {
+			fail("No debería lanzar esta excepción");
 		}
 		
 		try {
 			
 			//Cuenta pooled
 			Pooled pPrueba = new Pooled();
+			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
 			
 			//Divisa
 			Divisa dRupia = new Divisa("INR", "rupias", '₹', (long)0.012);
@@ -82,12 +90,15 @@ public class TestTransacciones {
 			// OK 
 		}catch(CuentaNoExistenteException e){
 			fail("No");
+		}catch(Exception e) {
+			fail("No debería lanzar esta excepción");
 		}
 		
 		try {
 			
 			//Cuenta pooled
 			Pooled pPrueba = new Pooled();
+			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
 			
 			//Divisa
 			Divisa dRupia = new Divisa("INR", "rupias", '₹', (long)0.012);
@@ -100,11 +111,14 @@ public class TestTransacciones {
 			// OK 
 		}catch(CuentaNoExistenteException e){
 			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(Exception e) {
+			fail("No debería lanzar esta excepción");
 		}
 		
 		try {
 			//Cuenta pooled
 			Pooled pPrueba = new Pooled();
+			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
 
 			
 			//Divisas
@@ -118,6 +132,8 @@ public class TestTransacciones {
 			fail("No debería de lanzar esta excepcion");
 		}catch(CuentaNoExistenteException e) {
 			//OK
+		}catch(Exception e) {
+			fail("No debería lanzar esta excepción");
 		}
 		
 		
