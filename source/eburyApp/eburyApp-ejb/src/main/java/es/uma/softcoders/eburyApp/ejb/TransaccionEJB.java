@@ -106,7 +106,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
-<<<<<<< Updated upstream
+
 		else{   // Si hay saldo suficiente se realiza la transacción
 			
 			// Primero: se actualiza el saldo total de las cuentaReferencias
@@ -128,17 +128,7 @@ public class TransaccionEJB implements GestionTransaccion{
 			listaCuentaReferencias.put(cdestino, (b + cantCambiada));
 	
 		}		
-=======
-		else{
-			corigen.setSaldo(a - cant);
-			Long b = cdestino.getSaldo();
-			cdestino.setSaldo(b + cantCambiada);
-			Map<CuentaReferencia, Long> mapaAux = pool.getDepositadaEn();
 
-		}
-		// TODO actualizar también depositadaEn de la pooled con las dos cuentaReferencias
-		
->>>>>>> Stashed changes
 	}
 	
 	/**
