@@ -6,14 +6,14 @@ import javax.persistence.Persistence;
 
 import es.uma.softcoders.eburyApp.Segregada;
 
-public class BaseDatosInformes {
+public class BaseDatosCuentas {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
 		
 		em.getTransaction().begin();
 		
-		Segregada sActiva = new Segregada();
+		
 		
 		em.getTransaction().commit();
 		
