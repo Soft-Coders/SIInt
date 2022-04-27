@@ -18,11 +18,7 @@ import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 
 public class TransaccionEJB implements GestionTransaccion{
 	
-	/* No sé para qué sirve el LOG, lo tiene el profe pero no se usa */
-	
-	private static final Logger LOG = Logger.getLogger(CuentaEJB.class.getCanonicalName());
-	
-	@PersistenceContext(name="eburyApp")
+	@PersistenceContext(name="eburyAppEjb")
 	private EntityManager em;
 	
 	@Override
@@ -49,13 +45,15 @@ public class TransaccionEJB implements GestionTransaccion{
 		if (divisaO == null) throw new DivisaInexistenteException("DIVISA ORIGEN INEXISTENTE");
 		if (divisaD == null) throw new DivisaInexistenteException("DIVISA DESTINO INEXISTENTE");
 		
+		// Creación de la transacción: se calcula el cambio, se traspasa y se crea la entidad transacción que lo registre
 		Long cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
 		try {
 			transferenciaEntreCuentas(cp, corigen, cdestino, cantidad, cambioADestino);
+			crearTransaccionCambioDivisas(cp, divisaO, divisaD, cantidad);
 		} catch (SaldoInsuficienteException e) {
 			e.printStackTrace();
 		}
-		crearTransaccionCambioDivisas(cp, divisaO, divisaD, cantidad);
+		
 		
 	}
 	
@@ -104,19 +102,32 @@ public class TransaccionEJB implements GestionTransaccion{
 	 * Este método resta la cantidad cant a la cuenta origen y le suma cantCambiada a la cuenta destino.
 	 * Además actualiza las relaciones entre la Pooled y las CuentaReferencias para reflejar este cambio.
 	 * */
-	private void transferenciaEntreCuentas(Pooled pool, CuentaReferencia corigen, CuentaReferencia cdestino, 
-			Long cant, Long cantCambiada) throws SaldoInsuficienteException{
-		Long a = corigen.getSaldo();  // a: saldo original en origen
+	private void transferenciaEntreCuentas(Pooled pool, CuentaReferencia corigen, CuentaReferencia cdestino, Long cant, Long cantCambiada) throws SaldoInsuficienteException{
+		Long a = corigen.getSaldo() - cant;  // a: saldo cambiado en la cuenta referencia origen
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
-		else{
-			corigen.setSaldo(a - cant);
-			Long b = cdestino.getSaldo();
-			cdestino.setSaldo(b + cantCambiada);
-		}
-		// TODO actualizar también depositadaEn de la pooled con las dos cuentaReferencias
-		
+		else{   // Si hay saldo suficiente se realiza la transacción
+			
+			// Primero: se actualiza el saldo total de las cuentaReferencias
+			corigen.setSaldo(a);
+			Long b = cdestino.getSaldo() + cantCambiada;  // b: saldo cambiado en la cuenta referencia destino
+			cdestino.setSaldo(b);
+			
+			// Segundo: se actualiza el saldo en las relaciones Pooled-CuentaReferencia
+			//    Empezamos actualizando las relaciones de ambas cuentas referencias con la pooled
+			Map<Pooled, Long> listaCuentasPooled = corigen.getDepositadaEn();
+			listaCuentasPooled.put(pool, a);
+			listaCuentasPooled = cdestino.getDepositadaEn();
+			listaCuentasPooled.put(pool, b);
+			//    Continuamos con la relación dentro de la cuenta pooled con las cuentas referencias
+			Map<CuentaReferencia, Long> listaCuentaReferencias = pool.getDepositadaEn();
+			a = listaCuentaReferencias.get(corigen);   // reutilizamos la variable auxiliar
+			listaCuentaReferencias.put(corigen, (a - cant));
+			b = listaCuentaReferencias.get(cdestino);  // reutilizamos la variable auxiliar
+			listaCuentaReferencias.put(cdestino, (b + cantCambiada));
+	
+		}		
 	}
 	
 	/**
@@ -125,8 +136,8 @@ public class TransaccionEJB implements GestionTransaccion{
 		Date ahora = new Date();
 		Transaccion trans = new Transaccion(ahora, "Cambio Divisas", demisor, dreceptor, pool, pool);
 		trans.setCantidad(cantidad);
-		
 		em.persist(trans);
 	}
+	
 	
 }
