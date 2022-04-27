@@ -192,13 +192,8 @@ public class PersonaAutorizada implements Serializable{
 	 * actualiza el estado de la cuenta
 	 * @throws Exception 
 	 */
-	public void setEstado(String estado) throws Exception {
-		if(estado.equalsIgnoreCase("ACTIVO")||estado.equalsIgnoreCase("BLOQUEADO")||estado.equalsIgnoreCase("BAJA")) {
-			this.estado = estado;
-		} else {
-			throw new Exception("Estado no válido");
-		}
-		
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	/**
