@@ -6,6 +6,7 @@ import javax.persistence.PersistenceContext;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 
 
 /**
@@ -18,9 +19,12 @@ public class CuentaEJB implements GestionCuenta{
 	private EntityManager em;
 
 	@Override
-	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException {
+	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException, DatosIncorrectosException {
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
 			throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
+		}
+		if (cf.getIban() == null) {
+			throw new DatosIncorrectosException("IBAN NULO, INVÁLIDO");
 		}
 		// TODO EXCEPCIONES
 		em.persist(cf);
