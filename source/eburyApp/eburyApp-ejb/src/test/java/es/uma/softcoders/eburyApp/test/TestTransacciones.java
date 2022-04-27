@@ -19,8 +19,6 @@ import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public class TestTransacciones {
-	private static final Logger LOG = Logger.getLogger(TestTransacciones.class.getCanonicalName());
-
 	private static final String TRANSACCION_EJB = "java:global/classes/TransaccionEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
