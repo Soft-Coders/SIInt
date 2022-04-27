@@ -52,5 +52,9 @@ public class TestAutorizado {
 		}
 	}
 	
+	@Test
+	public void testAgregarAutorizado() {
+		PersonaAutorizada pa2 = new PersonaAutorizada("ABC123", "Marta", "Maleno", "Calle Patata, 37");
+	}
 	
 }
