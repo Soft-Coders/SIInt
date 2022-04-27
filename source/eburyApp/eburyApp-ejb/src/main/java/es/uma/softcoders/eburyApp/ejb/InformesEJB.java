@@ -108,9 +108,9 @@ public class InformesEJB implements GestionInformes{
 				int queryLength = predicate.length();
 				
 				if(status.equalsIgnoreCase("active"))
-					predicate.concat("C.estado = 'ACTIVO'");		//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado = 'ACTIV[OAE]'");		//TODO Determinar nomenclatura de CuentaFintech.estado
 				else if(status.equalsIgnoreCase("inactive"))
-					predicate.concat("C.estado = 'INACTIVO'");	//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado = 'INACTIV[OAE]'");	//TODO Determinar nomenclatura de CuentaFintech.estado
 				else
 					throw new InvalidJSONQueryException("status NOT VALID");
 				
