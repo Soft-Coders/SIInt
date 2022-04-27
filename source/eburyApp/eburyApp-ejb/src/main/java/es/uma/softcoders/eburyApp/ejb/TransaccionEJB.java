@@ -4,10 +4,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
@@ -53,8 +51,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		} catch (SaldoInsuficienteException e) {
 			e.printStackTrace();
 		}
-		
-		
+			
 	}
 	
 	/**

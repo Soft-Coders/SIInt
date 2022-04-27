@@ -4,6 +4,7 @@ import javax.ejb.Local;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 
 @Local
 public interface GestionCuenta {
@@ -14,9 +15,11 @@ public interface GestionCuenta {
 	 * 
 	 * @param cf Cuenta a crear, incluye todos los datos que deben almacenarse.
 	 * @throws CuentaExistenteException 
+	 * @throws DatosIncorrectosException
 	 * @author Marta Maleno Escudero
+ 
 	 * */
-	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException;
+	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException, DatosIncorrectosException;
 	
 	/** Este método debe cambiar el estado de una cuenta fintech a fin
 	 * de darla de baja. En caso de que estuviera dada de baja previamente,

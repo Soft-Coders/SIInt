@@ -1,11 +1,8 @@
 package es.uma.softcoders.eburyApp.ejb;
 
-import java.util.logging.Logger;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
@@ -17,10 +14,7 @@ import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 @Stateless
 public class CuentaEJB implements GestionCuenta{
 
-	/* No sé para qué sirve el LOG, lo tiene el profe pero no se usa */
-	private static final Logger LOG = Logger.getLogger(CuentaEJB.class.getCanonicalName());
-	
-	@PersistenceContext(name="eburyApp")
+	@PersistenceContext(name="eburyAppEjb")
 	private EntityManager em;
 
 	@Override
@@ -28,7 +22,6 @@ public class CuentaEJB implements GestionCuenta{
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
 			throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 		}
-		
 		// TODO EXCEPCIONES
 		em.persist(cf);
 	}
