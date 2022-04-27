@@ -26,11 +26,10 @@ public class BaseDatosCT {
 		//Divisas
 		Divisa dLibra = new Divisa("GBP", "libras", '£', (long)1.18);
 		em.persist(dLibra);
-		Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
-		em.persist(dEuro);
+
 		
 		//Cuenta Referencia
-		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, fAuxiliar, "ACTIVA", null, dEuro);
+		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, fAuxiliar, "ACTIVA", null, dLibra);
 		em.persist(crPrueba);
 		
 		//Relación Cuentas Referencia, Pooled

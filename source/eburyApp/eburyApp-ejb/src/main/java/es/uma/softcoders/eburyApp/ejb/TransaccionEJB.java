@@ -21,7 +21,7 @@ import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 @Stateless
 public class TransaccionEJB implements GestionTransaccion{
 	
-	@PersistenceContext(unitName="eburyAppEjb")
+	@PersistenceContext(name="eburyAppEjb")
 	private EntityManager em;
 	
 	@Override
