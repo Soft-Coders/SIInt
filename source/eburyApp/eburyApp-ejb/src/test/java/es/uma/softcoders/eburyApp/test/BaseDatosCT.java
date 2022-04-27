@@ -41,9 +41,7 @@ public class BaseDatosCT {
 		Pooled pPrueba = new Pooled(mAuxiliar);
 		em.persist(pPrueba);
 		
-		//Transaccion
-		Transaccion LibrasAEuros = new Transaccion(new Date(), (long)500, new Date(), "tipo", 5, "Libras", dEuro, dLibra, pPrueba, pPrueba);
-		em.persist(LibrasAEuros);
+
 		
 		//Cierre Contexto Persistencia
 		em.getTransaction().commit();

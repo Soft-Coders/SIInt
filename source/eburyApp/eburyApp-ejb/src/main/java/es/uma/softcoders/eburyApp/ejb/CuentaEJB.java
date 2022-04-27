@@ -20,7 +20,7 @@ public class CuentaEJB implements GestionCuenta{
 	/* No sé para qué sirve el LOG, lo tiene el profe pero no se usa */
 	private static final Logger LOG = Logger.getLogger(CuentaEJB.class.getCanonicalName());
 	
-	@PersistenceContext(name="eburyApp")
+	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 
 	@Override

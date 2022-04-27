@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import es.uma.softcoders.eburyApp.Cuenta;
@@ -16,9 +18,10 @@ import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 
+@Stateless
 public class TransaccionEJB implements GestionTransaccion{
 	
-	@PersistenceContext(name="eburyAppEjb")
+	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 	
 	@Override
