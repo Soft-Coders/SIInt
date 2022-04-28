@@ -100,6 +100,7 @@ public class BaseDatosInformes {
             em.persist(pEmp);
             em.persist(pPAut);
 
+            Segregada s = new Segregada();
 		
 		
 		em.getTransaction().commit();
