@@ -149,10 +149,17 @@ public class TestInformes {
             }catch(NullPointerException | InvalidJSONQueryException e){
                     fail("No debe dar error");
             }
-            /*
-            JSONObject 
-            query="";
-            */
+            
+            JSONObject json4 = new JSONObject();
+            JSONObject sP4 = new JSONObject();
+            sP4.put("questionType","Product");
+            sP4.put("status", "active");
+            sP4.put("productNumber", "NL66XYZW1291965209");
+
+            json4.put("searchParameters", sP4);
+
+            query=JSONObject.toJSONString(json4);
+            
 
     }
 
