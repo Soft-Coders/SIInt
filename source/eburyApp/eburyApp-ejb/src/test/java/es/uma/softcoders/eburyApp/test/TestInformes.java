@@ -118,6 +118,7 @@ public class TestInformes {
                 
             }
 
+
             // TEST CON CLIENTE EMPRESA
             
             JSONObject json3 = new JSONObject();
@@ -127,7 +128,7 @@ public class TestInformes {
             name3.put("firstName", "Pep");
             name3.put("lastName", "Doe");
 
-            addr3.put("Number", "54");
+            addr3.put("city", "Amsterdam");
             addr3.put("postalCode", "7207KE");
             addr3.put("country", "NL");
 

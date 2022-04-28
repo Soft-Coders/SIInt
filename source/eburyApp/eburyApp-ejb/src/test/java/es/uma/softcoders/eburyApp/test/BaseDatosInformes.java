@@ -37,7 +37,7 @@ public class BaseDatosInformes {
             pInd.setEstado("ACTIVO");
             pInd.setFecha_Alta(pDay);
             pInd.setDireccion("54");
-            pInd.setCiudad("Amsterdam");
+            pInd.setCiudad("New York");
             pInd.setCodigoPostal("7207KE");
             pInd.setPais("NL");
             pCuentas.add(pSeg);
