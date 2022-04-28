@@ -5,26 +5,22 @@ import static org.junit.Assert.fail;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Logger;
 
 import javax.naming.NamingException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
-import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
-import es.uma.softcoders.eburyApp.Transaccion;
+import es.uma.softcoders.eburyApp.ejb.CuentaEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
-import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
-import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
-import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public class TestCuenta {
@@ -36,18 +32,19 @@ public class TestCuenta {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionCuenta = (GestionCuenta) SuiteTest.ctx.lookup(CUENTA_EJB);
-		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		gestionCuenta = (GestionCuenta) new CuentaEJB();
+		BaseDatosCuenta.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
+	
+//	@After
+//	public void terminate() {
+//		BaseDatosCuenta.dropBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+//	}
 	
 	@Test
 	public void testCrearCuentaFintech() {
 		
 		final String CFPE = "cfPreExistente";
-		final String CE   = "0000";
-		final String CFCI = "cfCuentaInactiva";
-		final String CFIP = "cfIdealPooled";
-		final String CFIS = "cfIdealSegregada";
 		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -66,14 +63,14 @@ public class TestCuenta {
 		
 		//Cuenta PreExistente
 		try {
-			cf.setIBAN(CFPE);
+			cf.setIban(CFPE);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch(CuentaExistenteException e) {
 			// OK
 		}catch (EburyAppException e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage());
+			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}catch (Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage());
+			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Iban null
@@ -83,7 +80,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage());
+			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cliente null
@@ -94,7 +91,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage());
+			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cliente PreExistente
@@ -105,7 +102,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage());
+			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		CuentaFintech cfIdealPooled = new Pooled();
@@ -130,14 +127,54 @@ public class TestCuenta {
 		try {
 			gestionCuenta.crearCuentaFintech(cfIdealPooled);
 		}catch(Exception e) {
-			fail("No debería lanzar n excepción: " + e.getMessage());
+			fail("No debería lanzar n excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
 		try {
 			gestionCuenta.crearCuentaFintech(cfIdealSegregada);
 		}catch(Exception e) {
-			fail("No debería lanzar ninguna excepción: " + e.getMessage());
+			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
+		}
+	}
+	
+	@Test
+	public void testCerrarCuentaFintech() {
+
+		final String CFCI = "cfCuentaInactiva";
+		final String CFIP = "cfIdealPooled";
+		final String CFIS = "cfIdealSegregada";
+		
+		// Cuenta no existente
+		try {
+			gestionCuenta.cerrarCuentaFintech("IBANRandomQueNoExisteEnLaBD");
+		} catch(CuentaNoExistenteException e) {
+			//OK
+		} catch(Exception e) {
+			fail("No debería lanzar esta excepción" + e.getMessage() + "-" + e.getClass());
+		}
+		
+		// Cuenta Inactiva
+		try {
+			gestionCuenta.cerrarCuentaFintech(CFCI);
+		} catch(CuentaNoExistenteException e) {
+			//OK
+		} catch(Exception e) {
+			fail("No debería lanzar esta excepción" + e.getMessage() + "-" + e.getClass());
+		}
+		
+		// Cuenta Pooled Ideal
+		try {
+			gestionCuenta.cerrarCuentaFintech(CFIP);
+		} catch(Exception e) {
+			fail("No debería lanzar ninguna excepción" + e.getMessage() + "-" + e.getClass());
+		}
+		
+		// Cuenta Segregada Ideal
+		try {
+			gestionCuenta.cerrarCuentaFintech(CFIS);
+		} catch(Exception e) {
+			fail("No debería lanzar ninguna excepción" + e.getMessage() + "-" + e.getClass());
 		}
 	}
 	

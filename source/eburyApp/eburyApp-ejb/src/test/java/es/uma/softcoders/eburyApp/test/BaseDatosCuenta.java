@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -12,9 +11,8 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
-import es.uma.softcoders.eburyApp.Usuario;
 
-public class BaseDatosCuentas {
+public class BaseDatosCuenta {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
@@ -53,17 +51,11 @@ public class BaseDatosCuentas {
 			cfIdealSegregada.setIBAN("cfIdealSegregada");
 			cfIdealSegregada.setSwift("Swift");
 			
-			//----LoginEJB
-			Usuario uNoAdmin = new Usuario("noadmin", "noadmin", false);
-			Usuario uAdmin = new Usuario("admin", "admin", true);
-			
 	//		em.persist(cClienteExistente);
 			
 			for(CuentaFintech cf : new CuentaFintech [] {cfPreExistente, cfCuentaInactiva})
 				em.persist(cf);
 			
-			for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})
-				em.persist(u);
 		}catch(ParseException e) {
 			System.out.println("Problema con date.parse()");
 		}
@@ -73,4 +65,19 @@ public class BaseDatosCuentas {
 		em.close();
 		emf.close();
 	}
+	
+//	public static void dropBaseDatos(String nombreUnidadPersistencia) {
+//		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
+//		EntityManager em = emf.createEntityManager();
+//		
+//		em.getTransaction().begin();
+//		
+//		for(String cf : new String [] {"cfPreExistente", "cfCuentaInactiva"})
+//			em.remove(em.find(CuentaFintech.class, cf));
+//		
+//		em.getTransaction().commit();
+//		
+//		em.close();
+//		emf.close();
+//	}
 }
