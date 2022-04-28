@@ -1,9 +1,12 @@
 package es.uma.softcoders.eburyApp.test;
 
+import java.sql.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Segregada;
 
 public class BaseDatosCuentas {
@@ -13,6 +16,10 @@ public class BaseDatosCuentas {
 		
 		em.getTransaction().begin();
 		
+		
+		CuentaFintech cfPreExistente = new CuentaFintech("ACTIVO", Date.valueOf("2020-04-13"));
+		cfPreExistente.setIBAN("cfPreExistente");
+		CuentaFintech cfIbanNulo = new CuentaFintech("ACTIVO", Date.valueOf("2018-10-24"));
 		
 		
 		em.getTransaction().commit();
