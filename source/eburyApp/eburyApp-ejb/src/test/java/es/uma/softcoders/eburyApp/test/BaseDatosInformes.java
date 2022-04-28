@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp.test;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,10 +49,10 @@ public class BaseDatosInformes {
             
             //EMPRESA
             Empresa pEmp = new Empresa("RazSocial");
-            List<CuentaFintech> pCuentasEmp = pEmp.getCuentas();
+            List<CuentaFintech> pCuentasEmp = new ArrayList<CuentaFintech>();
             PersonaAutorizada pPAut = new PersonaAutorizada("Ident","Nacho", "Lopezosa", "54");
-            Map<PersonaAutorizada,Character> pMapEMP = pEmp.getAutorizacion();
-            Map<Empresa,Character> pMapPAUT = pPAut.getAutorizacion();
+            Map<PersonaAutorizada,Character> pMapEMP = new HashMap<>();
+            Map<Empresa,Character> pMapPAUT = new HashMap<>();
             pEmp.setIdentificacion("Ide");
             pEmp.setTipo_cliente("EMPRESA");
             pEmp.setEstado("ACTIVO");
@@ -61,8 +62,11 @@ public class BaseDatosInformes {
             pEmp.setCodigoPostal("7207KE");
             pEmp.setPais("NL");
             pCuentasEmp.add(pSeg);
+            pEmp.setCuentas(pCuentasEmp);
             pMapEMP.put(pPAut, 'A');
             pMapPAUT.put(pEmp, 'A');
+            pEmp.setAutorizacion(pMapEMP);
+            pPAut.setAutorizacion(pMapPAUT);
 
 		
 		

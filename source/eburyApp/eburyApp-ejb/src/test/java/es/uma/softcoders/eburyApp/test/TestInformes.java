@@ -149,9 +149,10 @@ public class TestInformes {
             }catch(NullPointerException | InvalidJSONQueryException e){
                     fail("No debe dar error");
             }
-            
+            /*
+            JSONObject 
             query="";
-
+            */
 
     }
 
