@@ -33,7 +33,7 @@ public class CuentaEJB implements GestionCuenta{
 			throw new DatosIncorrectosException("IBAN NULO, INVÁLIDO");
 		}
 		if (cf.getCliente() == null) {
-			throw new NullPointerException("CLIENTE NULO, INVÁLIDO");
+			throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
 		}
 		if (em.find(Cliente.class, cf.getCliente()) == null) {
 			throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
@@ -42,12 +42,12 @@ public class CuentaEJB implements GestionCuenta{
 	}
 
 	@Override
-	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException {
+	public void cerrarCuentaFintech(String cuentafin) throws EburyAppException {
 		CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
 		if (em.find(CuentaFintech.class, cf.getIban()) != null) {
 			throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
 		}
-		em.remove(cf);
+		cf.setEstado("INACTIVA");
 	}
 
 }
