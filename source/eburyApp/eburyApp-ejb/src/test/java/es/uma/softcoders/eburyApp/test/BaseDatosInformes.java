@@ -44,6 +44,7 @@ public class BaseDatosInformes {
             pInd.setPais("NL");
             pCuentas.add(pSeg);
             pInd.setCuentas(pCuentas);
+            pInd.setID(Long.valueOf(1000002));
             // Persist
             em.persist(pInd);
             
@@ -67,7 +68,7 @@ public class BaseDatosInformes {
             pMapPAUT.put(pEmp, 'A');
             pEmp.setAutorizacion(pMapEMP);
             pPAut.setAutorizacion(pMapPAUT);
-
+            pEmp.setID(Long.valueOf(100001));
             em.persist(pEmp);
             em.persist(pPAut);
 
