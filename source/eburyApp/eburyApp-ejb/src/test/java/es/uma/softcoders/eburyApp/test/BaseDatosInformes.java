@@ -33,6 +33,7 @@ public class BaseDatosInformes {
             CuentaReferencia pRef = new CuentaReferencia("CaixaBank", (long)40000, pDiv);
             Segregada pSeg = new Segregada("30",pRef);
             List<CuentaFintech> pCuentas = new ArrayList<CuentaFintech>();
+            em.persist(pInd);
             // Setters
             pInd.setIdentificacion("Ide");
             pInd.setTipo_cliente("INDIVIDUAL");
@@ -54,6 +55,8 @@ public class BaseDatosInformes {
             PersonaAutorizada pPAut = new PersonaAutorizada("Ident","Nacho", "Lopezosa", "54");
             Map<PersonaAutorizada,Character> pMapEMP = new HashMap<>();
             Map<Empresa,Character> pMapPAUT = new HashMap<>();
+            em.persist(pEmp);
+            em.persist(pPAut);
             pEmp.setIdentificacion("Ide");
             pEmp.setTipo_cliente("EMPRESA");
             pEmp.setEstado("ACTIVO");
@@ -64,11 +67,11 @@ public class BaseDatosInformes {
             pEmp.setPais("NL");
             pCuentasEmp.add(pSeg);
             pEmp.setCuentas(pCuentasEmp);
+            pEmp.setID(Long.valueOf(100001));
             pMapEMP.put(pPAut, 'A');
             pMapPAUT.put(pEmp, 'A');
             pEmp.setAutorizacion(pMapEMP);
             pPAut.setAutorizacion(pMapPAUT);
-            pEmp.setID(Long.valueOf(100001));
             em.persist(pEmp);
             em.persist(pPAut);
 
