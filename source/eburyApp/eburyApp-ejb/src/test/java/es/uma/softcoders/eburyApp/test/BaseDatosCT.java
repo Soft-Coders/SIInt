@@ -40,7 +40,7 @@ public class BaseDatosCT {
 		Map<CuentaReferencia,Long> mAuxiliar = new HashMap<>();
 		mAuxiliar.put(crPrueba, (long)1);
 		
-		Cliente pCliente = new Cliente("iden", "tonto", "ACTIVO", fAuxiliar, "C/ Bobo, 4", "Boboville", 42069, "Tontokistan");
+		Cliente pCliente = new Cliente("iden", "tonto", "ACTIVO", fAuxiliar, "C/ Bobo, 4", "Boboville", "42069", "Tontokistan");
 		em.persist(pCliente);
 		
 		//Pooled
