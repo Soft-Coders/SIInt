@@ -205,8 +205,6 @@ public class InformesEJB implements GestionInformes{
 					hql.concat("C.direccion = '" + street + "'");
 				}
 				if(city != null) {
-					if(!city.equalsIgnoreCase("netherlands") && !city.equalsIgnoreCase("NL") && !city.equalsIgnoreCase("holanda"))
-						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
 					hql.concat("C.ciudad = '" + city + "'");
@@ -217,6 +215,8 @@ public class InformesEJB implements GestionInformes{
 					hql.concat("C.codigoPostal = " + postalCode);
 				}
 				if(country != null) {
+					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
+						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
 					hql.concat("C.pais = '" + country + "'");
