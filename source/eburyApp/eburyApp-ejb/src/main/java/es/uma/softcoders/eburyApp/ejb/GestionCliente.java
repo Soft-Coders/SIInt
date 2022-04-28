@@ -26,6 +26,11 @@ public interface GestionCliente {
 	 */
     public void comprobarCliente(String cliente);
 
+    /*
+     * La aplicacion comprobará que la persona autorizada está en estado ACTIVO, posee una autorización y, además, 
+     * tiene asignado un Usuario 
+     * 
+	 */
     public void comprobarAutorizado(String aut);
 
     /*
