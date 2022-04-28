@@ -1,5 +1,6 @@
 package es.uma.softcoders.eburyApp.test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class BaseDatosInformes {
             Divisa pDiv = new Divisa("GBP", "libras", '£', (long)0.94);
             CuentaReferencia pRef = new CuentaReferencia("CaixaBank", (long)40000, pDiv);
             Segregada pSeg = new Segregada("30",pRef);
-            List<CuentaFintech> pCuentas = pInd.getCuentas();
+            List<CuentaFintech> pCuentas = new ArrayList<CuentaFintech>();
             // Setters
             pInd.setIdentificacion("Ide");
             pInd.setTipo_cliente("INDIVIDUAL");
@@ -41,6 +42,7 @@ public class BaseDatosInformes {
             pInd.setCodigoPostal("7207KE");
             pInd.setPais("NL");
             pCuentas.add(pSeg);
+            pInd.setCuentas(pCuentas);
             // Persist
             em.persist(pInd);
             
