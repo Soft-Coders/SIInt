@@ -1,6 +1,12 @@
+import javax.naming.NamingException;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
+import org.junit.Test;
+
+import es.uma.softcoders.eburyApp.ejb.GestionInformes;
+import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 
 public class TestInformes {
 
