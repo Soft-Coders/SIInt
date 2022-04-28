@@ -35,16 +35,7 @@ public class TestTransacciones {
 	@Test
 	public void testCambioDivisa() {
 		
-		try {
-			//Cuenta pooled
-			Pooled pPrueba = new Pooled();
-			pPrueba.setIban("Hay que poner IBAN porque si no da NullPointerExceptino que es que no piensas ni un poquito macho");
-
-			
-			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
-			
+		try {			
 			//Prueba de transaccion
 			gestionTransaccion.cambioDivisa(pPrueba.getIban(), dDolar.getAbreviatura(), dEuro.getAbreviatura(), (long)100);
 			
@@ -53,7 +44,7 @@ public class TestTransacciones {
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción");
 		}
-		
+		/*
 		try {
 			
 			//Cuenta pooled
@@ -136,7 +127,7 @@ public class TestTransacciones {
 			fail("No debería lanzar esta excepción");
 		}
 		
-		
+		*/
 		
 	}
 	
