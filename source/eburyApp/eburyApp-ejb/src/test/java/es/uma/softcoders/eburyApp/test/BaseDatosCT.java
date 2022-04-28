@@ -1,11 +1,7 @@
 package es.uma.softcoders.eburyApp.test;
 
-<<<<<<< HEAD
 import java.util.Date;
 import java.util.HashMap;
-=======
-import java.sql.Date;
->>>>>>> 6df3932c75f4cd45c642ae68b7c508889352f225
 import java.util.Map;
 
 import javax.persistence.EntityManager;
