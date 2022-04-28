@@ -67,6 +67,7 @@ public class TestAutorizado {
 		Empresa em2 = new Empresa("Aldi");
 		Empresa em4 = new Empresa("IKEA");
 		em2.setID((long)9423903);
+		em4.setID((long)1467853);
 		try {
 			gestionAutorizado.agregarAutorizado(pa2, em2.getID().toString(), 'L');
 			gestionAutorizado.agregarAutorizado(pa3, em4.getID().toString(), 'O');

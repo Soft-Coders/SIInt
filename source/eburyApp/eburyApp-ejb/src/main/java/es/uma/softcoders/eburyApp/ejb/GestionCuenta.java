@@ -17,8 +17,6 @@ public interface GestionCuenta {
 	 * @param cf Cuenta a crear, incluye todos los datos que deben almacenarse.
 	 * @throws EburyAppException 
 	 * @author Marta Maleno Escudero
-
- 
 	 * */
 	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException, DatosIncorrectosException, EburyAppException;
 	
