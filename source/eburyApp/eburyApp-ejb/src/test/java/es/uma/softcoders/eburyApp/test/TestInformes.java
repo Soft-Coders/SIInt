@@ -118,16 +118,14 @@ public class TestInformes {
                 
             }
 
+
             // TEST CON CLIENTE EMPRESA
             
             JSONObject json3 = new JSONObject();
             JSONObject sP3 = new JSONObject();
             JSONObject addr3 = new JSONObject();
-            JSONObject name3 = new JSONObject();
-            name3.put("firstName", "Pep");
-            name3.put("lastName", "Doe");
-
-            addr3.put("Number", "54");
+            
+            addr3.put("city", "Amsterdam");
             addr3.put("postalCode", "7207KE");
             addr3.put("country", "NL");
 
@@ -135,7 +133,6 @@ public class TestInformes {
             sP3.put("startPeriod", "2015-04-25");
             sP3.put("endPeriod", "2020-04-25");
             sP3.put("adress", addr3);
-            sP3.put("name",name3);
 
             json3.put("searchParameters", sP3);
             
