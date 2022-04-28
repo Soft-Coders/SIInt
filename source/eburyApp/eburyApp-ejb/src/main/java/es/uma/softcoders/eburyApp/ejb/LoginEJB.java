@@ -17,7 +17,7 @@ public class LoginEJB implements GestionLogin {
 	private EntityManager em;
 
     @Override
-    public void loginAdmin(String cuenta, String clave){
+    public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException{
         Usuario u = em.find(Usuario.class, cuenta);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
@@ -27,7 +27,7 @@ public class LoginEJB implements GestionLogin {
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
 
-    public void loginUsuario(String cuenta, String clave){
+    public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException{
         Usuario u = em.find(Usuario.class, cuenta);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
