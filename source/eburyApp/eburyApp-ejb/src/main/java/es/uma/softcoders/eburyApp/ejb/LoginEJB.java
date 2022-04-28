@@ -42,7 +42,7 @@ public class LoginEJB implements GestionLogin {
         if(pA != null){
             gestionCliente.comprobarAutorizado(pA.getId());
         }
-
+        
         if(ind != null){
             gestionCliente.comprobarCliente(ind.getID());
         }
