@@ -18,22 +18,24 @@ public interface GestionCliente {
      * se comprobará que los datos obligatorios no sean nulos y en caso de ser clientes empresa o individual
      * se cambiarán los datos pertinentes.
 	 */
-    public void modificarCliente(Cliente c, String cliente)throws ObligatorioNuloException, ClienteNuloException;
+    public void modificarCliente(Cliente c, Long cliente)throws ObligatorioNuloException, ClienteNuloException;
 
     /*
      * La aplicacion comprobará que el cliente no es una empresa y, en caso de que no lo sea
      * se comprobará que el cliente posee un usuario y su estado es ACTIVO. RF10
 	 */
-    public void comprobarCliente(String cliente);
+    public void comprobarCliente(Long cliente);
 
     /*
      * La aplicacion comprobará que la persona autorizada está en estado ACTIVO, posee una autorización y, además, 
      * tiene asignado un Usuario 
+     * 
 	 */
-    public void comprobarAutorizado(String aut);
+    
+    public void comprobarAutorizado(Long aut);
 
     /*
      * La aplicacion permitirá dar de baja a un cliente cambiando su estado a INACTIVO
 	 */
-    public void bajaCliente(String cliente) throws ClienteNoEncontradoException;
+    public void bajaCliente(Long cliente) throws ClienteNoEncontradoException;
 }

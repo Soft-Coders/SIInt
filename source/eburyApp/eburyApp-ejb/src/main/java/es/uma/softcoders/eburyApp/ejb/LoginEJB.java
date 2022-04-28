@@ -5,6 +5,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
@@ -33,7 +35,17 @@ public class LoginEJB implements GestionLogin {
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
+        
+        PersonaAutorizada pA = u.getPersonaAutorizada();
+        Individual ind = u.getIndividual();
+        GestionCliente gestionCliente = new ClienteEJB();
+        if(pA != null){
+            gestionCliente.comprobarAutorizado(pA.getId());
+        }
 
+        if(ind != null){
+            gestionCliente.comprobarCliente(ind.getID());
+        }
     }
 
 }

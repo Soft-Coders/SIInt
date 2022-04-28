@@ -73,7 +73,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void modificarCliente(Cliente c, String cliente) {
+    public void modificarCliente(Cliente c, Long cliente) {
         Cliente clienteEntity = em.find(Cliente.class, cliente);
         if(clienteEntity == null){
             throw new ClienteNoEncontradoException("Cliente no encotrado");
@@ -147,7 +147,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void comprobarCliente(String cliente) {
+    public void comprobarCliente(Long cliente) {
         Cliente clienteEntity = em.find(Cliente.class, cliente);
 
         if (clienteEntity instanceof Empresa)
@@ -166,23 +166,30 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void comprobarAutorizado(String aut){
+    public void comprobarAutorizado(Long aut){
+
         PersonaAutorizada pAut = em.find(PersonaAutorizada.class, aut);
         if (pAut.getEstado() != "ACTIVO")
             throw new AutorizadoNoValidoException("El autorizado NO está activo");
+
         Map<Empresa, Character> m = pAut.getAutorizacion();    
         if (m.isEmpty())
             throw new AutorizadoNoValidoException("La persona NO está autorizada");
+
         if (pAut.getUsuario()==null)
             throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
     }
 
     @Override
-    public void bajaCliente(String cliente) {
+    public void bajaCliente(Long cliente) {
         Cliente clienteEntity = em.find(Cliente.class, cliente);
 
         if(clienteEntity == null){
             throw new ClienteNuloException("Cliente nulo");
+        }
+
+        if(clienteEntity.getEstado() == "INACTIVO"){
+            throw new ClienteNuloException("El cliente ya está inactivo");
         }
 
         clienteEntity.setEstado("INACTIVO");
