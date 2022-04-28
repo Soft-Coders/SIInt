@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
-import es.BaseDatosInformes;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
