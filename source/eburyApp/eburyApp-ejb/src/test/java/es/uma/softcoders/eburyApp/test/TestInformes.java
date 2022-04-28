@@ -12,6 +12,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import es.uma.softcoders.eburyApp.Empresa;
@@ -35,7 +36,7 @@ public class TestInformes {
     @Test
     public void testInformeHolanda(){
             
-            // PRIMER TEST
+            // Prueba de query para Cliente / query Customer
             JSONObject json = new JSONObject();
             JSONObject sP = new JSONObject();
             JSONObject addr = new JSONObject();
@@ -71,7 +72,7 @@ public class TestInformes {
 
             }
 
-            // SEGUNDA PRUEBA
+            // Prueba de invalidez de query para Cliente  / query Customer
             JSONObject json2 = new JSONObject();
             JSONObject sP2 = new JSONObject();
             JSONObject addr2 = new JSONObject();
@@ -93,24 +94,6 @@ public class TestInformes {
             
             query = JSONValue.toJSONString(json2);
             
-            /*
-            query="{
-                \"searchParameters\": {
-                \"questionTipe\": \"Customer\",
-                \"startPeriodo\": \"2015-04-25\",
-                \"endPeriodo\": \"2020-04-25\",
-                \"namae\": {
-                \"firstName\": \"Pep\",
-                \"lastName\": \"Doe\"
-                },
-            \"address\": {
-                \"Number\": \"54\",
-                \"postalCode\": \"7207KE\",
-                \"country\": \"NL\"
-                }
-            }";
-            */ // ALGUNAS LINEAS DEL JSON INVALIDAS
-
             try{
                 List<Object>pRes = gestionInformes.informeHolanda(query);
                 
@@ -119,7 +102,7 @@ public class TestInformes {
             }
 
 
-            // TEST CON CLIENTE EMPRESA
+            // TEST CON CLIENTE EMPRESA query Customer
             
             JSONObject json3 = new JSONObject();
             JSONObject sP3 = new JSONObject();
@@ -138,7 +121,6 @@ public class TestInformes {
             
             query = JSONValue.toJSONString(json3);
             
-            // COMO SERÍA LA QUERY PARA EMPRESAS?
 
             try{
                 List<Object> pRes = gestionInformes.informeHolanda(query);
@@ -149,10 +131,63 @@ public class TestInformes {
             }catch(NullPointerException | InvalidJSONQueryException e){
                     fail("No debe dar error");
             }
-            /*
-            JSONObject 
-            query="";
-            */
+
+            //Cuenta activa query product
+            JSONObject json4 = new JSONObject();
+            JSONObject sP4 = new JSONObject();
+            sP4.put("questionType","Product");
+            sP4.put("status", "active");
+            sP4.put("productNumber", "NL66XYZW1291965209");
+
+            json4.put("searchParameters", sP4);
+
+            query=JSONObject.toJSONString(json4);
+
+            try{
+                List<Object> pRes = gestionInformes.informeHolanda(query);
+                if(pRes.isEmpty()){
+                    fail("No debe ser vacía");
+                }
+            }catch(NullPointerException|InvalidJSONQueryException e){
+
+                fail("No debe dar error");
+            }
+
+            //Cuenta inactiva query product
+            JSONObject json5 = new JSONObject();
+            JSONObject sP5 = new JSONObject();
+            sP5.put("questionType","Product");
+            sP5.put("status", "inactive");
+            sP5.put("productNumber", "NL66XYZW1291965208");
+
+            json5.put("searchParameters", sP5);
+
+            query = JSONObject.toJSONString(json5);
+
+            try{
+                List<Object> pRes = gestionInformes.informeHolanda(query);
+                if(pRes.isEmpty()){
+                    fail("No debe ser vacía");
+                }
+            }catch(NullPointerException|InvalidJSONQueryException e){
+
+                fail("No debe dar error");
+            }
+
+            JSONObject json6 = new JSONObject();
+            JSONObject sP6 = new JSONObject();
+            sP6.put("questionaTyde","Product"); // Línea inválida
+            sP6.put("status", "inactive");
+            sP6.put("productNumber", "NL66XYZW1291965208");
+
+            json6.put("searchParameters", sP6);
+
+            try{
+                List<Object>pRes = gestionInformes.informeHolanda(query);                
+            }catch(InvalidJSONQueryException e){
+                
+            }
+            
 
     }
 
