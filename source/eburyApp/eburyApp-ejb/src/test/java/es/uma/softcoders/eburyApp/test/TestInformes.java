@@ -34,6 +34,26 @@ public class TestInformes {
     }
 
     @Test
+    @Requisitos({RF11})
+    /**
+     * Este test comprueba el metodo testInformeHolanda() mediante la creación de un JSONObject -> String para los siguientes casos:
+     *      1. Query o petición de un cliente individual de forma correcta, devolverá:
+     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
+     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
+     *      2. Query o petición de un cliente individual de forma INCORRECTA, hace catch de:
+     *          - InvalidJSONQueryException (Éxito).
+     *      3. Query o petición de un cliente empresa de forma correcta, devolverá:
+     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
+     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
+     *      4. Query o petición de cuentas activas, devolverá:
+     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
+     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
+     *      5. Query o petición de cuentas inactivas, devolverá:
+     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
+     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
+     *      6. Query o petición de cuentas de forma INCORRECTA, devolverá:
+     *          - InvalidJSONQueryException (Éxito).
+     */
     public void testInformeHolanda(){
             
             // Prueba de query para Cliente / query Customer
@@ -174,6 +194,7 @@ public class TestInformes {
                 fail("No debe dar error");
             }
 
+            // Product invalid JSON Query
             JSONObject json6 = new JSONObject();
             JSONObject sP6 = new JSONObject();
             sP6.put("questionaTyde","Product"); // Línea inválida
@@ -192,12 +213,14 @@ public class TestInformes {
     }
 
     @Test 
+    @Requisitos({RF12})
     public void testInformeAlemaniaInicio(){
 
     }
 
 
     @Test
+    @Requisitos({RF12})
     public void testInformeAlemaniaPeriodico(){
 
     }
