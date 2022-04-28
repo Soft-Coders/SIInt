@@ -68,6 +68,9 @@ public class BaseDatosInformes {
             pEmp.setAutorizacion(pMapEMP);
             pPAut.setAutorizacion(pMapPAUT);
 
+            em.persist(pEmp);
+            em.persist(pPAut);
+
 		
 		
 		em.getTransaction().commit();
