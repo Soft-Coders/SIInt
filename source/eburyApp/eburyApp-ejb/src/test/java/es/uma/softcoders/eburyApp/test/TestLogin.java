@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.ejb.GestionLogin;
 import es.uma.softcoders.eburyApp.ejb.LoginEJB;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
@@ -35,7 +36,20 @@ public class TestLogin {
 //		BaseDatosLogin.dropBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 //	}
 	
+	/**Este test se encarga de comprobar que el login proveido para usuarios <b>administrativos</b> sean capaces de realizar las operaciones indicadas.
+	 * Tanto en casos válidos, que opere de la manera esperada; como en casos inválidos, que los reconozca y reaccione en consecuencia.
+	 * Este test contempla los siguientes casos:
+	 * <ul>
+	 * <li>Login de un usuario inexistente</li>
+	 * <li>Login de un usuario no administrativo</li>
+	 * <li>Login con clave incorrecta</li>
+	 * <li>Login con usuario administrativo y clave correcta (caso ideal)</li>
+	 * </ul>
+	 * 
+	 * @author Ignacio Lopezosa
+	 * */
 	@Test
+	@Requisitos({"RF1"})
 	public void testLoginAdmin() {
 		
 		
@@ -74,7 +88,19 @@ public class TestLogin {
 		}
 	}
 	
+	/**Este test se encarga de comprobar que el login proveido para usuarios <b>clientes y autorizados</b> sean capaces de realizar las operaciones indicadas.
+	 * Tanto en casos válidos, que opere de la manera esperada; como en casos inválidos, que los reconozca y reaccione en consecuencia.
+	 * Este test contempla los siguientes casos:
+	 * <ul>
+	 * <li>Login de un usuario inexistente</li>
+	 * <li>Login con clave incorrecta</li>
+	 * <li>Login con usuario no administrativo y clave correcta (caso ideal)</li>
+	 * </ul>
+	 * 
+	 * @author Ignacio Lopezosa
+	 * */
 	@Test
+	@Requisitos({"RF10"})
 	public void testLoginUsuario() {
 		// Usuario no existente
 		try {

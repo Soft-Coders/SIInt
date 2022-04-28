@@ -12,6 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Pooled;
@@ -41,7 +42,22 @@ public class TestCuenta {
 //		BaseDatosCuenta.dropBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 //	}
 	
+	/**Este test se encarga de comprobar que la <b>creación</b> de <b>CuentasFintech</b> se lleve a cabo de la forma esperada.
+	 * Tanto en casos válidos, que opere de la manera esperada; como en casos inválidos, que los reconozca y reaccione en consecuencia.
+	 * Este test contempla los siguientes casos:
+	 * <ul>
+	 * <li>Creación de Cuenta ya existente</li>
+	 * <li>Creación de Cuenta con IBAN null</li>
+	 * <li>Creación de Cuenta con Cliente null</li>
+	 * <li>Creación de Cuenta con Cliente pre-existente</li>
+	 * <li>Creación de Cuenta Pooled ideal</li>
+	 * <li>Creación de Cuenta Segragada ideal</li>
+	 * </ul>
+	 * 
+	 * @author Ignacio Lopezosa
+	 * */
 	@Test
+	@Requisitos({"RF5"})
 	public void testCrearCuentaFintech() {
 		
 		final String CFPE = "cfPreExistente";
@@ -61,7 +77,7 @@ public class TestCuenta {
 			throw new RuntimeException(e);
 		}
 		
-		//Cuenta PreExistente
+		// Cuenta PreExistente
 		try {
 			cf.setIban(CFPE);
 			gestionCuenta.crearCuentaFintech(cf);
@@ -127,7 +143,7 @@ public class TestCuenta {
 		try {
 			gestionCuenta.crearCuentaFintech(cfIdealPooled);
 		}catch(Exception e) {
-			fail("No debería lanzar n excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
@@ -138,7 +154,20 @@ public class TestCuenta {
 		}
 	}
 	
+	/**Este test se encarga de comprobar que la <b>baja</b> de <b>CuentasFintech</b> se lleve a cabo de la forma esperada.
+	 * Tanto en casos válidos, que opere de la manera esperada; como en casos inválidos, que los reconozca y reaccione en consecuencia.
+	 * Este test contempla los siguientes casos:
+	 * <ul>
+	 * <li>Cerrar Cuenta no existente</li>
+	 * <li>Cerrar Cuenta ya cerrada</li>
+	 * <li>Cerrar una Cuenta Pooled Ideal (Activa y existente)</li>
+	 * <li>Cerrar una Cuenta Segregada Ideal (Activa y existente)</li>
+	 * </ul>
+	 * 
+	 * @author Ignacio Lopezosa
+	 * */
 	@Test
+	@Requisitos({"RF9"})
 	public void testCerrarCuentaFintech() {
 
 		final String CFCI = "cfCuentaInactiva";
