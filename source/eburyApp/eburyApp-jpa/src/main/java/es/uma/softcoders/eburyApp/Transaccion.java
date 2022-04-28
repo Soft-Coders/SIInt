@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -75,20 +76,20 @@ public class Transaccion implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="DIVISA_RECEPTOR_FK", nullable=false)
 	private Divisa divisaReceptor;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="DIVISA_EMISOR_FK", nullable=false)
 	private Divisa divisaEmisor;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ORIGEN_FK", nullable = false)
 	private Cuenta origen;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "DESTINO_FK", nullable = false)
 	private Cuenta destino;
 
