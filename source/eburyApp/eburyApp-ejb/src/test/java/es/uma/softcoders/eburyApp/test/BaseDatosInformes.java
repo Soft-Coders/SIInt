@@ -63,9 +63,11 @@ public class BaseDatosInformes {
             Empresa pEmp = new Empresa("RazSocial");
             List<CuentaFintech> pCuentasEmp = new ArrayList<CuentaFintech>();
             PersonaAutorizada pPAut = new PersonaAutorizada("Ident","Nacho", "Lopezosa", "54");
+            //CUENTA INACTIVA
             Divisa pDiv2 = new Divisa("EUR", "euro", '€', (long)1);
             CuentaReferencia pRef2 = new CuentaReferencia("Imagin", (long)40000, pDiv2);
             Segregada pSeg2 = new Segregada("30",pRef2);
+            //RELACION CON PERSONA AUTORIZADA
             Map<PersonaAutorizada,Character> pMapEMP = new HashMap<>();
             Map<Empresa,Character> pMapPAUT = new HashMap<>();
 
