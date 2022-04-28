@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -27,7 +28,7 @@ public class BaseDatosInformes {
 		em.getTransaction().begin();
 		
 
-            Date pDay = new Date(2017,06,23);
+            Date pDay = new Date(117,6,23);
             Individual pInd = new Individual("Pep", "Doe");
             Divisa pDiv = new Divisa("GBP", "libras", '£', (long)0.94);
             CuentaReferencia pRef = new CuentaReferencia("CaixaBank", (long)40000, pDiv);
@@ -35,6 +36,7 @@ public class BaseDatosInformes {
             List<CuentaFintech> pCuentas = new ArrayList<CuentaFintech>();
             em.persist(pInd);
             // Setters
+            pRef.setSegregada(pSeg);
             pInd.setIdentificacion("Ide");
             pInd.setTipo_cliente("INDIVIDUAL");
             pInd.setEstado("ACTIVO");
