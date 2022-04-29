@@ -4,7 +4,6 @@ import static org.junit.Assert.fail;
 
 import javax.naming.NamingException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,8 +20,8 @@ public class TestLogin {
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
 	private GestionLogin gestionLogin;
-	private final String uNoAdmin = "noadmin";
-	private final String uAdmin   = "admin";
+	private final String uNoAdmin = "noadmin-22";
+	private final String uAdmin   = "admin-22";
 	
 	
 	@Before

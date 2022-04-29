@@ -2,10 +2,13 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
+<<<<<<< HEAD
 import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Logger;
 
+=======
+>>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 import javax.naming.NamingException;
 
 import org.junit.Before;
@@ -13,12 +16,10 @@ import org.junit.Test;
 
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
-import es.uma.softcoders.eburyApp.Transaccion;
 import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
 import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
-import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public class TestTransacciones {
 	private static final String TRANSACCION_EJB = "java:global/classes/TransaccionEJB";

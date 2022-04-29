@@ -14,8 +14,13 @@ public class BaseDatosLogin {
 		em.getTransaction().begin();
 			
 		//----LoginEJB
+<<<<<<< HEAD
 		//Usuario uNoAdmin = new Usuario("noadmin", "noadmin", false);
 		//Usuario uAdmin = new Usuario("admin", "admin", true);
+=======
+		Usuario uNoAdmin = new Usuario("noadmin-0022", "noadmin", false);
+		Usuario uAdmin = new Usuario("admin-0122", "admin", true);
+>>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 		
 		
 		/*for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})

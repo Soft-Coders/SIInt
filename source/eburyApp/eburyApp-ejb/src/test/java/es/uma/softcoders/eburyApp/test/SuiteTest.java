@@ -1,7 +1,6 @@
 package es.uma.softcoders.eburyApp.test;
 
 import java.util.Properties;
-import java.util.logging.Logger;
 
 import javax.ejb.embeddable.EJBContainer;
 import javax.naming.Context;
@@ -11,8 +10,6 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
-
-import es.uma.softcoders.eburyApp.test.TestTransacciones;
 
 @RunWith(Suite.class)
 @SuiteClasses({TestTransacciones.class})
