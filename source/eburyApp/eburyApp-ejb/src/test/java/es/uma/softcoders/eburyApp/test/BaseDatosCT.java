@@ -1,5 +1,6 @@
 package es.uma.softcoders.eburyApp.test;
 
+import java.sql.Date;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,6 +13,7 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Transaccion;
 
 public class BaseDatosCT {
@@ -22,18 +24,23 @@ public class BaseDatosCT {
 		
 		em.getTransaction().begin();
 		
-		//Variables auxiliares
-		Date fAuxiliar = new Date(1,30,1989);
-		
 		//Divisas
-		Divisa dLibra = new Divisa("GBP", "libras", '£', (long)1.18);
+		Divisa dLibra = new Divisa("GBP", "libras", '�', (long)1.18);
+		Divisa dDolar = new Divisa("GBP", "libras", '�', (long)0.94);
+		Divisa dEuro = new Divisa("EUR", "euros", '�', (long)1);
 		em.persist(dLibra);
-		Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
+		em.persist(dDolar);
 		em.persist(dEuro);
-		
+
+		//Cuenta Segregada
+		Segregada sPrueba = new Segregada();		
 		//Cuenta Referencia
+<<<<<<< HEAD
+		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, Date.valueOf("1987-04-11"), "ACTIVA", null, dLibra);
+=======
 		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, fAuxiliar, "ACTIVA", null, dEuro);
 		crPrueba.setIban("EresMuyTonto");
+>>>>>>> 877ee0a5f16d8d18b6508e1848ff86347a28057d
 		em.persist(crPrueba);
 		
 		//Relación Cuentas Referencia, Pooled
