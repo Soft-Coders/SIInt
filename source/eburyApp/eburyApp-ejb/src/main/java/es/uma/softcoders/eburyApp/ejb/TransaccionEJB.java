@@ -4,18 +4,16 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Logger;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Transaccion;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.SaldoInsuficienteException;
 
 @Stateless
@@ -26,8 +24,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	
 	@Override
 	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) 
-	throws CuentaNoExistenteException, DivisaInexistenteException {
-		// TODO 
+	throws EburyAppException { 
 		Pooled cp = em.find(Pooled.class, cuentaPool);  //cp: Objeto de la cuenta Pooled
 		
 		// Si no existe la cuenta se lanza una excepción
@@ -56,8 +53,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		} catch (SaldoInsuficienteException e) {
 			e.printStackTrace();
 		}
-		
-		
+			
 	}
 	
 	/**
@@ -110,6 +106,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
+
 		else{   // Si hay saldo suficiente se realiza la transacción
 			
 			// Primero: se actualiza el saldo total de las cuentaReferencias
@@ -131,6 +128,7 @@ public class TransaccionEJB implements GestionTransaccion{
 			listaCuentaReferencias.put(cdestino, (b + cantCambiada));
 	
 		}		
+
 	}
 	
 	/**

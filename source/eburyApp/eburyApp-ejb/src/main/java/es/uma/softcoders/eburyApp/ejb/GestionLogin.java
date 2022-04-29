@@ -1,3 +1,5 @@
+package es.uma.softcoders.eburyApp.ejb;
+
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoAdministrativoException;
