@@ -20,10 +20,11 @@ public class Usuario implements Serializable{
 		super();
 	}
 	
-	public Usuario(String usuario, String clave) throws NullPointerException{
+	public Usuario(String usuario, String clave, boolean esAdministrativo) throws NullPointerException{
 		
 		this.usuario = usuario;
 		this.clave = clave;
+		this.esAdministrativo = esAdministrativo;
 	}
 	
 	// --------- ATRIBUTOS ---------
@@ -38,10 +39,10 @@ public class Usuario implements Serializable{
 	@Column(nullable=false, unique=true)
 	private String clave;
 	
-	// --------- RELACIONES ---------
-	
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
 	private boolean esAdministrativo;
+
+	// --------- RELACIONES ---------
 	
 	@OneToOne(mappedBy="usuario", cascade = CascadeType.PERSIST)
 	private PersonaAutorizada personaAutorizada;
