@@ -8,7 +8,6 @@ import java.util.Date;
 
 import javax.naming.NamingException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,8 +27,7 @@ public class TestCuenta {
 	private static final String CUENTA_EJB = "java:global/classes/CuentaEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
-	private GestionCuenta gestionCuenta;
-	
+	private GestionCuenta gestionCuenta;	
 	
 	@Before
 	public void setup() throws NamingException  {
@@ -60,18 +58,18 @@ public class TestCuenta {
 	@Requisitos({"RF5"})
 	public void testCrearCuentaFintech() {
 		
-		final String CFPE = "cfPreExistente";
+		final String CFPE = "cfPreExistente-22";
 		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		CuentaFintech cf = new Segregada();
 		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
-		cliente.setID(Long.valueOf(1));
+		cliente.setID(Long.valueOf(0122));
 		try {
 			cf.setCliente(cliente);
 			cf.setEstado("ACTIVO");
 			cf.setFechaApertura(date.parse("2019-09-19"));
-			cf.setIBAN("cfIdeal");
+			cf.setIBAN("cfIdeal-22");
 			cf.setSwift("Swift");
 		}catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -101,7 +99,7 @@ public class TestCuenta {
 		
 		// Cliente null
 		try {
-			cf.setIBAN("cfIdeal");
+			cf.setIBAN("cfIdeal-22");
 			cf.setCliente(null);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
@@ -112,7 +110,7 @@ public class TestCuenta {
 		
 		// Cliente PreExistente
 		try {
-			cliente.setID(Long.valueOf(0));
+			cliente.setID(Long.valueOf(0022));
 			cf.setCliente(cliente);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
@@ -123,17 +121,18 @@ public class TestCuenta {
 		
 		CuentaFintech cfIdealPooled = new Pooled();
 		CuentaFintech cfIdealSegregada = new Segregada();
+		cliente.setID(Long.valueOf(0122));
 		try {
 			cfIdealPooled.setCliente(cliente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealPooled.setIBAN("cfIdealPooled-2");
+			cfIdealPooled.setIBAN("cfIdealPooled-2-22");
 			cfIdealPooled.setSwift("Swift");
 			
 			cfIdealSegregada.setCliente(cliente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealSegregada.setIBAN("cfIdealSegregada-2");
+			cfIdealSegregada.setIBAN("cfIdealSegregada-2-22");
 			cfIdealSegregada.setSwift("Swift");
 		}catch(ParseException e) {
 			throw new RuntimeException(e);
@@ -170,13 +169,13 @@ public class TestCuenta {
 	@Requisitos({"RF9"})
 	public void testCerrarCuentaFintech() {
 
-		final String CFCI = "cfCuentaInactiva";
-		final String CFIP = "cfIdealPooled";
-		final String CFIS = "cfIdealSegregada";
+		final String CFCI = "cfCuentaInactiva-22";
+		final String CFIP = "cfIdealPooled-22";
+		final String CFIS = "cfIdealSegregada-22";
 		
 		// Cuenta no existente
 		try {
-			gestionCuenta.cerrarCuentaFintech("IBANRandomQueNoExisteEnLaBD");
+			gestionCuenta.cerrarCuentaFintech("IBANRandomQueNoExisteEnLaBD-22");
 		} catch(CuentaNoExistenteException e) {
 			//OK
 		} catch(Exception e) {

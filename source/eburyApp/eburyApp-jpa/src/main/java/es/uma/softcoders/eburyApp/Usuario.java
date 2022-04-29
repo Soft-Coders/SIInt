@@ -36,7 +36,7 @@ public class Usuario implements Serializable{
 	@Column(nullable=false, unique=true)
 	private String usuario;
 	
-	@Column(nullable=false, unique=true)
+	@Column(nullable=false)
 	private String clave;
 	
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
