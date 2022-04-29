@@ -236,6 +236,7 @@ public class TestInformes {
             gestionInformes.testInformeAlemaniaInicio(path);
             File csvData = new File(path);
             CSVParser parser = CSVParser.parse(csvData,CSVFormat.DEFAULT);
+            // ESTE FOR EACH ES PARA LA SEGUNDA PRUEBA
             for(CSVRecord csvRecord : parser){
                 csvRecord.get("ATRIBUTO DEL HEADER QUE QUIERES DEL RECORD");
             }
