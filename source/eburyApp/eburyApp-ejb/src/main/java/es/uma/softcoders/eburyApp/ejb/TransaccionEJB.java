@@ -126,9 +126,8 @@ public class TransaccionEJB implements GestionTransaccion{
 			listaCuentaReferencias.put(corigen, (a - cant));
 			b = listaCuentaReferencias.get(cdestino);  // reutilizamos la variable auxiliar
 			listaCuentaReferencias.put(cdestino, (b + cantCambiada));
-	
-		}		
 
+		}		
 	}
 	
 	/**
