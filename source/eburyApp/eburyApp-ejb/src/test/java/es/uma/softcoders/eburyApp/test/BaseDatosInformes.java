@@ -21,7 +21,8 @@ import es.uma.softcoders.eburyApp.Segregada;
 
 public class BaseDatosInformes {
 
-    public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
+      
+      public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
 		
