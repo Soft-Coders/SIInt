@@ -12,6 +12,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import es.uma.softcoders.eburyApp.test.TestTransacciones;
+
 @RunWith(Suite.class)
 @SuiteClasses({TestTransacciones.class, TestInformes.class, TestCuenta.class, TestLogin.class})
 public class SuiteTest {

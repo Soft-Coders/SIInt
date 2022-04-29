@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.omg.PortableInterceptor.SUCCESSFUL;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
@@ -33,8 +34,6 @@ public class TestInformes {
         BaseDatosInformes.inicializaBaseDatos(UNIDAD_PERSISTENCIA_PRUEBAS);
     }
 
-    @Test
-    @Requisitos({RF11})
     /**
      * Este test comprueba el metodo testInformeHolanda() mediante la creación de un JSONObject -> String para los siguientes casos:
      *      1. Query o petición de un cliente individual de forma correcta, devolverá:
@@ -53,7 +52,11 @@ public class TestInformes {
      *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
      *      6. Query o petición de cuentas de forma INCORRECTA, devolverá:
      *          - InvalidJSONQueryException (Éxito).
+     *          
+     * @author Jesús Cestino
      */
+    @Test
+    @Requisitos({"RF11"})
     public void testInformeHolanda(){
             
             // Prueba de query para Cliente / query Customer
@@ -213,14 +216,14 @@ public class TestInformes {
     }
 
     @Test 
-    @Requisitos({RF12})
+    @Requisitos({"RF12"})
     public void testInformeAlemaniaInicio(){
 
     }
 
 
     @Test
-    @Requisitos({RF12})
+    @Requisitos({"RF12"})
     public void testInformeAlemaniaPeriodico(){
 
     }
