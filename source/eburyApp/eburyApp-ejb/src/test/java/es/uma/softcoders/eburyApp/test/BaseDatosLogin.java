@@ -14,17 +14,18 @@ public class BaseDatosLogin {
 		em.getTransaction().begin();
 			
 		//----LoginEJB
-		Usuario uNoAdmin = new Usuario("noadmin", "noadmin", false);
-		Usuario uAdmin = new Usuario("admin", "admin", true);
+		//Usuario uNoAdmin = new Usuario("noadmin", "noadmin", false);
+		//Usuario uAdmin = new Usuario("admin", "admin", true);
 		
 		
-		for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})
+		/*for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})
 			em.persist(u);
 		
 		em.getTransaction().commit();
 		
 		em.close();
 		emf.close();
+		*/
 	}
 	
 //	public static void dropBaseDatos(String nombreUnidadPersistencia) {

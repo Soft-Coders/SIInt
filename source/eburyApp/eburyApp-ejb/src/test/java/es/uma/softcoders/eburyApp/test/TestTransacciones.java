@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -27,7 +28,7 @@ public class TestTransacciones {
 	
 	
 	@Before
-	public void setup() throws NamingException  {
+	public void setup() throws NamingException, ParseException  {
 		gestionTransaccion = (GestionTransaccion) new TransaccionEJB();
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}

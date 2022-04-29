@@ -24,13 +24,13 @@ public class BaseDatosCuenta {
 			
 			//----CuentaEJB
 			CuentaFintech cfPreExistente = new CuentaFintech("ACTIVO", date.parse("2011-11-11"));
-			cfPreExistente.setIBAN("cfPreExistente");
+			cfPreExistente.setIban("cfPreExistente");
 			
 			Cliente cClienteExistente = new Cliente("0000", "tipo", "ACTIVO", date.parse("2020-02-22"), "Calle calle, 1", "ciudad", "29620", "pais");
 			cClienteExistente.setID(Long.valueOf(0));
 			
 			CuentaFintech cfCuentaInactiva = new Segregada();
-			cfCuentaInactiva.setIBAN("cfCuentaInactiva");
+			cfCuentaInactiva.setIban("cfCuentaInactiva");
 			cfCuentaInactiva.setCliente(cClienteExistente);
 			cfCuentaInactiva.setEstado("INACTIVO");
 			cfCuentaInactiva.setFechaApertura(date.parse("2021-12-12"));
@@ -41,14 +41,14 @@ public class BaseDatosCuenta {
 			cfIdealPooled.setCliente(cClienteExistente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealPooled.setIBAN("cfIdealPooled");
+			cfIdealPooled.setIban("cfIdealPooled");
 			cfIdealPooled.setSwift("Swift");
 			
 			CuentaFintech cfIdealSegregada = new Segregada();
 			cfIdealSegregada.setCliente(cClienteExistente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealSegregada.setIBAN("cfIdealSegregada");
+			cfIdealSegregada.setIban("cfIdealSegregada");
 			cfIdealSegregada.setSwift("Swift");
 			
 	//		em.persist(cClienteExistente);
