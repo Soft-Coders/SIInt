@@ -27,9 +27,9 @@ public interface GestionCuenta {
 	 * no se realizará ningún cambio.
 	 * 
 	 * @param cuentafin IBAN de la Cuenta
-	 * @throws CuentaNoExistenteException 
+	 * @throws EburyAppException  
 	 * @author Marta Maleno Escudero
 	 *  */
-	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException;
+	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException, EburyAppException;
 	
 }
