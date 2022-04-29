@@ -4,6 +4,7 @@ esquema.ddl
 
 # Eclipse specific files/directories
 source/eburyApp/eburyApp-jpa/.classpath
+source/eburyApp/eburyApp-ejb/.classpath
 .project
 .settings
 .metadata
