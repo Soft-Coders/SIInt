@@ -52,8 +52,10 @@ public class BaseDatosAutorizado {
 		
 		Individual in1 = new Individual("Manuel", "González");
 		Individual in2 = new Individual("Lucía", "Ferre");
-		Individual in3 = new Individual();
-		Individual in4 = new Individual();
+		Individual in3 = new Individual("Pedro", "Piqueras");
+		Individual in4 = new Individual("Jacinto", "Benavente");
+
+		
 		
 		for (Individual individual: new Individual [] {in1, in2, in3, in4}) {
 			em.persist(individual);
