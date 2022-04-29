@@ -7,6 +7,10 @@ import java.util.Map;
 
 import javax.naming.NamingException;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVParser;
+
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.json.simple.parser.ParseException;
@@ -36,22 +40,30 @@ public class TestInformes {
 
     /**
      * Este test comprueba el metodo testInformeHolanda() mediante la creación de un JSONObject -> String para los siguientes casos:
-     *      1. Query o petición de un cliente individual de forma correcta, devolverá:
-     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
-     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
-     *      2. Query o petición de un cliente individual de forma INCORRECTA, hace catch de:
-     *          - InvalidJSONQueryException (Éxito).
-     *      3. Query o petición de un cliente empresa de forma correcta, devolverá:
-     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
-     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
-     *      4. Query o petición de cuentas activas, devolverá:
-     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
-     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
-     *      5. Query o petición de cuentas inactivas, devolverá:
-     *          - NullPointerException si la lista de cuentas está vacía (Fallo).
-     *          - InvalidJSONQueryException si la query es incorrecta (Fallo).
-     *      6. Query o petición de cuentas de forma INCORRECTA, devolverá:
-     *          - InvalidJSONQueryException (Éxito).
+     *      <ul>
+     *      <li>Query o petición de un cliente individual de forma correcta, devolverá:
+     *      <ul>
+     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).</li>
+     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo). </li></ul></li>
+     *      <li>Query o petición de un cliente individual de forma INCORRECTA, hace catch de:
+     *      <ul>
+     *      <li>- InvalidJSONQueryException (Éxito).</li></ul></li>
+     *      
+     *      <li>Query o petición de un cliente empresa de forma correcta, devolverá:
+     *      <ul>
+     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).</li>
+     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>Query o petición de cuentas activas, devolverá:
+     *      <ul>
+     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).
+     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>Query o petición de cuentas inactivas, devolverá:
+     *      <ul>
+     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).
+     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>Query o petición de cuentas de forma INCORRECTA, devolverá:
+     *      <ul>
+     *      <li>- InvalidJSONQueryException (Éxito). </li></ul></li></ul>
      *          
      * @author Jesús Cestino
      */
@@ -218,6 +230,19 @@ public class TestInformes {
     @Test 
     @Requisitos({"RF12"})
     public void testInformeAlemaniaInicio(){
+        String path = "C:\\";
+        try {
+            BaseDatosInformes.setCuentas1();
+            gestionInformes.testInformeAlemaniaInicio(path);
+            File csvData = new File(path);
+            CSVParser parser = CSVParser.parse(csvData,CSVFormat.DEFAULT);
+            for(CSVRecord csvRecord : parser){
+                csvRecord.get("ATRIBUTO DEL HEADER QUE QUIERES DEL RECORD");
+            }
+
+        }catch(IllegalArgumentException|FailedInitialCSVException e){
+            fail("No debería dar error");
+        }
 
     }
 
