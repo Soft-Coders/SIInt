@@ -34,8 +34,8 @@ public class BaseDatosAutorizado {
 		
 		Cliente cl1 = new Cliente();
 		Cliente cl2 = new Cliente();
-		Cliente cl3 = new Cliente("ignacioLop", "Individual", "Activo", new Date(), "Calle dnjisak, 33", "Málaga", 29011, "España");
-		Cliente cl4 = new Cliente("jesusCest", "Individual", "Activo", new Date(), "Calle ahnskc, 90", "Málaga", 29004, "España");
+		Cliente cl3 = new Cliente("ignacioLop", "Individual", "Activo", new Date(), "Calle dnjisak, 33", "Málaga", "29011", "España");
+		Cliente cl4 = new Cliente("jesusCest", "Individual", "Activo", new Date(), "Calle ahnskc, 90", "Málaga", "29004", "España");
 		
 		for (Cliente cliente: new Cliente [] {cl1, cl2, cl3, cl4}) {
 			em.persist(cliente);
