@@ -156,28 +156,29 @@ public class TestCliente {
 		//Una vez cambiado el test sería así
 		
 		try {
-    		gestionCliente.comprobarCliente("pepesado34");
+    		gestionCliente.comprobarCliente(Long.valueOf(34));
     	}catch(Exception e) {
     		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
     	}
 		
 		try {
-			gestionCliente.comprobarAutorizado("admin37");
+			gestionCliente.comprobarAutorizado(Long.valueOf(37));
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		try {
-			gestionCliente.comprobarAutorizado("pepesado34");
+			gestionCliente.comprobarAutorizado(Long.valueOf(34));
 			fail("Debería de lanzar excepción");
 		}catch(Exception e) {
 			//Ok
 		}
 		
 		try {
-			gestionCliente.comprobarCliente("admin");
-		}catch(Exception e) {
+			gestionCliente.comprobarCliente(Long.valueOf(38));
 			fail("Debería de lanzar excepción");
+		}catch(Exception e) {
+			//Ok
 		}
 		
 		

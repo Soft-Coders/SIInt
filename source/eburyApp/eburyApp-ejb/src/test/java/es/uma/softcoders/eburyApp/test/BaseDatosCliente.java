@@ -31,9 +31,13 @@ public class BaseDatosCliente {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			
 			Cliente c1 = new Cliente("1111", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
+			c1.setID(Long.valueOf(1111));
 			Cliente c2 = new Cliente("2222", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
+			c1.setID(Long.valueOf(2222));
 			Cliente c3 = new Cliente("3333", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
+			c1.setID(Long.valueOf(3333));
 			Cliente c4 = new Cliente("4444", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
+			c1.setID(Long.valueOf(4444));
 			
 			em.persist(c1);
 			em.persist(c2);
@@ -53,6 +57,7 @@ public class BaseDatosCliente {
 			e1.setRazonSocial("razon");
 			
 			Usuario u1 = new Usuario();
+			u1.setId(Long.valueOf(37));
 			u1.setClave("1234");
 			u1.setUsuario("admin37");
 			u1.setEsAdministrativo(true);
@@ -71,6 +76,7 @@ public class BaseDatosCliente {
 			i1.setUsuario(u1);
 			
 			Usuario u2 = new Usuario();
+			u2.setId(Long.valueOf(34));
 			u2.setClave("1234");
 			u2.setUsuario("pepesado34");
 			u2.setEsAdministrativo(false);

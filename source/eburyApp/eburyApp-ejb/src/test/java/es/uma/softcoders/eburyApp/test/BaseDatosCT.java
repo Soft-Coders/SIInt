@@ -84,7 +84,7 @@ public class BaseDatosCT {
 		SimpleDateFormat p = new SimpleDateFormat("yyyy-mm-dd");
 
 
-		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", 1000.0, p.parse("1989-04-30"), "ACTIVA", sPrueba, dEuro);
+		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", Long.valueOf(1000), p.parse("1989-04-30"), "ACTIVA", sPrueba, dEuro);
 		crPrueba.setIban("EresMuyTonto");
 		em.persist(crPrueba);
 		
