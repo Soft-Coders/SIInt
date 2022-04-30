@@ -14,7 +14,6 @@ public class BaseDatosLogin {
 		
 		em.getTransaction().begin();
 		
-			
 		//----LoginEJB
 		Usuario uNoAdmin = new Usuario("noadmin-0022", "noadmin", false);
 		Usuario uAdmin = new Usuario("admin-0122", "admin", true);
