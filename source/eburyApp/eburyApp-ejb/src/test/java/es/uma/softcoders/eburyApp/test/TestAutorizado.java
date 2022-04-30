@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.naming.NamingException;
@@ -30,7 +31,6 @@ public class TestAutorizado {
 	
 	@Before
 	public void setup() throws NamingException{
-		//gestionAutorizado = (GestionAutorizado) SuiteTest.ctx.lookup(AUTORIZADO_EJB);
 		gestionAutorizado = (GestionAutorizado) new AutorizadoEJB();
 		BaseDatosAutorizado.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
@@ -80,19 +80,14 @@ public class TestAutorizado {
 			assertNotNull(em2.getAutorizacion());
 			assertNotNull(em4.getAutorizacion());
 		} catch (EmpresaNoEncontradaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PersonaAutorizadaExistenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CuentaNoCoincidenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EmpresaExistenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UsuarioNoVinculadoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -125,22 +120,16 @@ public class TestAutorizado {
 			gestionAutorizado.agregarAutorizado(pa2, em2.getID().toString(), 'L');
 			gestionAutorizado.eliminarAutorizado(pa2.getId().toString(), em2.getID().toString());
 		} catch (EmpresaNoEncontradaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PersonaAutorizadaExistenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (CuentaNoCoincidenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EmpresaExistenteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (UsuarioNoVinculadoException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (PersonaAutorizadaNoEncontradaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -153,7 +142,6 @@ public class TestAutorizado {
 			gestionAutorizado.bajaAutorizado(pa2.getId().toString());
 			assertEquals(pa2.getEstado(), "INACTIVO");
 		} catch (PersonaAutorizadaNoEncontradaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -165,15 +153,17 @@ public class TestAutorizado {
 		PersonaAutorizada paaux = new PersonaAutorizada("ABCDEFG1237", null , null, "Calle calle, 37");
 		PersonaAutorizada paaux0 = new PersonaAutorizada("ABCDEFG1237", "Pedro" , null, null);
 		PersonaAutorizada paaux1 = new PersonaAutorizada("ABCDEFG1237", null , "Fernández", null);
+		PersonaAutorizada paaux2 = new PersonaAutorizada("ABCDEFG1237", null , null , null, "ACTIVO", null, null, null);
 		try {
 			gestionAutorizado.modificarAutorizado(paaux, pa2.getId().toString());
 			assertEquals(pa2.getDireccion(), paaux.getDireccion());
 			gestionAutorizado.modificarAutorizado(paaux0, pa2.getId().toString());
-			assertEquals(pa2.getNombre(), paaux.getNombre());
+			assertEquals(pa2.getNombre(), paaux0.getNombre());
 			gestionAutorizado.modificarAutorizado(paaux1, pa2.getId().toString());
-			assertEquals(pa2.getApellidos(), paaux.getApellidos());
+			assertEquals(pa2.getApellidos(), paaux1.getApellidos());
+			gestionAutorizado.modificarAutorizado(paaux2, pa2.getId().toString());
+			assertEquals(pa2.getApellidos(), paaux2.getEstado());
 		} catch (PersonaAutorizadaNoEncontradaException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
