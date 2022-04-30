@@ -2,29 +2,24 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
-import java.io.File;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.Reader;
 import java.util.List;
-import java.util.Map;
 
 import javax.naming.NamingException;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.csv.CSVParser;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.CORBA.DynAnyPackage.Invalid;
-import org.omg.PortableInterceptor.SUCCESSFUL;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.softcoders.eburyApp.Empresa;
-import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
 import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
@@ -257,68 +252,88 @@ public class TestInformes {
     @Test 
     @Requisitos({"RF12"})
     public void testInformeAlemaniaInicio(){
-        String path = "C:\\";
+        String path = ".";
         try {
             BaseDatosInformes.setCuentas1();
             gestionInformes.informeAlemaniaInicio(path);
-            File csvData = new File(path);
-            CSVParser parser = CSVParser.parse(csvData,CSVFormat.DEFAULT);
-            // ESTE FOR EACH ES PARA LA SEGUNDA PRUEBA
-            int cont = 0;
-            for(CSVRecord csvRecord : parser){
-                cont++;
-            }
-            if(cont > 4){
-                fail("Hay más lineas de las que debería");
-            }
-        }catch(IllegalArgumentException|FailedInitialCSVException e){
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            int cont = 0;
+				for (CSVRecord record : records) {
+	                cont++;
+				}
+	            if(cont != 4){
+	                fail("No hay las líneas que debería");
+	            }
+            }catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+            
+        }catch(FailedInitialCSVException e){
             fail("No debería dar error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
         }
 
         try {
             String temp;
             BaseDatosInformes.setCuentas2();
             gestionInformes.informeAlemaniaInicio(path);
-            File csvData = new File(path);
-            CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
-            for(CSVRecord csvRecord : parser){
-                if(csvRecord.isMapped("IBAN")){
-                    temp = csvRecord.get("IBAN");
-                    if(temp == "45"){
-                        fail("Debería haber saltado excepción");
-                    }
-                }
-            }
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            for(CSVRecord csvRecord : records){
+	                if(csvRecord.isMapped("IBAN")){
+	                    temp = csvRecord.get("IBAN");
+	                    if(temp == "45"){
+	                        fail("Debería haber saltado excepción");
+	                    }
+	                }
+	            }
+            }catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}
         }catch(FailedInitialCSVException e){
             //Success
         }catch(IllegalArgumentException e){
             fail("No debería dar este error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
         }
 
         try {
             int cont = 0;
             BaseDatosInformes.setCuentas3();
             gestionInformes.informeAlemaniaInicio(path);
-            File csvData = new File(path);
-            CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
-            for(CSVRecord csvRecord : parser){
-                if(csvRecord.isMapped("Date_Of_Birth")){
-                    String temp = csvRecord.get("Date_Of_Birth");
-                    if(temp=="noexistente"){
-                        cont++;
-                    }
-                    if(cont != 1){
-                        fail("Debería haber un \"noexistente\" en el CSV");
-                    }
-                }
-            }
-
-        }catch(IllegalArgumentException e){
-            fail("No debería dar este error");
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            for(CSVRecord csvRecord : records){
+	                if(csvRecord.isMapped("Date_Of_Birth")){
+	                    String temp = csvRecord.get("Date_Of_Birth");
+	                    if(temp=="noexistente"){
+	                        cont++;
+	                    }
+	                    if(cont != 1){
+	                        fail("Debería haber un \"noexistente\" en el CSV");
+	                    }
+	                }
+	            }
+			}catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}	
         }catch(FailedInitialCSVException e){
             fail("No debería dar este error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
         }
-
     }
 
 

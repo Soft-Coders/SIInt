@@ -10,6 +10,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
@@ -20,7 +21,7 @@ import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Segregada;
 
 public class BaseDatosInformes {
-
+	  private static String nombreUnidadPersistencia;
       public static void setCuentas1(){
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
@@ -83,7 +84,7 @@ public class BaseDatosInformes {
 
             cS1.setCliente(c1);
             cS2.setCliente(c1);
-            cs3.setCliente(c1);
+            cS3.setCliente(c1);
             //Setters segregadas
 
 
@@ -101,7 +102,7 @@ public class BaseDatosInformes {
             em.persist(cS3);
             //Persist
 
-            em.getTransaction.commit();
+            em.getTransaction().commit();
             em.close();
             emf.close();
 
@@ -116,7 +117,7 @@ public class BaseDatosInformes {
             segregadaEntity.setIban("45");
             em.persist(segregadaEntity);
 
-            em.getTransaction.commit();
+            em.getTransaction().commit();
             em.close();
             emf.close();
       }
@@ -127,18 +128,19 @@ public class BaseDatosInformes {
 
             Segregada segregadaEntity = em.find(Segregada.class,"45");
             Individual individualEntity = em.find(Individual.class,(long)555555);
-            individual.setFechaNacimiento(null);
+            individualEntity.setFechaNacimiento(null);
             segregadaEntity.setIban("ES1602091417-55");
             em.persist(individualEntity);
             em.persist(segregadaEntity);
 
-            em.getTransaction.commit();
+            em.getTransaction().commit();
             em.close();
             emf.close();
       }
 
       
       public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
+        BaseDatosInformes.nombreUnidadPersistencia = nombreUnidadPersistencia;
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
 		

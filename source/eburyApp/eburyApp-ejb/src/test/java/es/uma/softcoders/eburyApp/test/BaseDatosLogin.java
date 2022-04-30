@@ -3,6 +3,7 @@ package es.uma.softcoders.eburyApp.test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Usuario;
 
@@ -12,6 +13,7 @@ public class BaseDatosLogin {
 		EntityManager em = emf.createEntityManager();
 		
 		em.getTransaction().begin();
+		
 			
 		//----LoginEJB
 		Usuario uNoAdmin = new Usuario("noadmin-0022", "noadmin", false);
