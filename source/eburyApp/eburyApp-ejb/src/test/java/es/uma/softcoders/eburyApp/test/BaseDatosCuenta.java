@@ -68,7 +68,7 @@ public class BaseDatosCuenta {
 			
 	//		em.persist(cClienteExistente);
 			
-			for(CuentaFintech cf : new CuentaFintech [] {cfPreExistente, cfCuentaInactiva})
+			for(CuentaFintech cf : new CuentaFintech [] {cfPreExistente, cfCuentaInactiva, cfIdealSegregada, cfIdealPooled})
 				em.persist(cf);
 			
 		}catch(ParseException e) {

@@ -49,15 +49,15 @@ public class InformesEJB implements GestionInformes{
 		List<Object> results;
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
-			JSONObject jsonObj = (JSONObject) jsonFile;
+			JSONObject jsonObj = (JSONObject) jsonFile;				
+			if (jsonObj == null)
+				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
 			
 			// Buscar "searchParameters"
 			Object searchParameters = jsonObj.get("searchParameters");
 			if(searchParameters == null)
-				throw new InvalidJSONQueryException("searchParameters NOT FOUND");
-			String spStr     = (String) searchParameters;			// Get String
-			Object spFile    = JSONValue.parseWithException(spStr);	// Parse to JSONObject
-			JSONObject spObj = (JSONObject) spFile;					// Cast into JSONObject
+				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
+			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
 			
 			// Buscar "questionType"
 			String questionType = (String) spObj.get("questionType");
@@ -80,7 +80,7 @@ public class InformesEJB implements GestionInformes{
 		}catch(ParseException e) {
 			throw new InvalidJSONQueryException("json COULD NOT BE PARSED PROPERLY"); // Properly
 		}catch(Exception e) {
-			throw new InvalidJSONQueryException("json ERROR");
+			throw new InvalidJSONQueryException("json ERROR " + e.getMessage());
 		}
 		
 		return results;
@@ -133,7 +133,7 @@ public class InformesEJB implements GestionInformes{
 		}catch(IllegalArgumentException e) {
 			throw new InvalidJSONQueryException("product final query NOT VALID FORMAT");
 		}catch(Exception e) {
-			throw new InvalidJSONQueryException("product ERROR");
+			throw new InvalidJSONQueryException("product ERROR " + e.getMessage());
 		}
 		
 		return results;
@@ -156,23 +156,19 @@ public class InformesEJB implements GestionInformes{
 			int queryLength    = hql.length();
 			String startPeriod = (String) spObj.get("startPeriod");
 			String endPeriod   = (String) spObj.get("endPeriod");
-			String nameStr     = (String) spObj.get("name");				// Get String
+			JSONObject name    = (JSONObject) spObj.get("name");					// Cast into JSONObject				
 			String firstName   = null;
 			String lastName    = null;
-			if(nameStr != null) {
-				Object nameFile    = JSONValue.parseWithException(nameStr);	// Parse to JSONObject
-				JSONObject name    = (JSONObject) nameFile;					// Cast into JSONObject				
+			if(name != null) {
 				firstName   = (String) name.get("fisrtName");	
 				lastName    = (String) name.get("lastName");
 			}
-			String addressStr  = (String) spObj.get("address");				// Get String
+			JSONObject address = (JSONObject) spObj.get("address");				// Get String
 			String street      = null;	
 			String city        = null;
 			String postalCode  = null;
 			String country     = null;
-			if(addressStr != null) {
-				Object addressFile = JSONValue.parseWithException(addressStr);	// Parse to JSONObject
-				JSONObject address = (JSONObject) addressFile;					// Cast into JSONObject
+			if(address != null) {
 				street      = (String) address.get("street");	/* incluye calle y número */
 				city        = (String) address.get("city");
 				postalCode  = (String) address.get("postalCode");
@@ -186,7 +182,7 @@ public class InformesEJB implements GestionInformes{
 					hql.concat(" AND ");
 				hql.concat("C.fechaBaja = :endPeriod");
 			}
-			if(nameStr != null) {
+			if(name != null) {
 				if(firstName != null) {
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
@@ -198,7 +194,7 @@ public class InformesEJB implements GestionInformes{
 					hql.concat("C.apellido = '" + lastName + "'");
 				}
 			}
-			if(addressStr != null) {
+			if(address != null) {
 				if(street != null) {
 					if(hql.length() > queryLength)
 						hql.concat(" AND ");
@@ -223,7 +219,12 @@ public class InformesEJB implements GestionInformes{
 				}
 			}
 			
+			if(em == null)
+				throw new NullPointerException("---El EntityManager es NULL---");
+			if(hql == null)
+				throw new NullPointerException("---El hql es NULL---");
 			query = em.createQuery(hql);
+			
 			if(startPeriod != null) {
 				try {
 					
@@ -264,14 +265,12 @@ public class InformesEJB implements GestionInformes{
 					throw new InvalidJSONQueryException("endPeriod NOT VALID");
 				}
 			}
-		}catch(ParseException e) {
-			throw new InvalidJSONQueryException("customer COULD NOT BE PARSED PROPERLY");
 		}catch(ClassCastException e) {
-			throw new InvalidJSONQueryException("customer COULD NOT BE CAST PROPERLY");
+			throw new InvalidJSONQueryException("customer COULD NOT BE CAST PROPERLY " + e.getMessage());
 		}catch(IllegalArgumentException e) {
 			throw new InvalidJSONQueryException("customer final query NOT VALID FORMAT");
 		}catch(Exception e) {
-			throw new InvalidJSONQueryException("customer ERROR");
+			throw new InvalidJSONQueryException("customer ERROR " + e.getMessage() + "-" + e.getClass() + " ->\n" + e.getStackTrace().toString());
 		}
 		@SuppressWarnings("unchecked")
 		List<Object> results = query.getResultList();

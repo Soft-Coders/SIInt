@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp.test;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Usuario;
 
@@ -16,7 +15,9 @@ public class BaseDatosLogin {
 		
 		//----LoginEJB
 		Usuario uNoAdmin = new Usuario("noadmin-0022", "noadmin", false);
+		uNoAdmin.setId(Long.valueOf(22));
 		Usuario uAdmin = new Usuario("admin-0122", "admin", true);
+		uAdmin.setId(Long.valueOf(122));
 		
 		
 		for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})

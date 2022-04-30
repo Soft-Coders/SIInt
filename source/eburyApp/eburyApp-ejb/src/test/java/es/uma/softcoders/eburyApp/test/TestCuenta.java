@@ -81,10 +81,8 @@ public class TestCuenta {
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch(CuentaExistenteException e) {
 			// OK
-		}catch (EburyAppException e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
 		}catch (Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-1: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Iban null
@@ -94,7 +92,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-2: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cliente null
@@ -105,7 +103,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-3: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cliente PreExistente
@@ -116,7 +114,7 @@ public class TestCuenta {
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-4: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		CuentaFintech cfIdealPooled = new Pooled();
@@ -142,14 +140,14 @@ public class TestCuenta {
 		try {
 			gestionCuenta.crearCuentaFintech(cfIdealPooled);
 		}catch(Exception e) {
-			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción-5: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
 		try {
 			gestionCuenta.crearCuentaFintech(cfIdealSegregada);
 		}catch(Exception e) {
-			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción-6: " + e.getMessage() + "-" + e.getClass());
 		}
 	}
 	
@@ -179,7 +177,7 @@ public class TestCuenta {
 		} catch(CuentaNoExistenteException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción" + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-1:" + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Inactiva
@@ -188,21 +186,21 @@ public class TestCuenta {
 		} catch(CuentaNoExistenteException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción" + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-2:" + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Pooled Ideal
 		try {
 			gestionCuenta.cerrarCuentaFintech(CFIP);
 		} catch(Exception e) {
-			fail("No debería lanzar ninguna excepción" + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción-3:" + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
 		try {
 			gestionCuenta.cerrarCuentaFintech(CFIS);
 		} catch(Exception e) {
-			fail("No debería lanzar ninguna excepción" + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción-4:" + e.getMessage() + "-" + e.getClass());
 		}
 	}
 	

@@ -78,32 +78,30 @@ public class TestInformes {
             name.put("firstName", "Pep");
             name.put("lastName", "Doe");
 
-            addr.put("Number", "54");
+            addr.put("street", "54");
             addr.put("postalCode", "7207KE");
             addr.put("country", "NL");
 
             sP.put("questionType", "Customer");
             sP.put("startPeriod", "2015-04-25");
             sP.put("endPeriod", "2020-04-25");
-            sP.put("adress", addr);
+            sP.put("address", addr);
             sP.put("name",name);
 
             json.put("searchParameters", sP);
             
             String query = JSONValue.toJSONString(json);
 
-
-
             try{
                 List<Object> pRes = gestionInformes.informeHolanda(query);
                 if(pRes.isEmpty())
                 {
-                    fail("No deberia ser vacia");
+                    fail("No deberia ser vacia-0");
                 }
             
             }catch(NullPointerException | InvalidJSONQueryException e){
-                fail("No debería de lanzar esta excepcion");
-
+            	System.out.println("\n" + query + "\n");
+                fail("No debería de lanzar esta excepcion-1:" + e.getClass() + "-" + e.getMessage() + " ->\n" + e.getStackTrace().toString());
             }
 
             // Prueba de invalidez de query para Cliente  / query Customer
@@ -114,7 +112,7 @@ public class TestInformes {
             name2.put("firstName", "Pep");
             name2.put("lastName", "Doe");
 
-            addr2.put("Number", "54");
+            addr2.put("street", "54");
             addr2.put("postalCode", "7207KE");
             addr2.put("country", "NL");
 
@@ -160,10 +158,10 @@ public class TestInformes {
                 List<Object> pRes = gestionInformes.informeHolanda(query);
                 if(pRes.isEmpty())
                 {
-                    fail("No deberia ser vacia");
+                    fail("No deberia ser vacia-2");
                 }
             }catch(NullPointerException | InvalidJSONQueryException e){
-                    fail("No debe dar error");
+                    fail("No debe dar error-3");
             }
 
             //Cuenta activa query product
@@ -180,7 +178,7 @@ public class TestInformes {
             try{
                 List<Object> pRes = gestionInformes.informeHolanda(query);
                 if(pRes.isEmpty()){
-                    fail("No debe ser vacía");
+                    fail("No debe ser vacía-4");
                 }
             }catch(NullPointerException|InvalidJSONQueryException e){
 
@@ -205,7 +203,7 @@ public class TestInformes {
                 }
             }catch(NullPointerException|InvalidJSONQueryException e){
 
-                fail("No debe dar error");
+                fail("No debe dar error-5");
             }
 
             // Product invalid JSON Query
@@ -335,11 +333,115 @@ public class TestInformes {
             fail("Error" + e.getMessage());
         }
     }
-
+    
+	/**
+     * Este test comprueba el funcionamiento del método informeAlemaniaPeriodico() en los siguientes casos:
+     * <ul>
+     *      <li>Set de cuentas segregadas correctas en un cliente, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si existe un fallo interno en el proceso de creación del CSV (Fallo).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li></ul></li>
+     * 
+     *      <li>Set de cuentas segregadas correctas en un cliente con UNA cuenta incorrecta, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si reconoce una cuenta inactiva y con un iban inválido (Éxito).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li></ul></li>
+     * 
+     *      <li>Set de cuentas segregadas correctas en un cliente, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si existe un fallo interno en el proceso de creación del CSV (Fallo).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li>
+     *      <li>- <b>Fallo</b> si no contabiliza correctamente la fecha de nacimiento como "noexistente"</ul></li>
+     * 
+     * 
+     * </ul>
+     * @author Jesús Cestino
+     */
 
     @Test
     @Requisitos({"RF12"})
     public void testInformeAlemaniaPeriodico(){
+    	String path = ".";
+        try {
+            gestionInformes.informeAlemaniaInicio(path);
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            int cont = 0;
+				for (CSVRecord record : records) {
+	                cont++;
+				}
+	            if(cont != 4){
+	                fail("No hay las líneas que debería");
+	            }
+            }catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+            
+        }catch(FailedInitialCSVException e){
+            fail("No debería dar error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
+        }
+
+        try {
+            String temp;
+            BaseDatosInformes.setCuentas2();
+            gestionInformes.informeAlemaniaInicio(path);
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            for(CSVRecord csvRecord : records){
+	                if(csvRecord.isMapped("IBAN")){
+	                    temp = csvRecord.get("IBAN");
+	                    if(temp == "45"){
+	                        fail("No deberia reconocer esta cuenta porque esta inactiva");
+	                    }
+	                }
+	            }
+            }catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+        }catch(FailedInitialCSVException e){
+            //Success
+        }catch(IllegalArgumentException e){
+            fail("No debería dar este error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
+        }
+
+        try {
+            int cont = 0;
+            BaseDatosInformes.setCuentas3();
+            gestionInformes.informeAlemaniaInicio(path);
+            try{
+	            Reader csvData = new FileReader(path);
+	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+	            for(CSVRecord csvRecord : records){
+	                if(csvRecord.isMapped("Date_Of_Birth")){
+	                    String temp = csvRecord.get("Date_Of_Birth");
+	                    if(temp=="noexistente"){
+	                        cont++;
+	                    }
+	                    if(cont != 1){
+	                        fail("Debería haber un \"noexistente\" en el CSV");
+	                    }
+	                }
+	            }
+			}catch(IllegalArgumentException|FileNotFoundException e){
+                fail("No deberia dar error");
+            }catch (IOException e) {
+				throw new RuntimeException(e);
+			}	
+        }catch(FailedInitialCSVException e){
+            fail("No debería dar este error");
+        }catch(Exception e){
+            fail("Error" + e.getMessage());
+        }
 
     }
     

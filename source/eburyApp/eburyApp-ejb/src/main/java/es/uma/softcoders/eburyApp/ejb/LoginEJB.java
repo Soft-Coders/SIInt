@@ -20,7 +20,9 @@ public class LoginEJB implements GestionLogin {
 
     @Override
     public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException{
-        Usuario u = em.find(Usuario.class, cuenta);
+        if(em == null)
+        	throw new CuentaNoCoincidenteException("EntityManager is NULL");
+    	Usuario u = em.find(Usuario.class, cuenta);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (!u.isEsAdministrativo())

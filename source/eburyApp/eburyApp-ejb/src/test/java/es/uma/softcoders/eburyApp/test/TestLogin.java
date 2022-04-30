@@ -58,7 +58,7 @@ public class TestLogin {
 		} catch(ClienteNoEncontradoException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-1: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Usuario no admin
@@ -67,7 +67,7 @@ public class TestLogin {
 		} catch(UsuarioNoAdministrativoException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-2: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Clave incorrecta
@@ -76,14 +76,14 @@ public class TestLogin {
 		} catch(CuentaNoCoincidenteException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-3: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Usuario admin Clave correcta
 		try {
 			gestionLogin.loginAdmin(uAdmin, uAdmin);
 		} catch(Exception e) {
-			fail("No debería lanzar ningnua excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ningnua excepción-4: " + e.getMessage() + "-" + e.getClass());
 		}
 	}
 	
@@ -107,7 +107,7 @@ public class TestLogin {
 		} catch(ClienteNoEncontradoException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-1: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Clave incorrecta
@@ -116,14 +116,14 @@ public class TestLogin {
 		} catch(CuentaNoCoincidenteException e) {
 			//OK
 		} catch(Exception e) {
-			fail("No debería lanzar esta excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar esta excepción-2: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Usuario y clave correctos
 		try {
 			gestionLogin.loginUsuario(uNoAdmin, uNoAdmin);
 		} catch(Exception e) {
-			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
+			fail("No debería lanzar ninguna excepción-3: " + e.getMessage() + "-" + e.getClass());
 		}
 	}
 	

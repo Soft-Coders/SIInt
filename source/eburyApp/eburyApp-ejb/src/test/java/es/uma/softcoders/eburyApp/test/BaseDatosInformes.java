@@ -125,7 +125,10 @@ public class BaseDatosInformes {
             em.getTransaction().begin();
 
             Segregada segregadaEntity = em.find(Segregada.class,"ES1602091417-55");
+            //Set 45 para comprobar el fallo de la longitud del iban
             segregadaEntity.setIban("45");
+            // Set a inactiva para comprobar el fallo en ejb periodico
+            segregadaEntity.setEstado("INACTIVA");
             em.persist(segregadaEntity);
 
             em.getTransaction().commit();
