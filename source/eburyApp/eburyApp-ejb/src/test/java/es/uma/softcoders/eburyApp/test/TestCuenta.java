@@ -34,11 +34,6 @@ public class TestCuenta {
 		BaseDatosCuenta.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
-//	@After
-//	public void terminate() {
-//		BaseDatosCuenta.dropBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
-//	}
-	
 	/**Este test se encarga de comprobar que la <b>creación</b> de <b>CuentasFintech</b> se lleve a cabo de la forma esperada.
 	 * Tanto en casos válidos, que opere de la manera esperada; como en casos inválidos, que los reconozca y reaccione en consecuencia.
 	 * Este test contempla los siguientes casos:

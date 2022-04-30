@@ -50,6 +50,7 @@ public class TestAutorizado {
 	 * <li>Agregación de un Autorizado a dos Empresas distintas</li>
 	 * <li>Agregación de Autorizados a una Empresa con un tipo de relación inválido (ni 'L' ni 'O')
 	 * </ul>
+	 * @author Marta Maleno
 	 * */
 	@Test
 	@Requisitos({"RF6"})
@@ -135,6 +136,7 @@ public class TestAutorizado {
 	 * Además comprueba que se cambie el estado de una PersonaAutorizada a "INACTIVO" cuando
 	 * no tiene ninguna Empresa asociada sobre la que pueda operar.
 	 * El test sirve para comprobar el Requisito RF8: Eliminar autorizados de una cuenta
+	 * @author Marta Maleno
 	 * */
 	@Test
 	@Requisitos({"RF8"})
@@ -195,6 +197,7 @@ public class TestAutorizado {
 	 * <li>Modificación de Dirección de una PersonaAutorizada</li>
 	 * <li>Modificación de Estado de una PersonaAutorizada</li>
 	 * </ul>
+	 * @author Marta Maleno
 	 * */
 	@Test
 	@Requisitos({"RF7"})

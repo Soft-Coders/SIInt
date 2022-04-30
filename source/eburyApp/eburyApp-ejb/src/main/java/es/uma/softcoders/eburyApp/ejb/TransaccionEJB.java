@@ -23,6 +23,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	@PersistenceContext(name="eburyAppEjb")
 	private EntityManager em;
 	
+	/** @author Marta Maleno */
 	@Override
 	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) 
 	throws EburyAppException { 

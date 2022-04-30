@@ -32,6 +32,17 @@ public class TestTransacciones {
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
+	/**
+	* Este test comprueba que se realicen correctamente los cambios de divisas. 
+	* Un cambio de divisas es una transacción que relaciona dos CuentaReferencia
+	* que poseen las divisas indicadas y están asociadas a la misma Pooled. 
+	* El test sirve para comprobar los Requisitos:
+	* <ul>
+	*	 <li>RF17: Cambio de divisas realizadas por el cliente/autorizado</li>
+	* 	 <li>RF18: Cambio de divisas realizadas por el administrativo</li>
+	* </ul>
+	* @author Pablo Huertas
+	*/
 	@Test
 	@Requisitos({"RF17, RF18"})
 	public void testCambioDivisa() {
@@ -52,15 +63,6 @@ public class TestTransacciones {
 			cfPrueba.setEstado("ACTIVO");
 			cfPrueba.setSwift("Swift");
 			cfPrueba.setSucursal("Madrid");
-			
-			//Cuenta pooled
-			//Pooled pPrueba = new Pooled();
-			//pPrueba.setCliente(cliente);
-			//pPrueba.setEstado("ACTIVO");
-			//pPrueba.setFechaApertura(date.parse("2019-09-19"));
-			//pPrueba.setIban("cfIdealPooled-2-22");
-			//pPrueba.setSwift("Swift");
-			
 			
 			//Divisas
 			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
