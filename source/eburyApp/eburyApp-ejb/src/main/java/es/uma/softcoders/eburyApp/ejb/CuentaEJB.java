@@ -19,12 +19,9 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 @Stateless
 public class CuentaEJB implements GestionCuenta{
 
-<<<<<<< HEAD
+
 	/* No sé para qué sirve el LOG, lo tiene el profe pero no se usa */	
 	@PersistenceContext(name="eburyAppEjb")
-=======
-	@PersistenceContext(unitName="eburyAppEjb")
->>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 
 	private EntityManager em;
 

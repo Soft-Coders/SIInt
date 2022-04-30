@@ -69,7 +69,7 @@ public class TestCuenta {
 			cf.setCliente(cliente);
 			cf.setEstado("ACTIVO");
 			cf.setFechaApertura(date.parse("2019-09-19"));
-			cf.setIBAN("cfIdeal-22");
+			cf.setIban("cfIdeal-22");
 			cf.setSwift("Swift");
 		}catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -89,7 +89,7 @@ public class TestCuenta {
 		
 		// Iban null
 		try {
-			cf.setIBAN(null);
+			cf.setIban(null);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
 			//OK
@@ -99,7 +99,7 @@ public class TestCuenta {
 		
 		// Cliente null
 		try {
-			cf.setIBAN("cfIdeal-22");
+			cf.setIban("cfIdeal-22");
 			cf.setCliente(null);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
@@ -126,13 +126,13 @@ public class TestCuenta {
 			cfIdealPooled.setCliente(cliente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealPooled.setIBAN("cfIdealPooled-2-22");
+			cfIdealPooled.setIban("cfIdealPooled-2-22");
 			cfIdealPooled.setSwift("Swift");
 			
 			cfIdealSegregada.setCliente(cliente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealSegregada.setIBAN("cfIdealSegregada-2-22");
+			cfIdealSegregada.setIban("cfIdealSegregada-2-22");
 			cfIdealSegregada.setSwift("Swift");
 		}catch(ParseException e) {
 			throw new RuntimeException(e);

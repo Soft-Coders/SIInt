@@ -86,7 +86,12 @@ public class AutorizadoEJB implements GestionAutorizado {
 			personaAutorizadaEntity.setNombre(p.getNombre());
 		}
 		if(p.getEstado() != null) {
-			personaAutorizadaEntity.setEstado(p.getEstado());
+			try {
+				personaAutorizadaEntity.setEstado(p.getEstado());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -130,7 +135,12 @@ public class AutorizadoEJB implements GestionAutorizado {
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
 		}
-		personaAutorizadaEntity.setEstado("INACTIVO");
+		try {
+			personaAutorizadaEntity.setEstado("INACTIVO");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

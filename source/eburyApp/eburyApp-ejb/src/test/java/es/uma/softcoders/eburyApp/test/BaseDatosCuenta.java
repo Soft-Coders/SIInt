@@ -9,6 +9,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
@@ -26,27 +27,17 @@ public class BaseDatosCuenta {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			
 			//----CuentaEJB
-<<<<<<< HEAD
 			CuentaFintech cfPreExistente = new CuentaFintech("ACTIVO", date.parse("2011-11-11"));
 			cfPreExistente.setIban("cfPreExistente");
-			
-=======
->>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 			Cliente cClienteExistente = new Cliente("0000", "tipo", "ACTIVO", date.parse("2020-02-22"), "Calle calle, 1", "ciudad", "29620", "pais");
 
-			CuentaFintech cfPreExistente = new CuentaFintech("ACTIVO", date.parse("2011-11-11"));
-			cfPreExistente.setIBAN("cfPreExistente-22");
 			cfPreExistente.setCliente(cClienteExistente);
 			cfPreExistente.setEstado("ACTIVO");
 			cfPreExistente.setFechaApertura(date.parse("2019-09-19"));
 			
-<<<<<<< HEAD
+
 			CuentaFintech cfCuentaInactiva = new Segregada();
 			cfCuentaInactiva.setIban("cfCuentaInactiva");
-=======
-			CuentaFintech cfCuentaInactiva = new CuentaFintech();
-			cfCuentaInactiva.setIBAN("cfCuentaInactiva-22");
->>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 			cfCuentaInactiva.setCliente(cClienteExistente);
 			cfCuentaInactiva.setEstado("INACTIVO");
 			cfCuentaInactiva.setFechaApertura(date.parse("2021-12-12"));
@@ -55,7 +46,7 @@ public class BaseDatosCuenta {
 			
 			Divisa eur = new Divisa("EUR-22", "Euro", Long.valueOf(1));
 			
-			CuentaReferencia cr = new CuentaReferencia("nombreBanco", Long.valueOf(1000000), eur);
+			Cuenta cr = new CuentaReferencia("nombreBanco", Long.valueOf(1000000), eur);
 			cr.setIban("cr-22");
 			
 			HashMap<CuentaReferencia, Long> hMap = new HashMap<>();
@@ -65,11 +56,7 @@ public class BaseDatosCuenta {
 			cfIdealPooled.setCliente(cClienteExistente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
-<<<<<<< HEAD
 			cfIdealPooled.setIban("cfIdealPooled");
-=======
-			cfIdealPooled.setIBAN("cfIdealPooled-22");
->>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 			cfIdealPooled.setSwift("Swift");
 			cfIdealPooled.setDepositadaEn(hMap);
 			
@@ -77,11 +64,7 @@ public class BaseDatosCuenta {
 			cfIdealSegregada.setCliente(cClienteExistente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
-<<<<<<< HEAD
 			cfIdealSegregada.setIban("cfIdealSegregada");
-=======
-			cfIdealSegregada.setIBAN("cfIdealSegregada-22");
->>>>>>> 86d2706b3406e2bbd88b8d0ddb1d9d8108755bba
 			cfIdealSegregada.setSwift("Swift");
 			cfIdealSegregada.setCuentaRef(cr);
 			
