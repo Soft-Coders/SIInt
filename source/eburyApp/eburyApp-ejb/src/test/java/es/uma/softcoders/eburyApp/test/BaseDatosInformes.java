@@ -19,6 +19,7 @@ import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.Usuario;
 
 public class BaseDatosInformes {
 	  private static String nombreUnidadPersistencia;
@@ -37,6 +38,11 @@ public class BaseDatosInformes {
             CuentaReferencia cR2 = new CuentaReferencia("SANTANDER-55", (long)40000, d2);
             CuentaReferencia cR3 = new CuentaReferencia("CAJAMAR-55", (long)40000, d3);
 
+			cR1.setIban("CUENTAREFLMAO-55");
+			cR2.setIban("CUENTAREFLMAO1-55");
+			cR3.setIban("CUENTAREFLMAO2-55");
+				
+			
             Segregada cS1 = new Segregada(cR1);
             Segregada cS2 = new Segregada(cR2);
             Segregada cS3 = new Segregada(cR3);
@@ -44,7 +50,9 @@ public class BaseDatosInformes {
             cR1.setSegregada(cS1);
             cR2.setSegregada(cS2);
             cR3.setSegregada(cS3);
-
+            
+			Usuario u = new Usuario("USUARIO-55","CLAVE-55",false);
+			
             Individual c1 = new Individual("Jesús","Cestino");
             
             List<CuentaFintech> list1 = new ArrayList<>();
@@ -54,6 +62,8 @@ public class BaseDatosInformes {
             list1.add(cS3);
 
             Date pDate = new Date(117,6,23);
+            
+            u.setIndividual(c1);
 
             c1.setIdentificacion("CLIENTE1-55");
             c1.setTipo_cliente("INDIVIDUAL");
@@ -66,6 +76,7 @@ public class BaseDatosInformes {
             c1.setFechaNacimiento(pDate);
             c1.setID((long)555555);
             c1.setCuentas(list1);
+            c1.setUsuario(u);
             
             
 
@@ -154,8 +165,16 @@ public class BaseDatosInformes {
             CuentaReferencia pRef = new CuentaReferencia("CaixaBank", (long)40000, pDiv);
             Segregada pSeg = new Segregada("30",pRef);
             List<CuentaFintech> pCuentas = new ArrayList<CuentaFintech>();
-
+			
+			Usuario u1 = new Usuario("USUARIO1-55","CLAVE1-55",false);
+			
+			u1.setIndividual(pInd);
+			
             pSeg.setIban("NL66XYZW1291965209");
+            pSeg.setEstado("ACTIVA");
+            pSeg.setFechaApertura(pDay);
+            pSeg.setCliente(pInd);
+            pRef.setIban("NL66XYZW1291965241");
             
             em.persist(pInd);
             em.persist(pDiv);
@@ -175,6 +194,7 @@ public class BaseDatosInformes {
             pCuentas.add(pSeg);
             pInd.setCuentas(pCuentas);
             pInd.setID(Long.valueOf(1000002));
+            pInd.setUsuario(u1);
             // Persist
             em.persist(pInd);
             
@@ -182,6 +202,9 @@ public class BaseDatosInformes {
             Empresa pEmp = new Empresa("RazSocial");
             List<CuentaFintech> pCuentasEmp = new ArrayList<CuentaFintech>();
             PersonaAutorizada pPAut = new PersonaAutorizada("Ident","Nacho", "Lopezosa", "54");
+            Usuario u2 = new Usuario("USUARIO34-55","CLAVE-55",false);
+            u2.setPersonaAutorizada(pPAut);
+            pPAut.setUsuario(u2);
             //CUENTA INACTIVA
             Divisa pDiv2 = new Divisa("RUB", "rublo", 'R', (long)1);
             CuentaReferencia pRef2 = new CuentaReferencia("Imagin", (long)40000, pDiv2);
@@ -191,6 +214,10 @@ public class BaseDatosInformes {
             Map<Empresa,Character> pMapPAUT = new HashMap<>();
 
             pSeg2.setIban("NL66XYZW1291965208");
+            pSeg2.setEstado("ACTIVA");
+            pSeg2.setFechaApertura(pDay);
+            pSeg2.setCliente(pEmp);
+            pRef2.setIban("IBANREFXD12-55");
 
             //Persist
             em.persist(pDiv2);
@@ -218,8 +245,6 @@ public class BaseDatosInformes {
             //Persist
             em.persist(pEmp);
             em.persist(pPAut);
-
-            Segregada s = new Segregada();
 		
 		
 		em.getTransaction().commit();
