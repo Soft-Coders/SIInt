@@ -15,10 +15,12 @@
 		<class>es.uma.softcoders.eburyApp.Segregada</class>
         <class>es.uma.softcoders.eburyApp.CuentaReferencia</class>
         <class>es.uma.softcoders.eburyApp.Pooled</class>
-        <class>es.uma.softcoders.eburyApp.Pooled</class>
+        <class>es.uma.softcoders.eburyApp.Transaccion</class>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
     	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    	<property name="javax.persistence.schema-generation.scripts.action" value="create"/>
+    	<property name="javax.persistence.schema-generation.scripts.create-target" value="esquema.ddl"/>
     	<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE"/>
 		<property name="javax.persistence.jdbc.user" value=""/>
 		<property name="javax.persistence.jdbc.password" value=""/>

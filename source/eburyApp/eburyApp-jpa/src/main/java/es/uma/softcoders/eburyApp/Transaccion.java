@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Transaccion implements Serializable{
 		this.destino          = destino;
 	}
 	
-	public Transaccion(Date fechaInstruccion, Integer cantidad, Date fechaEjecucion,
+	public Transaccion(Date fechaInstruccion, Long cantidad, Date fechaEjecucion,
 			String tipo, Integer comision, String internacional, Divisa divisaReceptor, 
 			Divisa divisaEmisor, Cuenta origen, Cuenta destino) {
 		this.fechaInstruccion = fechaInstruccion;
@@ -59,7 +60,7 @@ public class Transaccion implements Serializable{
 	private Date fechaInstruccion;
 	
 	@Column(nullable = false)
-	private Integer cantidad;
+	private Long cantidad;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_EJECUCION")
@@ -75,22 +76,20 @@ public class Transaccion implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="DIVISA_RECEPTOR_FK", nullable=false)
-	@Column(name = "DIVISA_RECEPTOR")
 	private Divisa divisaReceptor;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="DIVISA_EMISOR_FK", nullable=false)
-	@Column(name = "DIVISA_EMISOR")
 	private Divisa divisaEmisor;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ORIGEN_FK", nullable = false)
 	private Cuenta origen;
 	
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "DESTINO_FK", nullable = false)
 	private Cuenta destino;
 
@@ -131,7 +130,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @return la cantidad de la transacción
 	 */
-	public Integer getCantidad() {
+	public Long getCantidad() {
 		return cantidad;
 	}
 
@@ -139,7 +138,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @param cantidad la cantidad de la transacción
 	 */
-	public void setCantidad(Integer cantidad) {
+	public void setCantidad(Long cantidad) {
 		this.cantidad = cantidad;
 	}
 

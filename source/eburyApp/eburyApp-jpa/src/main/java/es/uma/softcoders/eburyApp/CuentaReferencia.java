@@ -26,14 +26,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 		super();
 	}
 	
-	public CuentaReferencia(String nombreBanco, Double saldo, Divisa divisa) {
+	public CuentaReferencia(String nombreBanco, Long saldo, Divisa divisa) {
 		this.nombreBanco = nombreBanco;
 		this.saldo       = saldo;
 		this.divisa      = divisa;
 	}
 	
 	public CuentaReferencia(String nombreBanco, String sucursal, String pais,
-			Double saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
+			Long saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
 		this.nombreBanco   = nombreBanco;
 		this.sucursal      = sucursal;
 		this.pais          = pais;
@@ -54,7 +54,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
-	private Double saldo;
+	private Long saldo;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
@@ -125,14 +125,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * @return el saldo de la cuenta referencia
 	 */
-	public Double getSaldo() {
+	public Long getSaldo() {
 		return saldo;
 	}
 
 	/**
 	 * @param saldo el saldo de la cuenta referencia
 	 */
-	public void setSaldo(Double saldo) {
+	public void setSaldo(Long saldo) {
 		this.saldo = saldo;
 	}
 

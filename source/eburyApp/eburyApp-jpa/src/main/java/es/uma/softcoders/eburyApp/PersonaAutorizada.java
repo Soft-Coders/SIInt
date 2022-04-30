@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -91,7 +92,7 @@ public class PersonaAutorizada implements Serializable{
     @Column(name="TIPO")
     private Map<Empresa, Character> autorizacion;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)
 	private Usuario usuario;
 
@@ -192,13 +193,8 @@ public class PersonaAutorizada implements Serializable{
 	 * actualiza el estado de la cuenta
 	 * @throws Exception 
 	 */
-	public void setEstado(String estado) throws Exception {
-		if(estado.equalsIgnoreCase("ACTIVO")||estado.equalsIgnoreCase("BLOQUEADO")||estado.equalsIgnoreCase("BAJA")) {
-			this.estado = estado;
-		} else {
-			throw new Exception("Estado no válido");
-		}
-		
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 	/**

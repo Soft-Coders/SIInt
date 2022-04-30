@@ -2,6 +2,8 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -54,7 +56,7 @@ public class CuentaFintech extends Cuenta implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="CLIENTE_FK", nullable=false)
 	private Cliente cliente;
 	
@@ -117,6 +119,9 @@ public class CuentaFintech extends Cuenta implements Serializable{
  		this.cliente = cliente;
  	}
 	
+ 	public void setIBAN(String iban) {
+ 		super.setIban(iban);
+ 	}
 	
 	// equals() y hashCode() se heredan del padre
 

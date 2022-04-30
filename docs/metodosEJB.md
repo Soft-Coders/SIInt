@@ -5,9 +5,9 @@
 - RF3  -> `public void modificarCliente(Cliente c, String cliente)`
 - RF4  -> `public void bajaCliente(String cliente)`
 - RF5  -> `public void crearCuentaFintech(CuentaFintech cf)`
-- RF6  -> Incluye crear un autorizado: `public void agregarAutorizado(PersonaAutorizada p, Cliente c)`
+- RF6  -> Incluye crear un autorizado: `public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta)`
 - RF7  -> `public void modificarAutorizado(PersonaAutorizada p, String autorizado)`
-- RF8  -> `public void eliminarAutorizado(String personaAut)` `public void bajaAutorizado(String personaAut)`
+- RF8  -> `public void eliminarAutorizado(String autorizado, String empresa)` `public void bajaAutorizado(String autorizado)`
 - RF9  -> `public void cerrarCuenta(String cuenta)`
 - RF10 -> `public void comprobarCliente(String cliente)`
 - RF11 -> `public void informeHolanda(String JSON)`

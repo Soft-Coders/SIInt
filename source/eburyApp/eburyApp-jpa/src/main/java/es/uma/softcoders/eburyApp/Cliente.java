@@ -15,7 +15,7 @@ public class Cliente implements Serializable{
 	public Cliente(){
 		super();
 	}
-	public Cliente(String ident, String tipoCli, String est, Date fechAlt, String dire, String ciud, int codPos, String Pais){
+	public Cliente(String ident, String tipoCli, String est, Date fechAlt, String dire, String ciud, String codPos, String Pais){
 
 		this.identificacion = ident;
 		this.tipoCliente = tipoCli;
@@ -28,7 +28,7 @@ public class Cliente implements Serializable{
 
 	}
 
-	public Cliente(String ident, String tipoCli, String est, Date fechAlt, Date fechBaj, String dire, String ciud, int codPos, String Pais){
+	public Cliente(String ident, String tipoCli, String est, Date fechAlt, Date fechBaj, String dire, String ciud, String codPos, String Pais){
 
 		this.identificacion = ident;
 		this.tipoCliente = tipoCli;
@@ -71,14 +71,14 @@ public class Cliente implements Serializable{
     private String ciudad;
     
     @Column (nullable = false)
-    private int codigoPostal;
+    private String codigoPostal;
     
     @Column (nullable = false)
     private String pais;
     
     // --------- RELACIONES ---------
     	
-	@OneToMany (mappedBy = "cliente") 
+	@OneToMany (mappedBy = "cliente", cascade = CascadeType.PERSIST) 
     private List<CuentaFintech> cuentas;
 
     // ------ GETTERS & SETTERS ------
@@ -131,10 +131,10 @@ public class Cliente implements Serializable{
 	public void setCiudad(String Ciudad) {
 		ciudad = Ciudad;
 	}
-	public int getCodigoPostal() {
+	public String getCodigoPostal() {
 		return codigoPostal;
 	}
-	public void setCodigoPostal(int CodigoPostal) {
+	public void setCodigoPostal(String CodigoPostal) {
 		codigoPostal = CodigoPostal;
 	}
 	public String getPais() {
