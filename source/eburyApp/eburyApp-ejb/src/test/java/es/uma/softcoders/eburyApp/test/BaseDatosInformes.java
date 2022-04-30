@@ -26,7 +26,7 @@ public class BaseDatosInformes {
 		EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            Query queryDelete = em.createQuery("DELETE FROM SEGREGADA s");
+            Query queryDelete = em.createQuery("DELETE FROM SEGREGADA s WHERE s.iban LIKE 'NL%'");
             int deletedAccounts = queryDelete.executeUpdate();
             Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
             Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
@@ -62,6 +62,8 @@ public class BaseDatosInformes {
             c1.setCiudad("Sofía");
             c1.setCodigoPostal("29620");
             c1.setPais("germany");
+            c1.setFechaNacimiento(pDate);
+            c1.setID((long)555555);
             c1.setCuentas(list1);
             
             
@@ -103,6 +105,36 @@ public class BaseDatosInformes {
             em.close();
             emf.close();
 
+      }
+
+      public static void setCuentas2(){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
+		EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            Segregada segregadaEntity = em.find(Segregada.class,"ES1602091417-55");
+            segregadaEntity.setIban("45");
+            em.persist(segregadaEntity);
+
+            em.getTransaction.commit();
+            em.close();
+            emf.close();
+      }
+      public static void setCuentas3(){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
+		EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            Segregada segregadaEntity = em.find(Segregada.class,"45");
+            Individual individualEntity = em.find(Individual.class,(long)555555);
+            individual.setFechaNacimiento(null);
+            segregadaEntity.setIban("ES1602091417-55");
+            em.persist(individualEntity);
+            em.persist(segregadaEntity);
+
+            em.getTransaction.commit();
+            em.close();
+            emf.close();
       }
 
       
