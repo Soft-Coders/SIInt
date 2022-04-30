@@ -33,7 +33,7 @@ public class BaseDatosCuenta {
 			cfPreExistente.setCliente(cClienteExistente);
 			cfPreExistente.setEstado("ACTIVO");
 			cfPreExistente.setFechaApertura(date.parse("2019-09-19"));
-			
+
 			CuentaFintech cfCuentaInactiva = new CuentaFintech();
 			cfCuentaInactiva.setIBAN("cfCuentaInactiva-22");
 			cfCuentaInactiva.setCliente(cClienteExistente);
@@ -45,6 +45,7 @@ public class BaseDatosCuenta {
 			Divisa eur = new Divisa("EUR-22", "Euro", Long.valueOf(1));
 			
 			CuentaReferencia cr = new CuentaReferencia("nombreBanco", Long.valueOf(1000000), eur);
+
 			cr.setIban("cr-22");
 			
 			HashMap<CuentaReferencia, Long> hMap = new HashMap<>();

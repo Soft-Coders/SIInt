@@ -1,6 +1,5 @@
 package es.uma.softcoders.eburyApp.ejb;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
@@ -19,10 +18,9 @@ import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 @Stateless
 public class AutorizadoEJB implements GestionAutorizado {
 	
-	@PersistenceContext(name="eburyAppEjb")
+	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 	
-	@Override
 	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
 		Empresa empresaEntity = em.find(Empresa.class, empresa);
 		if(empresaEntity == null) {
@@ -59,7 +57,6 @@ public class AutorizadoEJB implements GestionAutorizado {
 		}	
 	}
 	
-	@Override
 	public void modificarAutorizado(PersonaAutorizada p, String autorizado) throws PersonaAutorizadaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
@@ -86,11 +83,15 @@ public class AutorizadoEJB implements GestionAutorizado {
 			personaAutorizadaEntity.setNombre(p.getNombre());
 		}
 		if(p.getEstado() != null) {
-			personaAutorizadaEntity.setEstado(p.getEstado());
+			try {
+				personaAutorizadaEntity.setEstado(p.getEstado());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
-	@Override
 	public void eliminarAutorizado(String autorizado, String empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
@@ -124,13 +125,17 @@ public class AutorizadoEJB implements GestionAutorizado {
 		}
 	}
 	
-	@Override
 	public void bajaAutorizado(String autorizado) throws PersonaAutorizadaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
 		}
-		personaAutorizadaEntity.setEstado("INACTIVO");
+		try {
+			personaAutorizadaEntity.setEstado("INACTIVO");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

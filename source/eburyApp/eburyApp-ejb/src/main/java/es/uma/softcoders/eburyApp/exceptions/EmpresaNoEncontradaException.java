@@ -1,8 +1,9 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
-
 public class EmpresaNoEncontradaException extends EburyAppException{
+
+	private static final long serialVersionUID = 1L;
+
 	public EmpresaNoEncontradaException(String message) {
 		super(message);
 	}

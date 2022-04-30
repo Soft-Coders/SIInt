@@ -21,7 +21,6 @@ import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
-import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public class TestCuenta {
 	private static final String CUENTA_EJB = "java:global/classes/CuentaEJB";
@@ -87,7 +86,7 @@ public class TestCuenta {
 		
 		// Iban null
 		try {
-			cf.setIBAN(null);
+			cf.setIban(null);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
 			//OK

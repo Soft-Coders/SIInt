@@ -18,6 +18,7 @@ public class BaseDatosLogin {
 		uNoAdmin.setId(Long.valueOf(22));
 		Usuario uAdmin = new Usuario("admin-0122", "admin", true);
 		uAdmin.setId(Long.valueOf(122));
+
 		
 		
 		for(Usuario u : new Usuario [] {uNoAdmin, uAdmin})

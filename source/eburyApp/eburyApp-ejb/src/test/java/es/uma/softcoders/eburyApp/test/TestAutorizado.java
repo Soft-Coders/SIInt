@@ -5,7 +5,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.naming.NamingException;
@@ -78,6 +77,7 @@ public class TestAutorizado {
 		pa4.setUsuario(u3);
 		pa5.setUsuario(u4);
 		pa7.setUsuario(u5);
+
 		try {
 			gestionAutorizado.agregarAutorizado(pa2, em2.getID().toString(), 'L');
 			gestionAutorizado.agregarAutorizado(pa3, em4.getID().toString(), 'O');
@@ -184,7 +184,7 @@ public class TestAutorizado {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Este test comprueba que se puedan modificar los datos asociados a una PersonaAutorizada.
 	 * El test sirve para comprobar el Requisito RF7: Modificación de datos de un autorizado

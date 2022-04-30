@@ -19,6 +19,7 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 @Stateless
 public class CuentaEJB implements GestionCuenta{
 
+
 	@PersistenceContext(unitName="eburyAppEjb")
 
 	private EntityManager em;

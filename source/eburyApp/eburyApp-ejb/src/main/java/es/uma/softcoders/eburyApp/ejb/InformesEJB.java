@@ -34,7 +34,7 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 @Stateless
 public class InformesEJB implements GestionInformes{
 	
-	@PersistenceContext(unitName = "eburyAppEjb")
+	@PersistenceContext(unitName = "eburyAppTest")
 	private EntityManager em;
 	
 	/**
