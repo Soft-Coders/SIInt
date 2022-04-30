@@ -19,6 +19,7 @@ public class BaseDatosAutorizado {
 		em.getTransaction().begin();
 		//------------------------------------------------------
 		
+		//Personas Autorizadas
 		PersonaAutorizada pa1 = new PersonaAutorizada();
 		PersonaAutorizada pa2 = new PersonaAutorizada("ABC123", "Marta", "Maleno", "Calle Patata, 37");
 		@SuppressWarnings("deprecation")
@@ -32,6 +33,7 @@ public class BaseDatosAutorizado {
 			em.persist(personaAutorizada);
 		}
 		
+		//Clientes
 		Cliente cl1 = new Cliente();
 		Cliente cl2 = new Cliente();
 		Cliente cl3 = new Cliente("ignacioLop", "Individual", "Activo", new Date(), "Calle dnjisak, 33", "Málaga", 29011, "España");
@@ -41,6 +43,7 @@ public class BaseDatosAutorizado {
 			em.persist(cliente);
 		}
 		
+		//Empresas
 		Empresa em1 = new Empresa();
 		Empresa em2 = new Empresa();
 		Empresa em3 = new Empresa("Aldi");
@@ -50,14 +53,47 @@ public class BaseDatosAutorizado {
 			em.persist(empresa);
 		}
 		
+		//Individuales
 		Individual in1 = new Individual("Manuel", "González");
 		Individual in2 = new Individual("Lucía", "Ferre");
-		Individual in3 = new Individual();
-		Individual in4 = new Individual();
+		Individual in3 = new Individual("Pedro", "Piqueras");
+		Individual in4 = new Individual("Jacinto", "Benavente");
+
+		
 		
 		for (Individual individual: new Individual [] {in1, in2, in3, in4}) {
 			em.persist(individual);
 		}
+		
+		//Divisas
+		Divisa dLibra = new Divisa("GBP", "libras", '�', (long)1.18);
+		Divisa dDolar = new Divisa("GBP", "libras", '�', (long)0.94);
+		Divisa dEuro = new Divisa("EUR", "euros", '�', (long)1);
+		em.persist(dLibra);
+		em.persist(dDolar);
+		em.persist(dEuro);
+
+		//Cuenta Segregada
+		Segregada sPrueba = new Segregada();		
+		//Cuenta Referencia
+		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, Date.valueOf("1987-04-11"), "ACTIVA", null, dLibra);
+		em.persist(crPrueba);
+		
+		//Relación Cuentas Referencia, Pooled
+		Map<CuentaReferencia,Long> mAuxiliar = new HashMap<>();
+		mAuxiliar.put(crPrueba, (long)1);
+				
+		Cliente pCliente = new Cliente("iden", "tonto", "ACTIVO", fAuxiliar, "C/ Bobo, 4", "Boboville", 42069, "Tontokistan");
+		em.persist(pCliente);
+				
+		//Pooled
+		Pooled pPrueba = new Pooled(mAuxiliar);
+		pPrueba.setIban("EresMasTontoAun");
+		pPrueba.setEstado("ACTIVO");
+		pPrueba.setFechaApertura(fAuxiliar);
+		pPrueba.setSwift("MiSwiftDePrueba");
+		pPrueba.setCliente(pCliente);
+		em.persist(pPrueba);
 		
 		//------------------------------------------------------
 		em.getTransaction().commit();
