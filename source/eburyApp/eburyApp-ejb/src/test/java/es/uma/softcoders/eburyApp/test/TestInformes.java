@@ -2,6 +2,8 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
+import java.io.File;
+import java.io.Reader;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import javax.naming.NamingException;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.csv.CSVParser;
 
 import org.json.simple.JSONObject;
@@ -24,6 +27,7 @@ import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
 import es.uma.softcoders.eburyApp.ejb.InformesEJB;
+import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 public class TestInformes {
@@ -256,7 +260,7 @@ public class TestInformes {
         String path = "C:\\";
         try {
             BaseDatosInformes.setCuentas1();
-            gestionInformes.testInformeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaInicio(path);
             File csvData = new File(path);
             CSVParser parser = CSVParser.parse(csvData,CSVFormat.DEFAULT);
             // ESTE FOR EACH ES PARA LA SEGUNDA PRUEBA
@@ -274,7 +278,7 @@ public class TestInformes {
         try {
             String temp;
             BaseDatosInformes.setCuentas2();
-            gestionInformes.testInformeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaInicio(path);
             File csvData = new File(path);
             CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
             for(CSVRecord csvRecord : parser){
@@ -294,7 +298,7 @@ public class TestInformes {
         try {
             int cont = 0;
             BaseDatosInformes.setCuentas3();
-            gestiomInformes.testInformeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaInicio(path);
             File csvData = new File(path);
             CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
             for(CSVRecord csvRecord : parser){
