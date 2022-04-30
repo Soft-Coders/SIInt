@@ -26,6 +26,7 @@ import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
@@ -292,6 +293,8 @@ public class InformesEJB implements GestionInformes{
 		String predicate = " WHERE C.fechaApertura > :fiveYearsAgo";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
+		if(em == null)
+          	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
 		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
 //		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
@@ -427,6 +430,8 @@ public class InformesEJB implements GestionInformes{
 		String predicate = " WHERE C.fechaApertura > :fiveYearsAgo AND C.estado like 'ACTIV[AOE]'";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
+		if(em == null)
+          	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
 		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
 //		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);

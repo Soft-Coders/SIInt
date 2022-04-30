@@ -34,33 +34,6 @@ public class TestAutorizado {
 	@Before
 	public void setup() throws NamingException{
 		gestionAutorizado = (GestionAutorizado) new AutorizadoEJB();
-		BaseDatosAutorizado.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
-	}
-	
-	@Test
-	public void testCrearPersonasAutorizadas() {
-		try {
-			PersonaAutorizada pa2 = new PersonaAutorizada("ABCDEF123", "Marta", "Maleno", "Calle Patata, 37");
-			@SuppressWarnings("deprecation")
-			Date cumple = new Date(2002,4,30);
-			PersonaAutorizada pa3 = new PersonaAutorizada("ABCDEF456", "Pablo", "Huertas", "Calle Boniato, 8", "ACTIVO",  cumple, new Date(), null);
-			assertNotNull(pa2);
-			assertNotNull(pa3);
-		} catch (Exception e) {
-			fail("No debería lanzar esta excepción");
-		}
-	}
-	
-	@Test
-	public void testCrearEmpresa() {
-		try {
-			Empresa em1 = new Empresa();
-			Empresa em2 = new Empresa("Aldi");
-			assertNotNull(em1);
-			assertNotNull(em2);
-		}catch (Exception e) {
-			fail("No debería lanzar esta excepción");
-		}
 	}
 	
 	/**
@@ -95,16 +68,11 @@ public class TestAutorizado {
 		em2.setID((long)9423903);
 		em4.setID((long)1467853);
 		em5.setID((long)48712390);
-		Usuario u1 = new Usuario("usuarioABC", "claveABC");
-		u1.setEsAdministrativo(false);
-		Usuario u2 = new Usuario("usuarioDEF", "claveDEF");
-		u2.setEsAdministrativo(true);
-		Usuario u3 = new Usuario("usuarioGHI", "claveGHI");
-		u3.setEsAdministrativo(false);
-		Usuario u4 = new Usuario("usuarioJKL", "claveJKL");
-		u4.setEsAdministrativo(false);
-		Usuario u5 = new Usuario("usuarioMNO", "claveMNO");
-		u5.setEsAdministrativo(false);
+		Usuario u1 = new Usuario("usuarioABC", "claveABC", false);
+		Usuario u2 = new Usuario("usuarioDEF", "claveDEF", true);
+		Usuario u3 = new Usuario("usuarioGHI", "claveGHI", false);
+		Usuario u4 = new Usuario("usuarioJKL", "claveJKL", false);
+		Usuario u5 = new Usuario("usuarioMNO", "claveMNO", false);
 		pa2.setUsuario(u1);
 		pa3.setUsuario(u2);
 		pa4.setUsuario(u3);
@@ -180,7 +148,7 @@ public class TestAutorizado {
 		em2.setFecha_Alta(new Date());
 		em2.setDireccion("Calle calle, 237");
 		em2.setCiudad("Málaga");
-		em2.setCodigoPostal(29012);
+		em2.setCodigoPostal("29012");
 		em2.setPais("España");
 		Empresa em3 = new Empresa("Empresa1");
 		em3.setID((long) 12337);
@@ -190,7 +158,7 @@ public class TestAutorizado {
 		em3.setFecha_Alta(new Date());
 		em3.setDireccion("Calle calle, 137");
 		em3.setCiudad("Málaga");
-		em3.setCodigoPostal(29011);
+		em3.setCodigoPostal("29011");
 		em3.setPais("España");
 		try {
 			gestionAutorizado.agregarAutorizado(pa2, em2.getID().toString(), 'L');

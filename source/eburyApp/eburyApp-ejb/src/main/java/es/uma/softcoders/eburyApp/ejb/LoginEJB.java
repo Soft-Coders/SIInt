@@ -20,8 +20,8 @@ public class LoginEJB implements GestionLogin {
 
     @Override
     public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException{
-        if(em == null)
-        	throw new CuentaNoCoincidenteException("EntityManager is NULL");
+    	if(em == null)
+          	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
     	Usuario u = em.find(Usuario.class, cuenta);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
@@ -32,7 +32,9 @@ public class LoginEJB implements GestionLogin {
     }
 
     public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException{
-        Usuario u = em.find(Usuario.class, cuenta);
+    	if(em == null)
+    		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
+    	Usuario u = em.find(Usuario.class, cuenta);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (u.getClave() != clave)
