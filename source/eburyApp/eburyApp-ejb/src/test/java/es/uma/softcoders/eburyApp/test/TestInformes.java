@@ -43,27 +43,27 @@ public class TestInformes {
      *      <ul>
      *      <li>Query o petición de un cliente individual de forma correcta, devolverá:
      *      <ul>
-     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).</li>
-     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo). </li></ul></li>
+     *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).</li>
+     *      <li>- <b>InvalidJSONQueryException</b> si la query es incorrecta (Fallo). </li></ul></li>
      *      <li>Query o petición de un cliente individual de forma INCORRECTA, hace catch de:
      *      <ul>
-     *      <li>- InvalidJSONQueryException (Éxito).</li></ul></li>
+     *      <li>- <b>InvalidJSONQueryException</b> (Éxito).</li></ul></li>
      *      
      *      <li>Query o petición de un cliente empresa de forma correcta, devolverá:
      *      <ul>
-     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).</li>
-     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).</li>
+     *      <li>- <b>InvalidJSONQueryException</b> si la query es incorrecta (Fallo).</li></ul></li>
      *      <li>Query o petición de cuentas activas, devolverá:
      *      <ul>
-     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).
-     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).
+     *      <li>- <b>InvalidJSONQueryException</b> si la query es incorrecta (Fallo).</li></ul></li>
      *      <li>Query o petición de cuentas inactivas, devolverá:
      *      <ul>
-     *      <li>- NullPointerException si la lista de cuentas está vacía (Fallo).
-     *      <li>- InvalidJSONQueryException si la query es incorrecta (Fallo).</li></ul></li>
+     *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).
+     *      <li>- <b>InvalidJSONQueryException</b> si la query es incorrecta (Fallo).</li></ul></li>
      *      <li>Query o petición de cuentas de forma INCORRECTA, devolverá:
      *      <ul>
-     *      <li>- InvalidJSONQueryException (Éxito). </li></ul></li></ul>
+     *      <li>- <b>InvalidJSONQueryException</b> (Éxito). </li></ul></li></ul>
      *          
      * @author Jesús Cestino
      */
@@ -226,6 +226,29 @@ public class TestInformes {
             
 
     }
+    /**
+     * Este test comprueba el funcionamiento del método informeAlemaniaInicio() en los siguientes casos:
+     * <ul>
+     *      <li>Set de cuentas segregadas correctas en un cliente, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si existe un fallo interno en el proceso de creación del CSV (Fallo).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li></ul></li>
+     * 
+     *      <li>Set de cuentas segregadas correctas en un cliente con UNA cuenta incorrecta, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si existe un fallo interno en el iban de una cuenta (Éxito).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li></ul></li>
+     * 
+     *      <li>Set de cuentas segregadas correctas en un cliente, devolverá:
+     *      <ul>
+     *      <li>- <b>FailedInitialCSVException</b> si existe un fallo interno en el proceso de creación del CSV (Fallo).</li>
+     *      <li>- <b>IllegalArgumentException</b> si no existe un valor que mapee el resultado de una línea (Fallo). </li>
+     *      <li>- <b>Fallo</b> si no contabiliza correctamente la fecha de nacimiento como "noexistente"</ul></li>
+     * 
+     * 
+     * </ul>
+     * @author Jesús Cestino
+     */
 
     @Test 
     @Requisitos({"RF12"})
@@ -237,12 +260,59 @@ public class TestInformes {
             File csvData = new File(path);
             CSVParser parser = CSVParser.parse(csvData,CSVFormat.DEFAULT);
             // ESTE FOR EACH ES PARA LA SEGUNDA PRUEBA
+            int cont = 0;
             for(CSVRecord csvRecord : parser){
-                csvRecord.get("ATRIBUTO DEL HEADER QUE QUIERES DEL RECORD");
+                cont++;
             }
-
+            if(cont > 4){
+                fail("Hay más lineas de las que debería");
+            }
         }catch(IllegalArgumentException|FailedInitialCSVException e){
             fail("No debería dar error");
+        }
+
+        try {
+            String temp;
+            BaseDatosInformes.setCuentas2();
+            gestionInformes.testInformeAlemaniaInicio(path);
+            File csvData = new File(path);
+            CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
+            for(CSVRecord csvRecord : parser){
+                if(csvRecord.isMapped("IBAN")){
+                    temp = csvRecord.get("IBAN");
+                    if(temp == "45"){
+                        fail("Debería haber saltado excepción");
+                    }
+                }
+            }
+        }catch(FailedInitialCSVException e){
+            //Success
+        }catch(IllegalArgumentException e){
+            fail("No debería dar este error");
+        }
+
+        try {
+            int cont = 0;
+            BaseDatosInformes.setCuentas3();
+            gestiomInformes.testInformeAlemaniaInicio(path);
+            File csvData = new File(path);
+            CSVParser parse = CSVParser.parse(csvData,CSVFormat.DEFAULT);
+            for(CSVRecord csvRecord : parser){
+                if(csvRecord.isMapped("Date_Of_Birth")){
+                    String temp = csvRecord.get("Date_Of_Birth");
+                    if(temp=="noexistente"){
+                        cont++;
+                    }
+                    if(cont != 1){
+                        fail("Debería haber un \"noexistente\" en el CSV");
+                    }
+                }
+            }
+
+        }catch(IllegalArgumentException e){
+            fail("No debería dar este error");
+        }catch(FailedInitialCSVException e){
+            fail("No debería dar este error");
         }
 
     }
