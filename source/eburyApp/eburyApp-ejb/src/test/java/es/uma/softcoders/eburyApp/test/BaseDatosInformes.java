@@ -64,7 +64,7 @@ public class BaseDatosInformes {
             c1.setPais("germany");
             c1.setCuentas(list1);
             
-
+            
 
             //Setters segregadas
             cS1.setEstado("ACTIVA");

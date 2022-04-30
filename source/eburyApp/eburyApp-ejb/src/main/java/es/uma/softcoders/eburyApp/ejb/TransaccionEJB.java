@@ -120,9 +120,9 @@ public class TransaccionEJB implements GestionTransaccion{
 		else{   // Si hay saldo suficiente se realiza la transacción
 			
 			// Primero: se actualiza el saldo total de las cuentaReferencias
-			corigen.setSaldo((double)a);
+			corigen.setSaldo(a);
 			Long b = (long) (cdestino.getSaldo() + cantCambiada);  // b: saldo cambiado en la cuenta referencia destino
-			cdestino.setSaldo((double)b);
+			cdestino.setSaldo(b);
 			
 			// Segundo: se actualiza el saldo en las relaciones Pooled-CuentaReferencia
 			//    Empezamos actualizando las relaciones de ambas cuentas referencias con la pooled
@@ -144,7 +144,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	private void crearTransaccionCambioDivisas(Pooled pool, Divisa demisor, Divisa dreceptor, Long cantidad) {
 		Date ahora = new Date();
 		Transaccion trans = new Transaccion(ahora, "Cambio Divisas", demisor, dreceptor, pool, pool);
-		trans.setCantidad((int)cantidad.doubleValue());
+		trans.setCantidad(cantidad);
 		em.persist(trans);
 	}
 	

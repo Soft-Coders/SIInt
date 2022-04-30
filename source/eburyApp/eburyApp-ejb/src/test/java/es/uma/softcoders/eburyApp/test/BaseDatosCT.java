@@ -35,12 +35,9 @@ public class BaseDatosCT {
 		//Cuenta Segregada
 		Segregada sPrueba = new Segregada();		
 		//Cuenta Referencia
-<<<<<<< HEAD
+
 		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, Date.valueOf("1987-04-11"), "ACTIVA", null, dLibra);
-=======
-		CuentaReferencia crPrueba = new CuentaReferencia("Santander", "Madrid", "España", (long)1000, fAuxiliar, "ACTIVA", null, dEuro);
-		crPrueba.setIban("EresMuyTonto");
->>>>>>> 877ee0a5f16d8d18b6508e1848ff86347a28057d
+		crPrueba.setIban("crPrueba");
 		em.persist(crPrueba);
 		
 		//Relación Cuentas Referencia, Pooled
@@ -52,7 +49,7 @@ public class BaseDatosCT {
 		
 		//Pooled
 		Pooled pPrueba = new Pooled(mAuxiliar);
-		pPrueba.setIban("EresMasTontoAun");
+		pPrueba.setIban("pPrueba");
 		pPrueba.setEstado("ACTIVO");
 		pPrueba.setFechaApertura(fAuxiliar);
 		pPrueba.setSwift("MiSwiftDePrueba");
