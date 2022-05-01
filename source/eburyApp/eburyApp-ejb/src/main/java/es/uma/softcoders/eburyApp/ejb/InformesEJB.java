@@ -50,7 +50,8 @@ public class InformesEJB implements GestionInformes{
 		List<Object> results;
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
-			JSONObject jsonObj = (JSONObject) jsonFile;				
+			JSONObject jsonObj = (JSONObject) jsonFile;
+			System.out.println("\nOOOOOOO\n" + jsonObj.toString() + "\\nOOOOOOO\\n");
 			if (jsonObj == null)
 				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
 			
@@ -59,9 +60,10 @@ public class InformesEJB implements GestionInformes{
 			if(searchParameters == null)
 				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
 			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
-			
+			System.out.println("\nspspspsps\n" + spObj.toString() + "\nspspspsp\n");
 			// Buscar "questionType"
 			String questionType = (String) spObj.get("questionType");
+			System.out.println("\nqtqtqt\n" + questionType + "\nqtqtqt\n");
 			if(questionType == null)
 				throw new InvalidJSONQueryException("questionType NOT FOUND");
 			
@@ -81,7 +83,7 @@ public class InformesEJB implements GestionInformes{
 		}catch(ParseException e) {
 			throw new InvalidJSONQueryException("json COULD NOT BE PARSED PROPERLY"); // Properly
 		}catch(Exception e) {
-			throw new InvalidJSONQueryException("json ERROR " + e.getMessage());
+			throw new InvalidJSONQueryException("\n@@@@@\n" + json + "\n@@@@@\njson ERROR " + e.getMessage());
 		}
 		
 		return results;
@@ -153,8 +155,8 @@ public class InformesEJB implements GestionInformes{
 		
 		Query query;
 		try {
-			String hql         = "FROM Cliente C WHERE ";
-			int queryLength    = hql.length();
+			String predicate   = "";
+			int predicateLength= predicate.length();
 			String startPeriod = (String) spObj.get("startPeriod");
 			String endPeriod   = (String) spObj.get("endPeriod");
 			JSONObject name    = (JSONObject) spObj.get("name");					// Cast into JSONObject				
@@ -177,55 +179,63 @@ public class InformesEJB implements GestionInformes{
 			}
 			
 			if(startPeriod != null) 
-				hql.concat("C.fechaAlta = :startPeriod");
+				predicate.concat("C.fechaAlta = :startPeriod");
 			if(endPeriod != null) {
-				if(hql.length() > queryLength)
-					hql.concat(" AND ");
-				hql.concat("C.fechaBaja = :endPeriod");
+				if(predicate.length() > predicateLength)
+					predicate.concat(" AND ");
+				predicate.concat("C.fechaBaja = :endPeriod");
 			}
 			if(name != null) {
 				if(firstName != null) {
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.nombre = '" + firstName + "'");
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.nombre = '" + firstName + "'");
 				}
 				if(lastName != null) {
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.apellido = '" + lastName + "'");
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.apellido = '" + lastName + "'");
 				}
 			}
 			if(address != null) {
 				if(street != null) {
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.direccion = '" + street + "'");
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.direccion = '" + street + "'");
 				}
 				if(city != null) {
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.ciudad = '" + city + "'");
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.ciudad = '" + city + "'");
 				}
 				if(postalCode != null) {
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.codigoPostal = " + postalCode);
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.codigoPostal = " + postalCode);
 				}
 				if(country != null) {
 					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
-					if(hql.length() > queryLength)
-						hql.concat(" AND ");
-					hql.concat("C.pais = '" + country + "'");
+					if(predicate.length() > predicateLength)
+						predicate.concat(" AND ");
+					predicate.concat("C.pais = '" + country + "'");
 				}
 			}
 			
 			if(em == null)
 				throw new NullPointerException("---El EntityManager es NULL---");
-			if(hql == null)
-				throw new NullPointerException("---El hql es NULL---");
-			query = em.createQuery(hql);
-			
+			if(predicate == null)
+				throw new NullPointerException("---El predicado es NULL---");
+			try {
+				String hql;
+				if(predicate.equals(""))
+					hql = "FROM Cliente C";
+				else
+					hql = "FROM Cliente C WHERE " + predicate;
+				query = em.createQuery(hql);
+			}catch(IllegalArgumentException e) {
+				throw new InvalidJSONQueryException("-@@ 0 @@-  -> " + predicate + " <-");
+			}
 			if(startPeriod != null) {
 				try {
 					
@@ -244,6 +254,8 @@ public class InformesEJB implements GestionInformes{
 					
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("startPeriod NOT VALID");
+				}catch(IllegalArgumentException e) {
+					throw new InvalidJSONQueryException("-@@ 1 @@- -> " + predicate + " <-");
 				}
 			}
 			if(endPeriod != null) {
@@ -264,12 +276,14 @@ public class InformesEJB implements GestionInformes{
 					
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("endPeriod NOT VALID");
+				}catch(IllegalArgumentException e) {
+					throw new InvalidJSONQueryException("-@@ 2 @@- -> " + predicate + " <-");
 				}
 			}
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("customer COULD NOT BE CAST PROPERLY " + e.getMessage());
 		}catch(IllegalArgumentException e) {
-			throw new InvalidJSONQueryException("customer final query NOT VALID FORMAT");
+			throw new InvalidJSONQueryException("customer final query NOT VALID FORMAT " + e.getMessage() + "-" + e.getClass());
 		}catch(Exception e) {
 			throw new InvalidJSONQueryException("customer ERROR " + e.getMessage() + "-" + e.getClass() + " ->\n" + e.getStackTrace().toString());
 		}

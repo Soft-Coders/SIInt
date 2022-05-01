@@ -18,7 +18,7 @@ import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 
 public class PruebaCliente {
-	private static final String TRANSACCION_EJB = "java:global/classes/TransaccionEJB";
+	private static final String CLIENTE_EJB = "java:global/classes/ClienteEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
 	private GestionCliente gestionCliente;
@@ -26,7 +26,7 @@ public class PruebaCliente {
 	
 	@Before
 	public void setup() throws NamingException, ParseException  {
-		gestionCliente = (GestionCliente) SuiteTest.ctx.lookup(TRANSACCION_EJB);
+		gestionCliente = (GestionCliente) SuiteTest.ctx.lookup(CLIENTE_EJB);
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
