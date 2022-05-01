@@ -27,12 +27,199 @@ public class BaseDatosInformes {
 		EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
 
-			try{
-	           	Query queryDelete = em.createQuery("DELETE FROM Segregada s WHERE s.iban = 'NL%'", Segregada.class);
-	            int deletedAccounts = queryDelete.executeUpdate();
-            }catch(Exception e){
-               	throw new RuntimeException("ERROR QUERY BASE DE DATOS: \n" + e.getMessage() + e.getClass() +e.getCause() + e.getStackTrace());
-            }
+            Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
+            Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
+            Divisa d3 = new Divisa("PES", "pesos", '$', (long)4.2);
+
+            CuentaReferencia cR1 = new CuentaReferencia("BBVA-55", (long)40000, d1);
+            CuentaReferencia cR2 = new CuentaReferencia("SANTANDER-55", (long)40000, d2);
+            CuentaReferencia cR3 = new CuentaReferencia("CAJAMAR-55", (long)40000, d3);
+
+			cR1.setIban("CUENTAREFLMAO-55");
+			cR2.setIban("CUENTAREFLMAO1-55");
+			cR3.setIban("CUENTAREFLMAO2-55");
+				
+			
+            Segregada cS1 = new Segregada(cR1);
+            Segregada cS2 = new Segregada(cR2);
+            Segregada cS3 = new Segregada(cR3);
+
+            cR1.setSegregada(cS1);
+            cR2.setSegregada(cS2);
+            cR3.setSegregada(cS3);
+            
+			Usuario u = new Usuario("USUARIO-55","CLAVE-55",false);
+			
+            Individual c1 = new Individual("Jesús","Cestino");
+            
+            List<CuentaFintech> list1 = new ArrayList<>();
+
+            list1.add(cS1);
+            list1.add(cS2);
+            list1.add(cS3);
+
+            Date pDate = new Date(119,6,23);
+            
+            u.setIndividual(c1);
+
+            c1.setIdentificacion("CLIENTE1-55");
+            c1.setTipo_cliente("INDIVIDUAL");
+            c1.setEstado("ACTIVO");
+            c1.setFecha_Alta(pDate);
+            c1.setDireccion("53");
+            c1.setCiudad("Sofía");
+            c1.setCodigoPostal("29620");
+            c1.setPais("germany");
+            c1.setFechaNacimiento(pDate);
+            c1.setID((long)555555);
+            c1.setCuentas(list1);
+            c1.setUsuario(u);
+            
+            
+
+            //Setters segregadas
+            cS1.setEstado("ACTIVA");
+            cS2.setEstado("ACTIVA");
+            cS3.setEstado("ACTIVA");
+
+            cS1.setIban("ES1602091417-55");
+            cS2.setIban("ES2602091417-55");
+            cS3.setIban("ES3602091417-55");
+
+            cS1.setFechaApertura(pDate);
+            cS2.setFechaApertura(pDate);
+            cS3.setFechaApertura(pDate);
+
+            cS1.setCliente(c1);
+            cS2.setCliente(c1);
+            cS3.setCliente(c1);
+            //Setters segregadas
+
+
+            //Persist
+            em.persist(c1);
+            em.persist(d1);
+            em.persist(d2);
+            em.persist(d3);
+
+            em.persist(cR1);
+            em.persist(cR2);
+            em.persist(cR3);
+            
+            em.persist(cS1);
+            em.persist(cS2);
+            em.persist(cS3);
+            //Persist
+
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+
+      }
+
+      public static void setCuentas2(){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
+            Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
+            Divisa d3 = new Divisa("PES", "pesos", '$', (long)4.2);
+
+            CuentaReferencia cR1 = new CuentaReferencia("BBVA-55", (long)40000, d1);
+            CuentaReferencia cR2 = new CuentaReferencia("SANTANDER-55", (long)40000, d2);
+            CuentaReferencia cR3 = new CuentaReferencia("CAJAMAR-55", (long)40000, d3);
+
+			cR1.setIban("CUENTAREFLMAO-55");
+			cR2.setIban("CUENTAREFLMAO1-55");
+			cR3.setIban("CUENTAREFLMAO2-55");
+				
+			
+            Segregada cS1 = new Segregada(cR1);
+            Segregada cS2 = new Segregada(cR2);
+            Segregada cS3 = new Segregada(cR3);
+
+            cR1.setSegregada(cS1);
+            cR2.setSegregada(cS2);
+            cR3.setSegregada(cS3);
+            
+			Usuario u = new Usuario("USUARIO-55","CLAVE-55",false);
+			
+            Individual c1 = new Individual("Jesús","Cestino");
+            
+            List<CuentaFintech> list1 = new ArrayList<>();
+
+            list1.add(cS1);
+            list1.add(cS2);
+            list1.add(cS3);
+
+            Date pDate = new Date(117,6,23);
+            
+            u.setIndividual(c1);
+
+            c1.setIdentificacion("CLIENTE1-55");
+            c1.setTipo_cliente("INDIVIDUAL");
+            c1.setEstado("ACTIVO");
+            c1.setFecha_Alta(pDate);
+            c1.setDireccion("53");
+            c1.setCiudad("Sofía");
+            c1.setCodigoPostal("29620");
+            c1.setPais("germany");
+            c1.setFechaNacimiento(pDate);
+            c1.setID((long)555555);
+            c1.setCuentas(list1);
+            c1.setUsuario(u);
+            
+            
+
+            //Setters segregadas
+            cS1.setEstado("ACTIVA");
+            cS2.setEstado("ACTIVA");
+            cS3.setEstado("ACTIVA");
+
+            cS1.setIban("ES1602091417-55");
+            cS2.setIban("ES2602091417-55");
+            cS3.setIban("ES3602091417-55");
+
+            cS1.setFechaApertura(pDate);
+            cS2.setFechaApertura(pDate);
+            cS3.setFechaApertura(pDate);
+
+            cS1.setCliente(c1);
+            cS2.setCliente(c1);
+            cS3.setCliente(c1);
+            //Setters segregadas
+
+
+            //Persist
+            em.persist(c1);
+            em.persist(d1);
+            em.persist(d2);
+            em.persist(d3);
+
+            em.persist(cR1);
+            em.persist(cR2);
+            em.persist(cR3);
+            
+            
+            em.persist(cS2);
+            em.persist(cS3);
+            //Persist
+            
+            //Set 45 para comprobar el fallo de la longitud del iban
+            cS1.setIban("45");
+            // Set a inactiva para comprobar el fallo en ejb periodico
+            cS1.setEstado("INACTIVA");
+            
+            em.persist(cS1);
+
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+      }
+      public static void setCuentas3(){
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
             Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
             Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
             Divisa d3 = new Divisa("PES", "pesos", '$', (long)4.2);
@@ -111,48 +298,15 @@ public class BaseDatosInformes {
             em.persist(cR2);
             em.persist(cR3);
             
-            em.persist(cS1);
             em.persist(cS2);
             em.persist(cS3);
             //Persist
-
-            em.getTransaction().commit();
-            em.close();
-            emf.close();
-
-      }
-
-      public static void setCuentas2(){
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
             
-            Segregada segregadaEntity = em.find(Segregada.class,"ES1602091417-55");
             
-            System.out.println("se >" + segregadaEntity);
+            c1.setFechaNacimiento(null);
             
-            //Set 45 para comprobar el fallo de la longitud del iban
-            segregadaEntity.setIban("45");
-            // Set a inactiva para comprobar el fallo en ejb periodico
-            segregadaEntity.setEstado("INACTIVA");
-            
-            em.persist(segregadaEntity);
-
-            em.getTransaction().commit();
-            em.close();
-            emf.close();
-      }
-      public static void setCuentas3(){
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-
-            Segregada segregadaEntity = em.find(Segregada.class,"45");
-            Individual individualEntity = em.find(Individual.class,(long)555555);
-            individualEntity.setFechaNacimiento(null);
-            segregadaEntity.setIban("ES1602091417-55");
-            em.persist(individualEntity);
-            em.persist(segregadaEntity);
+            em.persist(c1);
+            em.persist(cS1);
 
             em.getTransaction().commit();
             em.close();

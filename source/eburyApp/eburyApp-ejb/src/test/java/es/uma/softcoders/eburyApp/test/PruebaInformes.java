@@ -23,6 +23,7 @@ import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
 import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
+import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 public class PruebaInformes {
@@ -273,29 +274,30 @@ public class PruebaInformes {
 
         try {
             int cont = 0;
-            BaseDatosInformes.setCuentas3();
-            gestionInformes.informeAlemaniaInicio(path);
-            try{
-	            Reader csvData = new FileReader(path);
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("Date_Of_Birth")){
-	                    String temp = csvRecord.get("Date_Of_Birth");
-	                    if(temp=="noexistente"){
-	                        cont++;
-	                    }
-	                    if(cont != 1){
-	                        fail("Debería haber un \"noexistente\" en el CSV");
-	                    }
-	                }
-	            }
-			}catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error 4");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}	
+        	BaseDatosInformes.setCuentas3();
+        	gestionInformes.informeAlemaniaInicio(path);
+        	try{
+        		Reader csvData = new FileReader(path);
+        		Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
+        		for(CSVRecord csvRecord : records){
+        			if(csvRecord.isMapped("Date_Of_Birth")){
+        				String temp = csvRecord.get("Date_Of_Birth");
+        				if(temp=="noexistente"){
+        					cont++;
+        				}
+        				if(cont != 1){
+        					fail("Debería haber un \"noexistente\" en el CSV");
+        				}
+        			}
+        		}
+        	}catch(IllegalArgumentException|FileNotFoundException e){
+        		fail("No deberia dar error 4");
+        	}catch (IOException e) {
+        		throw new RuntimeException(e);
+        	}
+            
         }catch(FailedInitialCSVException e){
-            fail("No debería dar este error 5");
+            fail("No debería dar este error 5 " + e.getMessage() + e.getCause() + e.getClass() + e.getStackTrace());
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }
@@ -328,9 +330,10 @@ public class PruebaInformes {
     @Test
     @Requisitos({"RF12"})
     public void testInformeAlemaniaPeriodico(){
-    	String path = ".";
+    	String path = "informes2.csv";
         try {
-            gestionInformes.informeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaPeriodico(path);
+            BaseDatosInformes.setCuentas1();
             try{
 	            Reader csvData = new FileReader(path);
 	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
@@ -338,17 +341,17 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-	            if(cont != 4){
+	            if(cont != 3){
 	                fail("No hay las líneas que debería");
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error - 1");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}
             
-        }catch(FailedInitialCSVException e){
-            fail("No debería dar error");
+        }catch(FailedPeriodicCSVException e){
+            fail("No debería dar error - 2 " + e);
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }
@@ -356,7 +359,7 @@ public class PruebaInformes {
         try {
             String temp;
             BaseDatosInformes.setCuentas2();
-            gestionInformes.informeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaPeriodico(path);
             try{
 	            Reader csvData = new FileReader(path);
 	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
@@ -369,14 +372,14 @@ public class PruebaInformes {
 	                }
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error 2.5");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}
-        }catch(FailedInitialCSVException e){
+        }catch(FailedPeriodicCSVException e){
             //Success
         }catch(IllegalArgumentException e){
-            fail("No debería dar este error");
+            fail("No debería dar este error - 3");
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }
@@ -384,7 +387,7 @@ public class PruebaInformes {
         try {
             int cont = 0;
             BaseDatosInformes.setCuentas3();
-            gestionInformes.informeAlemaniaInicio(path);
+            gestionInformes.informeAlemaniaPeriodico(path);
             try{
 	            Reader csvData = new FileReader(path);
 	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
@@ -400,12 +403,12 @@ public class PruebaInformes {
 	                }
 	            }
 			}catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error - 4");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}	
-        }catch(FailedInitialCSVException e){
-            fail("No debería dar este error");
+        }catch(FailedPeriodicCSVException e){
+            fail("No debería dar este error - 5");
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }

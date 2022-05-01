@@ -353,19 +353,20 @@ public class InformesEJB implements GestionInformes{
 					String identity  = c.getIdentificacion();
 					Date nacimiento  = ((Individual) c).getFechaNacimiento();
 					
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedInitialCSVException("pais NOT VALID");
-					if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
-						throw new FailedInitialCSVException("nacimiento NOT VALID");
-					
 					// CSV construction
 					// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 					String birth;
 					if(nacimiento == null)
 						birth = "noexistente";
-					else
+					else {
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+							throw new FailedInitialCSVException("nacimiento NOT VALID");
+					}
+					// Checks:
+					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
+						throw new FailedInitialCSVException("pais NOT VALID");
+					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
@@ -382,17 +383,18 @@ public class InformesEJB implements GestionInformes{
 						String identity  = pa.getIdentificacion();
 						Date nacimiento  = pa.getFechaNacimiento();
 						
-						// Checks:
-						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
-							throw new FailedInitialCSVException("nacimiento NOT VALID");
-						
 						// CSV construction
 						// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 						String birth;
 						if(nacimiento == null)
 							birth = "noexistente";
-						else
+						else {
 							birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+							// Checks:
+							if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+							throw new FailedInitialCSVException("nacimiento NOT VALID");
+						}
+						
 						p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
 						p.println();
 					}
@@ -453,32 +455,33 @@ public class InformesEJB implements GestionInformes{
 	 * @param path Ubicación donde guardar el fichero CSV
 	 * @author Ignacio Lopezosa
 	 * @return void
-	 * @throws FailedInitialCSVException
+	 * @throws FailedPeriodicCSVException
 	 */
 	@Override
 	public void informeAlemaniaPeriodico(String path) throws FailedPeriodicCSVException {
 		
-		String predicate = " WHERE C.fechaApertura > :fiveYearsAgo AND C.estado like 'ACTIV[AOE]'";
+		String predicate = " WHERE c.fechaApertura > :fiveYearsAgo AND c.estado = 'ACTIVA'";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		if(em == null)
           	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
+		Query querySegregada = em.createQuery("SELECT c FROM Segregada c" + predicate);
 //		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
 //		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
 		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
 //		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
+		System.out.println(querySegregada.toString() + " cs > " + cuentasSegregadas);
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)) {
 			
-			p.printRecord("IBAN", "Last_Name", "First_Name", "Stree", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
+			p.printRecord("IBAN", "Last_Name", "First_Name", "Street", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth");	// HEADER
 			
 			for(Segregada s : cuentasSegregadas){
 				
 				String iban      = s.getIban();
 				if(iban.length() < 5 || iban.length() > 34)
-					throw new FailedInitialCSVException("iban NOT VALID");
+					throw new FailedPeriodicCSVException("iban NOT VALID");
 				Cliente c = s.getCliente();
 				// Si Cliente NO ACTIVO pasa a siguiente cliente
 				if(!c.getEstado().equalsIgnoreCase("ACTIVO") || !c.getEstado().equalsIgnoreCase("ACTIVA") || !c.getEstado().equalsIgnoreCase("ACTIVE"))
@@ -493,19 +496,20 @@ public class InformesEJB implements GestionInformes{
 					String identity  = c.getIdentificacion();
 					Date nacimiento  = ((Individual) c).getFechaNacimiento();
 					
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedInitialCSVException("pais NOT VALID");
-					if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
-						throw new FailedInitialCSVException("nacimiento NOT VALID");
-					
 					// CSV construction
 					// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 					String birth;
 					if(nacimiento == null)
 						birth = "noexistente";
-					else
+					else {
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+							throw new FailedPeriodicCSVException("nacimiento NOT VALID");
+					}
+					// Checks:
+					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
+						throw new FailedPeriodicCSVException("pais NOT VALID");
+					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
@@ -525,17 +529,17 @@ public class InformesEJB implements GestionInformes{
 						String identity  = pa.getIdentificacion();
 						Date nacimiento  = pa.getFechaNacimiento();
 						
-						// Checks:
-						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
-							throw new FailedInitialCSVException("nacimiento NOT VALID");
-						
 						// CSV construction
 						// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 						String birth;
 						if(nacimiento == null)
 							birth = "noexistente";
-						else
+						else {
 							birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
+							// Checks:
+							if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
+								throw new FailedPeriodicCSVException("nacimiento NOT VALID");
+						}
 						p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
 						p.println();
 					}
@@ -552,7 +556,7 @@ public class InformesEJB implements GestionInformes{
 					
 					// Checks:
 					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedInitialCSVException("pais NOT VALID");
+						throw new FailedPeriodicCSVException("pais NOT VALID");
 					
 					// CSV construction
 					p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
@@ -586,7 +590,7 @@ public class InformesEJB implements GestionInformes{
 		} catch(ClassCastException e) {
 			throw new FailedPeriodicCSVException("PERIODIC CSV parameter COULD NOT BE CAST PROPERLY");
 		} catch(Exception e) {
-			throw new FailedPeriodicCSVException("PERIODIC CSV ERROR");
+			throw new FailedPeriodicCSVException("PERIODIC CSV ERROR" + e.getMessage() + e.getCause() + e.getClass() + e.getStackTrace());
 		}
 	}
 }
