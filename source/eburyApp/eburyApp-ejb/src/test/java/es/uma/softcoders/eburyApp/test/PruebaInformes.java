@@ -25,7 +25,7 @@ import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
-public class TestInformes {
+public class PruebaInformes {
 
     private static final String INFORMES_EJB = "java:global/classes/InformesEJB";
     private static final String UNIDAD_PERSISTENCIA_PRUEBAS = "eburyAppTest";

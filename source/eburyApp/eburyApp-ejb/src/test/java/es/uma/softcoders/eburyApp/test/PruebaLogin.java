@@ -15,7 +15,7 @@ import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoAdministrativoException;
 
-public class TestLogin {
+public class PruebaLogin {
 	private static final String LOGIN_EJB = "java:global/classes/LoginEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	

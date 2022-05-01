@@ -24,7 +24,7 @@ import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 
-public class TestAutorizado {
+public class PruebaAutorizado {
 
 	private static final String AUTORIZADO_EJB = "java:global/classes/AutorizadoEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";

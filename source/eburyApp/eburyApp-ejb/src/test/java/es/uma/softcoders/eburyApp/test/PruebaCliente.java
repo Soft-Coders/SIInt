@@ -17,7 +17,7 @@ import es.uma.softcoders.eburyApp.ejb.ClienteEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 
-public class TestCliente {
+public class PruebaCliente {
 	private static final String TRANSACCION_EJB = "java:global/classes/TransaccionEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
