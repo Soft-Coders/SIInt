@@ -30,7 +30,7 @@ public class PruebaCuenta {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionCuenta = (GestionCuenta) new CuentaEJB();
+		gestionCuenta = (GestionCuenta) SuiteTest.ctx.lookup(CUENTA_EJB);
 		BaseDatosCuenta.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	

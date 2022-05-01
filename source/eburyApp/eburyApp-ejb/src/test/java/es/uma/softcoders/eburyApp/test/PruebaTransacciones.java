@@ -28,7 +28,7 @@ public class PruebaTransacciones {
 	
 	@Before
 	public void setup() throws NamingException, ParseException  {
-		gestionTransaccion = (GestionTransaccion) new TransaccionEJB();
+		gestionTransaccion = (GestionTransaccion) SuiteTest.ctx.lookup(TRANSACCION_EJB);
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	

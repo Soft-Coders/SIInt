@@ -26,7 +26,7 @@ public class PruebaCliente {
 	
 	@Before
 	public void setup() throws NamingException, ParseException  {
-		gestionCliente = (GestionCliente) new ClienteEJB();
+		gestionCliente = (GestionCliente) SuiteTest.ctx.lookup(TRANSACCION_EJB);
 		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	

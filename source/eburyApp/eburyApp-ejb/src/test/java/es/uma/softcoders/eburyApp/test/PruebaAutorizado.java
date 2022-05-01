@@ -32,7 +32,7 @@ public class PruebaAutorizado {
 	
 	@Before
 	public void setup() throws NamingException{
-		gestionAutorizado = (GestionAutorizado) new AutorizadoEJB();
+		gestionAutorizado = (GestionAutorizado) SuiteTest.ctx.lookup(AUTORIZADO_EJB);
 	}
 	
 	/**

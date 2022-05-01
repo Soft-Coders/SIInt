@@ -26,7 +26,7 @@ public class PruebaLogin {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionLogin = (GestionLogin) new LoginEJB();
+		gestionLogin = (GestionLogin) SuiteTest.ctx.lookup(LOGIN_EJB);
 		BaseDatosLogin.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	

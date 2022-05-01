@@ -33,7 +33,7 @@ public class PruebaInformes {
 
     @Before
     public void setup() throws NamingException {
-        gestionInformes = (GestionInformes) new InformesEJB();
+        gestionInformes = (GestionInformes) SuiteTest.ctx.lookup(INFORMES_EJB);
         BaseDatosInformes.inicializaBaseDatos(UNIDAD_PERSISTENCIA_PRUEBAS);
     }
 
