@@ -22,6 +22,27 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 
 	private static final long serialVersionUID = -1762735924713432275L;	
 	
+	public CuentaReferencia() {
+		super();
+	}
+	
+	public CuentaReferencia(String nombreBanco, Long saldo, Divisa divisa) {
+		this.nombreBanco = nombreBanco;
+		this.saldo       = saldo;
+		this.divisa      = divisa;
+	}
+	
+	public CuentaReferencia(String nombreBanco, String sucursal, String pais,
+			Long saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
+		this.nombreBanco   = nombreBanco;
+		this.sucursal      = sucursal;
+		this.pais          = pais;
+		this.saldo         = saldo;
+		this.fechaApertura = fechaApertura;
+		this.estado        = estado;
+		this.segregada     = segregada;
+		this.divisa        = divisa;
+	}
 	// ---------- ATRIBUTOS ----------
 	
 	// ID es heredado de Cuenta
@@ -33,7 +54,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
-	private Double saldo;
+	private Long saldo;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
@@ -56,10 +77,6 @@ public class CuentaReferencia extends Cuenta implements Serializable{
     @MapKeyJoinColumn(name="POOLED_FK", referencedColumnName="iban")
     private Map<Pooled, Long> depositadaEn;
 	
-	// Constructor
-	public CuentaReferencia() {
-		
-	}
 	
 	// ------ GETTERS & SETTERS ------
 
@@ -108,14 +125,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * @return el saldo de la cuenta referencia
 	 */
-	public Double getSaldo() {
+	public Long getSaldo() {
 		return saldo;
 	}
 
 	/**
 	 * @param saldo el saldo de la cuenta referencia
 	 */
-	public void setSaldo(Double saldo) {
+	public void setSaldo(Long saldo) {
 		this.saldo = saldo;
 	}
 

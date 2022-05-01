@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -15,7 +16,16 @@ public class Segregada extends CuentaFintech implements Serializable{
 	private static final long serialVersionUID = -817987222673845151L;	
 	
 	public Segregada() {
-		
+		super();
+	}
+	
+	public Segregada(CuentaReferencia cuentaRef) {
+		this.cuentaRef = cuentaRef;
+	}
+	
+	public Segregada(String comision,CuentaReferencia cuentaRef) {
+		this.comision  = comision;
+		this.cuentaRef = cuentaRef;
 	}
 	
 	// ---------- ATRIBUTOS ----------
@@ -25,7 +35,7 @@ public class Segregada extends CuentaFintech implements Serializable{
 	@Column(length= 20)
 	private String comision;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
 	

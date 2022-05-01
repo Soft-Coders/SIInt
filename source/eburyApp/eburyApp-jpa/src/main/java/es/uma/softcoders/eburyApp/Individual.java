@@ -23,7 +23,7 @@ public class Individual extends Cliente implements Serializable{
     @Column(name = "FECHA_NACIMIENTO")
     private Date fechaNacimiento;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name="INDIVIDUAL_USUARIO", nullable = false)
 	private Usuario usuario;
 
@@ -31,6 +31,11 @@ public class Individual extends Cliente implements Serializable{
 
     public Individual(){
         super();
+    }
+    public Individual(String nom, String ape){
+        super();
+        this.nombre = nom;
+        this.apellido = ape;
     }
 
     public String getNombre(){

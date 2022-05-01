@@ -3,6 +3,7 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +17,14 @@ public class Usuario implements Serializable{
 	private static final long serialVersionUID = -1977601704778764068L;
 
 	public Usuario() {
+		super();
+	}
+	
+	public Usuario(String usuario, String clave, boolean esAdministrativo) throws NullPointerException{
 		
+		this.usuario = usuario;
+		this.clave = clave;
+		this.esAdministrativo = esAdministrativo;
 	}
 	
 	// --------- ATRIBUTOS ---------
@@ -28,18 +36,18 @@ public class Usuario implements Serializable{
 	@Column(nullable=false, unique=true)
 	private String usuario;
 	
-	@Column(nullable=false, unique=true)
+	@Column(nullable=false)
 	private String clave;
-	
-	// --------- RELACIONES ---------
 	
 	@Column(name= "ES_ADMINISTRATIVO", nullable=false)
 	private boolean esAdministrativo;
+
+	// --------- RELACIONES ---------
 	
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", cascade = CascadeType.PERSIST)
 	private PersonaAutorizada personaAutorizada;
 	
-	@OneToOne(mappedBy="usuario")
+	@OneToOne(mappedBy="usuario", cascade = CascadeType.PERSIST)
 	private Individual individual;
 	
 	// ------ GETTERS & SETTERS ------

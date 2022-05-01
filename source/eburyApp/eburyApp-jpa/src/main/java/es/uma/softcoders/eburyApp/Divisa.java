@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
 
 @Entity
 public class Divisa implements Serializable{
@@ -15,7 +18,21 @@ public class Divisa implements Serializable{
 	private static final long serialVersionUID = -2958945073501018190L;
 
 	public Divisa() {
+		super();
+	}
+	
+	public Divisa(String abreviatura, String nombre, Long cambioEuro) {
 		
+		this.abreviatura = abreviatura;
+		this.nombre = nombre;
+		this.cambioEuro = cambioEuro;
+	}
+	public Divisa(String abreviatura, String nombre, Character simbolo, Long cambioEuro) {
+		
+		this.abreviatura = abreviatura;	
+		this.nombre = nombre;
+		this.simbolo = simbolo;
+		this.cambioEuro = cambioEuro;
 	}
 	
 	// --------- ATRIBUTOS ---------
@@ -34,9 +51,16 @@ public class Divisa implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-	@OneToMany(mappedBy="divisa")
+	@OneToMany(mappedBy="divisa", cascade = CascadeType.PERSIST)
 	private List<CuentaReferencia> cuentaReferencia;
 	
+	@OneToMany(mappedBy="divisaReceptor", cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRANSACCION_RECEPTOR")
+	private List<Transaccion> transaccionReceptor;
+	
+	@OneToMany(mappedBy="divisaEmisor", cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRANSACCION_EMISOR")
+	private List<Transaccion> transaccionEmisor;
 
 	// ------ GETTERS & SETTERS ------
 

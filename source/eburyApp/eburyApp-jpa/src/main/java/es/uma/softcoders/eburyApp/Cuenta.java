@@ -1,11 +1,16 @@
 package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -14,7 +19,16 @@ public class Cuenta implements Serializable{
 	private static final long serialVersionUID = 4905707791439895391L;
 
 	public Cuenta() {
-		
+		super();
+	}
+	
+	public Cuenta(String iban) {
+		this.iban = iban;
+	}
+
+	public Cuenta(String iban, String swift) {
+		this.iban = iban;
+		this.swift = swift;
 	}
 	
 	// ----------- ATRIBUTOS -----------
@@ -24,6 +38,17 @@ public class Cuenta implements Serializable{
 	
 	private String swift;
 
+	
+	// ---------- RELACIONES -----------
+	
+	@OneToMany(mappedBy = "origen", cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRANSACCION_ORIGEN_FK", nullable = true) // ES NULLABLE?  TODO
+	private List<Transaccion> transaccionOrigen;
+	
+	@OneToMany(mappedBy = "destino" , cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "TRANSACCION_DESTINO", nullable = true) // ES NULLABLE?  TODO
+	private List<Transaccion> transaccionDestino;
+	
 	
 	// ------ GETTERS & SETTERS ------
 	
