@@ -2,11 +2,8 @@ package es.uma.softcoders.eburyApp.test;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.persistence.CascadeType;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -15,21 +12,23 @@ import javax.persistence.Query;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
-import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
-import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
 
 public class BaseDatosInformes {
 	  private static String nombreUnidadPersistencia;
-      public static void setCuentas1(){
+      public static void setCuentas1() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            Query queryDelete = em.createQuery("DELETE FROM SEGREGADA s WHERE s.iban LIKE 'NL%'");
-            int deletedAccounts = queryDelete.executeUpdate();
+			try{
+	           	Query queryDelete = em.createQuery("DELETE FROM SEGREGADA s WHERE s.iban LIKE 'NL%'");
+	            int deletedAccounts = queryDelete.executeUpdate();
+            }catch(Exception e){
+               	throw new RuntimeException("ERROR QUERY BASE DE DATOS: \n" + e.getMessage() + e.getStackTrace().toString());
+            }
             Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
             Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
             Divisa d3 = new Divisa("PES", "pesos", '$', (long)4.2);

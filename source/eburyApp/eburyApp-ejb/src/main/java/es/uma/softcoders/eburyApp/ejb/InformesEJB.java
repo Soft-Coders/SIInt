@@ -51,7 +51,7 @@ public class InformesEJB implements GestionInformes{
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
 			JSONObject jsonObj = (JSONObject) jsonFile;
-			System.out.println("\nOOOOOOO\n" + jsonObj.toString() + "\\nOOOOOOO\\n");
+			System.out.println("jsonObj:\n=======\n" + jsonObj.toString() + "\n=======\n");
 			if (jsonObj == null)
 				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
 			
@@ -60,10 +60,10 @@ public class InformesEJB implements GestionInformes{
 			if(searchParameters == null)
 				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
 			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
-			System.out.println("\nspspspsps\n" + spObj.toString() + "\nspspspsp\n");
+			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
 			// Buscar "questionType"
 			String questionType = (String) spObj.get("questionType");
-			System.out.println("\nqtqtqt\n" + questionType + "\nqtqtqt\n");
+			System.out.println("questionType:\n=======\n" + questionType + "\n=======\n");
 			if(questionType == null)
 				throw new InvalidJSONQueryException("questionType NOT FOUND");
 			
@@ -163,7 +163,7 @@ public class InformesEJB implements GestionInformes{
 			String firstName   = null;
 			String lastName    = null;
 			if(name != null) {
-				firstName   = (String) name.get("fisrtName");	
+				firstName   = (String) name.get("firstName");	
 				lastName    = (String) name.get("lastName");
 			}
 			JSONObject address = (JSONObject) spObj.get("address");				// Get String
@@ -178,49 +178,57 @@ public class InformesEJB implements GestionInformes{
 				country     = (String) address.get("country");				
 			}
 			
-			if(startPeriod != null) 
-				predicate.concat("C.fechaAlta = :startPeriod");
+			System.out.println("Customer:\n=======> sp, ep, na, fn, ln, ad, st, ct, pc, cn");			
+			for(Object param : new Object [] {startPeriod, endPeriod, name, firstName, lastName, address, street, city, postalCode, country})
+				if(param != null)
+					System.out.println("> " + param.toString());
+			System.out.println("=======");
+			
+			if(startPeriod != null)
+				predicate += "I.fechaAlta = :startPeriod";
 			if(endPeriod != null) {
 				if(predicate.length() > predicateLength)
-					predicate.concat(" AND ");
-				predicate.concat("C.fechaBaja = :endPeriod");
+					predicate += " AND ";
+				predicate += "I.fechaBaja = :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.nombre = '" + firstName + "'");
+						predicate += " AND ";
+					predicate += "I.nombre = '" + firstName + "'";
 				}
 				if(lastName != null) {
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.apellido = '" + lastName + "'");
+						predicate += " AND ";
+					predicate += "I.apellido = '" + lastName + "'";
 				}
 			}
 			if(address != null) {
 				if(street != null) {
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.direccion = '" + street + "'");
+						predicate += " AND ";
+					predicate += "I.direccion = '" + street + "'";
 				}
 				if(city != null) {
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.ciudad = '" + city + "'");
+						predicate += " AND ";
+					predicate += "I.ciudad = '" + city + "'";
 				}
 				if(postalCode != null) {
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.codigoPostal = " + postalCode);
+						predicate += " AND ";
+					predicate += "I.codigoPostal = '" + postalCode + "'";
 				}
 				if(country != null) {
 					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(predicate.length() > predicateLength)
-						predicate.concat(" AND ");
-					predicate.concat("C.pais = '" + country + "'");
+						predicate += " AND ";
+					predicate += "I.pais = '" + country + "'";
 				}
 			}
+			
+			System.out.println("predicate:\n=======\n" + predicate + "\n=======");
 			
 			if(em == null)
 				throw new NullPointerException("---El EntityManager es NULL---");
@@ -229,12 +237,13 @@ public class InformesEJB implements GestionInformes{
 			try {
 				String hql;
 				if(predicate.equals(""))
-					hql = "FROM Cliente C";
+					hql = "FROM Individual I";
 				else
-					hql = "FROM Cliente C WHERE " + predicate;
+					hql = "FROM Individual I WHERE " + predicate;
+				System.out.println("hql:\n=======\n" + hql + "\n=======");
 				query = em.createQuery(hql);
 			}catch(IllegalArgumentException e) {
-				throw new InvalidJSONQueryException("-@@ 0 @@-  -> " + predicate + " <-");
+				throw new InvalidJSONQueryException("-@@ 0 @@- => " + e.getMessage());
 			}
 			if(startPeriod != null) {
 				try {

@@ -101,7 +101,7 @@ public class PruebaInformes {
             
             }catch(NullPointerException | InvalidJSONQueryException e){
             	System.out.println("\nTTTTT" + query + "\nTTTTT");
-                fail("No debería de lanzar esta excepcion-1:" + e.getClass() + "-" + e.getMessage() + " ->\n" + e.getStackTrace().toString());
+                fail("No debería de lanzar esta excepcion-1:" + e.getClass() + "-" + e.getMessage() + " ->\n" + e.getStackTrace());
             }
 
             // Prueba de invalidez de query para Cliente  / query Customer
