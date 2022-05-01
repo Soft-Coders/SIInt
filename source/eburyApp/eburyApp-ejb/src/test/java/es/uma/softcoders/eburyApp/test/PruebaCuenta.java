@@ -22,7 +22,7 @@ import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 
-public class TestCuenta {
+public class PruebaCuenta {
 	private static final String CUENTA_EJB = "java:global/classes/CuentaEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
@@ -30,7 +30,7 @@ public class TestCuenta {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionCuenta = (GestionCuenta) new CuentaEJB();
+		gestionCuenta = (GestionCuenta) SuiteTest.ctx.lookup(CUENTA_EJB);
 		BaseDatosCuenta.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	

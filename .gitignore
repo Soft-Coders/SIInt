@@ -1,5 +1,6 @@
 *.DS_Store
 
+informe.csv
 esquema.ddl
 
 # Eclipse specific files/directories

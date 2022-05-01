@@ -15,7 +15,6 @@ import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
-import es.uma.softcoders.eburyApp.ejb.AutorizadoEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionAutorizado;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
@@ -24,7 +23,7 @@ import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 
-public class TestAutorizado {
+public class PruebaAutorizado {
 
 	private static final String AUTORIZADO_EJB = "java:global/classes/AutorizadoEJB";
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
@@ -32,7 +31,7 @@ public class TestAutorizado {
 	
 	@Before
 	public void setup() throws NamingException{
-		gestionAutorizado = (GestionAutorizado) new AutorizadoEJB();
+		gestionAutorizado = (GestionAutorizado) SuiteTest.ctx.lookup(AUTORIZADO_EJB);
 	}
 	
 	/**
