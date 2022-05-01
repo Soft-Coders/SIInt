@@ -48,10 +48,6 @@ public class PruebaInformes {
      *      <ul>
      *      <li>- <b>InvalidJSONQueryException</b> (Éxito).</li></ul></li>
      *      
-     *      <li>Query o petición de un cliente empresa de forma correcta, devolverá:
-     *      <ul>
-     *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).</li>
-     *      <li>- <b>InvalidJSONQueryException</b> si la query es incorrecta (Fallo).</li></ul></li>
      *      <li>Query o petición de cuentas activas, devolverá:
      *      <ul>
      *      <li>- <b>NullPointerException</b> si la lista de cuentas está vacía (Fallo).
@@ -83,8 +79,7 @@ public class PruebaInformes {
             addr.put("country", "NL");
 
             sP.put("questionType", "Customer");
-            sP.put("startPeriod", "2015-04-25");
-            sP.put("endPeriod", "2020-04-25");
+            sP.put("startPeriod", "2017-06-23");
             sP.put("address", addr);
             sP.put("name",name);
 
@@ -131,37 +126,6 @@ public class PruebaInformes {
                 
             }catch(InvalidJSONQueryException e){
                 
-            }
-
-
-            // TEST CON CLIENTE EMPRESA query Customer
-            
-            JSONObject json3 = new JSONObject();
-            JSONObject sP3 = new JSONObject();
-            JSONObject addr3 = new JSONObject();
-            
-            addr3.put("city", "Amsterdam");
-            addr3.put("postalCode", "7207KE");
-            addr3.put("country", "NL");
-
-            sP3.put("questionType", "Customer");
-            sP3.put("startPeriod", "2015-04-25");
-            sP3.put("endPeriod", "2020-04-25");
-            sP3.put("adress", addr3);
-
-            json3.put("searchParameters", sP3);
-            
-            query = JSONValue.toJSONString(json3);
-            
-
-            try{
-                List<Object> pRes = gestionInformes.informeHolanda(query);
-                if(pRes.isEmpty())
-                {
-                    fail("No deberia ser vacia-2");
-                }
-            }catch(NullPointerException | InvalidJSONQueryException e){
-                    fail("No debe dar error-3");
             }
 
             //Cuenta activa query product
@@ -250,7 +214,7 @@ public class PruebaInformes {
     @Test 
     @Requisitos({"RF12"})
     public void testInformeAlemaniaInicio(){
-        String path = ".";
+        String path = "informe.csv";
         try {
             BaseDatosInformes.setCuentas1();
             gestionInformes.informeAlemaniaInicio(path);
@@ -265,23 +229,26 @@ public class PruebaInformes {
 	                fail("No hay las líneas que debería");
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error 1");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}
             
         }catch(FailedInitialCSVException e){
-            fail("No debería dar error");
+            fail("No debería dar error 2" + e.getMessage() + e.getCause() +e.getClass() +e.getStackTrace());
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }
 
         try {
             String temp;
+            try {
             BaseDatosInformes.setCuentas2();
+            }catch(NullPointerException e) {
+				throw new NullPointerException("setCuentas2");
+			}
             gestionInformes.informeAlemaniaInicio(path);
-            try{
-	            Reader csvData = new FileReader(path);
+            try(Reader csvData = new FileReader(path)){
 	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
 	            for(CSVRecord csvRecord : records){
 	                if(csvRecord.isMapped("IBAN")){
@@ -292,16 +259,16 @@ public class PruebaInformes {
 	                }
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error 2.5");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}
         }catch(FailedInitialCSVException e){
             //Success
         }catch(IllegalArgumentException e){
-            fail("No debería dar este error");
+            fail("No debería dar este error 3");
         }catch(Exception e){
-            fail("Error" + e.getMessage());
+            fail("Error 123" + e.getMessage() + e.getCause() + e.getClass() + e.getStackTrace());
         }
 
         try {
@@ -323,12 +290,12 @@ public class PruebaInformes {
 	                }
 	            }
 			}catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error");
+                fail("No deberia dar error 4");
             }catch (IOException e) {
 				throw new RuntimeException(e);
 			}	
         }catch(FailedInitialCSVException e){
-            fail("No debería dar este error");
+            fail("No debería dar este error 5");
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }

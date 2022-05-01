@@ -28,10 +28,10 @@ public class BaseDatosInformes {
             em.getTransaction().begin();
 
 			try{
-	           	Query queryDelete = em.createQuery("DELETE FROM SEGREGADA s WHERE s.iban LIKE 'NL%'");
+	           	Query queryDelete = em.createQuery("DELETE FROM Segregada s WHERE s.iban = 'NL%'", Segregada.class);
 	            int deletedAccounts = queryDelete.executeUpdate();
             }catch(Exception e){
-               	throw new RuntimeException("ERROR QUERY BASE DE DATOS: \n" + e.getMessage() + e.getStackTrace().toString());
+               	throw new RuntimeException("ERROR QUERY BASE DE DATOS: \n" + e.getMessage() + e.getClass() +e.getCause() + e.getStackTrace());
             }
             Divisa d1 = new Divisa("RAV", "raviolis", '%', (long)0.76);
             Divisa d2 = new Divisa("MAC", "macarrones", '#', (long)1.7);
@@ -110,8 +110,8 @@ public class BaseDatosInformes {
             em.persist(cR1);
             em.persist(cR2);
             em.persist(cR3);
-
-            em.persist(cS2);
+            
+            em.persist(cS1);
             em.persist(cS2);
             em.persist(cS3);
             //Persist
@@ -124,14 +124,18 @@ public class BaseDatosInformes {
 
       public static void setCuentas2(){
             EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
-		EntityManager em = emf.createEntityManager();
+            EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-
+            
             Segregada segregadaEntity = em.find(Segregada.class,"ES1602091417-55");
+            
+            System.out.println("se >" + segregadaEntity);
+            
             //Set 45 para comprobar el fallo de la longitud del iban
             segregadaEntity.setIban("45");
             // Set a inactiva para comprobar el fallo en ejb periodico
             segregadaEntity.setEstado("INACTIVA");
+            
             em.persist(segregadaEntity);
 
             em.getTransaction().commit();
@@ -140,7 +144,7 @@ public class BaseDatosInformes {
       }
       public static void setCuentas3(){
             EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
-		EntityManager em = emf.createEntityManager();
+            EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
 
             Segregada segregadaEntity = em.find(Segregada.class,"45");

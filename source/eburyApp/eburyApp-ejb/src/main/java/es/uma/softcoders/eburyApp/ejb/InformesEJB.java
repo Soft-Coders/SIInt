@@ -185,46 +185,46 @@ public class InformesEJB implements GestionInformes{
 			System.out.println("=======");
 			
 			if(startPeriod != null)
-				predicate += "I.fechaAlta = :startPeriod";
+				predicate += "i.fechaAlta = :startPeriod";
 			if(endPeriod != null) {
 				if(predicate.length() > predicateLength)
 					predicate += " AND ";
-				predicate += "I.fechaBaja = :endPeriod";
+				predicate += "i.fechaBaja = :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.nombre = '" + firstName + "'";
+					predicate += "i.nombre = '" + firstName + "'";
 				}
 				if(lastName != null) {
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.apellido = '" + lastName + "'";
+					predicate += "i.apellido = '" + lastName + "'";
 				}
 			}
 			if(address != null) {
 				if(street != null) {
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.direccion = '" + street + "'";
+					predicate += "i.direccion = '" + street + "'";
 				}
 				if(city != null) {
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.ciudad = '" + city + "'";
+					predicate += "i.ciudad = '" + city + "'";
 				}
 				if(postalCode != null) {
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.codigoPostal = '" + postalCode + "'";
+					predicate += "i.codigoPostal = '" + postalCode + "'";
 				}
 				if(country != null) {
 					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
 					if(predicate.length() > predicateLength)
 						predicate += " AND ";
-					predicate += "I.pais = '" + country + "'";
+					predicate += "i.pais = '" + country + "'";
 				}
 			}
 			
@@ -237,9 +237,9 @@ public class InformesEJB implements GestionInformes{
 			try {
 				String hql;
 				if(predicate.equals(""))
-					hql = "FROM Individual I";
+					hql = "SELECT i FROM Individual i";
 				else
-					hql = "FROM Individual I WHERE " + predicate;
+					hql = "SELECT i FROM Individual i WHERE " + predicate;
 				System.out.println("hql:\n=======\n" + hql + "\n=======");
 				query = em.createQuery(hql);
 			}catch(IllegalArgumentException e) {
@@ -258,7 +258,7 @@ public class InformesEJB implements GestionInformes{
 					int day = Integer.parseInt(dateArr[2]);
 					if(day < 1 || day > 31)
 						throw new InvalidJSONQueryException("startPeriod.day NOT VALID");
-					Date spDate = new Date(year, month, day);			// Deprecated -> Cambiar tipo a Calendar? TODO
+					Date spDate = new Date(year-1900, month, day);			// Deprecated -> Cambiar tipo a Calendar? TODO
 					query.setParameter("startPeriod", spDate);
 					
 				}catch(NullPointerException e) {
@@ -280,7 +280,7 @@ public class InformesEJB implements GestionInformes{
 					int day = Integer.parseInt(dateArr[2]);
 					if(day < 1 || day > 31)
 						throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
-					Date epDate = new Date(year, month, day);	// Deprecated -> Cambiar tipo a Calendar? TODO
+					Date epDate = new Date(year-1900, month, day);	// Deprecated -> Cambiar tipo a Calendar? TODO
 					query.setParameter("endPeriod", epDate);
 					
 				}catch(NullPointerException e) {
@@ -298,6 +298,14 @@ public class InformesEJB implements GestionInformes{
 		}
 		@SuppressWarnings("unchecked")
 		List<Object> results = query.getResultList();
+		
+        System.out.println("R>>>>>>>\n" + results);
+        System.out.println("A>>>>>>>");
+        try {
+        System.out.println(("-> " + em.createQuery("SELECT i FROM Individual i", Individual.class).getResultList().get(0)));
+        }catch(Exception e) {
+        	System.out.println("#> " + e.getMessage() + " - " + e.getClass() + " - " + e.getCause() + " - " + e.getStackTrace());
+        }
 		return results;
 	}
 	
