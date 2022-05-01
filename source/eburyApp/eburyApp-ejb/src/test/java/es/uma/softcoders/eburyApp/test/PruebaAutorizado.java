@@ -15,7 +15,6 @@ import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
-import es.uma.softcoders.eburyApp.ejb.AutorizadoEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionAutorizado;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
