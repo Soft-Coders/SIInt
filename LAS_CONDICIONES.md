@@ -1,9 +1,9 @@
-#LAS CONDICIONES
-## Lo que se busca
+# REGLAS DE CONVIVENCIA
+## Lo que se buscas
 - Atmósfera decente (no activamente molesta).
 - Productividad.
 
-## Las condiciones del grupo
+## Las reglas del grupo
 - Seguimos en grupo tanto en SIInt como en ABD.
 - Se quitan las actas (para evitar comparaciones indeseadas).
 - En caso de discusión sobre proyecto (diferencia de ideas):
@@ -44,7 +44,7 @@
 		- Se puede pedir que la revisión se realice con menor demora por WhatsApp/Discord.
 		- En este caso se debería indicar por qué.
 
-## Condiciones de Nacho
+## Peticiones de Nacho
 - Pablo pasaría a tener permisos de escritor *"Write"* en el repositorio de GitHub.
 	- Esto le permite seguir pudiendo hacer push, pull, commits, ramas, abrir y cerrar issues, abrir y cerrar pull-requests.
 	- Solo impide la modificación de los ajustes de los repositorios.
