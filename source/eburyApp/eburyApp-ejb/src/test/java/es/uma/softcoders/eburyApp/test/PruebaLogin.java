@@ -18,8 +18,8 @@ public class PruebaLogin {
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
 	private GestionLogin gestionLogin;
-	private final String uNoAdmin = "noadmin-22";
-	private final String uAdmin   = "admin-22";
+	private final String uNoAdmin = BaseDatosLogin.noAdmin;
+	private final String uAdmin   = BaseDatosLogin.admin;
 	
 	
 	@Before

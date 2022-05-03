@@ -1,7 +1,9 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
 public class ClienteExistenteException extends RuntimeException{
-    public ClienteExistenteException(String e){
+    private static final long serialVersionUID = 1L;
+
+	public ClienteExistenteException(String e){
         super(e);
     }
 }

@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.ejb;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,10 +27,11 @@ public class LoginEJB implements GestionLogin {
     	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
     	q.setParameter("cuenta", cuenta);
     	q.setParameter("clave", clave);
-    	ArrayList<Usuario> us = (ArrayList<Usuario>) q.getResultList();
-    	System.out.println("-- a --\n" + us);
-        if (us == null || us.isEmpty())
+    	List us = q.getResultList();
+    	System.out.println("-- u --\n" + us);
+        if (us.isEmpty())
             throw new ClienteNoEncontradoException("Cuenta no existente");
+    	System.out.println("-- HAY USUARIOS --");
         Usuario u = (Usuario) us.get(0);
         System.out.println("u > " + u);
         if (u == null)
@@ -40,17 +41,20 @@ public class LoginEJB implements GestionLogin {
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
-
+    @Override
     public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException, ClienteNoEncontradoException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
     	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
     	q.setParameter("cuenta", cuenta);
     	q.setParameter("clave", clave);
-    	ArrayList<Usuario> us = (ArrayList<Usuario>) q.getResultList();
+    	List us = q.getResultList();
     	System.out.println("-- u --\n" + us);
-        if (us == null || us.isEmpty())
+        if (us.isEmpty()) {
             throw new ClienteNoEncontradoException("Cuenta no existente");
+        }
+        System.out.println("-- EMPTY --");
+    	System.out.println("-- HAY USUARIOS --");
         Usuario u = (Usuario) us.get(0);
         System.out.println("u > " + u);
         if (u.getClave() != clave)
