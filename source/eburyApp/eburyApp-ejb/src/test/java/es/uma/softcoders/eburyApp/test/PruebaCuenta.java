@@ -16,7 +16,6 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
-import es.uma.softcoders.eburyApp.ejb.CuentaEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;

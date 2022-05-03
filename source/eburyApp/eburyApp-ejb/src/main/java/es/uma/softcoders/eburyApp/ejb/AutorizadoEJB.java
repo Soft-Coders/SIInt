@@ -14,7 +14,6 @@ import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
-import es.uma.softcoders.eburyApp.ejb.GestionAutorizado;
 
 @Stateless
 public class AutorizadoEJB implements GestionAutorizado {

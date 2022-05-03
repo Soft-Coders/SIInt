@@ -12,10 +12,7 @@ import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Cliente;
-import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
-import es.uma.softcoders.eburyApp.ejb.ClienteEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
-import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 
 public class PruebaCliente {
 	private static final String CLIENTE_EJB = "java:global/classes/ClienteEJB";

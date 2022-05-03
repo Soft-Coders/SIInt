@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp.ejb;
 
 import javax.ejb.Local;
 
-import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;

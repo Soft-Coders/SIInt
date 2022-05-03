@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.naming.NamingException;
 
 import org.junit.Before;
@@ -15,7 +16,6 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
-import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 

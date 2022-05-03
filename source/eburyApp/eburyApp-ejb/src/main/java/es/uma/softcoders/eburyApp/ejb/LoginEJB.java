@@ -1,10 +1,12 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.ArrayList;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
@@ -19,10 +21,18 @@ public class LoginEJB implements GestionLogin {
 	private EntityManager em;
 
     @Override
-    public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException{
+    public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException, ClienteNoEncontradoException{
     	if(em == null)
           	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Usuario u = em.find(Usuario.class, cuenta);
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	q.setParameter("clave", clave);
+    	ArrayList<Usuario> us = (ArrayList<Usuario>) q.getResultList();
+    	System.out.println("-- a --\n" + us);
+        if (us == null || us.isEmpty())
+            throw new ClienteNoEncontradoException("Cuenta no existente");
+        Usuario u = (Usuario) us.get(0);
+        System.out.println("u > " + u);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (!u.isEsAdministrativo())
@@ -31,12 +41,18 @@ public class LoginEJB implements GestionLogin {
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
 
-    public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException{
+    public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException, ClienteNoEncontradoException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Usuario u = em.find(Usuario.class, cuenta);
-        if (u == null)
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	q.setParameter("clave", clave);
+    	ArrayList<Usuario> us = (ArrayList<Usuario>) q.getResultList();
+    	System.out.println("-- u --\n" + us);
+        if (us == null || us.isEmpty())
             throw new ClienteNoEncontradoException("Cuenta no existente");
+        Usuario u = (Usuario) us.get(0);
+        System.out.println("u > " + u);
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
         

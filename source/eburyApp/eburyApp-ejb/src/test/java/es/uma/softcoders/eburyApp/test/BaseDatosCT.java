@@ -1,6 +1,5 @@
 package es.uma.softcoders.eburyApp.test;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
-import es.uma.softcoders.eburyApp.Transaccion;
 
 public class BaseDatosCT {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) throws ParseException {

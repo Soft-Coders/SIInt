@@ -9,10 +9,8 @@ import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.ejb.GestionLogin;
-import es.uma.softcoders.eburyApp.ejb.LoginEJB;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
-
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoAdministrativoException;
 
 public class PruebaLogin {
@@ -103,7 +101,7 @@ public class PruebaLogin {
 	public void testLoginUsuario() {
 		// Usuario no existente
 		try {
-			gestionLogin.loginUsuario("UsuarioInexistente", "clave");
+			gestionLogin.loginUsuario("UsuarioInexistente-22", "clave");
 		} catch(ClienteNoEncontradoException e) {
 			//OK
 		} catch(Exception e) {

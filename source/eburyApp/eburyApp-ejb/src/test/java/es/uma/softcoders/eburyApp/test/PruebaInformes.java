@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import javax.naming.NamingException;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
-
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.junit.Before;
@@ -21,7 +19,6 @@ import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
-import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
