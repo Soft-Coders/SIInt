@@ -325,7 +325,7 @@ public class InformesEJB implements GestionInformes{
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		if(em == null)
-          	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
+          	throw new FailedInitialCSVException(" @@@ EntityManager is NULL @@@ ");
 		Query querySegregada = em.createQuery("FROM Segregada C" + predicate);
 //		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
@@ -464,7 +464,7 @@ public class InformesEJB implements GestionInformes{
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		if(em == null)
-          	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
+          	throw new FailedPeriodicCSVException(" @@@ EntityManager is NULL @@@ ");
 		Query querySegregada = em.createQuery("SELECT c FROM Segregada c" + predicate);
 //		Query queryReferencia= em.createQuery("FROM CuentaReferencia C" + predicate);
 		querySegregada.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
