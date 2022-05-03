@@ -217,7 +217,6 @@ public class PruebaInformes {
     public void testInformeAlemaniaInicio(){
         String path = "informe.csv";
         try {
-            BaseDatosInformes.setCuentas1();
             gestionInformes.informeAlemaniaInicio(path);
             try{
 	            Reader csvData = new FileReader(path);
@@ -227,7 +226,7 @@ public class PruebaInformes {
 	                cont++;
 				}
 	            if(cont != 4){
-	                fail("No hay las líneas que debería");
+	                fail("No hay las líneas que debería: " + cont);
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error 1");
@@ -333,7 +332,6 @@ public class PruebaInformes {
     	String path = "informes2.csv";
         try {
             gestionInformes.informeAlemaniaPeriodico(path);
-            BaseDatosInformes.setCuentas1();
             try{
 	            Reader csvData = new FileReader(path);
 	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
@@ -342,7 +340,7 @@ public class PruebaInformes {
 	                cont++;
 				}
 	            if(cont != 3){
-	                fail("No hay las líneas que debería");
+	                fail("No hay las líneas que debería: " + cont);
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error - 1");

@@ -34,6 +34,7 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 @Stateless
 public class InformesEJB implements GestionInformes{
 	
+	private static final String N_E = "noexistente";
 	@PersistenceContext(unitName = "eburyAppEjb")
 	private EntityManager em;
 	
@@ -357,7 +358,7 @@ public class InformesEJB implements GestionInformes{
 					// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 					String birth;
 					if(nacimiento == null)
-						birth = "noexistente";
+						birth = N_E;
 					else {
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
 						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
@@ -377,9 +378,9 @@ public class InformesEJB implements GestionInformes{
 						String apellidos = pa.getApellidos();
 						String nombre    = pa.getNombre();
 						String direccion = pa.getDireccion();
-						String ciudad    = "noexistente";
-						String cp        = "noexistente";
-						String pais      = "noexistente";
+						String ciudad    = N_E;
+						String cp        = N_E;
+						String pais      = N_E;
 						String identity  = pa.getIdentificacion();
 						Date nacimiento  = pa.getFechaNacimiento();
 						
@@ -387,7 +388,7 @@ public class InformesEJB implements GestionInformes{
 						// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 						String birth;
 						if(nacimiento == null)
-							birth = "noexistente";
+							birth = N_E;
 						else {
 							birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
 							// Checks:
@@ -400,14 +401,14 @@ public class InformesEJB implements GestionInformes{
 					}
 				}
 				else {
-					String apellidos = "noexistente";
-					String nombre    = "noexistente";
+					String apellidos = N_E;
+					String nombre    = N_E;
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
 					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
-					String birth     = "noexistente";
+					String birth     = N_E;
 					
 					// Checks:
 					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
@@ -471,7 +472,8 @@ public class InformesEJB implements GestionInformes{
 //		queryReferencia.setParameter("fiveYearsAgo", fiveYearsAgo, TemporalType.DATE);
 		List<Segregada> cuentasSegregadas  = querySegregada.getResultList();
 //		List<CuentaReferencia> cuentasReferencia = queryReferencia.getResultList();
-		System.out.println(querySegregada.toString() + " cs > " + cuentasSegregadas);
+		System.out.println(querySegregada.toString() + "\ncs > " + cuentasSegregadas);
+		System.out.println(querySegregada.toString() + "\nall > " + em.createQuery("SELECT c FROM Segregada c").getResultList());
 		
 		try(CSVPrinter p = new CSVPrinter(new FileWriter(path), CSVFormat.DEFAULT)) {
 			
@@ -484,9 +486,12 @@ public class InformesEJB implements GestionInformes{
 					throw new FailedPeriodicCSVException("iban NOT VALID");
 				Cliente c = s.getCliente();
 				// Si Cliente NO ACTIVO pasa a siguiente cliente
-				if(!c.getEstado().equalsIgnoreCase("ACTIVO") || !c.getEstado().equalsIgnoreCase("ACTIVA") || !c.getEstado().equalsIgnoreCase("ACTIVE"))
+				System.out.println("IPA > " + c);
+				if(!c.getEstado().equalsIgnoreCase("ACTIVO") && !c.getEstado().equalsIgnoreCase("ACTIVA") && !c.getEstado().equalsIgnoreCase("ACTIVE"))
 					continue;
+				System.out.println("-- ESTOY ACTIVO --");
 				if(c instanceof Individual) {
+					System.out.println("-- SOY INDIVIDUAL --");
 					String apellido  = ((Individual) c).getApellido();
 					String nombre    = ((Individual) c).getNombre();
 					String direccion = c.getDireccion();
@@ -495,12 +500,11 @@ public class InformesEJB implements GestionInformes{
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					Date nacimiento  = ((Individual) c).getFechaNacimiento();
-					
 					// CSV construction
 					// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 					String birth;
 					if(nacimiento == null)
-						birth = "noexistente";
+						birth = N_E;
 					else {
 						birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
 						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
@@ -508,24 +512,33 @@ public class InformesEJB implements GestionInformes{
 					}
 					// Checks:
 					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedPeriodicCSVException("pais NOT VALID");
+						continue;
 					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
 				}
 				else if(c instanceof Empresa){
-					
+					System.out.println("-- SOY EMPRESA --");
 					Set<PersonaAutorizada> persAuts = ((Empresa) c).getAutorizacion().keySet();
+					if(persAuts == null) {
+						System.out.println("-- NO TENGO PERSONAS AUTORIZADAS --");
+						p.printRecord(iban, N_E, N_E, N_E, N_E, N_E, N_E, N_E, N_E);
+						p.println();
+						continue;
+					}
+					System.out.println("-- SÍ TENGO PERSONAS AUTORIZADAS --");
 					for(PersonaAutorizada pa : persAuts) {
+						System.out.println("\tPA > " + pa);
 						// Si PersonaAutorizada relacionada con empresa NO ACTIVA pasa a siguiente PerosonaAutorizada
-						if(!pa.getEstado().equalsIgnoreCase("ACTIVO") || !pa.getEstado().equalsIgnoreCase("ACTIVA") || !pa.getEstado().equalsIgnoreCase("ACTIVE"))
+						if(pa.getEstado() == null || 
+								(!pa.getEstado().equalsIgnoreCase("ACTIVO") && !pa.getEstado().equalsIgnoreCase("ACTIVA") && !pa.getEstado().equalsIgnoreCase("ACTIVE")))
 							continue;
 						String apellidos = pa.getApellidos();
 						String nombre    = pa.getNombre();
 						String direccion = pa.getDireccion();
-						String ciudad    = "noexistente";
-						String cp        = "noexistente";
-						String pais      = "noexistente";
+						String ciudad    = N_E;
+						String cp        = N_E;
+						String pais      = N_E;
 						String identity  = pa.getIdentificacion();
 						Date nacimiento  = pa.getFechaNacimiento();
 						
@@ -533,7 +546,7 @@ public class InformesEJB implements GestionInformes{
 						// Solo se comprueba que no sean null los atributos en los que `nullable = true`
 						String birth;
 						if(nacimiento == null)
-							birth = "noexistente";
+							birth = N_E;
 						else {
 							birth = (nacimiento.getYear() + 1900) + "-" + nacimiento.getMonth() + "-" + nacimiento.getDay();
 							// Checks:
@@ -545,14 +558,14 @@ public class InformesEJB implements GestionInformes{
 					}
 				}
 				else {
-					String apellidos = "noexistente";
-					String nombre    = "noexistente";
+					String apellidos = N_E;
+					String nombre    = N_E;
 					String direccion = c.getDireccion();
 					String ciudad    = c.getCiudad();
 					String cp        = c.getCodigoPostal();
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
-					String birth     = "noexistente";
+					String birth     = N_E;
 					
 					// Checks:
 					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
