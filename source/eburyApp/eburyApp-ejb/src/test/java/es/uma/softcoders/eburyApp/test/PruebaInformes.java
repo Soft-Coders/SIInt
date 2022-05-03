@@ -336,7 +336,7 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-	            if(cont != 3){
+	            if(cont != 4){
 	                fail("No hay las líneas que debería: " + cont);
 	            }
             }catch(IllegalArgumentException|FileNotFoundException e){
