@@ -23,6 +23,7 @@ public class BaseDatosInformes {
 	private static EntityManagerFactory emf;
 	private static Long c1ID;
 	private static String cS1IBAN;
+	@SuppressWarnings("deprecation")
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
 		emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
@@ -48,11 +49,6 @@ public class BaseDatosInformes {
 		pSeg.setCliente(pInd);
 		pRef.setIban("NL66XYZW1291965241");
 
-		em.persist(pInd);
-		em.persist(pDiv);
-		em.persist(pRef);
-		em.persist(pSeg);
-
 		// Setters
 		pRef.setSegregada(pSeg);
 		pInd.setIdentificacion("Ide");
@@ -67,13 +63,12 @@ public class BaseDatosInformes {
 		pInd.setCuentas(pCuentas);
 		pInd.setID(Long.valueOf(1000002));
 		pInd.setUsuario(u1);
-		// Persist
-		em.persist(pInd);
 
 		//EMPRESA
 		Empresa pEmp = new Empresa("RazSocial");
 		List<CuentaFintech> pCuentasEmp = new ArrayList<CuentaFintech>();
 		PersonaAutorizada pPAut = new PersonaAutorizada("Ident","Nacho", "Lopezosa", "54");
+		pPAut.setId(Long.valueOf(54));
 		Usuario u2 = new Usuario("USUARIO34-55","CLAVE-55",false);
 		u2.setPersonaAutorizada(pPAut);
 		pPAut.setUsuario(u2);
@@ -90,13 +85,7 @@ public class BaseDatosInformes {
 		pSeg2.setFechaApertura(pDay);
 		pSeg2.setCliente(pEmp);
 		pRef2.setIban("IBANREFXD12-55");
-
-		//Persist
-		em.persist(pDiv2);
-		em.persist(pRef2);
-		em.persist(pSeg2);
-		em.persist(pEmp);
-		em.persist(pPAut);
+		
 		//Setters & adds
 		pEmp.setIdentificacion("Ide");
 		pEmp.setTipo_cliente("EMPRESA");
@@ -109,9 +98,13 @@ public class BaseDatosInformes {
 		pCuentasEmp.add(pSeg);
 		pCuentasEmp.add(pSeg2);
 		pEmp.setCuentas(pCuentasEmp);
-		pEmp.setID(Long.valueOf(100001));
+//		pEmp.setID(Long.valueOf(100001));
 		pMapEMP.put(pPAut, 'A');
-		pMapPAUT.put(pEmp, 'A');
+		try {			
+			pMapPAUT.put(pEmp, 'A');
+		}catch(Exception e) {
+			System.out.println(e.getMessage() + " - " + e.getCause() + " - " + e.getClass() + " - " + e.getStackTrace());
+		}
 		pEmp.setAutorizacion(pMapEMP);
 		pPAut.setAutorizacion(pMapPAUT);
 
@@ -149,8 +142,6 @@ public class BaseDatosInformes {
 
 		Date pDate = new Date(119,6,23);
 
-		u.setIndividual(c1);
-
 		c1.setIdentificacion("CLIENTE1-55");
 		c1.setTipo_cliente("INDIVIDUAL");
 		c1.setEstado("ACTIVO");
@@ -163,6 +154,8 @@ public class BaseDatosInformes {
 		c1.setID(Long.valueOf(555555));
 		c1.setCuentas(list1);
 		c1.setUsuario(u);
+		
+		u.setIndividual(c1);
 		
 		c1ID = Long.valueOf(555555);
 
@@ -188,6 +181,20 @@ public class BaseDatosInformes {
 
 
 		//Persist
+		em.persist(pDiv);
+		em.persist(pRef);
+		em.persist(pSeg);
+		em.persist(pInd);
+		em.persist(pDiv2);
+		em.persist(pRef2);
+		em.persist(pSeg2);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'USUARIO-55'").getResultList().isEmpty())
+			em.persist(u);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'USUARIO1-55'").getResultList().isEmpty())
+			em.persist(u1);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'USUARIO34-55'").getResultList().isEmpty())
+			em.persist(u2);
+		
 		em.persist(c1);
 		em.persist(d1);
 		em.persist(d2);
@@ -200,7 +207,7 @@ public class BaseDatosInformes {
 		em.persist(cS1);
 		em.persist(cS2);
 		em.persist(cS3);
-		//Persist
+		
 		em.persist(pEmp);
 		em.persist(pPAut);
 
