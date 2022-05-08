@@ -85,7 +85,7 @@ public class PersonaAutorizada implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-    @ElementCollection
+    @ElementCollection()
     @CollectionTable(name="AUTORIZACION",
                      joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
     @MapKeyJoinColumn(name="EMPRESA_FK", referencedColumnName="id")

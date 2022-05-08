@@ -3,6 +3,9 @@
 	<name>eburyApp</name>
 	<comment></comment>
 	<projects>
+		<project>eburyApp-ejb</project>
+		<project>eburyApp-jpa</project>
+		<project>eburyApp-war</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
