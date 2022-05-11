@@ -11,6 +11,7 @@
 		<module>eburyApp-ejb</module>
 		<module>eburyApp-jpa</module>
 		<module>eburyApp-war</module>
+		<module>eburyApp-ear</module>
 	</modules>
   	
   <properties>
