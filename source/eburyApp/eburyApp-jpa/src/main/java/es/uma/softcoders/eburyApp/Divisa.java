@@ -55,11 +55,9 @@ public class Divisa implements Serializable{
 	private List<CuentaReferencia> cuentaReferencia;
 	
 	@OneToMany(mappedBy="divisaReceptor", cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "TRANSACCION_RECEPTOR")
 	private List<Transaccion> transaccionReceptor;
 	
 	@OneToMany(mappedBy="divisaEmisor", cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "TRANSACCION_EMISOR")
 	private List<Transaccion> transaccionEmisor;
 
 	// ------ GETTERS & SETTERS ------
