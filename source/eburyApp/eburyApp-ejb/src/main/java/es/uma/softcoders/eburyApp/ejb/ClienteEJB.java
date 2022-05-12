@@ -115,9 +115,9 @@ public class ClienteEJB implements GestionCliente {
     @Override
     public void modificarCliente(Cliente c, Long cliente) {
         Cliente clienteEntity = em.find(Cliente.class, cliente);
-        if(clienteEntity == null){
-            throw new ClienteNoEncontradoException("Cliente no encotrado");
-        }
+        //if(clienteEntity == null){
+        //    throw new ClienteNoEncontradoException("Cliente no encotrado");
+        //}
         
         if(c == null){
             throw new ClienteNuloException("Cliente nulo");
@@ -178,7 +178,10 @@ public class ClienteEJB implements GestionCliente {
                 
             if(indIn.getFechaNacimiento() != null)
                 indOut.setFechaNacimiento(indIn.getFechaNacimiento());
-                
+            
+            if(indIn.getUsuario() != null) 
+            	indOut.setUsuario(indIn.getUsuario());
+           
             em.persist(indOut);
 
         }else{

@@ -14,6 +14,7 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
+import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
@@ -26,12 +27,26 @@ public class BaseDatosCT {
 		
 		em.getTransaction().begin();
 		
-SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		CuentaReferencia cfPruebaD = new CuentaReferencia();
 		CuentaReferencia cfPruebaE = new CuentaReferencia();
-		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", date.parse("2019-04-05"),"Calle calle, 1", "ciudad", "29620", "pais");
-		cliente.setID(Long.valueOf(0122));
+		
+		Individual c = new Individual();
+		c.setID(0000L);
+		c.setIdentificacion("0001");
+		c.setTipo_cliente("INDIVIDUAL");
+		c.setEstado("BAJA");
+		c.setFecha_Alta(date.parse("2022-05-12"));
+		c.setDireccion("Calle prueba, 32");
+		c.setCiudad("Malaga");
+		c.setCodigoPostal("29010");
+		c.setPais("España");
+		c.setNombre("Cliente");
+		c.setApellido("Prueba");
+		c.setFechaNacimiento(date.parse("2002-30-04"));
+		
+		
 		Pooled cpPooled = new Pooled();
 		Usuario uPrueba = new Usuario();
 		
@@ -40,13 +55,15 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		uPrueba.setUsuario("uPrueba");
 		uPrueba.setClave("1234");
 		uPrueba.setEsAdministrativo(false);
+		uPrueba.setIndividual(c);
+		c.setUsuario(uPrueba);
 		
 		//Cuenta Pooled
 		cpPooled.setIban("cpPooled");
 		cpPooled.setSwift("Swift");
 		cpPooled.setEstado("ACTIVO");
 		cpPooled.setFechaApertura(date.parse("2018-05-27"));
-		cpPooled.setCliente(cliente);
+		cpPooled.setCliente(c);
 		
 		//Divisas
 		Divisa dDolar = new Divisa("DOL", "dolares", '$', 2L);
@@ -80,7 +97,7 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		//Introducción en la base de datos
 		em.persist(uPrueba);
-		em.persist(cliente);
+		em.persist(c);
 		em.persist(cpPooled);
 		em.persist(dDolar);
 		em.persist(dEuro);

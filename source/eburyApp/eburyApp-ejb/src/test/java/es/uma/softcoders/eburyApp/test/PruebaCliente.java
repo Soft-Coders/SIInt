@@ -326,17 +326,32 @@ public class PruebaCliente {
 	 * </ul>
 	 * @author Pablo Huertas
 	 */
-	@Ignore
+	
 	@Test
 	@Requisitos({"RF3"})
     public void modificarCliente() {
 		try {
-			Cliente aux = new Cliente("0001", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "malaga", "29010", "pais");
-			gestionCliente.modificarCliente(aux, Long.getLong("1111"));
+			
+			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+			
+			Individual c = new Individual();
+			c.setIdentificacion("0001");
+			c.setTipo_cliente("INDIVIDUAL");
+			c.setEstado("BAJA");
+			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setDireccion("Calle tontonabo, 32");
+			c.setCiudad("Malaga");
+			c.setCodigoPostal("29010");
+			c.setPais("España");
+			c.setNombre("Cliente");
+			c.setApellido("Modificado");
+			c.setFechaNacimiento(date.parse("2002-04-30"));
+			
+			gestionCliente.modificarCliente(c, 0000L);
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
 		}
-		
+		/*
 		try {
 			Cliente aux = new Cliente("0001", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "malaga", "29010", "España");
 			gestionCliente.modificarCliente(aux, Long.getLong("1111"));
@@ -365,6 +380,7 @@ public class PruebaCliente {
     	}catch(Exception e) {
     		//OK
     	}
+    	*/
 		
     }
 	
