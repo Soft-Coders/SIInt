@@ -4,6 +4,8 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
+import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
+import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 
 public interface GestionCliente {
@@ -13,7 +15,7 @@ public interface GestionCliente {
      * dependiendo del tipo de cliente que se de de alta
      * @param c     Cliente a dar de alta en el sistema
 	 */
-    public void altaCliente(Cliente c) throws ObligatorioNuloException, ClienteExistenteException;
+    public void altaCliente(Cliente c, Long usuario, String password) throws ObligatorioNuloException, ClienteExistenteException, ContrasenaIncorrectaException, DatosIncorrectosException;
     /**
      * La aplicacion permitira modificar los datos de los clientes tras rellenar un formulario,
      * se comprobará que los datos obligatorios no sean nulos y en caso de ser clientes empresa o individual

@@ -1,7 +1,10 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+
+
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -11,24 +14,32 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.AutorizadoNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
+import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
+import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaSinUsuarioException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
 
+	private static final Logger LOG = Logger.getLogger(ClienteEJB.class.getCanonicalName());
+	
     @PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 
     @Override
-    public void altaCliente(Cliente c){
-        Cliente clienteEntity = em.find(Cliente.class, c.getID());
-        if(clienteEntity != null)
-            throw new ClienteExistenteException("El cliente ya existe");
+    public void altaCliente(Cliente c, Long usuario, String password) throws ContrasenaIncorrectaException, DatosIncorrectosException {
+    
+    	if(c.getID()!= null) {
+            Cliente clienteEntity = em.find(Cliente.class, c.getID());
+            if(clienteEntity != null)
+                throw new ClienteExistenteException("El cliente ya existe");
+    	}
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
@@ -46,7 +57,7 @@ public class ClienteEJB implements GestionCliente {
             throw new ObligatorioNuloException("Direccion nula");
         
         if(c.getCiudad() == null)
-            throw new ObligatorioNuloException("Ciduad nula");
+            throw new ObligatorioNuloException("Ciudad nula");
         
         if(c.getCodigoPostal()==null)
             throw new ObligatorioNuloException("Codigo postal nulo");
@@ -56,19 +67,48 @@ public class ClienteEJB implements GestionCliente {
         
 
         if(c instanceof Empresa){
-            Empresa e = (Empresa) c;
+            //Comprobamos que los campos obligatorios de empresa han sido rellenados
+        	Empresa e = (Empresa) c;
+            if(e.getRazonSocial()==null) {
+            	throw new DatosIncorrectosException("Razon social de empresa nula");
+            }
+            
             e.setEstado("ACTIVO");
-            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
-            Set<PersonaAutorizada> pAs= m.keySet();
-             if (pAs == null){
-                throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
-             }
-
             em.persist(e);
+        
+            //Map<PersonaAutorizada, Character> m = e.getAutorizacion();
+            //Set<PersonaAutorizada> pAs= m.keySet();
+            // if (pAs == null){
+            //    throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
+            // }
+
+            
         }else if(c instanceof Individual){
-            Individual i = (Individual) c;
+        	
+        	if(usuario == null) {
+        		throw new DatosIncorrectosException("Usuario nulo");
+        	}
+        	
+        	//Comprobamos que la clave es correcta
+        	Usuario user = em.find(Usuario.class, usuario);
+        	if(password != user.getClave()) {
+        		throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
+        	}
+        	
+        	//Comprobamos que los campos obligatorios de individual han sido rellenados
+        	Individual i = (Individual) c;
+        	if(i.getNombre()==null) {
+        		throw new ObligatorioNuloException("Nombre de individual nulo");
+        	}
+        	if(i.getApellido()==null) {
+        		throw new ObligatorioNuloException("Apellido de individual nulo");
+        	}
+        	
             i.setEstado("ACTIVO");
+            i.setUsuario(user);
+            
             em.persist(i);
+            user.setIndividual(i);
         }
     }
 

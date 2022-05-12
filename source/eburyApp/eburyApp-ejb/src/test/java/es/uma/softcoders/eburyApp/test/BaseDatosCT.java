@@ -16,6 +16,7 @@ import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.Usuario;
 
 public class BaseDatosCT {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) throws ParseException {
@@ -32,7 +33,15 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", date.parse("2019-04-05"),"Calle calle, 1", "ciudad", "29620", "pais");
 		cliente.setID(Long.valueOf(0122));
 		Pooled cpPooled = new Pooled();
+		Usuario uPrueba = new Usuario();
 		
+		//Usuario
+		uPrueba.setId(1111L);
+		uPrueba.setUsuario("uPrueba");
+		uPrueba.setClave("1234");
+		uPrueba.setEsAdministrativo(false);
+		
+		//Cuenta Pooled
 		cpPooled.setIban("cpPooled");
 		cpPooled.setSwift("Swift");
 		cpPooled.setEstado("ACTIVO");
@@ -43,7 +52,7 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		Divisa dDolar = new Divisa("DOL", "dolares", '$', 2L);
 		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
 		
-		//Cuenta referencia
+		//Cuentas referencias
 		cfPruebaD.setIban("cfPruebaD");
 		cfPruebaD.setNombreBanco("Santander");
 		cfPruebaD.setSaldo(Long.valueOf(10000));
@@ -62,12 +71,15 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		cfPruebaE.setSucursal("Madrid");
 		cfPruebaE.setDivisa(dEuro);
 		
+		//Relación cuenta referencias - pooled
 		Map<CuentaReferencia,Long> depositado = new HashMap<>();
 		depositado.put(cfPruebaD, 10000L);
 		depositado.put(cfPruebaE, 10000L);
 		
 		cpPooled.setDepositadaEn(depositado);
 		
+		//Introducción en la base de datos
+		em.persist(uPrueba);
 		em.persist(cliente);
 		em.persist(cpPooled);
 		em.persist(dDolar);
