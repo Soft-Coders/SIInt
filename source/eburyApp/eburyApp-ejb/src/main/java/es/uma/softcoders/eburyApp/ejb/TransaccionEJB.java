@@ -61,12 +61,12 @@ public class TransaccionEJB implements GestionTransaccion{
 		
 		// Creación de la transacción: se calcula el cambio, se traspasa y se crea la entidad transacción que lo registre
 		Long cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
-		try {
+		//try {
 			transferenciaEntreCuentas(cp, corigen, cdestino, cantidad, cambioADestino);
 			crearTransaccionCambioDivisas(cp, divisaO, divisaD, cantidad);
-		} catch (SaldoInsuficienteException e) {
-			e.printStackTrace();
-		}
+		//} catch (SaldoInsuficienteException e) {
+		//	e.printStackTrace();
+		//}
 			
 	}
 	
@@ -116,7 +116,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	 * Además actualiza las relaciones entre la Pooled y las CuentaReferencias para reflejar este cambio.
 	 * */
 	private void transferenciaEntreCuentas(Pooled pool, CuentaReferencia corigen, CuentaReferencia cdestino, Long cant, Long cantCambiada) throws SaldoInsuficienteException{
-		Long a = (long) (corigen.getSaldo() - cant);  // a: saldo cambiado en la cuenta referencia origen
+		Long a = (corigen.getSaldo() - cant);  // a: saldo cambiado en la cuenta referencia origen
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");

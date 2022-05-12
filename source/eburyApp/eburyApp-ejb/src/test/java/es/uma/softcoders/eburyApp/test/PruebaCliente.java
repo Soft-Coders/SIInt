@@ -291,6 +291,7 @@ public class PruebaCliente {
 			//Ok
 		}
 		
+		//Razón social nula en empresa
 		try {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			

@@ -73,8 +73,8 @@ SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		//Relación cuenta referencias - pooled
 		Map<CuentaReferencia,Long> depositado = new HashMap<>();
-		depositado.put(cfPruebaD, 10000L);
-		depositado.put(cfPruebaE, 10000L);
+		depositado.put(cfPruebaD, 5000L);
+		depositado.put(cfPruebaE, 5000L);
 		
 		cpPooled.setDepositadaEn(depositado);
 		

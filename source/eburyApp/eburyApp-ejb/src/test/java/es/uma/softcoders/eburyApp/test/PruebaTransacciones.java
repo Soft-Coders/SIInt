@@ -151,6 +151,20 @@ public class PruebaTransacciones {
 		}
 		
 		
+		try {
+
+			//Prueba de Transaccion donde la cantidad solicitada excede
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "DOL", 100000L);
+			
+			fail("Debe de dar excepción");
+		}catch(DivisaInexistenteException e) {
+			fail(e.getMessage());
+		}catch(CuentaNoExistenteException e){
+			fail(e.getMessage());
+		}catch(Exception e) {
+			//OK
+		}
+		
 	}
 	
 }	

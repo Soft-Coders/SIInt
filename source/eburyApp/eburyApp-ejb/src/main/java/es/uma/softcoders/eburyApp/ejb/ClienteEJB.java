@@ -118,6 +118,7 @@ public class ClienteEJB implements GestionCliente {
         if(clienteEntity == null){
             throw new ClienteNoEncontradoException("Cliente no encotrado");
         }
+        
         if(c == null){
             throw new ClienteNuloException("Cliente nulo");
         }
