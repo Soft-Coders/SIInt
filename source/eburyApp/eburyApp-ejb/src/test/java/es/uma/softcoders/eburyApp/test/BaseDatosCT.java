@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp.test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +25,59 @@ public class BaseDatosCT {
 		
 		em.getTransaction().begin();
 		
-		try {
+SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		CuentaReferencia cfPruebaD = new CuentaReferencia();
+		CuentaReferencia cfPruebaE = new CuentaReferencia();
+		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", date.parse("2019-04-05"),"Calle calle, 1", "ciudad", "29620", "pais");
+		cliente.setID(Long.valueOf(0122));
+		Pooled cpPooled = new Pooled();
+		
+		cpPooled.setIban("cpPooled");
+		cpPooled.setSwift("Swift");
+		cpPooled.setEstado("ACTIVO");
+		cpPooled.setFechaApertura(date.parse("2018-05-27"));
+		cpPooled.setCliente(cliente);
+		
+		//Divisas
+		Divisa dDolar = new Divisa("DOL", "dolares", '$', 2L);
+		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
+		
+		//Cuenta referencia
+		cfPruebaD.setIban("cfPruebaD");
+		cfPruebaD.setNombreBanco("Santander");
+		cfPruebaD.setSaldo(Long.valueOf(10000));
+		cfPruebaD.setFechaApertura(date.parse("2010-02-22"));
+		cfPruebaD.setEstado("ACTIVO");
+		cfPruebaD.setSwift("Swift");
+		cfPruebaD.setSucursal("Madrid");
+		cfPruebaD.setDivisa(dDolar);
+		
+		cfPruebaE.setIban("cfPruebaE");
+		cfPruebaE.setNombreBanco("Santander");
+		cfPruebaE.setSaldo(Long.valueOf(10000));
+		cfPruebaE.setFechaApertura(date.parse("2010-02-22"));
+		cfPruebaE.setEstado("ACTIVO");
+		cfPruebaE.setSwift("Swift");
+		cfPruebaE.setSucursal("Madrid");
+		cfPruebaE.setDivisa(dEuro);
+		
+		Map<CuentaReferencia,Long> depositado = new HashMap<>();
+		depositado.put(cfPruebaD, 10000L);
+		depositado.put(cfPruebaE, 10000L);
+		
+		cpPooled.setDepositadaEn(depositado);
+		
+		em.persist(cliente);
+		em.persist(cpPooled);
+		em.persist(dDolar);
+		em.persist(dEuro);
+		em.persist(cfPruebaD);
+		em.persist(cfPruebaE);
+		
+
+		
+		/*try {
 			SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 			
 			//----CuentaEJB
@@ -101,7 +154,7 @@ public class BaseDatosCT {
 		pPrueba.setSwift("MiSwiftDePrueba");
 		pPrueba.setCliente(pCliente);
 		em.persist(pPrueba);
-		
+		*/
 
 		
 		//Cierre Contexto Persistencia
