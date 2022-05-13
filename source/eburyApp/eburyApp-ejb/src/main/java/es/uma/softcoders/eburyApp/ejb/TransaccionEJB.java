@@ -119,7 +119,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		Long a = (corigen.getSaldo() - cant);  // a: saldo cambiado en la cuenta referencia origen
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
-		if (a < cant) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
+		if (a < 0) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
 		else{   // Si hay saldo suficiente se realiza la transacción
 			
 			// Primero: se actualiza el saldo total de las cuentaReferencias

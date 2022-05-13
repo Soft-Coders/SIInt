@@ -14,6 +14,7 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
+import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
@@ -32,11 +33,12 @@ public class BaseDatosCT {
 		CuentaReferencia cfPruebaD = new CuentaReferencia();
 		CuentaReferencia cfPruebaE = new CuentaReferencia();
 		
+		//Cliente individual
 		Individual c = new Individual();
 		c.setID(0000L);
 		c.setIdentificacion("0001");
 		c.setTipo_cliente("INDIVIDUAL");
-		c.setEstado("BAJA");
+		c.setEstado("ACTIVO");
 		c.setFecha_Alta(date.parse("2022-05-12"));
 		c.setDireccion("Calle prueba, 32");
 		c.setCiudad("Malaga");
@@ -45,6 +47,19 @@ public class BaseDatosCT {
 		c.setNombre("Cliente");
 		c.setApellido("Prueba");
 		c.setFechaNacimiento(date.parse("2002-30-04"));
+		
+		//Cliente judírico (empresa)
+		Empresa e = new Empresa();
+		e.setID(1111L);
+		e.setIdentificacion("1111");
+		e.setTipo_cliente("EMPRESA");
+		e.setEstado("BAJA");
+		e.setFecha_Alta(date.parse("2022-05-12"));
+		e.setDireccion("Calle prueba, 32");
+		e.setCiudad("Malaga");
+		e.setCodigoPostal("29010");
+		e.setPais("España");
+		e.setRazonSocial("Razon");
 		
 		
 		Pooled cpPooled = new Pooled();

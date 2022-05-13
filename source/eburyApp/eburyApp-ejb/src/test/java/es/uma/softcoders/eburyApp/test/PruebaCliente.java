@@ -17,6 +17,7 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
+import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
 
 public class PruebaCliente {
 	private static final String CLIENTE_EJB = "java:global/classes/ClienteEJB";
@@ -326,7 +327,7 @@ public class PruebaCliente {
 	 * </ul>
 	 * @author Pablo Huertas
 	 */
-	
+	@Ignore
 	@Test
 	@Requisitos({"RF3"})
     public void modificarCliente() {
@@ -394,39 +395,36 @@ public class PruebaCliente {
 	* <li>Se comprueba Cliente con ID erróneo -> Debería lanzar excepción</li>
 	* </ul>
 	*/
-	@Ignore
+	
 	@Test
 	@Requisitos({"RF10"})
     public void comprobarCliente() {
 		
+		//Cliente individual normal
 		try {
-    		gestionCliente.comprobarCliente(Long.valueOf(34));
+    		gestionCliente.comprobarCliente(Long.valueOf(0000));
     	}catch(Exception e) {
     		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
     	}
 		
+		//Cliente judírico
 		try {
-			gestionCliente.comprobarAutorizado(Long.valueOf(37));
-		}catch(Exception e) {
-			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
-		}
-		
-		try {
-			gestionCliente.comprobarAutorizado(Long.valueOf(34));
+			gestionCliente.comprobarCliente(1111L);
 			fail("Debería de lanzar excepción");
+		}catch(ClienteNuloException e) {
+			//OK
 		}catch(Exception e) {
-			//Ok
+			fail("Debería lanzar ClienteNuloException");
 		}
-		
-		try {
-			gestionCliente.comprobarCliente(Long.valueOf(38));
-			fail("Debería de lanzar excepción");
-		}catch(Exception e) {
-			//Ok
-		}
-		
 		
     }
+	
+	@Ignore
+	@Test
+	@Requisitos({"RF"})
+	public void comprobarAutorizado() {
+		
+	}
 	
 	/** 
 	* Este test comprueba que se dé de baja un cliente de la base de datos. 
@@ -435,29 +433,15 @@ public class PruebaCliente {
 	* El test sirve para comprobar el Requisito RF4: Baja de un cliente
 	* @author Pablo Huertas
 	*/
-	@Ignore
+
 	@Test
 	@Requisitos({"RF4"})
     public void bajaCliente() {
     	try {
-    		gestionCliente.bajaCliente(Long.getLong("2222"));
+    		gestionCliente.bajaCliente(0000L);
     	}catch(Exception e) {
     		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
     	}
-    	
-    	try {
-    		gestionCliente.bajaCliente(Long.getLong("3333"));
-    	}catch(Exception e) {
-    		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
-    	}
-    	
-    	try {
-    		gestionCliente.bajaCliente(Long.getLong("noExiste"));
-    		fail("Debería de lanzar una excepcion");
-    	}catch(Exception e) {
-    		//OK
-    	}
-    	
     	
     }
 }

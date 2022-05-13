@@ -192,12 +192,12 @@ public class ClienteEJB implements GestionCliente {
 
     @Override
     public void comprobarCliente(Long cliente) {
-        Cliente clienteEntity = em.find(Cliente.class, cliente);
+        Cliente clienteEntity = em.find(Individual.class, cliente);
 
-        if (clienteEntity instanceof Empresa)
+        if (clienteEntity.getTipo_cliente()=="EMPRESA")
             throw new ClienteNuloException("El cliente es una empresa");
 
-        if(clienteEntity instanceof Individual){
+        if(clienteEntity.getTipo_cliente()=="INDIVIDUAL"){
             Individual i = (Individual) clienteEntity;
             if(i.getUsuario()==null){
                 throw new ClienteNoValidoException("El cliente no posee usuario");
