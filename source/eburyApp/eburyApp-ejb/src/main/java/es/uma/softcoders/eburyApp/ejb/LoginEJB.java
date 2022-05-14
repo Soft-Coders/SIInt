@@ -12,6 +12,7 @@ import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoAdministrativoException;
 
 @Stateless
@@ -21,14 +22,15 @@ public class LoginEJB implements GestionLogin {
 	private EntityManager em;
 
     @Override
-    public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException, ClienteNoEncontradoException{
+    public void loginAdmin(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
           	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
     	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
     	q.setParameter("cuenta", cuenta);
     	q.setParameter("clave", clave);
     	List us = q.getResultList();
-    	System.out.println("-- u --\n" + us);
+    	System.out.println("-- uA --\n" + us);
+    	System.out.println(us.isEmpty());
         if (us.isEmpty())
             throw new ClienteNoEncontradoException("Cuenta no existente");
     	System.out.println("-- HAY USUARIOS --");
@@ -42,7 +44,7 @@ public class LoginEJB implements GestionLogin {
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
     @Override
-    public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException, ClienteNoEncontradoException{
+    public void loginUsuario(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
     	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
@@ -50,10 +52,11 @@ public class LoginEJB implements GestionLogin {
     	q.setParameter("clave", clave);
     	List us = q.getResultList();
     	System.out.println("-- u --\n" + us);
+    	System.out.println(us.isEmpty());
         if (us.isEmpty()) {
+        	System.out.println("Throwing");
             throw new ClienteNoEncontradoException("Cuenta no existente");
         }
-        System.out.println("-- EMPTY --");
     	System.out.println("-- HAY USUARIOS --");
         Usuario u = (Usuario) us.get(0);
         System.out.println("u > " + u);

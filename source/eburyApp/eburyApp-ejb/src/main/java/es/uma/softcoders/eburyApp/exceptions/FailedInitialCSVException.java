@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class FailedInitialCSVException extends Exception {
+public class FailedInitialCSVException extends EburyAppException {
 	
 	private static final long serialVersionUID = 1L;
 

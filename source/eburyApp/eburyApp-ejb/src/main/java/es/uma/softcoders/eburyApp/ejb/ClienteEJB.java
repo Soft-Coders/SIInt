@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp.ejb;
 
 
 import java.util.Map;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
@@ -17,12 +16,11 @@ import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.AutorizadoNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
-import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
 import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
-import es.uma.softcoders.eburyApp.exceptions.EmpresaSinUsuarioException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
@@ -33,7 +31,7 @@ public class ClienteEJB implements GestionCliente {
 	private EntityManager em;
 
     @Override
-    public void altaCliente(Cliente c, Long usuario, String password) throws ContrasenaIncorrectaException, DatosIncorrectosException {
+    public void altaCliente(Cliente c, Long usuario, String password) throws EburyAppException {
     
     	if(c.getID()!= null) {
             Cliente clienteEntity = em.find(Cliente.class, c.getID());
@@ -113,7 +111,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void modificarCliente(Cliente c, Long cliente) {
+    public void modificarCliente(Cliente c, Long cliente) throws EburyAppException{
         Cliente clienteEntity = em.find(Cliente.class, cliente);
         //if(clienteEntity == null){
         //    throw new ClienteNoEncontradoException("Cliente no encotrado");
@@ -191,7 +189,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void comprobarCliente(Long cliente) {
+    public void comprobarCliente(Long cliente) throws EburyAppException{
         Cliente clienteEntity = em.find(Individual.class, cliente);
 
         if (clienteEntity.getTipo_cliente()=="EMPRESA")
@@ -210,7 +208,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void comprobarAutorizado(Long aut){
+    public void comprobarAutorizado(Long aut) throws EburyAppException{
 
         PersonaAutorizada pAut = em.find(PersonaAutorizada.class, aut);
         if (pAut.getEstado() != "ACTIVO")
@@ -225,7 +223,7 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void bajaCliente(Long cliente) {
+    public void bajaCliente(Long cliente) throws EburyAppException{
         Cliente clienteEntity = em.find(Cliente.class, cliente);
 
         if(clienteEntity == null){

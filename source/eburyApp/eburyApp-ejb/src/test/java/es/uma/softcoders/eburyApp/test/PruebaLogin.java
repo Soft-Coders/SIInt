@@ -2,6 +2,8 @@ package es.uma.softcoders.eburyApp.test;
 
 import static org.junit.Assert.fail;
 
+import java.text.ParseException;
+
 import javax.naming.NamingException;
 
 import org.junit.Before;
@@ -18,14 +20,14 @@ public class PruebaLogin {
 	private static final String UNIDAD_PERSITENCIA_PRUEBAS = "eburyAppTest";
 	
 	private GestionLogin gestionLogin;
-	private final String uNoAdmin = BaseDatosLogin.noAdmin;
-	private final String uAdmin   = BaseDatosLogin.admin;
+	private final String uNoAdmin = "uPrueba";
+	private final String uAdmin   = "uPruebaAdmin";
 	
 	
 	@Before
-	public void setup() throws NamingException  {
+	public void setup() throws NamingException, ParseException  {
 		gestionLogin = (GestionLogin) SuiteTest.ctx.lookup(LOGIN_EJB);
-		BaseDatosLogin.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
 //	@After
@@ -54,14 +56,14 @@ public class PruebaLogin {
 		try {
 			gestionLogin.loginAdmin("UsuarioInexistente", "clave");
 		} catch(ClienteNoEncontradoException e) {
-			//OK
+			System.out.println("testLoginAdmin-1: OK");//OK
 		} catch(Exception e) {
 			fail("No debería lanzar esta excepción-1: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Usuario no admin
 		try {
-			gestionLogin.loginAdmin(uNoAdmin, uNoAdmin);
+			gestionLogin.loginAdmin(uNoAdmin, "1234");
 		} catch(UsuarioNoAdministrativoException e) {
 			//OK
 		} catch(Exception e) {
@@ -79,7 +81,7 @@ public class PruebaLogin {
 		
 		// Usuario admin Clave correcta
 		try {
-			gestionLogin.loginAdmin(uAdmin, uAdmin);
+			gestionLogin.loginAdmin(uAdmin, "1234");
 		} catch(Exception e) {
 			fail("No debería lanzar ningnua excepción-4: " + e.getMessage() + "-" + e.getClass());
 		}
@@ -103,7 +105,7 @@ public class PruebaLogin {
 		try {
 			gestionLogin.loginUsuario("UsuarioInexistente-22", "clave");
 		} catch(ClienteNoEncontradoException e) {
-			//OK
+			System.out.println("testLoginUsuario-1: OK");//OK
 		} catch(Exception e) {
 			fail("No debería lanzar esta excepción-1: " + e.getMessage() + "-" + e.getClass());
 		}
@@ -119,7 +121,7 @@ public class PruebaLogin {
 		
 		// Usuario y clave correctos
 		try {
-			gestionLogin.loginUsuario(uNoAdmin, uNoAdmin);
+			gestionLogin.loginUsuario(uNoAdmin, "1234");
 		} catch(Exception e) {
 			fail("No debería lanzar ninguna excepción-3: " + e.getMessage() + "-" + e.getClass());
 		}

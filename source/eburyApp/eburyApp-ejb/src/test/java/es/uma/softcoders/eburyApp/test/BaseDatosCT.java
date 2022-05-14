@@ -64,6 +64,7 @@ public class BaseDatosCT {
 		
 		Pooled cpPooled = new Pooled();
 		Usuario uPrueba = new Usuario();
+		Usuario uPruebaAdmin = new Usuario();
 		
 		//Usuario
 		uPrueba.setId(1111L);
@@ -72,6 +73,11 @@ public class BaseDatosCT {
 		uPrueba.setEsAdministrativo(false);
 		uPrueba.setIndividual(c);
 		c.setUsuario(uPrueba);
+		
+		uPruebaAdmin.setId(2222L);
+		uPruebaAdmin.setUsuario("uPruebaAdmin");
+		uPruebaAdmin.setClave("1234");
+		uPruebaAdmin.setEsAdministrativo(true);
 		
 		//Cuenta Pooled
 		cpPooled.setIban("cpPooled");
@@ -112,6 +118,7 @@ public class BaseDatosCT {
 		
 		//Introducción en la base de datos
 		em.persist(uPrueba);
+		em.persist(uPruebaAdmin);
 		em.persist(c);
 		em.persist(cpPooled);
 		em.persist(dDolar);
