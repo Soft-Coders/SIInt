@@ -211,12 +211,12 @@ public class ClienteEJB implements GestionCliente {
         if (pAut.getEstado() != "ACTIVO")
             throw new AutorizadoNoValidoException("El autorizado NO está activo");
 
-        Map<Empresa, Character> m = pAut.getAutorizacion();    
-        if (m.isEmpty())
-            throw new AutorizadoNoValidoException("La persona NO está autorizada");
+        //Map<Empresa, Character> m = pAut.getAutorizacion();    
+        //if (m.isEmpty())
+        //    throw new AutorizadoNoValidoException("La persona NO está autorizada");
 
-        if (pAut.getUsuario()==null)
-            throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
+        //if (pAut.getUsuario()==null)
+        //    throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
     }
 
     @Override

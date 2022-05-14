@@ -410,19 +410,21 @@ public class PruebaCliente {
 		try {
 			gestionCliente.comprobarCliente(1111L);
 			fail("Debería de lanzar excepción");
-		}catch(ClienteNuloException e) {
-			//OK
 		}catch(Exception e) {
-			fail("Debería lanzar ClienteNuloException");
+			//OK
 		}
 		
     }
 	
-	@Ignore
+	
 	@Test
 	@Requisitos({"RF"})
 	public void comprobarAutorizado() {
-		
+		try {
+			gestionCliente.comprobarAutorizado(1234L);
+		}catch(Exception e) {
+			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
+		}
 	}
 	
 	/** 

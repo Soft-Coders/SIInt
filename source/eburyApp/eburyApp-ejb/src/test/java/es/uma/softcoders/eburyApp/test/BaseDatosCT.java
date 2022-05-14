@@ -34,6 +34,23 @@ public class BaseDatosCT {
 		CuentaReferencia cfPruebaD = new CuentaReferencia();
 		CuentaReferencia cfPruebaE = new CuentaReferencia();
 		
+		Usuario uPruebaPA = new Usuario();
+		//Usuario
+		uPruebaPA.setId(2345L);
+		uPruebaPA.setUsuario("uPruebaPA");
+		uPruebaPA.setClave("1234");
+		uPruebaPA.setEsAdministrativo(false);
+	
+		
+		PersonaAutorizada paPrueba = new PersonaAutorizada();
+		paPrueba.setId(1234L);
+		paPrueba.setIdentificacion("1234");
+		paPrueba.setNombre("paPrueba");
+		paPrueba.setApellidos("prueba persona");
+		paPrueba.setDireccion("calle prueba");
+		paPrueba.setUsuario(uPruebaPA);
+		paPrueba.setEstado("ACTIVO");
+		uPruebaPA.setPersonaAutorizada(paPrueba);
 		
 		
 		//Cliente individual
@@ -64,6 +81,16 @@ public class BaseDatosCT {
 		e.setPais("España");
 		e.setRazonSocial("Razon");
 		
+		/*
+		Map<Empresa,Character> autorizacionE = new HashMap<>();
+		autorizacionE.put(e, 'L');
+		paPrueba.setAutorizacion(autorizacionE);	
+		
+		Map<PersonaAutorizada,Character> autorizacionPA = new HashMap<>();
+		autorizacionPA.put(paPrueba, 'L');
+		e.setAutorizacion(autorizacionPA);
+		
+		*/
 		
 		Pooled cpPooled = new Pooled();
 		Usuario uPrueba = new Usuario();
@@ -149,6 +176,8 @@ public class BaseDatosCT {
 		em.persist(dEuro);
 		em.persist(cfPruebaD);
 		em.persist(cfPruebaE);
+		em.persist(paPrueba);
+		em.persist(uPruebaPA);
 		
 		//Cierre Contexto Persistencia
 		em.getTransaction().commit();
