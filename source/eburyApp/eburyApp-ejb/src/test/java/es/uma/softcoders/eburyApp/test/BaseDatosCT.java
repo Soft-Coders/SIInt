@@ -43,7 +43,7 @@ public class BaseDatosCT {
 		c.setDireccion("Calle prueba, 32");
 		c.setCiudad("Malaga");
 		c.setCodigoPostal("29010");
-		c.setPais("España");
+		c.setPais("Alemania");
 		c.setNombre("Cliente");
 		c.setApellido("Prueba");
 		c.setFechaNacimiento(date.parse("2002-30-04"));
