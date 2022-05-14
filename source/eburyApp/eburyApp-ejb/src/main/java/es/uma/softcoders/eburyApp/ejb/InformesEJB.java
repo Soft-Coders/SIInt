@@ -457,7 +457,7 @@ public class InformesEJB implements GestionInformes{
 	@Override
 	public void informeAlemaniaPeriodico(String path) throws FailedPeriodicCSVException {
 		
-		String predicate = " WHERE c.fechaApertura > :fiveYearsAgo AND c.estado = 'ACTIVA'";
+		String predicate = " WHERE c.fechaApertura > :fiveYearsAgo AND c.estado LIKE 'ACTIV_'";
 		Date fiveYearsAgo = new Date();
 		fiveYearsAgo.setYear(fiveYearsAgo.getYear()-5);	// Today 5 years ago
 		if(em == null)
@@ -512,6 +512,7 @@ public class InformesEJB implements GestionInformes{
 					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
+					System.out.println("-- IMPRESO --");
 				}
 				else if(c instanceof Empresa){
 					System.out.println("-- SOY EMPRESA --");

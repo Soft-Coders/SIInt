@@ -226,6 +226,7 @@ public class PruebaInformes {
 	            if(cont != 3){
 	                fail("No hay las líneas que debería: " + cont);
 	            }
+	            csvData.close();
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error 1");
             }catch (IOException e) {
@@ -276,9 +277,10 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-	            if(cont != 4){
+	            if(cont != 2){
 	                fail("No hay las líneas que debería: " + cont);
 	            }
+	            csvData.close();
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error - 1");
             }catch (IOException e) {
@@ -287,65 +289,6 @@ public class PruebaInformes {
             
         }catch(FailedPeriodicCSVException e){
             fail("No debería dar error - 2 " + e);
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        }
-
-        try {
-            String temp;
-            BaseDatosInformes.setCuentas2();
-            gestionInformes.informeAlemaniaPeriodico(path);
-            try{
-	            Reader csvData = new FileReader(path);
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("IBAN")){
-	                    temp = csvRecord.get("IBAN");
-	                    if(temp == "45"){
-	                        fail("No deberia reconocer esta cuenta porque esta inactiva");
-	                    }
-	                }
-	            }
-            }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error 2.5");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-        }catch(FailedPeriodicCSVException e){
-            //Success
-        }catch(IllegalArgumentException e){
-            fail("No debería dar este error - 3");
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        }
-
-        try {
-            int cont = 0;
-            BaseDatosInformes.setCuentas3();
-            gestionInformes.informeAlemaniaPeriodico(path);
-            try{
-	            Reader csvData = new FileReader(path);
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("Date_Of_Birth")){
-	                    String temp = csvRecord.get("Date_Of_Birth");
-	                    if(temp=="noexistente"){
-	                        cont++;
-	                    }
-	                    if(cont != 1){
-	                        fail("Debería haber un \"noexistente\" en el CSV");
-	                    }
-	                }
-	            }
-			}catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error - 4");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}	
-        }catch(FailedPeriodicCSVException e){
-            fail("No debería dar este error - 5");
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
         }
 
     }
