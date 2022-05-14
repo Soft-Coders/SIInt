@@ -34,8 +34,76 @@ public class PruebaAutorizado {
 	@Before
 	public void setup() throws NamingException, ParseException{
 		gestionAutorizado = (GestionAutorizado) SuiteTest.ctx.lookup(AUTORIZADO_EJB);
-		BaseDatosAutorizado.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
+	
+	/**
+	 * Este test comprueba la funcionalidad del método agregarAutorizado()
+	 */
+	@Test
+	public void pruebaAgregarAutorizado() {
+		try {
+			gestionAutorizado.agregarAutorizado(123000L, null, 123L, 'O');
+			gestionAutorizado.agregarAutorizado(123000L, null, 456L, 'L');
+		} catch (EmpresaNoEncontradaException e) {
+			fail("Debería encontrar la empresa");
+		} catch (PersonaAutorizadaExistenteException e) {
+			fail("La persona autorizada ya está relacionada con la empresa");
+		} catch (CuentaNoCoincidenteException e) {
+			fail("No debería dar esta excepción");
+		} catch (EmpresaExistenteException e) {
+			fail("La empresa ya está relacionada con la persona autorizada");
+		} catch (UsuarioNoVinculadoException e) {
+			fail("Debe haber un usuario vinculado a la persona autorizada");
+		}
+	}
+	
+	@Test
+	public void pruebaModificarAutorizado() {
+		/*
+		 * La aplicación permitirá a un administrativo modificar los datos de las 
+		 * personas autorizadas a operar con cuentas de clientes que son personas jurídicas.
+		 */
+		PersonaAutorizada aux = new PersonaAutorizada("PERSONAAUTORIZADAAUX", "Persona", "Autorizada Aux", "Calle calle");
+		try {
+			gestionAutorizado.modificarAutorizado(aux, 123000L);
+		} catch (PersonaAutorizadaNoEncontradaException e) {
+			fail("Debería encontrar la persona autorizada");
+		}
+	}
+	
+	@Test
+	public void pruebaBajaAutorizado() {
+		try {
+			gestionAutorizado.bajaAutorizado(123000L);
+		} catch (PersonaAutorizadaNoEncontradaException e) {
+			fail("No encuentra a la persona autorizada, pero debería");
+		}
+	}
+	
+	@Test
+	public void pruebaEliminarAutorizado() {
+		try {
+			gestionAutorizado.agregarAutorizado(123000L, null, 123L, 'O');
+			gestionAutorizado.eliminarAutorizado(123000L, 123L);
+		} catch (PersonaAutorizadaNoEncontradaException e) {
+			fail("No se ha encontrado a la persona autorizada");
+		} catch (EmpresaNoEncontradaException e) {
+			fail("No se ha encontrado a la empresa");
+		} catch (PersonaAutorizadaExistenteException e) {
+			fail("No debería dar este error");
+		} catch (CuentaNoCoincidenteException e) {
+			fail("No debería dar este error");
+		} catch (EmpresaExistenteException e) {
+			fail("No debería dar este error");
+		} catch (UsuarioNoVinculadoException e) {
+			fail("La persona autorizada no tiene ningún usuario vinculado");
+		}
+	}
+	
+	
+	
+	
 	
 	/**
 	 * Este test comprueba que se pueda asociar una personaAutorizada a un Cliente de tipo Empresa
@@ -54,7 +122,7 @@ public class PruebaAutorizado {
 	 * </ul>
 	 * @author Marta Maleno
 	 * */
-	@Test
+	/*@Test
 	@Requisitos({"RF6"})
 	public void testAgregarAutorizado() {
 		PersonaAutorizada pa2 = new PersonaAutorizada("ABC123", "Marta", "Maleno", "Calle Patata, 37");
@@ -81,7 +149,7 @@ public class PruebaAutorizado {
 
 		try {
 			gestionAutorizado.agregarAutorizado(pa2, em2.getID().toString(), 'L');
-			/*gestionAutorizado.agregarAutorizado(pa3, em4.getID().toString(), 'O');
+			gestionAutorizado.agregarAutorizado(pa3, em4.getID().toString(), 'O');
 			assertNotNull(pa2.getAutorizacion());
 			assertNotNull(pa3.getAutorizacion());
 			assertNotNull(em2.getAutorizacion());
@@ -90,7 +158,6 @@ public class PruebaAutorizado {
 			assertNotNull(pa4.getAutorizacion());
 			gestionAutorizado.agregarAutorizado(pa4, em2.getID().toString(), 'O');
 			assertNotNull(pa4.getAutorizacion());
-			*/
 		} catch (EmpresaNoEncontradaException e) {
 			e.printStackTrace();
 		} catch (PersonaAutorizadaExistenteException e) {
@@ -110,12 +177,12 @@ public class PruebaAutorizado {
 		} catch(Exception e) {
 			// ok
 		}
-		/*try {
+		try {
 			gestionAutorizado.agregarAutorizado(pa5, em2.getID().toString(), 'O');
 			fail("Debería lanzar una excepción porque la persona no tiene ID");
 		} catch (Exception e) {
 			// ok
-		}*/
+		}
 		try {
 			gestionAutorizado.agregarAutorizado(pa2, em3.getID().toString(), 'O');
 			fail("Debería lanzar una excepción porque la empresa no tiene ID");
@@ -128,7 +195,7 @@ public class PruebaAutorizado {
 		} catch(Exception e) {
 			//ok
 		}
-	}
+	}*/
 	
 	/**
 	 * Este test comprueba que se cambie el estado de la relación entre una PersonaAutorizada y una
@@ -138,7 +205,7 @@ public class PruebaAutorizado {
 	 * no tiene ninguna Empresa asociada sobre la que pueda operar.
 	 * El test sirve para comprobar el Requisito RF8: Eliminar autorizados de una cuenta
 	 * @author Marta Maleno
-	 * */
+	 * 
 	@Test
 	@Requisitos({"RF8"})
 	public void EliminarAutorizado(){
@@ -186,7 +253,7 @@ public class PruebaAutorizado {
 		} catch (PersonaAutorizadaNoEncontradaException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	/**
 	 * Este test comprueba que se puedan modificar los datos asociados a una PersonaAutorizada.
@@ -199,7 +266,7 @@ public class PruebaAutorizado {
 	 * <li>Modificación de Estado de una PersonaAutorizada</li>
 	 * </ul>
 	 * @author Marta Maleno
-	 * */
+	 * 
 	@Test
 	@Requisitos({"RF7"})
 	public void ModificarAutorizado(){
@@ -220,5 +287,5 @@ public class PruebaAutorizado {
 		} catch (PersonaAutorizadaNoEncontradaException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

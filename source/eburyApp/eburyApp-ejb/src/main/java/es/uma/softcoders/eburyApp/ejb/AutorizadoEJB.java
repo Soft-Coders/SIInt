@@ -21,14 +21,17 @@ public class AutorizadoEJB implements GestionAutorizado {
 	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 	
-	public void agregarAutorizado(PersonaAutorizada p, String empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
+	// Si la persona autorizada existe se usa su id, si no se crea en la base de datos
+	// con los datos pasados por parámetro en p
+	public void agregarAutorizado(Long idPersAut, PersonaAutorizada p, Long empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
 		Empresa empresaEntity = em.find(Empresa.class, empresa);
 		if(empresaEntity == null) {
 			throw new EmpresaNoEncontradaException("Empresa no encontrada");
 		}
 		
-		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, p.getId());
-		if(personaAutorizadaEntity == null) {
+		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, idPersAut);
+		if(personaAutorizadaEntity == null && p.getId()!= null && p.getIdentificacion()!= null && p.getNombre()!=null &&p.getApellidos()!=null && p.getDireccion()!=null) {
+			p.setId(idPersAut);
 			em.persist(p);
 		}
 		
@@ -57,7 +60,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 		}	
 	}
 	
-	public void modificarAutorizado(PersonaAutorizada p, String autorizado) throws PersonaAutorizadaNoEncontradaException{
+	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws PersonaAutorizadaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
@@ -92,7 +95,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 		}
 	}
 	
-	public void eliminarAutorizado(String autorizado, String empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException{
+	public void eliminarAutorizado(Long autorizado, Long empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
@@ -121,11 +124,11 @@ public class AutorizadoEJB implements GestionAutorizado {
 			}
 		}
 		if(hayRelaciones == false) {
-			bajaAutorizado(personaAutorizadaEntity.getId().toString());
+			bajaAutorizado(personaAutorizadaEntity.getId());
 		}
 	}
 	
-	public void bajaAutorizado(String autorizado) throws PersonaAutorizadaNoEncontradaException{
+	public void bajaAutorizado(Long autorizado) throws PersonaAutorizadaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
