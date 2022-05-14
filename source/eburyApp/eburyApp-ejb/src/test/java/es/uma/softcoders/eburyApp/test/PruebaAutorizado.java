@@ -43,8 +43,9 @@ public class PruebaAutorizado {
 	@Test
 	public void pruebaAgregarAutorizado() {
 		try {
-			gestionAutorizado.agregarAutorizado(123000L, null, 123L, 'O');
-			gestionAutorizado.agregarAutorizado(123000L, null, 456L, 'L');
+			PersonaAutorizada pa0 =  new PersonaAutorizada();
+			gestionAutorizado.agregarAutorizado(123000L, pa0, 123L, 'L');
+			gestionAutorizado.agregarAutorizado(456000L, pa0, 456L, 'L');
 		} catch (EmpresaNoEncontradaException e) {
 			fail("Debería encontrar la empresa");
 		} catch (PersonaAutorizadaExistenteException e) {
@@ -84,7 +85,8 @@ public class PruebaAutorizado {
 	@Test
 	public void pruebaEliminarAutorizado() {
 		try {
-			gestionAutorizado.agregarAutorizado(123000L, null, 123L, 'O');
+			PersonaAutorizada pa0 =  new PersonaAutorizada();
+			gestionAutorizado.agregarAutorizado(123000L, pa0, 123L, 'L');
 			gestionAutorizado.eliminarAutorizado(123000L, 123L);
 		} catch (PersonaAutorizadaNoEncontradaException e) {
 			fail("No se ha encontrado a la persona autorizada");

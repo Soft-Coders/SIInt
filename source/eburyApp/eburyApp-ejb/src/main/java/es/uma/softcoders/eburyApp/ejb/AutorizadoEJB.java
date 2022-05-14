@@ -35,17 +35,17 @@ public class AutorizadoEJB implements GestionAutorizado {
 			em.persist(p);
 		}
 		
-		if(p.getUsuario() == null) {
+		if(personaAutorizadaEntity.getUsuario() == null) {
 			throw new UsuarioNoVinculadoException("Debe de haber un usuario vinculado");
 		}
 		
-		if(cuenta != 'L' || cuenta != 'O') {
+		if(cuenta != 'L' && cuenta != 'O') {
 			throw new CuentaNoCoincidenteException("El caracter de cuenta no es válido, prueba con L (Lectura) o con O (Operativa)");
 		}
 		
 		Map<PersonaAutorizada, Character> listaPersonasAutorizadas = empresaEntity.getAutorizacion();
-		if(listaPersonasAutorizadas.get(p) == null) {
-			listaPersonasAutorizadas.put(p, cuenta);
+		if(listaPersonasAutorizadas.get(personaAutorizadaEntity) == null) {
+			listaPersonasAutorizadas.put(personaAutorizadaEntity, cuenta);
 			empresaEntity.setAutorizacion(listaPersonasAutorizadas);
 		} else {
 			throw new PersonaAutorizadaExistenteException("Persona autorizada ya registrada en la empresa");
