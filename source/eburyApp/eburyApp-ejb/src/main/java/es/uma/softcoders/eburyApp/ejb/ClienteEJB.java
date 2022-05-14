@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp.ejb;
 
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -24,8 +23,6 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
-
-	private static final Logger LOG = Logger.getLogger(ClienteEJB.class.getCanonicalName());
 	
     @PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;

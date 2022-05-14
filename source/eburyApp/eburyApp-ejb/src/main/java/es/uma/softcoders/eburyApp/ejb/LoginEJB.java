@@ -2,6 +2,7 @@ package es.uma.softcoders.eburyApp.ejb;
 
 import java.util.List;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,14 +21,16 @@ public class LoginEJB implements GestionLogin {
 
     @PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
-
+    
+    @EJB 
+    private GestionCliente gestionCliente;
+    
     @Override
     public void loginAdmin(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
           	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
     	q.setParameter("cuenta", cuenta);
-    	q.setParameter("clave", clave);
     	List us = q.getResultList();
     	System.out.println("-- uA --\n" + us);
     	System.out.println(us.isEmpty());
@@ -47,9 +50,8 @@ public class LoginEJB implements GestionLogin {
     public void loginUsuario(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta AND u.clave = :clave", Usuario.class);
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
     	q.setParameter("cuenta", cuenta);
-    	q.setParameter("clave", clave);
     	List us = q.getResultList();
     	System.out.println("-- u --\n" + us);
     	System.out.println(us.isEmpty());
@@ -62,10 +64,9 @@ public class LoginEJB implements GestionLogin {
         System.out.println("u > " + u);
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
-        
         PersonaAutorizada pA = u.getPersonaAutorizada();
         Individual ind = u.getIndividual();
-        GestionCliente gestionCliente = new ClienteEJB();
+        
         if(pA != null){
             gestionCliente.comprobarAutorizado(pA.getId());
         }
