@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,10 +43,10 @@ public class Usuario implements Serializable{
 
 	// --------- RELACIONES ---------
 	
-	@OneToOne(mappedBy="usuario", cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy="usuario")
 	private PersonaAutorizada personaAutorizada;
 	
-	@OneToOne(mappedBy="usuario", cascade = CascadeType.PERSIST)
+	@OneToOne(mappedBy="usuario")
 	private Individual individual;
 	
 	// ------ GETTERS & SETTERS ------

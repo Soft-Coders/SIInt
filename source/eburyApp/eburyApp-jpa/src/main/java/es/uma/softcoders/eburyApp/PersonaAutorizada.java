@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -92,7 +91,7 @@ public class PersonaAutorizada implements Serializable{
     @Column(name="TIPO")
     private Map<Empresa, Character> autorizacion;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)
 	private Usuario usuario;
 

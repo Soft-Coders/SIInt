@@ -78,7 +78,7 @@ public class Cliente implements Serializable{
     
     // --------- RELACIONES ---------
     	
-	@OneToMany (mappedBy = "cliente", cascade = CascadeType.PERSIST) 
+	@OneToMany (mappedBy = "cliente") 
     private List<CuentaFintech> cuentas;
 
     // ------ GETTERS & SETTERS ------
