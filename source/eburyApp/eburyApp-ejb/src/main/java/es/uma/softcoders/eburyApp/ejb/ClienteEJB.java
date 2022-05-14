@@ -187,17 +187,17 @@ public class ClienteEJB implements GestionCliente {
 
     @Override
     public void comprobarCliente(Long cliente) throws EburyAppException{
-        Cliente clienteEntity = em.find(Individual.class, cliente);
+        Individual clienteEntity = em.find(Individual.class, cliente);
 
         if (clienteEntity.getTipo_cliente()=="EMPRESA")
             throw new ClienteNuloException("El cliente es una empresa");
 
         if(clienteEntity.getTipo_cliente()=="INDIVIDUAL"){
-            Individual i = (Individual) clienteEntity;
-            if(i.getUsuario()==null){
+            
+            if(clienteEntity.getUsuario()==null){
                 throw new ClienteNoValidoException("El cliente no posee usuario");
             }
-            if(i.getEstado() != "ACTIVO"){
+            if(clienteEntity.getEstado() != "ACTIVO"){
                 throw new ClienteNoValidoException("El cliente no está activo");
             }
         }

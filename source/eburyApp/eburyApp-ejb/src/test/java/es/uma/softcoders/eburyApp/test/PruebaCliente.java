@@ -327,7 +327,6 @@ public class PruebaCliente {
 	 * </ul>
 	 * @author Pablo Huertas
 	 */
-	@Ignore
 	@Test
 	@Requisitos({"RF3"})
     public void modificarCliente() {
@@ -348,7 +347,7 @@ public class PruebaCliente {
 			c.setApellido("Modificado");
 			c.setFechaNacimiento(date.parse("2002-04-30"));
 			
-			gestionCliente.modificarCliente(c, 0000L);
+			gestionCliente.modificarCliente(c, 0001L);
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
 		}
@@ -402,7 +401,7 @@ public class PruebaCliente {
 		
 		//Cliente individual normal
 		try {
-    		gestionCliente.comprobarCliente(Long.valueOf(0000));
+    		gestionCliente.comprobarCliente(Long.valueOf(0001));
     	}catch(Exception e) {
     		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
     	}
@@ -438,7 +437,7 @@ public class PruebaCliente {
 	@Requisitos({"RF4"})
     public void bajaCliente() {
     	try {
-    		gestionCliente.bajaCliente(0000L);
+    		gestionCliente.bajaCliente(0001L);
     	}catch(Exception e) {
     		fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
     	}
