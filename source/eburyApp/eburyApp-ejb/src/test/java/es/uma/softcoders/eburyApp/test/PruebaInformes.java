@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -30,7 +31,7 @@ public class PruebaInformes {
     private GestionInformes gestionInformes;
 
     @Before
-    public void setup() throws NamingException {
+    public void setup() throws NamingException, ParseException {
         gestionInformes = (GestionInformes) SuiteTest.ctx.lookup(INFORMES_EJB);
         BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSISTENCIA_PRUEBAS);
     }

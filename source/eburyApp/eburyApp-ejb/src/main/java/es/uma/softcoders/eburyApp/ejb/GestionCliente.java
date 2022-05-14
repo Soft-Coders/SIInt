@@ -1,13 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
 import es.uma.softcoders.eburyApp.Cliente;
-import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
-import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
-import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
-import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
-import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
-import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 
 public interface GestionCliente {
     
@@ -49,5 +43,5 @@ public interface GestionCliente {
      * @param cliente   PK del cliente a dar de baja en el sistema
      * @throws EburyAppException 
 	 */
-    public void bajaCliente(Long cliente) throws ClienteNoEncontradoException, EburyAppException;
+    public void bajaCliente(Long cliente) throws EburyAppException;
 }

@@ -50,9 +50,9 @@ public class InformesEJB implements GestionInformes{
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
 			JSONObject jsonObj = (JSONObject) jsonFile;
-			System.out.println("jsonObj:\n=======\n" + jsonObj.toString() + "\n=======\n");
 			if (jsonObj == null)
 				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
+			System.out.println("jsonObj:\n=======\n" + jsonObj.toString() + "\n=======\n");
 			
 			// Buscar "searchParameters"
 			Object searchParameters = jsonObj.get("searchParameters");
@@ -231,8 +231,6 @@ public class InformesEJB implements GestionInformes{
 			
 			if(em == null)
 				throw new NullPointerException("---El EntityManager es NULL---");
-			if(predicate == null)
-				throw new NullPointerException("---El predicado es NULL---");
 			try {
 				String hql;
 				if(predicate.equals(""))
@@ -279,7 +277,7 @@ public class InformesEJB implements GestionInformes{
 					int day = Integer.parseInt(dateArr[2]);
 					if(day < 1 || day > 31)
 						throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
-					Date epDate = new Date(year-1900, month, day);	// Deprecated -> Cambiar tipo a Calendar? TODO
+					Date epDate = new Date(year-1900, month, day);
 					query.setParameter("endPeriod", epDate);
 					
 				}catch(NullPointerException e) {
