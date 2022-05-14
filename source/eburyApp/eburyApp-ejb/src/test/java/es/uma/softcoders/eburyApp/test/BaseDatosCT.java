@@ -86,6 +86,25 @@ public class BaseDatosCT {
 		cpPooled.setFechaApertura(date.parse("2018-05-27"));
 		cpPooled.setCliente(c);
 		
+		//Cuenta Segregada
+		Segregada cpSegregada = new Segregada();
+		cpSegregada.setIban("cpSegregada");
+		cpSegregada.setSwift("SwiftSegregada");
+		cpSegregada.setEstado("ACTIVO");
+		cpSegregada.setFechaApertura(date.parse("2019-06-28"));
+		cpSegregada.setCuentaRef(cfPruebaE);
+		cpSegregada.setCliente(c);
+		
+		//Cuenta Inactiva
+		Segregada cpInactiva = new Segregada();
+		cpInactiva.setIban("cpInactiva");
+		cpInactiva.setSwift("SwiftInactiva");
+		cpInactiva.setEstado("INACTIVO");
+		cpInactiva.setFechaApertura(date.parse("2019-06-29"));
+		cpInactiva.setFechaCierre(date.parse("2019-06-30"));
+		cpInactiva.setCuentaRef(cfPruebaD);
+		cpInactiva.setCliente(c);
+		
 		//Divisas
 		Divisa dDolar = new Divisa("DOL", "dolares", '$', 2L);
 		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
@@ -121,6 +140,8 @@ public class BaseDatosCT {
 		em.persist(uPruebaAdmin);
 		em.persist(c);
 		em.persist(cpPooled);
+		em.persist(cpSegregada);
+		em.persist(cpInactiva);
 		em.persist(dDolar);
 		em.persist(dEuro);
 		em.persist(cfPruebaD);

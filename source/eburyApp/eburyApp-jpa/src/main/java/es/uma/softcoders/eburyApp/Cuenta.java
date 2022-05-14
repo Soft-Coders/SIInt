@@ -41,11 +41,9 @@ public class Cuenta implements Serializable{
 	// ---------- RELACIONES -----------
 	
 	@OneToMany(mappedBy = "origen")
-	@JoinColumn(name = "TRANSACCION_ORIGEN_FK", nullable = true) // ES NULLABLE?  TODO
 	private List<Transaccion> transaccionOrigen;
 	
 	@OneToMany(mappedBy = "destino" )
-	@JoinColumn(name = "TRANSACCION_DESTINO", nullable = true) // ES NULLABLE?  TODO
 	private List<Transaccion> transaccionDestino;
 	
 	
