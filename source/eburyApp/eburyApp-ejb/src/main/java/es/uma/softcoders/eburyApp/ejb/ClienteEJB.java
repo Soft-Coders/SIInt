@@ -3,6 +3,7 @@ package es.uma.softcoders.eburyApp.ejb;
 
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,11 +16,13 @@ import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.AutorizadoNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
 import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
+import es.uma.softcoders.eburyApp.exceptions.EmpresaSinUsuarioException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
@@ -71,11 +74,11 @@ public class ClienteEJB implements GestionCliente {
             e.setEstado("ACTIVO");
             em.persist(e);
         
-            //Map<PersonaAutorizada, Character> m = e.getAutorizacion();
-            //Set<PersonaAutorizada> pAs= m.keySet();
-            // if (pAs == null){
-            //    throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
-            // }
+//            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
+//            Set<PersonaAutorizada> pAs= m.keySet();
+//	         if (pAs == null){
+//	            throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
+//	         }
 
             
         }else if(c instanceof Individual){
@@ -110,9 +113,9 @@ public class ClienteEJB implements GestionCliente {
     @Override
     public void modificarCliente(Cliente c, Long cliente) throws EburyAppException{
         Cliente clienteEntity = em.find(Cliente.class, cliente);
-        //if(clienteEntity == null){
-        //    throw new ClienteNoEncontradoException("Cliente no encotrado");
-        //}
+        if(clienteEntity == null){
+            throw new ClienteNoEncontradoException("Cliente no encotrado");
+        }
         
         if(c == null){
             throw new ClienteNuloException("Cliente nulo");
@@ -211,12 +214,12 @@ public class ClienteEJB implements GestionCliente {
         if (pAut.getEstado() != "ACTIVO")
             throw new AutorizadoNoValidoException("El autorizado NO está activo");
 
-        //Map<Empresa, Character> m = pAut.getAutorizacion();    
-        //if (m.isEmpty())
-        //    throw new AutorizadoNoValidoException("La persona NO está autorizada");
+        Map<Empresa, Character> m = pAut.getAutorizacion();    
+        if (m.isEmpty())
+            throw new AutorizadoNoValidoException("La persona NO está autorizada");
 
-        //if (pAut.getUsuario()==null)
-        //    throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
+        if (pAut.getUsuario()==null)
+            throw new AutorizadoNoValidoException("La persona autorizada NO tiene usuario");
     }
 
     @Override
