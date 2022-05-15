@@ -1,11 +1,10 @@
 *.DS_Store
 
-informe.csv
+informe*.csv
 esquema.ddl
 
 # Eclipse specific files/directories
-source/eburyApp/eburyApp-jpa/.classpath
-source/eburyApp/eburyApp-ejb/.classpath
+.classpath
 .project
 .settings
 .metadata

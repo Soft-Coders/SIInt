@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -41,12 +40,10 @@ public class Cuenta implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@OneToMany(mappedBy = "origen", cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "TRANSACCION_ORIGEN_FK", nullable = true) // ES NULLABLE?  TODO
+	@OneToMany(mappedBy = "origen")
 	private List<Transaccion> transaccionOrigen;
 	
-	@OneToMany(mappedBy = "destino" , cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "TRANSACCION_DESTINO", nullable = true) // ES NULLABLE?  TODO
+	@OneToMany(mappedBy = "destino" )
 	private List<Transaccion> transaccionDestino;
 	
 	
@@ -103,3 +100,4 @@ public class Cuenta implements Serializable{
 	}
 	
 }
+

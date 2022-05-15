@@ -23,7 +23,7 @@ public class Individual extends Cliente implements Serializable{
     @Column(name = "FECHA_NACIMIENTO")
     private Date fechaNacimiento;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
 	@JoinColumn(name="INDIVIDUAL_USUARIO", nullable = false)
 	private Usuario usuario;
 

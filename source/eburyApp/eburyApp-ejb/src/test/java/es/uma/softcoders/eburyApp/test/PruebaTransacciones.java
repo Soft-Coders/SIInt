@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.naming.NamingException;
 
 import org.junit.Before;
@@ -15,7 +16,6 @@ import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaReferencia;
 import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.ejb.GestionTransaccion;
-import es.uma.softcoders.eburyApp.ejb.TransaccionEJB;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DivisaInexistenteException;
 
@@ -46,126 +46,124 @@ public class PruebaTransacciones {
 	@Test
 	@Requisitos({"RF17, RF18"})
 	public void testCambioDivisa() {
+		
+		//Prueba de operación normal
+		try {
 
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-		
-		CuentaReferencia cfPrueba = new CuentaReferencia();
-		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
-		cliente.setID(Long.valueOf(0122));
-		
-		try {
-			
-			//Cuenta referencia
-			cfPrueba.setIban("cfPrueba");
-			cfPrueba.setNombreBanco("Santander");
-			cfPrueba.setSaldo(Long.valueOf(10000));
-			cfPrueba.setFechaApertura(date.parse("2010-02-22"));
-			cfPrueba.setEstado("ACTIVO");
-			cfPrueba.setSwift("Swift");
-			cfPrueba.setSucursal("Madrid");
-			
-			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
-			
 			//Prueba de transaccion
-			gestionTransaccion.cambioDivisa(cfPrueba.getIban(), dDolar.getAbreviatura(), dEuro.getAbreviatura(), (long)100);
+			gestionTransaccion.cambioDivisa("cpPooled", "DOL", "EUR", 100L);
 			
 		}catch(DivisaInexistenteException|CuentaNoExistenteException e) {
-			fail("No debería de lanzar esta excepcion");
+			fail(e.getMessage());
 		}catch(Exception e) {
-			fail("No debería lanzar ninguna excepción");
+			fail(e.getMessage());
 		}
 		
+		//Prueba de operación sin la primera divisa introducida
 		try {
 			
-			//Cuenta referencia
-			cfPrueba.setIban("cfPrueba");
-			cfPrueba.setNombreBanco("Santander");
-			cfPrueba.setSaldo(Long.valueOf(10000));
-			cfPrueba.setFechaApertura(date.parse("2010-02-22"));
-			cfPrueba.setEstado("ACTIVO");
-			cfPrueba.setSwift("Swift");
-			cfPrueba.setSucursal("Madrid");
-			
-			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dRupia = new Divisa("INR", "rupias", '₹', (long)0.012);
-			
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa(cfPrueba.getIban(), dDolar.getAbreviatura(), dRupia.getAbreviatura(), (long)100);
-			
-		}catch(DivisaInexistenteException|CuentaNoExistenteException e) {
-			fail("No debería de lanzar esta excepcion");
-		}catch(Exception e) {
-			fail("No debería lanzar esta excepción");
-		}
-		
-		try {
-			
-			//Cuenta referencia
-			cfPrueba.setIban("cfPrueba");
-			cfPrueba.setNombreBanco("Santander");
-			cfPrueba.setSaldo(Long.valueOf(10000));
-			cfPrueba.setFechaApertura(date.parse("2010-02-22"));
-			cfPrueba.setEstado("ACTIVO");
-			cfPrueba.setSwift("Swift");
-			cfPrueba.setSucursal("Madrid");
-			
-			//Divisa
-			Divisa dRupia = new Divisa("INR", "rupias", '₹', (long)0.012);
-			
-			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa(cfPrueba.getIban(), null, dRupia.getAbreviatura(), (long)100);
+			gestionTransaccion.cambioDivisa("cpPooled", null, "EUR", 100L);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsitenteException");
 		}catch(DivisaInexistenteException e) {
-			// OK 
+			fail(e.getMessage());
 		}catch(CuentaNoExistenteException e){
-			fail("No");
-		}catch(Exception e) {
-			// OK
-		}
-		
-		try {
-			
-			//Cuenta referencia
-			cfPrueba.setIban("cfPrueba");
-			cfPrueba.setNombreBanco("Santander");
-			cfPrueba.setSaldo(Long.valueOf(10000));
-			cfPrueba.setFechaApertura(date.parse("2010-02-22"));
-			cfPrueba.setEstado("ACTIVO");
-			cfPrueba.setSwift("Swift");
-			cfPrueba.setSucursal("Madrid");
-			
-			//Divisa
-			Divisa dRupia = new Divisa("INR", "rupias", '₹', (long)0.012);
-			
-			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa(cfPrueba.getIban(), dRupia.getAbreviatura(), null, (long)100);
-			
-			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
-		}catch(DivisaInexistenteException e) {
-			// OK 
-		}catch(CuentaNoExistenteException e){
-			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
-		}catch(Exception e) {
-			// OK
-		}
-		
-		try {
-			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
-			
-			//Prueba de transaccion
-			gestionTransaccion.cambioDivisa(null, dDolar.getAbreviatura(), dEuro.getAbreviatura(), (long)100);
-			fail("Debería de lanzar excepcion");
+			fail(e.getMessage());
 		}catch(Exception e) {
 			//OK
 		}
 		
+		//Prueba sin la segunda divisa introducida
+		try {
+
+			//Prueba de Transaccion
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", null, 100L);
+			
+			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(DivisaInexistenteException e) {
+			fail(e.getMessage());
+		}catch(CuentaNoExistenteException e){
+			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(Exception e) {
+			//OK
+		}
 		
+		//Prueba sin la cuenta Pooled introducida
+		try {
+			//Divisas
+			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
+			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
+			
+			//Prueba de transaccion
+			gestionTransaccion.cambioDivisa(null, "DOL", "EUR", 100L);
+			fail("Debería de lanzar excepcion");
+		}catch(CuentaNoExistenteException e) {
+			fail(e.getMessage());
+		}catch(Exception e) {
+			//OK
+		}
+		
+		//Prueba con una cuenta Pooled no registrada
+		try {
+
+			//Prueba de Transaccion
+			gestionTransaccion.cambioDivisa("cuentaNoExistente", "EUR", "DOL", 100L);
+			
+			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(DivisaInexistenteException e) {
+			fail(e.getMessage());
+		}catch(CuentaNoExistenteException e){
+			//OK
+		}catch(Exception e) {
+			fail(e.getMessage());
+		}
+		
+		//Prueba con una divisa de entrada no registrada
+		try {
+
+			//Prueba de Transaccion
+			gestionTransaccion.cambioDivisa("cpPooled", "LIB", "DOL", 100L);
+			
+			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(DivisaInexistenteException e) {
+			//OK
+		}catch(CuentaNoExistenteException e){
+			fail(e.getMessage());
+		}catch(Exception e) {
+			fail(e.getMessage());
+		}
+		
+		
+		//Prueba con una divisa destino no registrada
+		try {
+
+			//Prueba de Transaccion
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "LIB", 100L);
+			
+			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
+		}catch(DivisaInexistenteException e) {
+			//OK
+		}catch(CuentaNoExistenteException e){
+			fail(e.getMessage());
+		}catch(Exception e) {
+			fail(e.getMessage());
+		}
+		
+		
+		try {
+
+			//Prueba de Transaccion donde la cantidad solicitada excede
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "DOL", 100000L);
+			
+			fail("Debe de dar excepción");
+		}catch(DivisaInexistenteException e) {
+			fail(e.getMessage());
+		}catch(CuentaNoExistenteException e){
+			fail(e.getMessage());
+		}catch(Exception e) {
+			//OK
+		}
 		
 	}
 	

@@ -10,6 +10,9 @@
   	<modules>
 		<module>eburyApp-ejb</module>
 		<module>eburyApp-jpa</module>
+		<module>eburyApp-war</module>
+		<module>eburyApp-ear</module>
+		<module>eburyApp-tests</module>
 	</modules>
   	
   <properties>

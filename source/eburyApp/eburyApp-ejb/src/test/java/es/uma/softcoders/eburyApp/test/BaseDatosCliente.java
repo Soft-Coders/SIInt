@@ -1,23 +1,15 @@
 package es.uma.softcoders.eburyApp.test;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import es.uma.softcoders.eburyApp.Cliente;
-import es.uma.softcoders.eburyApp.Cuenta;
-import es.uma.softcoders.eburyApp.CuentaFintech;
-import es.uma.softcoders.eburyApp.CuentaReferencia;
-import es.uma.softcoders.eburyApp.Divisa;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
-import es.uma.softcoders.eburyApp.Pooled;
-import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
 
 public class BaseDatosCliente {
