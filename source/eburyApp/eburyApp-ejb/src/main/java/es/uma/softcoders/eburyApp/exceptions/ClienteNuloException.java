@@ -1,8 +1,10 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class ClienteNuloException extends RuntimeException{
+public class ClienteNuloException extends EburyAppException{
 
-    public ClienteNuloException(String e){
+    private static final long serialVersionUID = 1L;
+
+	public ClienteNuloException(String e){
         super(e);
     }
 }

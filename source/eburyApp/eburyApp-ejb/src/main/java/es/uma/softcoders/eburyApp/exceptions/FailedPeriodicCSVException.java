@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class FailedPeriodicCSVException extends Exception {
+public class FailedPeriodicCSVException extends EburyAppException {
 	
 	private static final long serialVersionUID = 1L;
 

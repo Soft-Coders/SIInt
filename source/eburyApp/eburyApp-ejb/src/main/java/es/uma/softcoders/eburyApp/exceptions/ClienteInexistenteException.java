@@ -1,7 +1,8 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
 public class ClienteInexistenteException extends EburyAppException{
-	public ClienteInexistenteException() {}
+	private static final long serialVersionUID = 1L;
+	
 	public ClienteInexistenteException(String msg) {
 		super(msg);
 	}

@@ -21,24 +21,35 @@ public class CuentaEJB implements GestionCuenta{
 
 
 	@PersistenceContext(unitName="eburyAppEjb")
-
 	private EntityManager em;
 
 	@Override
 	public void crearCuentaFintech(CuentaFintech cf) throws EburyAppException {
 		if (cf.getIban() == null) {
+			System.out.println("IBAN NULL ->");
 			throw new DatosIncorrectosException("IBAN NULO, INVÁLIDO");
 		} else {
+			System.out.println("IBAN NOT NULL");
 			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
+				System.out.println("IBAN REGISTRADO ->");
 				throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 			}
+			System.out.println("IBAN NO REGISTRADO");
 			if (cf.getCliente() == null) {
+				System.out.println("CLIENTE NULL ->");
 				throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
-			} else if (em.find(Cliente.class, cf.getCliente()) == null) {
+			} 
+			System.out.println("CLIENTE NOT NULL");
+			if (em.find(Cliente.class, cf.getCliente().getID()) == null) {
+				System.out.println("CLIENTE INEXISTENTE ->");
+				System.out.println(em.createQuery("SELECT c FROM Cliente c").getResultList());
 				throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
 			}
+			System.out.println("CLIENTE EXISTENTE");
 		}
+		System.out.println("PERSIST");
 		em.persist(cf);
+		System.out.println(" O-O ");
 	}
 
 	@Override
@@ -47,7 +58,7 @@ public class CuentaEJB implements GestionCuenta{
 			throw new DatosIncorrectosException("IBAN NULO, INVÁLIDO");
 		} else {
 			CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
-			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
+			if (cf == null) {
 				throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
 			}
 			cf.setEstado("INACTIVA");

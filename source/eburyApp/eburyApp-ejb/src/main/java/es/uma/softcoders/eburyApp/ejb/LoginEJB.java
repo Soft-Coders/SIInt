@@ -1,15 +1,19 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
-import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoAdministrativoException;
 
 @Stateless
@@ -17,12 +21,24 @@ public class LoginEJB implements GestionLogin {
 
     @PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
-
+    
+    @EJB 
+    private GestionCliente gestionCliente;
+    
     @Override
-    public void loginAdmin(String cuenta, String clave) throws CuentaNoCoincidenteException{
+    public void loginAdmin(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
           	throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Usuario u = em.find(Usuario.class, cuenta);
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	List us = q.getResultList();
+    	System.out.println("-- uA --\n" + us);
+    	System.out.println(us.isEmpty());
+        if (us.isEmpty())
+            throw new ClienteNoEncontradoException("Cuenta no existente");
+    	System.out.println("-- HAY USUARIOS --");
+        Usuario u = (Usuario) us.get(0);
+        System.out.println("u > " + u);
         if (u == null)
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (!u.isEsAdministrativo())
@@ -30,19 +46,27 @@ public class LoginEJB implements GestionLogin {
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
-
-    public void loginUsuario(String cuenta, String clave) throws CuentaNoCoincidenteException{
+    @Override
+    public void loginUsuario(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
-    	Usuario u = em.find(Usuario.class, cuenta);
-        if (u == null)
+    	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	List us = q.getResultList();
+    	System.out.println("-- u --\n" + us);
+    	System.out.println(us.isEmpty());
+        if (us.isEmpty()) {
+        	System.out.println("Throwing");
             throw new ClienteNoEncontradoException("Cuenta no existente");
+        }
+    	System.out.println("-- HAY USUARIOS --");
+        Usuario u = (Usuario) us.get(0);
+        System.out.println("u > " + u);
         if (u.getClave() != clave)
             throw new CuentaNoCoincidenteException("Clave no coincidente");
-        
         PersonaAutorizada pA = u.getPersonaAutorizada();
         Individual ind = u.getIndividual();
-        GestionCliente gestionCliente = new ClienteEJB();
+        
         if(pA != null){
             gestionCliente.comprobarAutorizado(pA.getId());
         }

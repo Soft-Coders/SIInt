@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.NamingException;
 
@@ -14,10 +16,13 @@ import org.junit.Test;
 import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.CuentaReferencia;
+import es.uma.softcoders.eburyApp.Divisa;
+import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
-import es.uma.softcoders.eburyApp.ejb.CuentaEJB;
 import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
+import es.uma.softcoders.eburyApp.exceptions.ClienteInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
@@ -29,9 +34,9 @@ public class PruebaCuenta {
 	private GestionCuenta gestionCuenta;	
 	
 	@Before
-	public void setup() throws NamingException  {
+	public void setup() throws NamingException, ParseException  {
 		gestionCuenta = (GestionCuenta) SuiteTest.ctx.lookup(CUENTA_EJB);
-		BaseDatosCuenta.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
 	/**Este test se encarga de comprobar que la <b>creación</b> de <b>CuentasFintech</b> se lleve a cabo de la forma esperada.
@@ -52,26 +57,35 @@ public class PruebaCuenta {
 	@Requisitos({"RF5"})
 	public void testCrearCuentaFintech() {
 		
-		final String CFPE = "cfPreExistente-22";
-		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
-		CuentaFintech cf = new Segregada();
-		Cliente cliente = new Cliente("0000", "tipo", "ACTIVO", new Date(), "Calle calle, 1", "ciudad", "29620", "pais");
-		cliente.setID(Long.valueOf(0122));
+		Segregada cf = new Segregada();
+		Individual cliente = new Individual();
 		try {
+			cliente.setID(0000L);
+			cliente.setIdentificacion("0022");
+			cliente.setTipo_cliente("INDIVIDUAL");
+			cliente.setEstado("ACTIVO");
+			cliente.setFecha_Alta(date.parse("2022-05-12"));
+			cliente.setDireccion("Calle prueba, 32");
+			cliente.setCiudad("Malaga");
+			cliente.setCodigoPostal("29010");
+			cliente.setPais("España");
+			cliente.setNombre("Cliente");
+			cliente.setApellido("Prueba");
+			cliente.setFechaNacimiento(date.parse("2002-30-04"));
+			cliente.setID(0000L);
 			cf.setCliente(cliente);
 			cf.setEstado("ACTIVO");
-			cf.setFechaApertura(date.parse("2019-09-19"));
-			cf.setIBAN("cfIdeal-22");
-			cf.setSwift("Swift");
+			cf.setFechaApertura(date.parse("2019-06-28"));
+			cf.setIBAN("cpSegregada");	//Pre-existente
+			cf.setSwift("SwiftNuevo");
 		}catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
 		
 		// Cuenta PreExistente
 		try {
-			cf.setIban(CFPE);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch(CuentaExistenteException e) {
 			// OK
@@ -100,32 +114,46 @@ public class PruebaCuenta {
 			fail("No debería lanzar esta excepción-3: " + e.getMessage() + "-" + e.getClass());
 		}
 		
-		// Cliente PreExistente
+		// Cliente Inexistente
 		try {
-			cliente.setID(Long.valueOf(0022));
+			cliente.setID(0022L);
 			cf.setCliente(cliente);
 			gestionCuenta.crearCuentaFintech(cf);
-		}catch (DatosIncorrectosException e){
+		}catch (ClienteInexistenteException e){
 			//OK
 		}catch(Exception e) {
 			fail("No debería lanzar esta excepción-4: " + e.getMessage() + "-" + e.getClass());
 		}
 		
-		CuentaFintech cfIdealPooled = new Pooled();
-		CuentaFintech cfIdealSegregada = new Segregada();
-		cliente.setID(Long.valueOf(0122));
+		Pooled cfIdealPooled = new Pooled();
+		Segregada cfIdealSegregada = new Segregada();
+		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
+		CuentaReferencia cr = new CuentaReferencia();
+		cliente.setID(0001L);
 		try {
+			cr.setIban("cfPruebaE");
+			cr.setNombreBanco("Santander");
+			cr.setSaldo(Long.valueOf(10000));
+			cr.setFechaApertura(date.parse("2010-02-22"));
+			cr.setEstado("ACTIVO");
+			cr.setSwift("Swift");
+			cr.setSucursal("Madrid");
+			cr.setDivisa(dEuro);
+			Map<CuentaReferencia,Long> depositado = new HashMap<>();
+			depositado.put(cr, 5000L);
+			cfIdealPooled.setDepositadaEn(depositado);
 			cfIdealPooled.setCliente(cliente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
 			cfIdealPooled.setIBAN("cfIdealPooled-2-22");
-			cfIdealPooled.setSwift("Swift");
+			cfIdealPooled.setSwift("SwiftIP");
 			
 			cfIdealSegregada.setCliente(cliente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
 			cfIdealSegregada.setIBAN("cfIdealSegregada-2-22");
-			cfIdealSegregada.setSwift("Swift");
+			cfIdealSegregada.setSwift("SwiftIS");
+			cfIdealSegregada.setCuentaRef(cr);
 		}catch(ParseException e) {
 			throw new RuntimeException(e);
 		}
@@ -160,10 +188,6 @@ public class PruebaCuenta {
 	@Test
 	@Requisitos({"RF9"})
 	public void testCerrarCuentaFintech() {
-
-		final String CFCI = "cfCuentaInactiva-22";
-		final String CFIP = "cfIdealPooled-22";
-		final String CFIS = "cfIdealSegregada-22";
 		
 		// Cuenta no existente
 		try {
@@ -174,25 +198,16 @@ public class PruebaCuenta {
 			fail("No debería lanzar esta excepción-1:" + e.getMessage() + "-" + e.getClass());
 		}
 		
-		// Cuenta Inactiva
-		try {
-			gestionCuenta.cerrarCuentaFintech(CFCI);
-		} catch(CuentaNoExistenteException e) {
-			//OK
-		} catch(Exception e) {
-			fail("No debería lanzar esta excepción-2:" + e.getMessage() + "-" + e.getClass());
-		}
-		
 		// Cuenta Pooled Ideal
 		try {
-			gestionCuenta.cerrarCuentaFintech(CFIP);
+			gestionCuenta.cerrarCuentaFintech("cpPooled");
 		} catch(Exception e) {
 			fail("No debería lanzar ninguna excepción-3:" + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
 		try {
-			gestionCuenta.cerrarCuentaFintech(CFIS);
+			gestionCuenta.cerrarCuentaFintech("cpSegregada");
 		} catch(Exception e) {
 			fail("No debería lanzar ninguna excepción-4:" + e.getMessage() + "-" + e.getClass());
 		}
