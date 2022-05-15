@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -41,10 +40,10 @@ public class Cuenta implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@OneToMany(mappedBy = "origen", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "origen")
 	private List<Transaccion> transaccionOrigen;
 	
-	@OneToMany(mappedBy = "destino" , cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "destino" )
 	private List<Transaccion> transaccionDestino;
 	
 	
@@ -101,3 +100,4 @@ public class Cuenta implements Serializable{
 	}
 	
 }
+

@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class UsuarioNoAdministrativoException extends RuntimeException{
+public class UsuarioNoAdministrativoException extends EburyAppException{
 
     private static final long serialVersionUID = 1L;
 

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.text.ParseException;
 import java.util.List;
 
 import javax.naming.NamingException;
@@ -30,9 +31,9 @@ public class PruebaInformes {
     private GestionInformes gestionInformes;
 
     @Before
-    public void setup() throws NamingException {
+    public void setup() throws NamingException, ParseException {
         gestionInformes = (GestionInformes) SuiteTest.ctx.lookup(INFORMES_EJB);
-        BaseDatosInformes.inicializaBaseDatos(UNIDAD_PERSISTENCIA_PRUEBAS);
+        BaseDatosCT.inicializaBaseDatos(UNIDAD_PERSISTENCIA_PRUEBAS);
     }
 
     /**
@@ -69,15 +70,15 @@ public class PruebaInformes {
             JSONObject sP = new JSONObject();
             JSONObject addr = new JSONObject();
             JSONObject name = new JSONObject();
-            name.put("firstName", "Pep");
-            name.put("lastName", "Doe");
+            name.put("firstName", "Cliente");
+            name.put("lastName", "Prueba");
 
-            addr.put("street", "54");
-            addr.put("postalCode", "7207KE");
-            addr.put("country", "NL");
+            
+            addr.put("postalCode", "29010");
+            
 
             sP.put("questionType", "Customer");
-            sP.put("startPeriod", "2017-06-23");
+        
             sP.put("address", addr);
             sP.put("name",name);
 
@@ -102,12 +103,12 @@ public class PruebaInformes {
             JSONObject sP2 = new JSONObject();
             JSONObject addr2 = new JSONObject();
             JSONObject name2 = new JSONObject();
-            name2.put("firstName", "Pep");
-            name2.put("lastName", "Doe");
+            name2.put("firstName", "Cuenta");
+            name2.put("lastName", "Prueba");
 
-            addr2.put("street", "54");
-            addr2.put("postalCode", "7207KE");
-            addr2.put("country", "NL");
+            
+            addr2.put("postalCode", "29010");
+            
 
             sP2.put("questionTipe", "Customer");
             sP2.put("startPeriodo", "2015-04-25");
@@ -131,7 +132,7 @@ public class PruebaInformes {
             JSONObject sP4 = new JSONObject();
             sP4.put("questionType","Product");
             sP4.put("status", "active");
-            sP4.put("productNumber", "NL66XYZW1291965209");
+            sP4.put("productNumber", "cpSegregada");
 
             json4.put("searchParameters", sP4);
 
@@ -152,7 +153,7 @@ public class PruebaInformes {
             JSONObject sP5 = new JSONObject();
             sP5.put("questionType","Product");
             sP5.put("status", "inactive");
-            sP5.put("productNumber", "NL66XYZW1291965208");
+            sP5.put("productNumber", "cpInactiva");
 
             json5.put("searchParameters", sP5);
 
@@ -222,9 +223,10 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-	            if(cont != 4){
+	            if(cont != 3){
 	                fail("No hay las líneas que debería: " + cont);
 	            }
+	            csvData.close();
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error 1");
             }catch (IOException e) {
@@ -233,67 +235,6 @@ public class PruebaInformes {
             
         }catch(FailedInitialCSVException e){
             fail("No debería dar error 2" + e.getMessage() + e.getCause() +e.getClass() +e.getStackTrace());
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        }
-
-        try {
-            String temp;
-            try {
-            BaseDatosInformes.setCuentas2();
-            }catch(NullPointerException e) {
-				throw new NullPointerException("setCuentas2");
-			}
-            gestionInformes.informeAlemaniaInicio(path);
-            try(Reader csvData = new FileReader(path)){
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("IBAN")){
-	                    temp = csvRecord.get("IBAN");
-	                    if(temp == "45"){
-	                        fail("Debería haber saltado excepción");
-	                    }
-	                }
-	            }
-            }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error 2.5");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-        }catch(FailedInitialCSVException e){
-            //Success
-        }catch(IllegalArgumentException e){
-            fail("No debería dar este error 3");
-        }catch(Exception e){
-            fail("Error 123" + e.getMessage() + e.getCause() + e.getClass() + e.getStackTrace());
-        }
-
-        try {
-            int cont = 0;
-        	BaseDatosInformes.setCuentas3();
-        	gestionInformes.informeAlemaniaInicio(path);
-        	try{
-        		Reader csvData = new FileReader(path);
-        		Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-        		for(CSVRecord csvRecord : records){
-        			if(csvRecord.isMapped("Date_Of_Birth")){
-        				String temp = csvRecord.get("Date_Of_Birth");
-        				if(temp=="noexistente"){
-        					cont++;
-        				}
-        				if(cont != 1){
-        					fail("Debería haber un \"noexistente\" en el CSV");
-        				}
-        			}
-        		}
-        	}catch(IllegalArgumentException|FileNotFoundException e){
-        		fail("No deberia dar error 4");
-        	}catch (IOException e) {
-        		throw new RuntimeException(e);
-        	}
-            
-        }catch(FailedInitialCSVException e){
-            fail("No debería dar este error 5 " + e.getMessage() + e.getCause() + e.getClass() + e.getStackTrace());
         }catch(Exception e){
             fail("Error" + e.getMessage());
         }
@@ -336,9 +277,10 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-	            if(cont != 4){
+	            if(cont != 2){
 	                fail("No hay las líneas que debería: " + cont);
 	            }
+	            csvData.close();
             }catch(IllegalArgumentException|FileNotFoundException e){
                 fail("No deberia dar error - 1");
             }catch (IOException e) {
@@ -347,65 +289,6 @@ public class PruebaInformes {
             
         }catch(FailedPeriodicCSVException e){
             fail("No debería dar error - 2 " + e);
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        }
-
-        try {
-            String temp;
-            BaseDatosInformes.setCuentas2();
-            gestionInformes.informeAlemaniaPeriodico(path);
-            try{
-	            Reader csvData = new FileReader(path);
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("IBAN")){
-	                    temp = csvRecord.get("IBAN");
-	                    if(temp == "45"){
-	                        fail("No deberia reconocer esta cuenta porque esta inactiva");
-	                    }
-	                }
-	            }
-            }catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error 2.5");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}
-        }catch(FailedPeriodicCSVException e){
-            //Success
-        }catch(IllegalArgumentException e){
-            fail("No debería dar este error - 3");
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        }
-
-        try {
-            int cont = 0;
-            BaseDatosInformes.setCuentas3();
-            gestionInformes.informeAlemaniaPeriodico(path);
-            try{
-	            Reader csvData = new FileReader(path);
-	            Iterable<CSVRecord> records = CSVFormat.DEFAULT.parse(csvData);
-	            for(CSVRecord csvRecord : records){
-	                if(csvRecord.isMapped("Date_Of_Birth")){
-	                    String temp = csvRecord.get("Date_Of_Birth");
-	                    if(temp=="noexistente"){
-	                        cont++;
-	                    }
-	                    if(cont != 1){
-	                        fail("Debería haber un \"noexistente\" en el CSV");
-	                    }
-	                }
-	            }
-			}catch(IllegalArgumentException|FileNotFoundException e){
-                fail("No deberia dar error - 4");
-            }catch (IOException e) {
-				throw new RuntimeException(e);
-			}	
-        }catch(FailedPeriodicCSVException e){
-            fail("No debería dar este error - 5");
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
         }
 
     }

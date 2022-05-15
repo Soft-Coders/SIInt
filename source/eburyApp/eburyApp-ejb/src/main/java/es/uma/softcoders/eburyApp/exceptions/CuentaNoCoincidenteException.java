@@ -1,6 +1,6 @@
 package es.uma.softcoders.eburyApp.exceptions;
 
-public class CuentaNoCoincidenteException extends RuntimeException{
+public class CuentaNoCoincidenteException extends EburyAppException{
 	
 	private static final long serialVersionUID = 1L;
 

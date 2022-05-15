@@ -3,7 +3,6 @@ package es.uma.softcoders.eburyApp;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -56,7 +55,7 @@ public class CuentaFintech extends Cuenta implements Serializable{
 	
 	// ---------- RELACIONES -----------
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name="CLIENTE_FK", nullable=false)
 	private Cliente cliente;
 	

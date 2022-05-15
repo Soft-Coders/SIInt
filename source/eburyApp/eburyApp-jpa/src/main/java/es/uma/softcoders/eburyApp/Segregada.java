@@ -2,7 +2,6 @@ package es.uma.softcoders.eburyApp;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -35,7 +34,7 @@ public class Segregada extends CuentaFintech implements Serializable{
 	@Column(length= 20)
 	private String comision;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	@JoinColumn(name= "CUENTA_REF_ID", nullable = false)
 	private CuentaReferencia cuentaRef;
 	

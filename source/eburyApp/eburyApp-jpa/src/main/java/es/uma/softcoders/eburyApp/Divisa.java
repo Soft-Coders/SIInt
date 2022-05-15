@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -51,13 +50,13 @@ public class Divisa implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-	@OneToMany(mappedBy="divisa", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="divisa")
 	private List<CuentaReferencia> cuentaReferencia;
 	
-	@OneToMany(mappedBy="divisaReceptor", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="divisaReceptor")
 	private List<Transaccion> transaccionReceptor;
 	
-	@OneToMany(mappedBy="divisaEmisor", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy="divisaEmisor")
 	private List<Transaccion> transaccionEmisor;
 
 	// ------ GETTERS & SETTERS ------
@@ -156,12 +155,6 @@ public class Divisa implements Serializable{
 	public String toString() {
 		return "Divisa = {\n\tabreviatura:" + abreviatura + ", \n\tnombre:" + nombre + ", \n\tsimbolo:" + simbolo + ", \n\tcambioEuro:"
 				+ cambioEuro + "\n}";
-	}
-
-	
-	
-	
-	
-	
-	
+	}	
 }
+

@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -85,14 +84,14 @@ public class PersonaAutorizada implements Serializable{
 	
 	// --------- RELACIONES ---------
 	
-    @ElementCollection()
+    @ElementCollection
     @CollectionTable(name="AUTORIZACION",
                      joinColumns=@JoinColumn(name="PERSONA_AUTORIZADA_FK"))
     @MapKeyJoinColumn(name="EMPRESA_FK", referencedColumnName="id")
     @Column(name="TIPO")
     private Map<Empresa, Character> autorizacion;
 	
-	@OneToOne(cascade = CascadeType.PERSIST)
+	@OneToOne
 	@JoinColumn(name="PERSONA_AUTORIZADA_USUARIO", nullable = false)
 	private Usuario usuario;
 
@@ -279,7 +278,4 @@ public class PersonaAutorizada implements Serializable{
 				direccion + ", \n\tfechaNacimiento: " + fechaNacimiento + ", \n\testado: " + estado + 
 				", \n\tfechaInicio: " + fechaInicio + ", \n\tfechaFin: " + fechaFin + "\n}";
 	}
-	
-	
-	
 }
