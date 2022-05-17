@@ -15,7 +15,6 @@ import javax.ws.rs.core.UriInfo;
 import es.uma.softcoders.eburyApp.ejb.InformesEJB;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
-@Path("/agenda")
 public class ServicioREST {
 	@EJB
 	private InformesEJB informes;
