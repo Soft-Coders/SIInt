@@ -51,7 +51,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de transaccion
-			gestionTransaccion.cambioDivisa("cpPooled", "DOL", "EUR", 100L);
+			gestionTransaccion.cambioDivisa("cpPooled", "DOL", "EUR", 100.00);
 			
 		}catch(DivisaInexistenteException|CuentaNoExistenteException e) {
 			fail(e.getMessage());
@@ -63,7 +63,7 @@ public class PruebaTransacciones {
 		try {
 			
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa("cpPooled", null, "EUR", 100L);
+			gestionTransaccion.cambioDivisa("cpPooled", null, "EUR", 100.00);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsitenteException");
 		}catch(DivisaInexistenteException e) {
@@ -78,7 +78,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa("cpPooled", "EUR", null, 100L);
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", null, 100.00);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
 		}catch(DivisaInexistenteException e) {
@@ -96,7 +96,7 @@ public class PruebaTransacciones {
 			Divisa dEuro = new Divisa("EUR", "euros", '€', 1.00);
 			
 			//Prueba de transaccion
-			gestionTransaccion.cambioDivisa(null, "DOL", "EUR", 100L);
+			gestionTransaccion.cambioDivisa(null, "DOL", "EUR", 100.00);
 			fail("Debería de lanzar excepcion");
 		}catch(CuentaNoExistenteException e) {
 			fail(e.getMessage());
@@ -108,7 +108,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa("cuentaNoExistente", "EUR", "DOL", 100L);
+			gestionTransaccion.cambioDivisa("cuentaNoExistente", "EUR", "DOL", 100.00);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
 		}catch(DivisaInexistenteException e) {
@@ -123,7 +123,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa("cpPooled", "LIB", "DOL", 100L);
+			gestionTransaccion.cambioDivisa("cpPooled", "LIB", "DOL", 100.00);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
 		}catch(DivisaInexistenteException e) {
@@ -139,7 +139,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de Transaccion
-			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "LIB", 100L);
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "LIB", 100.00);
 			
 			fail("Debe de lanzar la excepcion DivisaInexsistenteException");
 		}catch(DivisaInexistenteException e) {
@@ -154,7 +154,7 @@ public class PruebaTransacciones {
 		try {
 
 			//Prueba de Transaccion donde la cantidad solicitada excede
-			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "DOL", 100000L);
+			gestionTransaccion.cambioDivisa("cpPooled", "EUR", "DOL", 100000.00);
 			
 			fail("Debe de dar excepción");
 		}catch(DivisaInexistenteException e) {
