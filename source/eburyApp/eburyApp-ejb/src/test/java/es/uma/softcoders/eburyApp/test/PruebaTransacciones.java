@@ -92,8 +92,8 @@ public class PruebaTransacciones {
 		//Prueba sin la cuenta Pooled introducida
 		try {
 			//Divisas
-			Divisa dDolar = new Divisa("GBP", "libras", '£', (long)0.94);
-			Divisa dEuro = new Divisa("EUR", "euros", '€', (long)1);
+			Divisa dDolar = new Divisa("GBP", "libras", '£', 0.94);
+			Divisa dEuro = new Divisa("EUR", "euros", '€', 1.00);
 			
 			//Prueba de transaccion
 			gestionTransaccion.cambioDivisa(null, "DOL", "EUR", 100L);
