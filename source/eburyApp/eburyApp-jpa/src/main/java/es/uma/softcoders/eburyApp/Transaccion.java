@@ -34,7 +34,7 @@ public class Transaccion implements Serializable{
 	}
 	
 	public Transaccion(Date fechaInstruccion, Double cantidad, Date fechaEjecucion,
-			String tipo, Integer comision, String internacional, Divisa divisaReceptor, 
+			String tipo, Double comision, String internacional, Divisa divisaReceptor, 
 			Divisa divisaEmisor, Cuenta origen, Cuenta destino) {
 		this.fechaInstruccion = fechaInstruccion;
 		this.cantidad         = cantidad;
