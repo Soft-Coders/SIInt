@@ -32,7 +32,7 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() {
 		
-		if(em.find(null, em) != null)
+		if(em.find(Segregada.class,"NL63ABNA6548268733") != null)
 			return;
 		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-mm-dds");
@@ -145,6 +145,8 @@ public class InicializaBBDD {
 		pooledES.setCliente(individual639);
 		pooledES.setDepositadaEn(referenciasPooledES);
 		
+		// RF13 Y RF14 NO HAN SIDO CONTEMPLADOS EN ESTE PROYECTO
+		// ¿CÓMO PROCEDER CON EL SIGUIENTE BLOQUE?  TODO
 		transaccionNL_ES.setOrigen(segregadaNL);
 		transaccionNL_ES.setDivisaEmisor(usd);
 		transaccionNL_ES.setDestino(pooledES);
