@@ -127,20 +127,20 @@ public class PruebaCuenta {
 		
 		Pooled cfIdealPooled = new Pooled();
 		Segregada cfIdealSegregada = new Segregada();
-		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
+		Divisa dEuro = new Divisa("EUR", "euros", '€', 1.00);
 		CuentaReferencia cr = new CuentaReferencia();
 		cliente.setID(0001L);
 		try {
 			cr.setIban("cfPruebaE");
 			cr.setNombreBanco("Santander");
-			cr.setSaldo(Long.valueOf(10000));
+			cr.setSaldo(10000.00);
 			cr.setFechaApertura(date.parse("2010-02-22"));
 			cr.setEstado("ACTIVO");
 			cr.setSwift("Swift");
 			cr.setSucursal("Madrid");
 			cr.setDivisa(dEuro);
-			Map<CuentaReferencia,Long> depositado = new HashMap<>();
-			depositado.put(cr, 5000L);
+			Map<CuentaReferencia,Double> depositado = new HashMap<>();
+			depositado.put(cr, 5000.00);
 			cfIdealPooled.setDepositadaEn(depositado);
 			cfIdealPooled.setCliente(cliente);
 			cfIdealPooled.setEstado("ACTIVO");
