@@ -26,14 +26,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 		super();
 	}
 	
-	public CuentaReferencia(String nombreBanco, Long saldo, Divisa divisa) {
+	public CuentaReferencia(String nombreBanco, Double saldo, Divisa divisa) {
 		this.nombreBanco = nombreBanco;
 		this.saldo       = saldo;
 		this.divisa      = divisa;
 	}
 	
 	public CuentaReferencia(String nombreBanco, String sucursal, String pais,
-			Long saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
+			Double saldo, Date fechaApertura, String estado, Segregada segregada, Divisa divisa) {
 		this.nombreBanco   = nombreBanco;
 		this.sucursal      = sucursal;
 		this.pais          = pais;
@@ -54,7 +54,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	@Column(length = 20)
 	private String 	pais;
 	@Column(scale = 12, precision = 2, nullable = false) 
-	private Long saldo;
+	private Double saldo;
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_APERTURA")
 	private Date 	fechaApertura;
@@ -75,7 +75,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
                      joinColumns = @JoinColumn(name="CUENTA_REFERENCIA_FK"))
     @Column(name="SALDO")
     @MapKeyJoinColumn(name="POOLED_FK", referencedColumnName="iban")
-    private Map<Pooled, Long> depositadaEn;
+    private Map<Pooled, Double> depositadaEn;
 	
 	
 	// ------ GETTERS & SETTERS ------
@@ -125,14 +125,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * @return el saldo de la cuenta referencia
 	 */
-	public Long getSaldo() {
+	public Double getSaldo() {
 		return saldo;
 	}
 
 	/**
 	 * @param saldo el saldo de la cuenta referencia
 	 */
-	public void setSaldo(Long saldo) {
+	public void setSaldo(Double saldo) {
 		this.saldo = saldo;
 	}
 
@@ -195,14 +195,14 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	/**
 	 * @return Map de Pooled Accounts depositadas en esta cuenta con el saldo de esa Pooled Account
 	 */
-	public Map<Pooled, Long> getDepositadaEn() {
+	public Map<Pooled, Double> getDepositadaEn() {
 		return depositadaEn;
 	}
 
 	/**
 	 * @param depositadaEn the depositadaEn to set
 	 */
-	public void setDepositadaEn(Map<Pooled, Long> depositadaEn) {
+	public void setDepositadaEn(Map<Pooled, Double> depositadaEn) {
 		this.depositadaEn = depositadaEn;
 	}
 
