@@ -9,9 +9,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import es.uma.softcoders.eburyApp.ejb.InformesEJB;
+import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 @Path("/agenda")
 public class ServicioREST {
@@ -44,9 +46,12 @@ public class ServicioREST {
 	@POST
 	@Produces ({MediaType.APPLICATION_JSON})
 	@Consumes ({MediaType.APPLICATION_JSON})
-	public Response aniadirContacto(String request) {
-			
-			return Response.ok().build();
+	public Response clients(String request) {
+			try {
+				return Response.ok(informes.informeHolanda(request)).build();
+			}catch(InvalidJSONQueryException e) {
+				return Response.status(Status.BAD_REQUEST).build();
+			}
 	}
 	
 	/**
@@ -61,9 +66,11 @@ public class ServicioREST {
 	@GET
 	@Produces ({MediaType.APPLICATION_JSON})
 	@Consumes ({MediaType.APPLICATION_JSON})
-	public Response getContacto(String request) {
-			
-			return Response.ok().build();
-		
+	public Response products(String request) {		
+		try {
+			return Response.ok(informes.informeHolanda(request)).build();
+		}catch(InvalidJSONQueryException e) {
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 }
