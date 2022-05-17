@@ -21,7 +21,7 @@ public class Pooled extends CuentaFintech implements Serializable{
 		super();
 	}
 	
-	public Pooled(Map<CuentaReferencia, Long> depositadaEn) {
+	public Pooled(Map<CuentaReferencia, Double> depositadaEn) {
 		this.depositadaEn = depositadaEn;
 	}
 	
@@ -34,21 +34,21 @@ public class Pooled extends CuentaFintech implements Serializable{
                      joinColumns=@JoinColumn(name="POOLED_FK"))
     @Column(name="SALDO")
     @MapKeyJoinColumn(name="CUENTA_REFERENCIA_FK", referencedColumnName="iban")
-    private Map<CuentaReferencia, Long> depositadaEn;
+    private Map<CuentaReferencia, Double> depositadaEn;
 
     // ------ GETTERS & SETTERS ------
     
 	/**
 	 * @return CuentasReferencia asociadas con sus respectivos saldos
 	 */
-	public Map<CuentaReferencia, Long> getDepositadaEn() {
+	public Map<CuentaReferencia, Double> getDepositadaEn() {
 		return depositadaEn;
 	}
 
 	/**
 	 * @param depositadaEn las CuentasReferencia asociadas con sus respectivos saldos
 	 */
-	public void setDepositadaEn(Map<CuentaReferencia, Long> depositadaEn) {
+	public void setDepositadaEn(Map<CuentaReferencia, Double> depositadaEn) {
 		this.depositadaEn = depositadaEn;
 	}
 
