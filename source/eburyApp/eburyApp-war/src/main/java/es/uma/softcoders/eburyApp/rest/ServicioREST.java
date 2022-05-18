@@ -49,9 +49,9 @@ public class ServicioREST {
 	@Consumes ({MediaType.APPLICATION_JSON})
 	public Response clients(String request) {
 			try {
-				return Response.ok(informes.informeHolanda(request)).build();
+				return Response.ok(informes.customer(request)).build();
 			}catch(InvalidJSONQueryException e) {
-				return Response.status(Status.BAD_REQUEST).build();
+				return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 			}
 	}
 	
@@ -69,9 +69,9 @@ public class ServicioREST {
 	@Consumes ({MediaType.APPLICATION_JSON})
 	public Response products(String request) {		
 		try {
-			return Response.ok(informes.informeHolanda(request)).build();
+			return Response.ok(informes.product(request)).build();
 		}catch(InvalidJSONQueryException e) {
-			return Response.status(Status.BAD_REQUEST).build();
+			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}
 }
