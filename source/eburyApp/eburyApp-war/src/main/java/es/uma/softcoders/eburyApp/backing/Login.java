@@ -2,12 +2,14 @@ package es.uma.softcoders.eburyApp.backing;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.ejb.GestionLogin;
 import es.uma.softcoders.eburyApp.ejb.LoginEJB;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
@@ -19,8 +21,8 @@ import javax.inject.Inject;
 @RequestScoped
 public class Login implements Serializable{
 	
-		@Inject
-		private LoginEJB login;
+		@EJB
+		private GestionLogin login;
 		
 		@Inject 
 		private InfoSesion sesion;
