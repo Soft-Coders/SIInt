@@ -12,12 +12,13 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
-import es.uma.softcoders.eburyApp.ejb.InformesEJB;
+import es.uma.softcoders.eburyApp.ejb.GestionInformes;
 import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
+@Path("")
 public class ServicioREST {
 	@EJB
-	private InformesEJB informes;
+	private GestionInformes informes;
 	@Context
 	private UriInfo uriInfo;
 	
