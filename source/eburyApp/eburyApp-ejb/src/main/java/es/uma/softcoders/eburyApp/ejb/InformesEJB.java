@@ -33,6 +33,7 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 public class InformesEJB implements GestionInformes{
 	
 	private static final String N_E = "noexistente";
+	
 	@PersistenceContext(unitName = "eburyAppEjb")
 	private EntityManager em;
 
