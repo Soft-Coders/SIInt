@@ -31,7 +31,7 @@ public class ClienteEJB implements GestionCliente {
 	private EntityManager em;
 
     @Override
-    public void altaCliente(Cliente c, Long usuario, String password) throws EburyAppException {
+    public void altaCliente(Cliente c) throws EburyAppException {
     
     	if(c.getID()!= null) {
             Cliente clienteEntity = em.find(Cliente.class, c.getID());
@@ -83,15 +83,6 @@ public class ClienteEJB implements GestionCliente {
             
         }else if(c instanceof Individual){
         	
-        	if(usuario == null) {
-        		throw new DatosIncorrectosException("Usuario nulo");
-        	}
-        	
-        	//Comprobamos que la clave es correcta
-        	Usuario user = em.find(Usuario.class, usuario);
-        	if(password != user.getClave()) {
-        		throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
-        	}
         	
         	//Comprobamos que los campos obligatorios de individual han sido rellenados
         	Individual i = (Individual) c;
@@ -103,10 +94,8 @@ public class ClienteEJB implements GestionCliente {
         	}
         	
             i.setEstado("ACTIVO");
-            i.setUsuario(user);
             
             em.persist(i);
-            user.setIndividual(i);
         }
     }
 
