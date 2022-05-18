@@ -33,8 +33,8 @@ public class Transaccion implements Serializable{
 		this.destino          = destino;
 	}
 	
-	public Transaccion(Date fechaInstruccion, Long cantidad, Date fechaEjecucion,
-			String tipo, Integer comision, String internacional, Divisa divisaReceptor, 
+	public Transaccion(Date fechaInstruccion, Double cantidad, Date fechaEjecucion,
+			String tipo, Double comision, String internacional, Divisa divisaReceptor, 
 			Divisa divisaEmisor, Cuenta origen, Cuenta destino) {
 		this.fechaInstruccion = fechaInstruccion;
 		this.cantidad         = cantidad;
@@ -59,7 +59,7 @@ public class Transaccion implements Serializable{
 	private Date fechaInstruccion;
 	
 	@Column(nullable = false)
-	private Long cantidad;
+	private Double cantidad;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name = "FECHA_EJECUCION")
@@ -69,7 +69,7 @@ public class Transaccion implements Serializable{
 	private String tipo;
 	
 	// En ABD se ha considerado como la cantidad completa, no el porcentaje.
-	private Integer comision;
+	private Double comision;
 	
 	private String internacional;
 	
@@ -129,7 +129,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @return la cantidad de la transacción
 	 */
-	public Long getCantidad() {
+	public Double getCantidad() {
 		return cantidad;
 	}
 
@@ -137,7 +137,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @param cantidad la cantidad de la transacción
 	 */
-	public void setCantidad(Long cantidad) {
+	public void setCantidad(Double cantidad) {
 		this.cantidad = cantidad;
 	}
 
@@ -177,7 +177,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @return la comisión de Ebury en la transacción
 	 */
-	public Integer getComision() {
+	public Double getComision() {
 		return comision;
 	}
 
@@ -185,7 +185,7 @@ public class Transaccion implements Serializable{
 	/**
 	 * @param comision la comisión de Ebury en la transacción
 	 */
-	public void setComision(Integer comision) {
+	public void setComision(Double comision) {
 		this.comision = comision;
 	}
 
