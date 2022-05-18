@@ -35,18 +35,19 @@ public class InformesEJB implements GestionInformes{
 	private static final String N_E = "noexistente";
 	@PersistenceContext(unitName = "eburyAppEjb")
 	private EntityManager em;
-	
-	/**
-	 * Método encargado de responder a la consulta de la API REST para los informes de Holanda.
+
+	/** Método que contiene la lógica para gestión de consultas de <b>Cuentas</b> a través de API REST. Usado en informes de Holanda.
 	 * 
-	 * @throws InvalidJSONQueryException
-	 * @param json String que contiene la consulta de la API en formato JSON
+	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
-	 */
-	@Override
-	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException {
+	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
+	 * @throws InvalidJSONQueryException 
+	 * */
+	public List<Object> product(String json) throws InvalidJSONQueryException {
 		
-		List<Object> results;
+		List<Object> results = new ArrayList<>();
+		Query querySegregadas;
+
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
 			JSONObject jsonObj = (JSONObject) jsonFile;
@@ -58,49 +59,9 @@ public class InformesEJB implements GestionInformes{
 			Object searchParameters = jsonObj.get("searchParameters");
 			if(searchParameters == null)
 				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
-			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
+			JSONObject spObj = (JSONObject) searchParameters;
 			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
-			// Buscar "questionType"
-			String questionType = (String) spObj.get("questionType");
-			System.out.println("questionType:\n=======\n" + questionType + "\n=======\n");
-			if(questionType == null)
-				throw new InvalidJSONQueryException("questionType NOT FOUND");
-			
-			// Elegir funcionamiento según "questionType"
-			switch(questionType) {
-			case "Product":case "product":case "PRODUCT":
-				results = product(spObj);
-				break;
-			case "Customer":case "customer":case "CUSTOMER":
-				results = customer(spObj);
-				break;
-			default:
-				throw new InvalidJSONQueryException("questionType NOT VALID");	
-			}
-		}catch(ClassCastException e) {
-			throw new InvalidJSONQueryException("json COULD NOT BE CAST PROPERLY");
-		}catch(ParseException e) {
-			throw new InvalidJSONQueryException("json COULD NOT BE PARSED PROPERLY"); // Properly
-		}catch(Exception e) {
-			throw new InvalidJSONQueryException("\n@@@@@\n" + json + "\n@@@@@\njson ERROR " + e.getMessage());
-		}
-		
-		return results;
-	}
 
-	/** Método privado que contiene la lógica para gestión de consultas de <b>Cuentas</b> a través de API REST. Usado en informes de Holanda.
-	 * 
-	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
-	 * @author Ignacio Lopezosa
-	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
-	 * @throws InvalidJSONQueryException 
-	 * */
-	private List<Object> product(JSONObject spObj) throws InvalidJSONQueryException {
-		
-		List<Object> results = new ArrayList<>();
-		Query querySegregadas;
-//		Query queryReferencia;
-		try {
 			String predicate     = "";
 			String status        = (String) spObj.get("status");
 			String productNumber = (String) spObj.get("productNumber");
@@ -110,26 +71,23 @@ public class InformesEJB implements GestionInformes{
 				int queryLength = predicate.length();
 				
 				if(status.equalsIgnoreCase("active"))
-					predicate.concat("C.estado = 'ACTIV[OAE]'");		//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado LIKE 'ACTIV_'");
 				else if(status.equalsIgnoreCase("inactive"))
-					predicate.concat("C.estado = 'INACTIV[OAE]'");	//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate.concat("C.estado LIKE 'INACTIV_'");
 				else
 					throw new InvalidJSONQueryException("status NOT VALID");
 				
 				if(productNumber != null) {
-					if(predicate.length() > queryLength)			// Se ha modificado query?
+					if(predicate.length() > queryLength)	// Se ha modificado query?
 						predicate.concat(" AND ");
 					predicate.concat("C.iban = '" + productNumber + "'");
 				}
 			}
 			
 			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
-//			queryReferencia = em.createQuery("FROM CuentaReferencia C" + predicate + " AND C.depositadaEn IS NOT NULL");
 			
 			List<Object> resultsSegregadas = querySegregadas.getResultList();
-//			List<Object> resultsReferencia = querySegregadas.getResultList();
 			results.addAll(resultsSegregadas);
-//			results.addAll(resultsReferencia);
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("product COULD NOT BE CAST PROPERLY");
 		}catch(IllegalArgumentException e) {
@@ -150,15 +108,29 @@ public class InformesEJB implements GestionInformes{
 	 * @throws InvalidJSONQueryException 
 	 */
 	@SuppressWarnings("deprecation")
-	private List<Object> customer(JSONObject spObj) throws InvalidJSONQueryException {
+	public List<Object> customer(String json) throws InvalidJSONQueryException {
 		
 		Query query;
+		
 		try {
+			Object jsonFile    = JSONValue.parseWithException(json);
+			JSONObject jsonObj = (JSONObject) jsonFile;
+			if (jsonObj == null)
+				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
+			System.out.println("jsonObj:\n=======\n" + jsonObj.toString() + "\n=======\n");
+			
+			// Buscar "searchParameters"
+			Object searchParameters = jsonObj.get("searchParameters");
+			if(searchParameters == null)
+				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
+			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
+			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
+
 			String predicate   = "";
 			int predicateLength= predicate.length();
 			String startPeriod = (String) spObj.get("startPeriod");
 			String endPeriod   = (String) spObj.get("endPeriod");
-			JSONObject name    = (JSONObject) spObj.get("name");					// Cast into JSONObject				
+			JSONObject name    = (JSONObject) spObj.get("name");				// Cast into JSONObject				
 			String firstName   = null;
 			String lastName    = null;
 			if(name != null) {
