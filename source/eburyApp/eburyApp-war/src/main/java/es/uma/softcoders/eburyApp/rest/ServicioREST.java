@@ -64,7 +64,7 @@ public class ServicioREST {
 	 * @author Ignacio Lopezosa
 	 */
 	@Path("/products")
-	@GET
+	@POST
 	@Produces ({MediaType.APPLICATION_JSON})
 	@Consumes ({MediaType.APPLICATION_JSON})
 	public Response products(String request) {		
