@@ -20,6 +20,7 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.Segregada;
@@ -60,7 +61,41 @@ public class ServicioREST {
 	@Consumes ({MediaType.APPLICATION_JSON})
 	public Response clients(String request) {
 			try {
-				return Response.ok(informes.customer(request)).build();
+				List<Cliente> clients = informes.customer(request);
+				JsonArrayBuilder clientsArr = Json.createArrayBuilder();
+				
+				for(Cliente c : clients) {
+					JsonArrayBuilder products = Json.createArrayBuilder();
+					for(CuentaFintech cf : c.getCuentas()) {
+						products.add(Json.createObjectBuilder()
+								.add("productNumber", cf.getIban())
+								.add("status", cf.getEstado())
+								.add("relationship", "propietaria"));	//  Los Clientes solo pueden ser dueños, no PersonasAutorizadas
+					}
+					
+					boolean isIndividual = c instanceof Individual;
+					JsonObjectBuilder individual = Json.createObjectBuilder().add("products", products)
+					.add("activeCustomer", (c.getEstado().equals("ACTIVO")) ? true : false)
+					.add("identificationNumber", c.getIdentificacion())
+					.add("dateOfBirth", isIndividual ? ((Individual) c).getFechaNacimiento().toGMTString() : "non-existent");
+				
+					if(isIndividual)
+						individual.add("name", Json.createObjectBuilder()
+								.add("firstName", ((Individual) c).getNombre())
+								.add("lastName", ((Individual) c).getApellido()));
+					else
+						individual.add("name", ((Empresa) c).getRazonSocial());
+					
+					individual.add("address", Json.createObjectBuilder()
+							.add("streetNumber", c.getDireccion())
+							.add("postalCode", c.getCodigoPostal())
+							.add("city", c.getCiudad())
+							.add("country", c.getPais()));
+					
+					clientsArr.add(individual);
+				}
+				
+				return Response.ok(Json.createObjectBuilder().add("Individual", clientsArr).build()).build();
 			}catch(InvalidJSONQueryException e) {
 				// En caso de recibir alguna exceción esperada se devuelve el mensaje de la misma
 				// Con una respuesta en status = BAD_REQUEST
@@ -84,10 +119,11 @@ public class ServicioREST {
 		try {
 			List<Segregada> products = informes.product(request);
 			JsonArrayBuilder productsArr =  Json.createArrayBuilder();
+			
 			for(Segregada s : products) {
 				Cliente c = s.getCliente();	// Accedido frecuentemente
 				
-				boolean isEmpresa = c.getTipo_cliente().equals("EMPRESA");
+				boolean isEmpresa = c instanceof Empresa;
 				
 				JsonObjectBuilder accountHolder =  Json.createObjectBuilder()
 					.add("activeCustomer", (c.getEstado().equals("ACTIVO")) ? true : false)
