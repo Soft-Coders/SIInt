@@ -30,6 +30,7 @@ public class ServicioREST {
 	 */
 	@Path("/healthcheck")
 	@GET
+	@Produces({MediaType.TEXT_PLAIN})
 	public Response healthcheck() {
 		return Response.ok("OK").build();
 	}
