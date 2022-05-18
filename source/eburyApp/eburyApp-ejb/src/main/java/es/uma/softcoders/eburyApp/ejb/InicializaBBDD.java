@@ -170,10 +170,30 @@ public class InicializaBBDD {
 		usuarioPonciano.setClave("ponciano");
 		usuarioPonciano.setEsAdministrativo(true);
 		
-		for(Object o : new Object[] { empresaP33, individual639, paY40, segregadaNL, segregadaFR, segregadaDE, pooledES, 
-										transaccionNL_ES, eur, usd, gbp, usuarioJuan, usuarioAna, usuarioPonciano, referenciaHN4, 
-										referenciaES7, referenciaVG5, referenciaGB7, referenciaVG8})
-			em.persist(o);
+		em.persist(empresaP33);
+		em.persist(individual639);
+		em.persist(paY40);
+		em.persist(segregadaNL);
+		em.persist(segregadaFR);
+		em.persist(segregadaDE);
+		em.persist(pooledES);
+		em.persist(transaccionNL_ES);
+		em.persist(eur);
+		em.persist(usd);
+		em.persist(gbp);
+		em.persist(usuarioJuan);
+		em.persist(usuarioAna);
+		em.persist(usuarioPonciano);
+		em.persist(referenciaHN4);
+		em.persist(referenciaES7);
+		em.persist(referenciaVG5);
+		em.persist(referenciaGB7);
+		em.persist(referenciaVG8);
+		
+//		for(Object o : new Object[] { empresaP33, individual639, paY40, segregadaNL, segregadaFR, segregadaDE, pooledES, 
+//										transaccionNL_ES, eur, usd, gbp, usuarioJuan, usuarioAna, usuarioPonciano, referenciaHN4, 
+//										referenciaES7, referenciaVG5, referenciaGB7, referenciaVG8})
+//			em.persist(o);
 		
 	}
 	
