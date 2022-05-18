@@ -44,9 +44,11 @@ public class InformesEJB implements GestionInformes{
 	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
 	 * @throws InvalidJSONQueryException 
 	 * */
-	public List<Object> product(String json) throws InvalidJSONQueryException {
+	public List<Segregada> product(String json) throws InvalidJSONQueryException {
 		
-		List<Object> results = new ArrayList<>();
+		System.out.println(" > " + json);
+		
+		List<Segregada> results = new ArrayList<>();
 		Query querySegregadas;
 
 		try {
@@ -67,28 +69,32 @@ public class InformesEJB implements GestionInformes{
 			String status        = (String) spObj.get("status");
 			String productNumber = (String) spObj.get("productNumber");
 			
+			System.out.println("status + productNumber:\n=======\n" + status + productNumber + "\n=======\n");
 			if(status != null || productNumber != null) {
-				predicate.concat(" WHERE ");	
+				System.out.println("===status or productNumber NOT NULL===");
+				predicate += " WHERE ";	
 				int queryLength = predicate.length();
 				
 				if(status.equalsIgnoreCase("active"))
-					predicate.concat("C.estado LIKE 'ACTIV_'");
+					predicate += "C.estado LIKE 'ACTIV_'";
 				else if(status.equalsIgnoreCase("inactive"))
-					predicate.concat("C.estado LIKE 'INACTIV_'");
-				else
+					predicate += "C.estado LIKE 'INACTIV_'";
+				else if(status != null)
 					throw new InvalidJSONQueryException("status NOT VALID");
 				
 				if(productNumber != null) {
 					if(predicate.length() > queryLength)	// Se ha modificado query?
-						predicate.concat(" AND ");
-					predicate.concat("C.iban = '" + productNumber + "'");
+						predicate += " AND ";
+					predicate += "C.iban = '" + productNumber + "'";
 				}
+				System.out.println("predicate:\n=======\n" + predicate + "\n=======\n");
 			}
+			
+			System.out.println("predicate:\n=======\n" + predicate + "\n=======\n");
 			
 			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
 			
-			List<Object> resultsSegregadas = querySegregadas.getResultList();
-			results.addAll(resultsSegregadas);
+			results = querySegregadas.getResultList();
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("product COULD NOT BE CAST PROPERLY");
 		}catch(IllegalArgumentException e) {
@@ -109,7 +115,7 @@ public class InformesEJB implements GestionInformes{
 	 * @throws InvalidJSONQueryException 
 	 */
 	@SuppressWarnings("deprecation")
-	public List<Object> customer(String json) throws InvalidJSONQueryException {
+	public List<Cliente> customer(String json) throws InvalidJSONQueryException {
 		
 		Query query;
 		
@@ -267,7 +273,7 @@ public class InformesEJB implements GestionInformes{
 			throw new InvalidJSONQueryException("customer ERROR " + e.getMessage() + "-" + e.getClass() + " ->\n" + e.getStackTrace().toString());
 		}
 		@SuppressWarnings("unchecked")
-		List<Object> results = query.getResultList();
+		List<Cliente> results = query.getResultList();
 		
         System.out.println("R>>>>>>>\n" + results);
         System.out.println("A>>>>>>>");
