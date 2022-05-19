@@ -20,20 +20,20 @@ public class CuentaBB {
 	
 	private String usuario;
 	private List<CuentaFintech> listaCuentasPropias;
-    private CuentaFintech cuentaFin;
+    private CuentaFintech cf;
     private String iban;
     
     public CuentaFintech getCuentaFintech () {
-    	return cuentaFin;
+    	return cf;
     }
-    public void setCuentaFintech(CuentaFintech cf) {
-    	this.cuentaFin = cf;
+    public void setCuentaFintech(CuentaFintech cuenta) {
+    	this.cf = cuenta;
     }
     
     public String getIban() {
     	return iban;
     }
-    public void setIban(String i) {
+    public void se tIban(String i) {
     	iban = i;
     }
    
@@ -47,11 +47,19 @@ public class CuentaBB {
     public void getCuentasPropias() {
     	cuentaEJB.getCuentasFintechPropias(usuario);
     }
+    
     public void crearCuentaF() throws EburyAppException {
-		cuentaEJB.crearCuentaFintech(cuentaFin);
+		cuentaEJB.crearCuentaFintech(cf);
     }
 
     public void cerrarCuentaF() throws EburyAppException {
 		cuentaEJB.cerrarCuentaFintech(iban);
+    }
+    
+    public String vistaCrearCuenta() {
+		return "vistaCrearCuentaFintech.xhtml";
+	}
+    public String vistaPrincipalCliente() {
+    	return "vistaPrincipalCliente.xhtml";
     }
 } 
