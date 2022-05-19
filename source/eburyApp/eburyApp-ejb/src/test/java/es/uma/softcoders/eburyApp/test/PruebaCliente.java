@@ -43,7 +43,7 @@ public class PruebaCliente {
 	*			<li>Dar de alta a un cliente con codigo postal nulo (ERROR)</li>
 	*			<li>Dar de alta a un cliente con pais nulo (ERROR)</li></ul>
 	*/
-	
+	@Ignore
 	@Test
 	@Requisitos({"RF2"})
 	public void testAltaCliente() {

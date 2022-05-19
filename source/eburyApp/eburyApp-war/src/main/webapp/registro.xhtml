@@ -8,27 +8,21 @@
         <title>Registro de usuario</title>
     </h:head>
     <h:body>
-        <c:choose>
-            <c:when test="#{empty infoSesion.usuario}">
-                <h:form id="registro">
-                    <h:panelGrid columns="3">
-
-                        <h:commandButton value="Persona jurídica" action="#{registro.registroEmpresa()}"/>
-                        <h:commandButton value="Persona individual" action="#{registro.registroIndividual()}"/>
-                        <h:link outcome="login.xhtml">Volver a la página de login</h:link>
-                    </h:panelGrid>
-                    <h:messages/>
-                    
-                </h:form>
-                
-            </c:when>
-            <c:otherwise>
-                <h:form>
-                    <p>Para crear un nuevo registro debe 
-                        <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> antes de la aplicación.</p>
-                </h:form>
-            </c:otherwise>
-        </c:choose>
-
+        <h:form id="registro">
+            <h:panelGrid columns="3">
+                <h:outputText value="Nombre de usuario:"/>
+                <h:inputText id="user" value="#{registro.usuario.cuenta}" required="true"/>
+                <h:message for="user"/>
+                <h:outputText value="Contraseña:"/>
+                <h:inputSecret id="pass" value="#{registro.usuario.contrasenia}" required="true"/>
+                <h:message for="pass"/>
+                <h:outputText value="Repita contraseña:"/>
+                <h:inputSecret id="repass" value="#{registro.repass}" required="true"/>
+                <h:message for="repass"/>
+                <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"/>
+                <h:link outcome="login.xhtml">Volver a la página de login</h:link>
+            </h:panelGrid>
+            <h:messages/>
+        </h:form>
     </h:body>
 </html>

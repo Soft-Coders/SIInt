@@ -8,6 +8,8 @@ import javax.inject.Named;
 public class Registro {
 
        public String registroIndividual() {return "registroIndividual.xhtml";}
+       
+       
 
        public String registroEmpresa(){return "registroEmpresa.xhtml";}
 
