@@ -1,11 +1,17 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
@@ -64,5 +70,42 @@ public class CuentaEJB implements GestionCuenta{
 			cf.setEstado("INACTIVA");
 		}
 	}
-
+	
+	/**
+	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
+	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
+	 * @param usuario
+	 * @return lista de cuentas fintech asociadas
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CuentaFintech> getCuentasFintechPropias(String usuario){
+		Query query = null;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			Individual ind = u.getIndividual();
+			if (ind != null) {
+				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idindividual")
+						.setParameter("idindividual", ind);
+			}
+		}
+		//Query query = em.createQuery("SELECT a FROM CUENTA_FINTECH a");
+		return (List<CuentaFintech>)query.getResultList();
+	}
+	
+	
+	/*
+	public List<CuentaFintech> getCuentasFintechAutorizadas(String usuario){
+		Query query = null;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada aut = u.getPersonaAutorizada();
+			if (aut != null) {
+				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE ¿¿¿.........???")
+						.setParameter("idaut", aut);
+			}
+		}
+		//Query query = em.createQuery("SELECT a FROM CUENTA_FINTECH a");
+		return (List<CuentaFintech>)query.getResultList();
+	}*/
 }

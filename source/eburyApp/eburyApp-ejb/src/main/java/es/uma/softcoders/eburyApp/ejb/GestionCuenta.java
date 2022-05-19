@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import es.uma.softcoders.eburyApp.CuentaFintech;
@@ -31,4 +33,11 @@ public interface GestionCuenta {
 	 *  */
 	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException, EburyAppException;
 	
+	/**
+	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
+	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
+	 * @param usuario
+	 * @return lista de cuentas fintech asociadas
+	 */
+	public List<CuentaFintech> getCuentasFintechPropias(String usuario);
 }
