@@ -7,21 +7,29 @@
        xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<title>Lista de Cuentas</title>
+	<title>Crear Cuenta</title>
 </h:head>
 
 <h:body>
 	<!-- Parte superior de la página: tiene una lista con las cuentas a las que puede acceder el usuario -->
 	<!-- Aparece una lista con las cuentas de las que es propietario -->
-	<h1>Mis cuentas</h1>
+	<h1>Crear Cuenta</h1>
 	
+	<h:form>
+    	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
+    	<h:panelGrid columns="2">
+			<h:outputText value="IBAN:"/>
+			<h:inputText value="#{CuentaBB.iban}"/>
+			
+		</h:panelGrid>
+    	<br/>
+	</h:form>
 	
-	
-	<!-- Parte baja de la página: tiene un botón para cambiar de vista a crear una cuenta nueva -->
+	<!-- Parte baja de la página: tiene un botón para cambiar de vista a la principal -->
 	<div>
 		<h:form>
 			<div class="btn">
-				<h:commandButton value="Crear Cuenta" action="#{CuentaBB.vistaCrearCuenta()}"/>
+				<h:commandButton value="Atrás" action="#{CuentaBB.vistaPrincipalCliente()}"/>
 			</div>
 		</h:form>
 	</div>
