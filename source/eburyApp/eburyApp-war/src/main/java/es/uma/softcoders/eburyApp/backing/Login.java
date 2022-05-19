@@ -62,4 +62,24 @@ public class Login implements Serializable{
 	        return null;
 		}
 
+		public String entrarAdmin(){
+			try {
+	            login.loginAdmin(usuario.getUsuario(), usuario.getClave());
+				usuario.setEsAdministrativo(true);
+	            sesion.setUsuario(usuario);
+	            return "inicio.xhtml";
+
+	        } catch (ClienteNoEncontradoException e) {
+	            FacesMessage fm = new FacesMessage("La cuenta no existe");
+	            FacesContext.getCurrentInstance().addMessage("login:user", fm);
+	        } catch (CuentaNoCoincidenteException e) {
+	            FacesMessage fm = new FacesMessage("La contraseña no es correcta");
+	            FacesContext.getCurrentInstance().addMessage("login:pass", fm);
+	        } catch (EburyAppException e) {
+	            FacesMessage fm = new FacesMessage("Error: " + e);
+	            FacesContext.getCurrentInstance().addMessage(null, fm);
+	        }
+	        return null;
+		}
+
 } 

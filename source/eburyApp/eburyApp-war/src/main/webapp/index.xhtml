@@ -12,7 +12,7 @@
 
             <c:choose>
                 <c:when test="#{!empty infoSesion.usuario}">
-                    <p>Está autenticado como <h:outputText value="#{infoSesion.usuario.cuenta}"/>.</p>
+                    <p>Ya hay una sesion activa: <h:outputText value="#{infoSesion.usuario.cuenta}"/>.</p>
                     <p>Para iniciar sesión con otra cuenta debe <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> primero de la aplicación</p>
                 </c:when>
 
