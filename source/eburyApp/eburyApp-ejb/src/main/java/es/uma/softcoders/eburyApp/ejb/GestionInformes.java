@@ -10,7 +10,8 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 
 @Local
 public interface GestionInformes {
-	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException;
+	public List<Object> product(String json) throws InvalidJSONQueryException;
+	public List<Object> customer(String json) throws InvalidJSONQueryException;
 	public void informeAlemaniaPeriodico(String path) throws FailedPeriodicCSVException;
 	public void informeAlemaniaInicio(String path) throws FailedInitialCSVException;
 }
