@@ -11,7 +11,7 @@ public interface GestionCliente {
      * @param c     Cliente a dar de alta en el sistema
      * @throws EburyAppException 
 	 */
-    public void altaCliente(Cliente c) throws  EburyAppException;
+    public void altaCliente(Cliente c, Long usuario, String password) throws  EburyAppException;
     /**
      * La aplicacion permitira modificar los datos de los clientes tras rellenar un formulario,
      * se comprobará que los datos obligatorios no sean nulos y en caso de ser clientes empresa o individual

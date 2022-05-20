@@ -43,7 +43,7 @@ public class PruebaCliente {
 	*			<li>Dar de alta a un cliente con codigo postal nulo (ERROR)</li>
 	*			<li>Dar de alta a un cliente con pais nulo (ERROR)</li></ul>
 	*/
-	@Ignore
+	
 	@Test
 	@Requisitos({"RF2"})
 	public void testAltaCliente() {
@@ -64,7 +64,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
@@ -85,7 +85,7 @@ public class PruebaCliente {
 			c.setPais("España");
 			c.setRazonSocial("Razon");
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, null, null);
 			
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción: " + e.getMessage() + "-" + e.getClass());
@@ -108,7 +108,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -130,7 +130,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -152,7 +152,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -174,7 +174,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -195,7 +195,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -217,7 +217,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -239,7 +239,7 @@ public class PruebaCliente {
 			c.setApellido(null);
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -263,7 +263,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1112L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -286,7 +286,7 @@ public class PruebaCliente {
 			c.setApellido("Prueba");
 			c.setFechaNacimiento(date.parse("2002-30-04"));
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "2");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
@@ -307,7 +307,7 @@ public class PruebaCliente {
 			c.setPais("España");
 			c.setRazonSocial(null);
 			
-			gestionCliente.altaCliente(c);
+			gestionCliente.altaCliente(c, 1111L, "1234");
 			fail("Debería lanzar ninguna excepción");
 		}catch(Exception e) {
 			//Ok
