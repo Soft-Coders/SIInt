@@ -276,12 +276,7 @@ public class InformesEJB implements GestionInformes{
 		List<Cliente> results = query.getResultList();
 		
         System.out.println("R>>>>>>>\n" + results);
-        System.out.println("A>>>>>>>");
-        try {
-        System.out.println(("-> " + em.createQuery("SELECT i FROM Individual i", Individual.class).getResultList().get(0)));
-        }catch(Exception e) {
-        	System.out.println("#> " + e.getMessage() + " - " + e.getClass() + " - " + e.getCause() + " - " + e.getStackTrace());
-        }
+        
 		return results;
 	}
 	

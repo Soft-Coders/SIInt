@@ -64,34 +64,47 @@ public class ServicioREST {
 				List<Cliente> clients = informes.customer(request);
 				JsonArrayBuilder clientsArr = Json.createArrayBuilder();
 				
+				System.out.println("clients:\n=======\n" + clients + "\n=======\n");				
+				
 				for(Cliente c : clients) {
+					
+					System.out.println("c:\n=======\n" + c + "\n=======\n");
+					
 					JsonArrayBuilder products = Json.createArrayBuilder();
 					for(CuentaFintech cf : c.getCuentas()) {
+						
+						System.out.println("cf of c:\n=======\n" + cf + "\n=======\n");
+						
 						products.add(Json.createObjectBuilder()
 								.add("productNumber", cf.getIban())
 								.add("status", cf.getEstado())
 								.add("relationship", "propietaria"));	//  Los Clientes solo pueden ser dueños, no PersonasAutorizadas
+						
+						System.out.println("products:\n=======\n" + products.build() + "\n=======\n");
 					}
 					
 					boolean isIndividual = c instanceof Individual;
+					
+					System.out.println("isIndividual:\n=======\n" + isIndividual + "\n=======\n");
+					
 					JsonObjectBuilder individual = Json.createObjectBuilder().add("products", products)
 					.add("activeCustomer", (c.getEstado().equals("ACTIVO")) ? true : false)
 					.add("identificationNumber", c.getIdentificacion())
-					.add("dateOfBirth", isIndividual ? ((Individual) c).getFechaNacimiento().toGMTString() : "non-existent");
-				
+					.add("dateOfBirth", isIndividual ? (((Individual) c).getFechaNacimiento() != null ? ((Individual) c).getFechaNacimiento().toGMTString() : "non-existent") : "non-existent");
+					
 					if(isIndividual)
 						individual.add("name", Json.createObjectBuilder()
 								.add("firstName", ((Individual) c).getNombre())
 								.add("lastName", ((Individual) c).getApellido()));
 					else
 						individual.add("name", ((Empresa) c).getRazonSocial());
-					
+										
 					individual.add("address", Json.createObjectBuilder()
 							.add("streetNumber", c.getDireccion())
 							.add("postalCode", c.getCodigoPostal())
 							.add("city", c.getCiudad())
 							.add("country", c.getPais()));
-					
+										
 					clientsArr.add(individual);
 				}
 				
