@@ -12,14 +12,14 @@
 
             <c:choose>
                 <c:when test="#{!empty infoSesion.usuario}">
-                    <p>Ya hay una sesion activa: <h:outputText value="#{infoSesion.usuario.cuenta}"/>.</p>
+                    <p>Ya hay una sesion activa: <h:outputText value="#{infoSesion.usuario.usuario}"/>.</p>
                     <p>Para iniciar sesión con otra cuenta debe <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> primero de la aplicación</p>
                 </c:when>
 
                 <c:otherwise>
                     <h:panelGrid columns="3">
                         <h:outputText value="Nombre de usuario:"/>
-                        <h:inputText id="user" required="true" value="#{login.usuario.cuenta}"/>
+                        <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
                         <h:message for="user"/>
 
                         <h:outputText value="Contraseña:"/>
