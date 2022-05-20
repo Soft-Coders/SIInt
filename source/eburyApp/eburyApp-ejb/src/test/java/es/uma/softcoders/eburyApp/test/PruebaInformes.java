@@ -77,7 +77,6 @@ public class PruebaInformes {
             addr.put("postalCode", "29010");
             
 
-            sP.put("questionType", "Customer");
         
             sP.put("address", addr);
             sP.put("name",name);
@@ -87,7 +86,7 @@ public class PruebaInformes {
             String query = JSONValue.toJSONString(json);
 
             try{
-                List<Object> pRes = gestionInformes.informeHolanda(query);
+                List<Object> pRes = gestionInformes.customer(query);
                 if(pRes.isEmpty())
                 {
                     fail("No deberia ser vacia-0");
@@ -109,8 +108,6 @@ public class PruebaInformes {
             
             addr2.put("postalCode", "29010");
             
-
-            sP2.put("questionTipe", "Customer");
             sP2.put("startPeriodo", "2015-04-25");
             sP2.put("endPeriodo", "2020-04-25");
             sP2.put("adress", addr2);
@@ -121,7 +118,7 @@ public class PruebaInformes {
             query = JSONValue.toJSONString(json2);
             
             try{
-                List<Object>pRes = gestionInformes.informeHolanda(query);
+                List<Object>pRes = gestionInformes.customer(query);
                 
             }catch(InvalidJSONQueryException e){
                 
@@ -130,7 +127,6 @@ public class PruebaInformes {
             //Cuenta activa query product
             JSONObject json4 = new JSONObject();
             JSONObject sP4 = new JSONObject();
-            sP4.put("questionType","Product");
             sP4.put("status", "active");
             sP4.put("productNumber", "cpSegregada");
 
@@ -139,7 +135,7 @@ public class PruebaInformes {
             query=JSONObject.toJSONString(json4);
 
             try{
-                List<Object> pRes = gestionInformes.informeHolanda(query);
+                List<Object> pRes = gestionInformes.product(query);
                 if(pRes.isEmpty()){
                     fail("No debe ser vacía-4");
                 }
@@ -151,7 +147,6 @@ public class PruebaInformes {
             //Cuenta inactiva query product
             JSONObject json5 = new JSONObject();
             JSONObject sP5 = new JSONObject();
-            sP5.put("questionType","Product");
             sP5.put("status", "inactive");
             sP5.put("productNumber", "cpInactiva");
 
@@ -160,7 +155,7 @@ public class PruebaInformes {
             query = JSONObject.toJSONString(json5);
 
             try{
-                List<Object> pRes = gestionInformes.informeHolanda(query);
+                List<Object> pRes = gestionInformes.product(query);
                 if(pRes.isEmpty()){
                     fail("No debe ser vacía");
                 }
@@ -172,14 +167,13 @@ public class PruebaInformes {
             // Product invalid JSON Query
             JSONObject json6 = new JSONObject();
             JSONObject sP6 = new JSONObject();
-            sP6.put("questionaTyde","Product"); // Línea inválida
-            sP6.put("status", "inactive");
+            sP6.put("estatus", "inactive");		// Invalid
             sP6.put("productNumber", "NL66XYZW1291965208");
 
             json6.put("searchParameters", sP6);
 
             try{
-                List<Object>pRes = gestionInformes.informeHolanda(query);                
+                List<Object>pRes = gestionInformes.product(query);                
             }catch(InvalidJSONQueryException e){
                 
             }
