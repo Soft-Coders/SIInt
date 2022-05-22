@@ -2,12 +2,15 @@ package es.uma.softcoders.eburyApp.ejb;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
@@ -29,6 +32,26 @@ public class ClienteEJB implements GestionCliente {
 	
     @PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
+
+    @Override
+    public List<Cliente> clientesInactivos() throws EburyAppException{
+        Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.estado = 'INACTIVO'");
+        List<Cliente> cli = q.getResultList();
+        if (cli.isEmpty())
+            throw new ClienteNoEncontradoException("No hay cuentas inactivas");
+        return cli;
+
+    }
+
+    @Override
+    public List<Cliente> clientesActivos() throws EburyAppException{
+        Query q = em.createQuery("SELECT c FROM Cliente c WHERE c.estado = 'ACTIVO'");
+        List<Cliente> cli = q.getResultList();
+        if (cli.isEmpty())
+            throw new ClienteNoEncontradoException("No hay cuentas activas");
+        return cli;
+
+    }
 
     @Override
     public void altaCliente(Cliente c) throws EburyAppException {

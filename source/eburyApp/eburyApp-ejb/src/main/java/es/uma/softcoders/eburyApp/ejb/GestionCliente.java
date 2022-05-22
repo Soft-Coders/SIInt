@@ -1,9 +1,15 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public interface GestionCliente {
+
+    public List<Cliente> clientesInactivos() throws EburyAppException;
+
+    public List<Cliente> clientesActivos() throws EburyAppException;
     
     /**
      * La aplicacion permitira crear un cliente y añadirlo a la base de datos,

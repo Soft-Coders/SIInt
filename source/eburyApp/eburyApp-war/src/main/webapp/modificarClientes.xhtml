@@ -5,11 +5,11 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Registro de usuario</title>
+        <title>Modificar clientes</title>
     </h:head>
     <h:body>
         <c:choose>
-            <c:when test="#{empty infoSesion.usuario}">
+            <c:when test="#{infoSesion.usuario.esAdministrativo}">
                 <h:form id="registro">
                     <h:panelGrid columns="3">
                         <h:outputText value="Nombre:"/>
@@ -42,10 +42,7 @@
                 
             </c:when>
             <c:otherwise>
-                <h:form>
-                    <p>Para crear un nuevo registro debe 
-                        <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> antes de la aplicación.</p>
-                </h:form>
+                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
             </c:otherwise>
         </c:choose>
 
