@@ -133,8 +133,9 @@ public class InformesEJB implements GestionInformes{
 			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
 			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
 
-			String predicate   = "";
-			int predicateLength= predicate.length();
+			String iPredicate  = "";
+			String paPredicate = "";
+			int predicateLength= iPredicate.length();
 			String startPeriod = (String) spObj.get("startPeriod");
 			String endPeriod   = (String) spObj.get("endPeriod");
 			JSONObject name    = (JSONObject) spObj.get("name");				// Cast into JSONObject				
@@ -162,66 +163,70 @@ public class InformesEJB implements GestionInformes{
 					System.out.println("> " + param.toString());
 			System.out.println("=======");
 			
-			if(startPeriod != null)
-				predicate += "i.fechaAlta = :startPeriod";
+			if(startPeriod != null) {
+				iPredicate += "i.fechaAlta = :startPeriod";
+				paPredicate += "i.fechaInicio = :startPeriod";
+			}
 			if(endPeriod != null) {
-				if(predicate.length() > predicateLength)
-					predicate += " AND ";
-				predicate += "i.fechaBaja = :endPeriod";
+				if(iPredicate.length() > predicateLength)
+					paPredicate += iPredicate += " AND ";
+				iPredicate += "i.fechaBaja = :endPeriod";
+				paPredicate += "i.fechaFin = :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.nombre = '" + firstName + "'";
+					if(iPredicate.length() > predicateLength)
+						paPredicate += iPredicate += " AND ";
+					paPredicate += iPredicate += "i.nombre = '" + firstName + "'";
 				}
 				if(lastName != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.apellido = '" + lastName + "'";
+					if(iPredicate.length() > predicateLength)
+						paPredicate += iPredicate += " AND ";
+					iPredicate += "i.apellido = '" + lastName + "'";
+					paPredicate += "i.apellidos = '" + lastName + "'";
 				}
 			}
 			if(address != null) {
 				if(street != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.direccion = '" + street + "'";
+					if(iPredicate.length() > predicateLength)
+						paPredicate += iPredicate += " AND ";
+					paPredicate += iPredicate += "i.direccion = '" + street + "'";
 				}
 				if(city != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.ciudad = '" + city + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.ciudad = '" + city + "'";
 				}
 				if(postalCode != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.codigoPostal = '" + postalCode + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.codigoPostal = '" + postalCode + "'";
 				}
 				if(country != null) {
 					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.pais = '" + country + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.pais = '" + country + "'";
 				}
 			}
 			
-			System.out.println("predicate:\n=======\n" + predicate + "\n=======");
+			System.out.println("predicate:\n=======\n" + iPredicate + "\n=======");
 			
 			if(em == null)
 				throw new NullPointerException("---El EntityManager es NULL---");
 			try {
 				String hql;
-				if(predicate.equals(""))
+				if(iPredicate.equals(""))
 					hql = "SELECT i FROM Individual i";
 				else
-					hql = "SELECT i FROM Individual i WHERE " + predicate;
+					hql = "SELECT i FROM Individual i WHERE " + iPredicate;
 				System.out.println("i-hql:\n=======\n" + hql + "\n=======");
 				iQuery = em.createQuery(hql);
-				if(predicate.equals(""))
+				if(paPredicate.equals(""))
 					hql = "SELECT i FROM PersonaAutorizada i";
 				else
-					hql = "SELECT i FROM PersonaAutorizada i WHERE " + predicate;
+					hql = "SELECT i FROM PersonaAutorizada i WHERE " + paPredicate;
 				System.out.println("pa-hql:\n=======\n" + hql + "\n=======");
 				paQuery = em.createQuery(hql);
 			}catch(IllegalArgumentException e) {
@@ -247,7 +252,7 @@ public class InformesEJB implements GestionInformes{
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("startPeriod NOT VALID");
 				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 1 @@- -> " + predicate + " <-");
+					throw new InvalidJSONQueryException("-@@ 1 @@- -> " + iPredicate + " <-");
 				}
 			}
 			if(endPeriod != null) {
@@ -270,7 +275,7 @@ public class InformesEJB implements GestionInformes{
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("endPeriod NOT VALID");
 				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 2 @@- -> " + predicate + " <-");
+					throw new InvalidJSONQueryException("-@@ 2 @@- -> " + iPredicate + " <-");
 				}
 			}
 		}catch(ClassCastException e) {
