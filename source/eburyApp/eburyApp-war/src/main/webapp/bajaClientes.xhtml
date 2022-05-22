@@ -31,14 +31,19 @@
                         </h:column>
                         
                         <h:column>
-                            <h:commandButton value="BAJA" action="#{contactos.alta(c)}"/>
+                            <h:commandButton value="BAJA" action="#{cliente.darBaja(c)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandButton value="MODIFICAR" action="#{cliente.goModificarCliente(c)}"/>
                         </h:column>
                         
                     </h:dataTable>
                     <h:message for="list"/>
+                    <h:messages/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
                     <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras())}"/>
-                    <h:commandButton value="Refrescar" action="#{cliente.refescarAlta())}"/>
+                    <h:commandButton value="Refrescar" action="#{cliente.refescarBaja())}"/>
                 </h:form>
             </c:otherwise>
         </c:choose>

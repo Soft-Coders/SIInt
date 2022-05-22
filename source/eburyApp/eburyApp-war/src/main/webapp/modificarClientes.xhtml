@@ -10,33 +10,43 @@
     <h:body>
         <c:choose>
             <c:when test="#{infoSesion.usuario.esAdministrativo}">
-                <h:form id="registro">
+                <h:form id="modificacion">
                     <h:panelGrid columns="3">
-                        <h:outputText value="Nombre:"/>
-                        <h:inputText id="nombre" value="#{registro.usuario.nombre}"/>
-                        <h:message for="nombre"/>
-                        <h:outputText value="Apellidos:"/>
-                        <h:inputText id="apellidos" value="#{registro.usuario.apellidos}"/>
-                        <h:message for="apellidos"/>
-                        <h:outputText value="E-mail:"/>
-                        <h:inputText id="email" value="#{registro.usuario.email}" required="true"
-                                     validatorMessage="Compruebe que ha introducido un e-mail correcto">
-                            <f:validateRegex pattern=".+@.+"/>
-                        </h:inputText>
+                        <h:outputText value="Identificacion:"/>
+                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}"required="true"/>
+                        <h:message for="ident"/>
+
+                        <h:outputText value="Tipo:"/>
+                        <h:inputText id="tipo" value="#{cliente.clienteAux.tipo}"required="true"/>
+                        <h:message for="tipo"/>
+
+                        <h:outputText value="Estado:"/>
+                        <h:inputText id="estado" value="#{cliente.clienteAux.estado}"required="true"/>
                         <h:message for="email"/>
-                        <h:outputText value="Nombre de usuario:"/>
-                        <h:inputText id="user" value="#{registro.usuario.usuario}" required="true"/>
-                        <h:message for="user"/>
-                        <h:outputText value="Contraseña:"/>
-                        <h:inputSecret id="pass" value="#{registro.usuario.contrasenia}" required="true"/>
-                        <h:message for="pass"/>
-                        <h:outputText value="Repita contraseña:"/>
-                        <h:inputSecret id="repass" value="#{registro.repass}" required="true"/>
-                        <h:message for="repass"/>
-                        <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"/>
+
+                        <h:outputText value="Direccion:"/>
+                        <h:inputText id="dir" value="#{cliente.clienteAux.direccion}" required="true"/>
+                        <h:message for="dir"/>
+
+                        <h:outputText value="Ciudad:"/>
+                        <h:inputSecret id="ciudad" value="#{cliente.clienteAux.ciudad}" required="true"/>
+                        <h:message for="ciudad"/>
+
+                        <h:outputText value="Codigo Postal:"/>
+                        <h:inputSecret id="cp" value="#{cliente.clienteAux.codigoPostal}" required="true"/>
+                        <h:message for="cp"/>
+
+                        <h:outputText value="Pais:"/>
+                        <h:inputSecret id="cp" value="#{cliente.clienteAux.Pais}" required="true"/>
+                        <h:message for="cp"/>
+
+                        <h:commandButton value="Modificar" action="#{cliente.modificarCliente()}"/>
                         <h:link outcome="login.xhtml">Volver a la página de login</h:link>
                     </h:panelGrid>
+                    <h:message for="modificacion"/>
                     <h:messages/>
+                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras())}"/>
                     
                 </h:form>
                 

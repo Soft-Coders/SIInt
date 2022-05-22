@@ -23,7 +23,11 @@ public class ClienteController {
 
         private List<Cliente> listActivos;
 
-        private Cliente cliente;
+        private Cliente clienteAux;
+
+        private Cliente clienteBuffer;
+
+        private Long idCliente;
 
         public void setListaInactivos(){
             try{listInactivos = gestionCliente.clientesInactivos();}
@@ -87,6 +91,25 @@ public class ClienteController {
 
         public String goAlta(){
             return "altaCliente.xhtml";
+        }
+
+        public String goModificarCliente(Cliente c){
+            idCliente = c.getID();
+            clienteBuffer = c;
+            return "modificarCliente.xhtml";
+        }
+
+        public String modificarCliente(Cliente c){
+            clienteAux.setFecha_Alta(clienteBuffer.getFecha_Alta());
+            clienteAux.setFecha_Baja(clienteBuffer.getFecha_Baja());
+            try{
+                gestionCliente.modificarCliente(c, idCliente);  
+                return  "bajaClientes.xhtml";    
+            }catch(EburyAppException e){
+            FacesMessage fm = new FacesMessage("Error al modificar");
+            FacesContext.getCurrentInstance().addMessage("modificarClientes:modificacion", fm);}
+            return "unexpected.xhtml";
+
         }
 
 } 
