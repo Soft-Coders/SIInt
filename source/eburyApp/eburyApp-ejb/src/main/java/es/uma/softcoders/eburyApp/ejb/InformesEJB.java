@@ -115,9 +115,9 @@ public class InformesEJB implements GestionInformes{
 	 * @throws InvalidJSONQueryException 
 	 */
 	@SuppressWarnings("deprecation")
-	public List<Cliente> customer(String json) throws InvalidJSONQueryException {
+	public List<Object> customer(String json) throws InvalidJSONQueryException {
 		
-		Query query;
+		Query iQuery, paQuery;	// iQuery -> individualQuery, paQuery -> personaAutorizadaQuery
 		
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
@@ -216,8 +216,14 @@ public class InformesEJB implements GestionInformes{
 					hql = "SELECT i FROM Individual i";
 				else
 					hql = "SELECT i FROM Individual i WHERE " + predicate;
-				System.out.println("hql:\n=======\n" + hql + "\n=======");
-				query = em.createQuery(hql);
+				System.out.println("i-hql:\n=======\n" + hql + "\n=======");
+				iQuery = em.createQuery(hql);
+				if(predicate.equals(""))
+					hql = "SELECT i FROM PersonaAutorizada i";
+				else
+					hql = "SELECT i FROM PersonaAutorizada i WHERE " + predicate;
+				System.out.println("pa-hql:\n=======\n" + hql + "\n=======");
+				paQuery = em.createQuery(hql);
 			}catch(IllegalArgumentException e) {
 				throw new InvalidJSONQueryException("-@@ 0 @@- => " + e.getMessage());
 			}
@@ -235,7 +241,8 @@ public class InformesEJB implements GestionInformes{
 					if(day < 1 || day > 31)
 						throw new InvalidJSONQueryException("startPeriod.day NOT VALID");
 					Date spDate = new Date(year-1900, month, day);			// Deprecated -> Cambiar tipo a Calendar? TODO
-					query.setParameter("startPeriod", spDate);
+					iQuery.setParameter("startPeriod", spDate);
+					paQuery.setParameter("startPeriod", spDate);
 					
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("startPeriod NOT VALID");
@@ -257,7 +264,8 @@ public class InformesEJB implements GestionInformes{
 					if(day < 1 || day > 31)
 						throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
 					Date epDate = new Date(year-1900, month, day);
-					query.setParameter("endPeriod", epDate);
+					iQuery.setParameter("endPeriod", epDate);
+					paQuery.setParameter("endPeriod", epDate);
 					
 				}catch(NullPointerException e) {
 					throw new InvalidJSONQueryException("endPeriod NOT VALID");
@@ -272,8 +280,9 @@ public class InformesEJB implements GestionInformes{
 		}catch(Exception e) {
 			throw new InvalidJSONQueryException("customer ERROR " + e.getMessage() + "-" + e.getClass() + " ->\n" + e.getStackTrace().toString());
 		}
-		@SuppressWarnings("unchecked")
-		List<Cliente> results = query.getResultList();
+		
+		List<Object> results = iQuery.getResultList();
+		results.addAll(paQuery.getResultList());
 		
         System.out.println("R>>>>>>>\n" + results);
         

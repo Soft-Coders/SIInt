@@ -88,7 +88,7 @@ public class PruebaInformes {
             String query = JSONValue.toJSONString(json);
 
             try{
-                List<Cliente> pRes = gestionInformes.customer(query);
+                List<Object> pRes = gestionInformes.customer(query);
                 if(pRes.isEmpty())
                 {
                     fail("No deberia ser vacia-0");
@@ -120,7 +120,7 @@ public class PruebaInformes {
             query = JSONValue.toJSONString(json2);
             
             try{
-                List<Cliente>pRes = gestionInformes.customer(query);
+                List<Object>pRes = gestionInformes.customer(query);
                 
             }catch(InvalidJSONQueryException e){
                 
