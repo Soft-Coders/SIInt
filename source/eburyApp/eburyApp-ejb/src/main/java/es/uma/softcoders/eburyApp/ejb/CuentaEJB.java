@@ -40,7 +40,7 @@ public class CuentaEJB implements GestionCuenta{
 				throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
 			} 
 			System.out.println("CLIENTE NOT NULL");
-			if (em.find(Cliente.class, cf.getCliente().getID()) == null) {
+			if (em.find(Cliente.class, cf.getCliente().getId()) == null) {
 				System.out.println("CLIENTE INEXISTENTE ->");
 				System.out.println(em.createQuery("SELECT c FROM Cliente c").getResultList());
 				throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
