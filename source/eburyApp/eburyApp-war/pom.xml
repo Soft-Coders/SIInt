@@ -33,6 +33,11 @@
 			<version>1.2</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+		    <groupId>org.primefaces</groupId>
+		    <artifactId>primefaces</artifactId>
+		    <version>11.0.0</version>
+		</dependency>
 		<!-- vvv DEPENDENCIAS PARA MANIPULACIÓN DE INFORMES vvv -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>

@@ -43,26 +43,25 @@ public class LoginEJB implements GestionLogin {
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (!u.isEsAdministrativo())
             throw new UsuarioNoAdministrativoException("El usuario no es administrativo");
-        if (u.getClave() != clave)
+        if (!u.getClave().equals(clave))
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
     @Override
     public void loginUsuario(String cuenta, String clave) throws EburyAppException{
     	if(em == null)
     		throw new CuentaNoCoincidenteException(" @@@ EntityManager is NULL @@@ ");
+    	
     	Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
     	q.setParameter("cuenta", cuenta);
     	List us = q.getResultList();
-    	System.out.println("-- u --\n" + us);
     	System.out.println(us.isEmpty());
+    	
         if (us.isEmpty()) {
-        	System.out.println("Throwing");
             throw new ClienteNoEncontradoException("Cuenta no existente");
         }
-    	System.out.println("-- HAY USUARIOS --");
+        
         Usuario u = (Usuario) us.get(0);
-        System.out.println("u > " + u);
-        if (u.getClave() != clave)
+        if (!u.getClave().equals(clave))
             throw new CuentaNoCoincidenteException("Clave no coincidente");
         PersonaAutorizada pA = u.getPersonaAutorizada();
         Individual ind = u.getIndividual();
@@ -72,7 +71,7 @@ public class LoginEJB implements GestionLogin {
         }
         
         if(ind != null){
-            gestionCliente.comprobarCliente(ind.getID());
+            gestionCliente.comprobarCliente(ind.getId());
         }
     }
 

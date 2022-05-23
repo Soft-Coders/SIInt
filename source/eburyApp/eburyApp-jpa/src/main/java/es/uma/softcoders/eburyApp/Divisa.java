@@ -20,13 +20,13 @@ public class Divisa implements Serializable{
 		super();
 	}
 	
-	public Divisa(String abreviatura, String nombre, Long cambioEuro) {
+	public Divisa(String abreviatura, String nombre, Double cambioEuro) {
 		
 		this.abreviatura = abreviatura;
 		this.nombre = nombre;
 		this.cambioEuro = cambioEuro;
 	}
-	public Divisa(String abreviatura, String nombre, Character simbolo, Long cambioEuro) {
+	public Divisa(String abreviatura, String nombre, Character simbolo, Double cambioEuro) {
 		
 		this.abreviatura = abreviatura;	
 		this.nombre = nombre;
@@ -46,7 +46,7 @@ public class Divisa implements Serializable{
 	private Character simbolo;
 	
 	@Column( name = "CAMBIO_EURO", nullable = false )
-	private Long cambioEuro;
+	private Double cambioEuro;
 	
 	// --------- RELACIONES ---------
 	
@@ -106,14 +106,14 @@ public class Divisa implements Serializable{
 	/**
 	 * @return the cambioEuro
 	 */
-	public Long getCambioEuro() {
+	public Double getCambioEuro() {
 		return cambioEuro;
 	}
 
 	/**
 	 * Actualiza el cambio a euro
 	 */
-	public void setCambioEuro(Long cambioEuro) {
+	public void setCambioEuro(Double cambioEuro) {
 		this.cambioEuro = cambioEuro;
 	}
 

@@ -6,11 +6,19 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
+import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
+import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
@@ -21,19 +29,88 @@ public class AutorizadoEJB implements GestionAutorizado {
 	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
 	
-	// Si la persona autorizada existe se usa su id, si no se crea en la base de datos
+	public void agregarAutorizado() {
+		
+	}
+	
+	@Override
+	public void altaAutorizado(Long autorizado, Long usuario, String password) throws EburyAppException{
+	    	
+		PersonaAutorizada p = em.find(PersonaAutorizada.class, autorizado);
+		if(p == null)
+			throw new EburyAppException("El autorizado no existe");
+	 	
+	    
+		Usuario user = em.find(Usuario.class, usuario);
+		if(password != user.getClave()) {
+			throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
+		}
+		p.setEstado("ACTIVO");
+    	em.merge(p);
+	    	
+	}
+	
+	@Override
+	public void registrarAutorizado(PersonaAutorizada p, Long usuario, String password)throws EburyAppException{
+	    
+    	if(p.getId()!= null) {
+            PersonaAutorizada autorizado = em.find(PersonaAutorizada.class, p.getId());
+            if(autorizado != null)
+                throw new ClienteExistenteException("El cliente ya existe");
+    	}
+
+        if(p.getIdentificacion() == null)
+            throw new ObligatorioNuloException("Identificacion nula");
+        
+        if(p.getNombre()==null)
+            throw new ObligatorioNuloException("Nombre nulo");
+        
+        if(p.getEstado() == null)
+            throw new ObligatorioNuloException("Estado del autorizado nulo");
+        
+        if(p.getApellidos()== null)
+            throw new ObligatorioNuloException("Apellidos nulos");
+        
+        if(p.getDireccion() == null)
+            throw new ObligatorioNuloException("Direccion nula");
+        
+        if(p.getUsuario()==null)
+            throw new ObligatorioNuloException("Usuario nulo");
+        
+        if(usuario == null) {
+    		throw new DatosIncorrectosException("Usuario nulo");
+    	}
+    	
+    	//Comprobamos que la clave es correcta
+    	Usuario user = em.find(Usuario.class, usuario);
+    	if(password != user.getClave()) {
+    		throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
+    	}
+    	
+
+    	
+        p.setEstado("INACTIVO");
+        p.setUsuario(user);
+        
+        em.persist(p);
+        user.setPersonaAutorizada(p);
+
+	}
+	
+	
+	
+	// Si la persona autorizada existe se usa su id
 	// con los datos pasados por parámetro en p
-	public void agregarAutorizado(Long idPersAut, PersonaAutorizada p, Long empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
-		Empresa empresaEntity = em.find(Empresa.class, empresa);
+	/*public void agregarEmpresa(Long idPersAut, Empresa empresa, Character cuenta) throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException{
+		
+		
+		
+		
 		if(empresaEntity == null) {
 			throw new EmpresaNoEncontradaException("Empresa no encontrada");
 		}
 		
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, idPersAut);
-		if(personaAutorizadaEntity == null && p.getId()!= null && p.getIdentificacion()!= null && p.getNombre()!=null &&p.getApellidos()!=null && p.getDireccion()!=null) {
-			p.setId(idPersAut);
-			em.persist(p);
-		}
 		
 		if(personaAutorizadaEntity.getUsuario() == null) {
 			throw new UsuarioNoVinculadoException("Debe de haber un usuario vinculado");
@@ -58,7 +135,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 		} else {
 			throw new EmpresaExistenteException("Empresa ya registrada en la persona autorizada");
 		}	
-	}
+	}*/
 	
 	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws PersonaAutorizadaNoEncontradaException{
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);

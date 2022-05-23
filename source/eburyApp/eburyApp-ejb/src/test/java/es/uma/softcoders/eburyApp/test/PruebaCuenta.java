@@ -62,11 +62,11 @@ public class PruebaCuenta {
 		Segregada cf = new Segregada();
 		Individual cliente = new Individual();
 		try {
-			cliente.setID(0000L);
+			cliente.setId(0000L);
 			cliente.setIdentificacion("0022");
-			cliente.setTipo_cliente("INDIVIDUAL");
+			cliente.setTipoCliente("INDIVIDUAL");
 			cliente.setEstado("ACTIVO");
-			cliente.setFecha_Alta(date.parse("2022-05-12"));
+			cliente.setFechaAlta(date.parse("2022-05-12"));
 			cliente.setDireccion("Calle prueba, 32");
 			cliente.setCiudad("Malaga");
 			cliente.setCodigoPostal("29010");
@@ -74,11 +74,11 @@ public class PruebaCuenta {
 			cliente.setNombre("Cliente");
 			cliente.setApellido("Prueba");
 			cliente.setFechaNacimiento(date.parse("2002-30-04"));
-			cliente.setID(0000L);
+			cliente.setId(0000L);
 			cf.setCliente(cliente);
 			cf.setEstado("ACTIVO");
 			cf.setFechaApertura(date.parse("2019-06-28"));
-			cf.setIBAN("cpSegregada");	//Pre-existente
+			cf.setIban("cpSegregada");	//Pre-existente
 			cf.setSwift("SwiftNuevo");
 		}catch (ParseException e) {
 			throw new RuntimeException(e);
@@ -105,7 +105,7 @@ public class PruebaCuenta {
 		
 		// Cliente null
 		try {
-			cf.setIBAN("cfIdeal-22");
+			cf.setIban("cfIdeal-22");
 			cf.setCliente(null);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (DatosIncorrectosException e){
@@ -116,7 +116,7 @@ public class PruebaCuenta {
 		
 		// Cliente Inexistente
 		try {
-			cliente.setID(0022L);
+			cliente.setId(0022L);
 			cf.setCliente(cliente);
 			gestionCuenta.crearCuentaFintech(cf);
 		}catch (ClienteInexistenteException e){
@@ -127,31 +127,31 @@ public class PruebaCuenta {
 		
 		Pooled cfIdealPooled = new Pooled();
 		Segregada cfIdealSegregada = new Segregada();
-		Divisa dEuro = new Divisa("EUR", "euros", '€', 3L);
+		Divisa dEuro = new Divisa("EUR", "euros", '€', 1.00);
 		CuentaReferencia cr = new CuentaReferencia();
-		cliente.setID(0001L);
+		cliente.setId(0001L);
 		try {
 			cr.setIban("cfPruebaE");
 			cr.setNombreBanco("Santander");
-			cr.setSaldo(Long.valueOf(10000));
+			cr.setSaldo(10000.00);
 			cr.setFechaApertura(date.parse("2010-02-22"));
 			cr.setEstado("ACTIVO");
 			cr.setSwift("Swift");
 			cr.setSucursal("Madrid");
 			cr.setDivisa(dEuro);
-			Map<CuentaReferencia,Long> depositado = new HashMap<>();
-			depositado.put(cr, 5000L);
+			Map<CuentaReferencia,Double> depositado = new HashMap<>();
+			depositado.put(cr, 5000.00);
 			cfIdealPooled.setDepositadaEn(depositado);
 			cfIdealPooled.setCliente(cliente);
 			cfIdealPooled.setEstado("ACTIVO");
 			cfIdealPooled.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealPooled.setIBAN("cfIdealPooled-2-22");
+			cfIdealPooled.setIban("cfIdealPooled-2-22");
 			cfIdealPooled.setSwift("SwiftIP");
 			
 			cfIdealSegregada.setCliente(cliente);
 			cfIdealSegregada.setEstado("ACTIVO");
 			cfIdealSegregada.setFechaApertura(date.parse("2019-09-19"));
-			cfIdealSegregada.setIBAN("cfIdealSegregada-2-22");
+			cfIdealSegregada.setIban("cfIdealSegregada-2-22");
 			cfIdealSegregada.setSwift("SwiftIS");
 			cfIdealSegregada.setCuentaRef(cr);
 		}catch(ParseException e) {

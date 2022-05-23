@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Modificar clientes</title>
+    </h:head>
+    <h:body>
+        <c:choose>
+            <c:when test="#{infoSesion.usuario.esAdministrativo}">
+                <h:form id="modificacion">
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Identificacion:"/>
+                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}" required="true"/>
+                        <h:message for="ident"/>
+
+                        <h:outputText value="Tipo:"/>
+                        <h:inputText id="tipo" value="#{cliente.clienteAux.tipo}"required="true"/>
+                        <h:message for="tipo"/>
+
+                        <h:outputText value="Estado:"/>
+                        <h:inputText id="estado" value="#{cliente.clienteAux.estado}"required="true"/>
+                        <h:message for="email"/>
+
+                        <h:outputText value="Direccion:"/>
+                        <h:inputText id="dir" value="#{cliente.clienteAux.direccion}" required="true"/>
+                        <h:message for="dir"/>
+
+                        <h:outputText value="Ciudad:"/>
+                        <h:inputSecret id="ciudad" value="#{cliente.clienteAux.ciudad}" required="true"/>
+                        <h:message for="ciudad"/>
+
+                        <h:outputText value="Codigo Postal:"/>
+                        <h:inputSecret id="cp" value="#{cliente.clienteAux.codigoPostal}" required="true"/>
+                        <h:message for="cp"/>
+
+                        <h:outputText value="Pais:"/>
+                        <h:inputSecret id="cp" value="#{cliente.clienteAux.Pais}" required="true"/>
+                        <h:message for="cp"/>
+
+                        <h:commandButton value="Modificar" action="#{cliente.modificarCliente()}"/>
+                        <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                    </h:panelGrid>
+                    <h:message for="modificacion"/>
+                    <h:messages/>
+                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras())}"/>
+                    
+                </h:form>
+                
+            </c:when>
+            <c:otherwise>
+                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
+            </c:otherwise>
+        </c:choose>
+
+    </h:body>
+</html>
