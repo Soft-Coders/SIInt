@@ -68,7 +68,7 @@ public class ClienteController {
         }
 
         public String darAlta(Cliente c){
-            try{gestionCliente.altaCliente(c);}
+            try{gestionCliente.altaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de alta");
             FacesContext.getCurrentInstance().addMessage("altaClientes:list", fm);}
@@ -77,7 +77,7 @@ public class ClienteController {
         }
 
         public String darBaja(Cliente c){
-            try{gestionCliente.bajaCliente(c.getID());}
+            try{gestionCliente.bajaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de baja");
             FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);}
@@ -94,14 +94,14 @@ public class ClienteController {
         }
 
         public String goModificarCliente(Cliente c){
-            idCliente = c.getID();
+            idCliente = c.getId();
             clienteBuffer = c;
             return "modificarClientes.xhtml";
         }
 
         public String modificarCliente(Cliente c){
-            clienteAux.setFecha_Alta(clienteBuffer.getFecha_Alta());
-            clienteAux.setFecha_Baja(clienteBuffer.getFecha_Baja());
+            clienteAux.setFechaAlta(clienteBuffer.getFechaAlta());
+            clienteAux.setFechaBaja(clienteBuffer.getFechaBaja());
             try{
                 gestionCliente.modificarCliente(c, idCliente);  
                 return  "bajaClientes.xhtml";    

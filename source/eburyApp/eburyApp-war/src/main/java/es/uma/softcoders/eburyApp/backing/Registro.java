@@ -48,7 +48,7 @@ public class Registro {
     	    individual = new Individual();
     	    
     	    autorizado.setFechaInicio(new Date());
-    	    individual.setFecha_Alta(new Date());
+    	    individual.setFechaAlta(new Date());
         }
 		
 		public void setUsuario(String user) {
@@ -71,7 +71,7 @@ public class Registro {
 		public String registrarIndividual() {
 			
 			try{
-				individual.setTipo_cliente("INDIVIDUAL");
+				individual.setTipoCliente("INDIVIDUAL");
 				individual.setEstado("INACTIVO");
 				gestionCliente.registrarCliente(individual, usuario.getId(), usuario.getClave());
 				return "vistaPrincipalCliente.xhtml";
@@ -98,7 +98,7 @@ public class Registro {
 		public String registrarEmpresa(){
 			try{
 				autorizado.setEstado("INACTIVO");
-				gestionAutorizado.agregarEmpresa(autorizado.getId(), empresa, cuenta);
+				gestionCliente.registrarEmpresa(empresa, autorizado.getId(), cuenta);
 				return "vistaPrincipalCliente.xhtml";
 			}catch(EburyAppException e){
 				FacesMessage fm = new FacesMessage("Error: " + e);

@@ -58,18 +58,14 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void altaCliente(Long cliente, Long usuario, String password) throws EburyAppException{
+    public void altaCliente(Long cliente) throws EburyAppException{
     	
         Cliente c = em.find(Cliente.class, cliente);
         if(c == null)
             throw new ClienteExistenteException("El cliente no existe");
     	
     	if(c instanceof Individual) {
-    		Usuario user = em.find(Usuario.class, usuario);
-        	if(password != user.getClave()) {
-        		throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
-        	}
-        	
+
         	Individual i = (Individual)c;
         	i.setEstado("ACTIVO");
         	em.merge(i);

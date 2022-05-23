@@ -18,7 +18,7 @@ public interface GestionCliente {
      * @param password
      * @throws EburyAppException
      */
-    public void altaCliente(Long c, Long usuario, String password) throws  EburyAppException;
+    public void altaCliente(Long c) throws  EburyAppException;
     
     /**
      * La aplicacion permitira crear un cliente y añadirlo a la base de datos,
