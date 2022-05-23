@@ -43,7 +43,7 @@ public class LoginEJB implements GestionLogin {
             throw new ClienteNoEncontradoException("Cuenta no existente");
         if (!u.isEsAdministrativo())
             throw new UsuarioNoAdministrativoException("El usuario no es administrativo");
-        if (u.getClave() != clave)
+        if (!u.getClave().equals(clave))
             throw new CuentaNoCoincidenteException("Clave no coincidente");
     }
     @Override
@@ -61,7 +61,7 @@ public class LoginEJB implements GestionLogin {
         }
         
         Usuario u = (Usuario) us.get(0);
-        if (u.getClave() != clave)
+        if (!u.getClave().equals(clave))
             throw new CuentaNoCoincidenteException("Clave no coincidente");
         PersonaAutorizada pA = u.getPersonaAutorizada();
         Individual ind = u.getIndividual();
