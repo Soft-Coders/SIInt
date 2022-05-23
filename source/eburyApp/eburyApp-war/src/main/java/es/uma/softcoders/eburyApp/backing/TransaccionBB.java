@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import javax.ejb.EJB;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

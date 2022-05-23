@@ -1,5 +1,13 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.util.List;
+
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
+import javax.ejb.EJB;
+
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -26,7 +34,7 @@ public class CuentaBB {
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
 	private List<CuentaFintech> listaEmpresasAutorizadas;
-	private Empresa emp;   //emp guarda la empresa que ha sido seleccionada
+	private String emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<Empresa> listaCuentasAutorizadas;
     private CuentaFintech cf;
     private String iban;
@@ -41,7 +49,7 @@ public class CuentaBB {
     public String getIban() {
     	return iban;
     }
-    public void se tIban(String i) {
+    public void setIban(String i) {
     	iban = i;
     }
    
@@ -61,10 +69,10 @@ public class CuentaBB {
     public String seleccionarEmpresa(String empresa) {
     	this.empresa = emp;
     	getCuentasAutorizadas();
-    	return "vistaEmpresaSeleccionada.xhtml"
+    	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
-    	this.cf = cuenta;
+    	this.cf = cuenta;  //CAMBIAR A EJB
     	iban = cuentaEJB.getIbanCuenta(cuenta);
     	return "vistaCuentaSaldo.xhtml";
     }
@@ -100,7 +108,6 @@ public class CuentaBB {
     	return "vistaConfirmarEliminar.xhtml";
     }
     
-    //IMPLEMENTAR CAMBIO DE DIVISA
     public String irCambioDivisa() {
     	trBB.setIban(iban);
     	return "vistaCambioDivisa.xhtml";
