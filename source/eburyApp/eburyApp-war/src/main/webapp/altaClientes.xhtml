@@ -8,22 +8,22 @@
         <title>Lista de clientes</title>
     </h:head>
     <h:body>
-        <c:choose>
-            <c:when test="#{empty infoSesion.usuario.esAdministrativo}">
+        <!-- <c:choose>
+            <c:when test="#{!infoSesion.usuario.esAdministrativo}">
                 <p>No tiene autorización para ver esta página, debe autenticarse.</p>
             </c:when>
-            <c:otherwise>
+            <c:otherwise> -->
                 <h:form id="contactos">
-                    <h:dataTable id="list" value="#{cliente.listInactivos}" var="c">
+                    <h:dataTable id="list" value="#{cliente.getListaInactivos()}" var="c">
                         <h:column>
                             <f:facet name="header">Identificacion</f:facet>
                             <h:outputText value="#{c.identificacion}"/>
                         </h:column>
                         
-                        <h:column>
+                       <!--  <h:column>
                             <f:facet name="header">Tipo de Cliente</f:facet>
-                            <h:outputText value="#{c.tipoCliente}"/>
-                        </h:column>
+                            <h:outputText value="#{c.tipo_Cliente}"/>
+                        </h:column> -->
                         
                         <h:column>
                             <f:facet name="header">Estado</f:facet>
@@ -37,11 +37,11 @@
                     </h:dataTable>
                     <h:message for="list"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras())}"/>
-                    <h:commandButton value="Refrescar" action="#{cliente.refescarAlta())}"/>
+                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
+                    <h:commandButton value="Refrescar" action="#{cliente.setListaInactivos()}"/>
                 </h:form>
-            </c:otherwise>
-        </c:choose>
+            <!-- </c:otherwise>
+        </c:choose> -->
  
     </h:body>
 </html>

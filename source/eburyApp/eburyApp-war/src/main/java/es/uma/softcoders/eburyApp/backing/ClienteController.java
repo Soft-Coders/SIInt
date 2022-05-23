@@ -77,12 +77,12 @@ public class ClienteController {
         }
 
         public String darBaja(Cliente c){
-            try{gestionCliente.altaCliente(c);}
+            try{gestionCliente.bajaCliente(c.getID());}
             catch(EburyAppException e){
-            FacesMessage fm = new FacesMessage("Error al dar de alta");
-            FacesContext.getCurrentInstance().addMessage("altaClientes:list", fm);}
+            FacesMessage fm = new FacesMessage("Error al dar de baja");
+            FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);}
 
-            return refrescarAlta();
+            return refrescarBaja();
         }
 
         public String goBaja(){
@@ -96,7 +96,7 @@ public class ClienteController {
         public String goModificarCliente(Cliente c){
             idCliente = c.getID();
             clienteBuffer = c;
-            return "modificarCliente.xhtml";
+            return "modificarClientes.xhtml";
         }
 
         public String modificarCliente(Cliente c){

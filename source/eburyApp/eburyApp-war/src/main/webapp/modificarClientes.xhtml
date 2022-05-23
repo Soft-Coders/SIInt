@@ -13,7 +13,7 @@
                 <h:form id="modificacion">
                     <h:panelGrid columns="3">
                         <h:outputText value="Identificacion:"/>
-                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}"required="true"/>
+                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}" required="true"/>
                         <h:message for="ident"/>
 
                         <h:outputText value="Tipo:"/>
@@ -41,7 +41,7 @@
                         <h:message for="cp"/>
 
                         <h:commandButton value="Modificar" action="#{cliente.modificarCliente()}"/>
-                        <h:link outcome="login.xhtml">Volver a la página de login</h:link>
+                        <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
                     </h:panelGrid>
                     <h:message for="modificacion"/>
                     <h:messages/>

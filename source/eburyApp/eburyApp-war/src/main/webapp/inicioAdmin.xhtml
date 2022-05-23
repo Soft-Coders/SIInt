@@ -8,27 +8,31 @@
         <title>Registro de usuario</title>
     </h:head>
     <h:body>
-        <c:choose>
-            <c:when test="#{infoSesion.usuario.esAdministrativo}">
-                <h:form id="registro">
-                    <h:panelGrid columns="3">
-
-                        <h:commandButton value="Alta de clientes" action="#{cliente.goAlta()}"/>
-                        <h:commandButton value="Baja de clientes" action="#{cliente.goBaja()}"/>
-                        <h:link outcome="login.xhtml">Volver a la página de login</h:link>
-                    </h:panelGrid>
-                    <h:messages/>
-                    
-                </h:form>
+        <!-- <c:choose>
+            <c:if test="#{!infoSesion.usuario.esAdministrativo}">
                 
-            </c:when>
-            <c:otherwise>
                 <h:form>
                     <p>Para crear un nuevo registro debe 
                         <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> antes de la aplicación.</p>
                 </h:form>
-            </c:otherwise>
-        </c:choose>
+            </c:when> -->
+            <!-- <c:if test="#{infoSesion.usuario.esAdministrativo}"> -->
+
+                <!-- <h:form id="registro">
+                    <h:panelGrid columns="3">
+ -->
+                        <!-- <h:commandButton value="Alta de clientes" action="#{cliente.goAlta()}"/>
+                        <h:commandButton value="Baja de clientes" action="#{cliente.goBaja()}"/> -->
+                        <h:link outcome="altaClientes.xhtml">Alta de clientes</h:link>
+                        <h:link outcome="bajaClientes.xhtml">Baja de clientes</h:link>
+                        <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                    <!-- </h:panelGrid> -->
+                    <!-- <h:messages/> -->
+                    
+                <!-- </h:form> -->
+                
+            <!-- </c:if> -->
+        <!-- </c:choose> -->
 
     </h:body>
 </html>
