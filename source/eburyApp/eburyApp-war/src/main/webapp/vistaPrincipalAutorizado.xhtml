@@ -23,6 +23,7 @@
     			<th>Código Postal</th>
     			<th>País</th>
     			<th>Razón Social</th>
+    			<th>Cuentas</th>
     		</tr>
     		<tbody>
 	    		<ui:repeat var="emp" value="#{CuentaBB.listaEmpresasAutorizadas}">
@@ -36,6 +37,9 @@
 		    			<td>#{emp.codigoPostal}</td>
 		    			<td>#{emp.pais}</td>
 		    			<td>#{emp.razonSocial}</td>
+		    			 <!-- AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE DICHA EMPRESA-->
+		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
+		    						action="#{CuentaBB.seleccionarEmpresa(emp)}" /></td>
 		    		</tr>
 	    			</h:panelGroup>
 	    		</ui:repeat>
