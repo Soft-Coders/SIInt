@@ -50,7 +50,13 @@ public class TransaccionBB {
     	cantidad = c;
     }
     
+    public String preguntarConfirmacionCambio() {
+    	return "vistaConfirmarCambio.xhtml";
+    }
     public void crearCambioDivisas() throws EburyAppException {
     	transaccionEJB.cambioDivisa(iban, divisaOrigen, divisaDestino, cantidad);
+    }
+    public String volverVistaSaldo() {
+    	return "vistaCuentaSaldo.xhtml";
     }
 } 

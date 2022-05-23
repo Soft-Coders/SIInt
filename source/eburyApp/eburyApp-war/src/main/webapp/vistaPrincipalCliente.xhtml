@@ -21,6 +21,7 @@
     			<th>Estado</th>
     			<th>Fecha Apertura</th>
     			<th>Fecha Cierre</th>
+    			<th>Saldo</th>
     		</tr>
     		<tbody>
 	    		<ui:repeat var="cue" value="#{CuentaBB.listaCuentasPropias}">
@@ -31,6 +32,8 @@
 		    			<td>#{cue.estado}</td>
 		    			<td>#{cue.fechaApertura}</td>
 		    			<td>#{cue.fechaCierre}</td>
+		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
+		    						action="#{CuentaBB.seleccionarCuenta(cue)}" /></td>
 		    		</tr>
 	    			</h:panelGroup>
 	    		</ui:repeat>

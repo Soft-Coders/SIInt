@@ -18,6 +18,9 @@ public class CuentaBB {
 	@EJB
 	private GestionCuenta cuentaEJB;
 	
+	@Inject
+	private TransaccionBB trBB;
+	
 	private String usuario;
 	private boolean individual;
 	private boolean autorizado;
@@ -60,6 +63,11 @@ public class CuentaBB {
     	getCuentasAutorizadas();
     	return "vistaEmpresaSeleccionada.xhtml"
     }
+    public String seleccionarCuenta(String cuenta) {
+    	this.cf = cuenta;
+    	iban = cuentaEJB.getIbanCuenta(cuenta);
+    	return "vistaCuentaSaldo.xhtml";
+    }
     
     private void getCuentasPropias() {
     	listaCuentasPropias = cuentaEJB.getCuentasFintechPropias(usuario);
@@ -90,5 +98,11 @@ public class CuentaBB {
     }
     public String vistaConfirmarEliminar(){
     	return "vistaConfirmarEliminar.xhtml";
+    }
+    
+    //IMPLEMENTAR CAMBIO DE DIVISA
+    public String irCambioDivisa() {
+    	trBB.setIban(iban);
+    	return "vistaCambioDivisa.xhtml";
     }
 } 

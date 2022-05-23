@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
@@ -93,6 +94,12 @@ public class CuentaEJB implements GestionCuenta{
 			}
 		}
 		return a;
+	}
+	
+	public String getIbanCuenta(String cuenta) {
+		Cuenta c = em.find(Cuenta.class, cuenta);
+		return c.getIban();
+		
 	}
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
