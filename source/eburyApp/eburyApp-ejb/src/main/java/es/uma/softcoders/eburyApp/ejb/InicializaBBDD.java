@@ -82,8 +82,8 @@ public class InicializaBBDD {
 		cuentasP33.add(segregadaFR);
 		cuentasP33.add(segregadaDE);
 		empresaP33.setIdentificacion("P3310693A");
-		empresaP33.setTipo_cliente("EMPRESA");
-		empresaP33.setFecha_Alta(new Date());
+		empresaP33.setTipoCliente("EMPRESA");
+		empresaP33.setFechaAlta(new Date());
 		empresaP33.setEstado("ACTIVO");
 		empresaP33.setDireccion("Direccion");
 		empresaP33.setCiudad("Málaga");
@@ -96,8 +96,8 @@ public class InicializaBBDD {
 		List<CuentaFintech> cuentas639 = new ArrayList<CuentaFintech>();
 		cuentas639.add(pooledES);
 		individual639.setIdentificacion("63937528N");
-		individual639.setTipo_cliente("INDIVIDUAL");
-		individual639.setFecha_Alta(new Date());
+		individual639.setTipoCliente("INDIVIDUAL");
+		individual639.setFechaAlta(new Date());
 		individual639.setEstado("ACTIVO");
 		individual639.setDireccion("Direccion");
 		individual639.setCiudad("Madrid");
