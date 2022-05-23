@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Local;
 
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
@@ -54,4 +55,9 @@ public interface GestionCuenta {
 	 * @return
 	 */
 	public boolean esAutorizado(String usuario);
+	
+	public String getIbanCuenta(String cuenta);
+	public CuentaFintech getCuentaFintech(String cuenta);
+	public List<Empresa> getEmpresasAutorizadas(String usuario);
+	public List<CuentaFintech> getCuentasAutorizadas(String empresa);
 }
