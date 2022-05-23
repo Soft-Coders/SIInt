@@ -7,21 +7,21 @@
        xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<title>Crear Cuenta</title>
+	<title>Eliminar Cuenta</title>
 </h:head>
 
 <h:body>
-	<!-- Formulario para crear una nueva cuenta fintech -->
-	<h1>Crear Cuenta</h1>
+	<!-- Formulario para seleccionar la cuenta a eliminar -->
+	<h1>Eliminar Cuenta</h1>
 	
 	<h:form>
-    	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
+    	<h:outputLabel>Introduzca el IBAN de la cuenta a eliminar</h:outputLabel>
     	<h:panelGrid columns="2">
 			<h:outputText value="IBAN:"/>
 			<h:inputText value="#{CuentaBB.iban}"/>
 		</h:panelGrid>
     	<br/>
-    	<h:commandButton value="Crear Cuenta" action="#{CuentaBB.crearCuentaF()}"/>
+    	<h:commandButton value="Eliminar Cuenta" action="#{CuentaBB.vistaConfirmarEliminar()}"/>
 	</h:form>
 	
 	<!-- Parte baja de la página: tiene un botón para cambiar de vista a la principal -->

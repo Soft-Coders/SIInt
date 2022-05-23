@@ -14,14 +14,37 @@
 	<!-- Parte superior de la página: tiene una lista con las cuentas a las que puede acceder el usuario -->
 	<!-- Aparece una lista con las cuentas de las que es propietario -->
 	<h1>Mis cuentas</h1>
+	<table>
+    		<tr>
+    			<th>IBAN</th>
+    			<th>Swift</th>
+    			<th>Estado</th>
+    			<th>Fecha Apertura</th>
+    			<th>Fecha Cierre</th>
+    		</tr>
+    		<tbody>
+	    		<ui:repeat var="cue" value="#{CuentaBB.listaCuentasPropias}">
+	    			<h:panelGroup>
+	   			  	<tr>
+		    			<td>#{cue.iban}</td>
+		    			<td>#{cue.swift}</td>
+		    			<td>#{cue.estado}</td>
+		    			<td>#{cue.fechaApertura}</td>
+		    			<td>#{cue.fechaCierre}</td>
+		    		</tr>
+	    			</h:panelGroup>
+	    		</ui:repeat>
+    		</tbody>
+    	</table>
 	
-	
-	
-	<!-- Parte baja de la página: tiene un botón para cambiar de vista a crear una cuenta nueva -->
+	<!-- Parte baja de la página: tiene un botón para cambiar de vista a crear una cuenta nueva o dar de baja una existente -->
 	<div>
 		<h:form>
 			<div class="btn">
 				<h:commandButton value="Crear Cuenta" action="#{CuentaBB.vistaCrearCuenta()}"/>
+			</div>
+			<div class="btn">
+				<h:commandButton value="Eliminar Cuenta" action="#{CuentaBB.vistaEliminarCuenta()}"/>
 			</div>
 		</h:form>
 	</div>

@@ -10,6 +10,7 @@ import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
@@ -70,6 +71,29 @@ public class CuentaEJB implements GestionCuenta{
 		}
 	}
 	
+	public boolean esIndividual(String usuario) {
+		boolean a = false;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			Individual ind = u.getIndividual();
+			if (ind != null) {
+				a = true;
+			}
+		}
+		return a;
+	}
+
+	public boolean esAutorizado(String usuario) {
+		boolean a = false;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada pau = u.getPersonaAutorizada();
+			if (pau != null) {
+				a = true;
+			}
+		}
+		return a;
+	}
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
 	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
@@ -91,7 +115,19 @@ public class CuentaEJB implements GestionCuenta{
 		return (List<CuentaFintech>)query.getResultList();
 	}
 	
-	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> getEmpresasAutorizadas(String usuario){
+		Query query = null;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada pau = u.getPersonaAutorizada();
+			if (pau != null) {
+				query = em.createQuery("SELECT a FROM EMPRESA a WHERE a.autorizacion LIKE :idpau")
+						.setParameter("idpau", pau);
+			}
+		}
+		return (List<Empresa>)query.getResultList();
+	}
 	/*
 	public List<CuentaFintech> getCuentasFintechAutorizadas(String usuario){
 		Query query = null;

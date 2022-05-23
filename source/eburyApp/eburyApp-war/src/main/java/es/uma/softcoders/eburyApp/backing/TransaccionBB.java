@@ -14,7 +14,7 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 @RequestScoped
 public class TransaccionBB {
 	
-	@Inject
+	@EJB
 	private GestionTransaccion transaccionEJB;
 	
     private String iban;

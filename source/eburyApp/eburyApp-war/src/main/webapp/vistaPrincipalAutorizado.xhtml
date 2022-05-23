@@ -11,10 +11,36 @@
 </h:head>
 
 <h:body>
-	<!-- Parte superior de la página: tiene una lista con las cuentas a las que puede acceder el usuario -->
 	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
 	<h1>Mis empresas</h1>
-	
+	<table>
+    		<tr>
+    			<th>Identificación</th>
+    			<th>Estado</th>
+    			<th>Fecha Alta</th>
+    			<th>Dirección</th>
+    			<th>Ciudad</th>
+    			<th>Código Postal</th>
+    			<th>País</th>
+    			<th>Razón Social</th>
+    		</tr>
+    		<tbody>
+	    		<ui:repeat var="emp" value="#{CuentaBB.listaEmpresasAutorizadas}">
+	    			<h:panelGroup>
+	   			  	<tr>
+		    			<td>#{emp.identificacion}</td>
+		    			<td>#{emp.estado}</td>
+		    			<td>#{emp.fechaAlta}</td>
+		    			<td>#{emp.direccion}</td>
+		    			<td>#{emp.ciudad}</td>
+		    			<td>#{emp.codigoPostal}</td>
+		    			<td>#{emp.pais}</td>
+		    			<td>#{emp.razonSocial}</td>
+		    		</tr>
+	    			</h:panelGroup>
+	    		</ui:repeat>
+    		</tbody>
+    	</table>
 </h:body>
 
 </html> 

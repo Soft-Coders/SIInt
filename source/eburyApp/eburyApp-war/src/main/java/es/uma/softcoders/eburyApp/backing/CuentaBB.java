@@ -15,11 +15,14 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 @RequestScoped
 public class CuentaBB {
 	
-	@Inject
+	@EJB
 	private GestionCuenta cuentaEJB;
 	
 	private String usuario;
+	private boolean individual;
+	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
+	private List<CuentaFintech> listaEmpresasAutorizadas;
     private CuentaFintech cf;
     private String iban;
     
@@ -42,10 +45,21 @@ public class CuentaBB {
     }
     public void setUsuario(String u) {
     	usuario = u;
+    	// TODO IMPLEMENTAR LOS MÉTODOS SIGUIENTES EN CUENTAEJB: esIndividual (String usuarui), esAutorizado(String usuario),
+    	individual = cuentaEJB.esIndividual(u);
+    	autorizado = cuentaEJB.esAutorizado(u);
+    	if (individual == true) {
+    		getCuentasPropias();
+    	} else if (autorizado == true) {
+    		getEmpresasAutorizadas();
+    	}
     }
     
-    public void getCuentasPropias() {
-    	cuentaEJB.getCuentasFintechPropias(usuario);
+    private void getCuentasPropias() {
+    	listaCuentasPropias = cuentaEJB.getCuentasFintechPropias(usuario);
+    }
+    private void getEmpresasAutorizadas() {
+    	listaEmpresasAutorizadas = cuentaEJB.getEmpresasAutorizadas(usuario);
     }
     
     public void crearCuentaF() throws EburyAppException {
@@ -59,7 +73,13 @@ public class CuentaBB {
     public String vistaCrearCuenta() {
 		return "vistaCrearCuentaFintech.xhtml";
 	}
+    public String vistaEliminarCuenta() {
+		return "vistaEliminarCuentaFintech.xhtml";
+	}
     public String vistaPrincipalCliente() {
     	return "vistaPrincipalCliente.xhtml";
+    }
+    public String vistaConfirmarEliminar(){
+    	return "vistaConfirmarEliminar.xhtml";
     }
 } 

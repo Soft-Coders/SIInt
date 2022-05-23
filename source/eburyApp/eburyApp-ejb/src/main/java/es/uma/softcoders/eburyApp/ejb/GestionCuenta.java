@@ -40,4 +40,18 @@ public interface GestionCuenta {
 	 * @return lista de cuentas fintech asociadas
 	 */
 	public List<CuentaFintech> getCuentasFintechPropias(String usuario);
+	
+	/**
+	 * Este método devuelve si el usuario con identificación pasada por parámetro es individual o no
+	 * @param usuario
+	 * @return
+	 */
+	public boolean esIndividual(String usuario);
+	
+	/**
+	 * Este método devuelve si el usuario con identificación pasada por parámetro es autorizado o no
+	 * @param usuario
+	 * @return
+	 */
+	public boolean esAutorizado(String usuario);
 }
