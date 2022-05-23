@@ -1,5 +1,6 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.ejb.EJB;
@@ -25,7 +26,7 @@ import es.uma.softcoders.eburyApp.exceptions.UsuarioYaExistenteException;
 
 @Named(value = "registro")
 @RequestScoped
-public class Registro {
+public class Registro implements Serializable{
 
 		@EJB
 		private GestionUsuario gestionUsuario;
