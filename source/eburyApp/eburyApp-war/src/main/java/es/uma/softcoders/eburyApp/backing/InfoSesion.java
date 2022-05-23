@@ -17,10 +17,18 @@ public class InfoSesion implements Serializable{
 	
         
         
-        private Usuario usuario;
+        private Usuario usuario = null;
 
         public InfoSesion(){
 
+        }
+        
+        public synchronized String mainIndividual() {
+        	return "vistaPrincipalCliente.xhtml";
+        }
+        
+        public synchronized String mainAutorizado() {
+        	return "vistaPrincipalAutorizado.xhtml";
         }
 
         public synchronized String invalidarSesion(){
@@ -47,5 +55,22 @@ public class InfoSesion implements Serializable{
         public synchronized Usuario getUsuario(){
                 return this.usuario;
         }
+
+        //Lo he comentado, ya que la comprobación la hago en el propio .xhmtl
+        /*public synchronized String hayCliente(){
+                if(usuario.getIndividual()==null){
+                        return "registro.xhtml";
+                }else{
+                        return "vistaPrincipalCliente.xhtml";
+                }
+        }
+        
+        public synchronized String hayAutorizado(){
+                if(usuario.getPersonaAutorizada()==null){
+                        return "registro.xhtml";
+                }else{
+                        return "vistaPrincipalAutorizado.xhtml";
+                }
+        }*/
 
 } 

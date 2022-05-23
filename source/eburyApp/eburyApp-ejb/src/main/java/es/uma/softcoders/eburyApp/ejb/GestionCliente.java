@@ -1,17 +1,36 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 public interface GestionCliente {
+
+    public List<Cliente> clientesInactivos() throws EburyAppException;
+
+    public List<Cliente> clientesActivos() throws EburyAppException;
+    
+    /**
+     * La aplicación permitirá dar de alta a un cliente ya creado
+     * @param c
+     * @param usuario
+     * @param password
+     * @throws EburyAppException
+     */
+    public void altaCliente(Long c, Long usuario, String password) throws  EburyAppException;
     
     /**
      * La aplicacion permitira crear un cliente y añadirlo a la base de datos,
-     * dependiendo del tipo de cliente que se de de alta
-     * @param c     Cliente a dar de alta en el sistema
+     * @param c     	Cliente a registrar en el sistema
+     * @param usuario 	usuario perteneciente al cliente
+     * @param password 	contraseña perteneciente al usuario del cliente
      * @throws EburyAppException 
 	 */
-    public void altaCliente(Cliente c, Long usuario, String password) throws  EburyAppException;
+    public void registrarCliente(Cliente c, Long usuario, String password) throws EburyAppException;
+    
+    public void registrarEmpresa(Cliente c, Long idPersAut, Character cuenta)throws EburyAppException;
+    
     /**
      * La aplicacion permitira modificar los datos de los clientes tras rellenar un formulario,
      * se comprobará que los datos obligatorios no sean nulos y en caso de ser clientes empresa o individual

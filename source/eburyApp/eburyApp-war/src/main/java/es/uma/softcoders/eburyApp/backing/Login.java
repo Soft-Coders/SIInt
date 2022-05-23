@@ -47,7 +47,7 @@ public class Login implements Serializable{
 			try {
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
 	            sesion.setUsuario(usuario);
-	            return "inicio.xhtml";
+	            return "inicioUsuario.xhtml";
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");
@@ -67,7 +67,7 @@ public class Login implements Serializable{
 	            login.loginAdmin(usuario.getUsuario(), usuario.getClave());
 				usuario.setEsAdministrativo(true);
 	            sesion.setUsuario(usuario);
-	            return "inicio.xhtml";
+	            return "inicioAdmin.xhtml";
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");

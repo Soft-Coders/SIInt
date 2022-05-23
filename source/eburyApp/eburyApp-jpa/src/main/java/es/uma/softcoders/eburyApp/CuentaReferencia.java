@@ -47,7 +47,7 @@ public class CuentaReferencia extends Cuenta implements Serializable{
 	
 	// ID es heredado de Cuenta
 	
-	@Column(name = "NOMBRE_BANCO", nullable = false, length = 20)
+	@Column(name = "NOMBRE_BANCO", nullable = false, length = 40)
 	private String 	nombreBanco;
 	@Column(length = 20)
 	private String 	sucursal;
