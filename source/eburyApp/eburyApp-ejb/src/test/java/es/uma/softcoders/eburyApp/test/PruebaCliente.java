@@ -53,9 +53,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -76,9 +76,9 @@ public class PruebaCliente {
 			
 			Empresa c = new Empresa();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -97,9 +97,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion(null);
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -119,9 +119,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(null);
+			c.setFechaAlta(null);
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -141,9 +141,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad(null);
 			c.setCodigoPostal("29010");
@@ -163,9 +163,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal(null);
@@ -184,9 +184,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -206,9 +206,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -228,9 +228,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -252,9 +252,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -275,9 +275,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -298,9 +298,9 @@ public class PruebaCliente {
 			
 			Empresa c = new Empresa();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle prueba, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
@@ -336,9 +336,9 @@ public class PruebaCliente {
 			
 			Individual c = new Individual();
 			c.setIdentificacion("0001");
-			c.setTipo_cliente("INDIVIDUAL");
+			c.setTipoCliente("INDIVIDUAL");
 			c.setEstado("BAJA");
-			c.setFecha_Alta(date.parse("2022-05-12"));
+			c.setFechaAlta(date.parse("2022-05-12"));
 			c.setDireccion("Calle tontonabo, 32");
 			c.setCiudad("Malaga");
 			c.setCodigoPostal("29010");
