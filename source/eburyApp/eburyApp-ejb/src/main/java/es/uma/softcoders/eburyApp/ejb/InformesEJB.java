@@ -168,29 +168,39 @@ public class InformesEJB implements GestionInformes{
 				paPredicate += "i.fechaInicio = :startPeriod";
 			}
 			if(endPeriod != null) {
-				if(iPredicate.length() > predicateLength)
-					paPredicate += iPredicate += " AND ";
+				if(iPredicate.length() > predicateLength) {
+					iPredicate += " AND ";
+					paPredicate += " AND ";
+				}
 				iPredicate += "i.fechaBaja = :endPeriod";
 				paPredicate += "i.fechaFin = :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
-					if(iPredicate.length() > predicateLength)
-						paPredicate += iPredicate += " AND ";
-					paPredicate += iPredicate += "i.nombre = '" + firstName + "'";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
+					iPredicate += "i.nombre = '" + firstName + "'";
+					paPredicate += "i.nombre = '" + firstName + "'";;
 				}
 				if(lastName != null) {
-					if(iPredicate.length() > predicateLength)
-						paPredicate += iPredicate += " AND ";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
 					iPredicate += "i.apellido = '" + lastName + "'";
 					paPredicate += "i.apellidos = '" + lastName + "'";
 				}
 			}
 			if(address != null) {
 				if(street != null) {
-					if(iPredicate.length() > predicateLength)
-						paPredicate += iPredicate += " AND ";
-					paPredicate += iPredicate += "i.direccion = '" + street + "'";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
+					iPredicate += "i.direccion = '" + street + "'";
+					paPredicate += "i.direccion = '" + street + "'";;
 				}
 				if(city != null) {
 					if(iPredicate.length() > predicateLength)
