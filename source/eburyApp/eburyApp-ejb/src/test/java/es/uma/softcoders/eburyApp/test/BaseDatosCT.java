@@ -55,11 +55,11 @@ public class BaseDatosCT {
 		
 		//Cliente individual
 		Individual c = new Individual();
-		c.setID(Long.valueOf(0001));
+		c.setId(Long.valueOf(0001));
 		c.setIdentificacion("0001");
-		c.setTipo_cliente("INDIVIDUAL");
+		c.setTipoCliente("INDIVIDUAL");
 		c.setEstado("ACTIVO");
-		c.setFecha_Alta(date.parse("2022-05-12"));
+		c.setFechaAlta(date.parse("2022-05-12"));
 		c.setDireccion("Calle prueba, 32");
 		c.setCiudad("Malaga");
 		c.setCodigoPostal("29010");
@@ -70,11 +70,11 @@ public class BaseDatosCT {
 		
 		//Cliente judírico (empresa)
 		Empresa e = new Empresa();
-		e.setID(1111L);
+		e.setId(1111L);
 		e.setIdentificacion("1111");
-		e.setTipo_cliente("EMPRESA");
+		e.setTipoCliente("EMPRESA");
 		e.setEstado("BAJA");
-		e.setFecha_Alta(date.parse("2022-05-12"));
+		e.setFechaAlta(date.parse("2022-05-12"));
 		e.setDireccion("Calle prueba, 32");
 		e.setCiudad("Malaga");
 		e.setCodigoPostal("29010");
@@ -192,20 +192,20 @@ public class BaseDatosCT {
 		//Empresas
 		Empresa em1 = new Empresa("Empresa1");
 		Empresa em2 = new Empresa("Empresa2");
-		em1.setID((long)123);
-		em2.setID((long)456);
+		em1.setId((long)123);
+		em2.setId((long)456);
 		em1.setIdentificacion("Empresa1");
 		em2.setIdentificacion("Empresa2");
-		em1.setTipo_cliente("EMPRESA");
-		em2.setTipo_cliente("EMPRESA");
+		em1.setTipoCliente("EMPRESA");
+		em2.setTipoCliente("EMPRESA");
 		em1.setEstado("Activo");
-		em1.setFecha_Alta(new Date());
+		em1.setFechaAlta(new Date());
 		em1.setDireccion("Calle calle, 0");
 		em1.setCiudad("Málaga");
 		em1.setCodigoPostal("29000");
 		em1.setPais("Esp");
 		em2.setEstado("Activo");
-		em2.setFecha_Alta(new Date());
+		em2.setFechaAlta(new Date());
 		em2.setDireccion("Calle calle, 0");
 		em2.setCiudad("Málaga");
 		em2.setCodigoPostal("29000");
