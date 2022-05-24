@@ -66,13 +66,13 @@ public class LoginEJB implements GestionLogin {
         PersonaAutorizada pA = u.getPersonaAutorizada();
         Individual ind = u.getIndividual();
         
-        if(pA != null){
+        /*if(pA != null){
             gestionCliente.comprobarAutorizado(pA.getId());
         }
         
         if(ind != null){
             gestionCliente.comprobarCliente(ind.getId());
-        }
+        }*/
     }
 
 }
