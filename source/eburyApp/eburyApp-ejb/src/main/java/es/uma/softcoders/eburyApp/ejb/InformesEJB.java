@@ -245,6 +245,9 @@ public class InformesEJB implements GestionInformes{
 				if(endPeriod != null) {
 					Date epDate = dateConvertion(endPeriod);
 					
+					if(spDate.compareTo(epDate) > 0)
+						throw new InvalidJSONQueryException("\"endPeriod\" cannot be before \"startPeriod\"");
+					
 					iQuery.setParameter("endPeriod", epDate);
 					paQuery.setParameter("endPeriod", epDate);
 				}
