@@ -237,7 +237,7 @@ public class InformesEJB implements GestionInformes{
 				throw new InvalidJSONQueryException("-@@ 0 @@- => " + e.getMessage());
 			}
 			if(startPeriod != null) {
-				Date spDate = dateConvertion(endPeriod);
+				Date spDate = dateConvertion(startPeriod);
 				
 				iQuery.setParameter("startPeriod", spDate);
 				paQuery.setParameter("startPeriod", spDate);
