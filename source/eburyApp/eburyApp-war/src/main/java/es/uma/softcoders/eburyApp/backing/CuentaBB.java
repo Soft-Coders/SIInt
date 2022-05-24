@@ -33,9 +33,9 @@ public class CuentaBB {
 	private boolean individual;
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
-	private List<CuentaFintech> listaEmpresasAutorizadas;
+	private List<Empresa> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
-	private List<Empresa> listaCuentasAutorizadas;
+	private List<CuentaFintech> listaCuentasAutorizadas;
     private CuentaFintech cf;
     private String iban;
     
@@ -53,7 +53,7 @@ public class CuentaBB {
     	iban = i;
     }
    
-    public Usuario getUsuario() {
+    public String getUsuario() {
     	return usuario;
     }
     public void setUsuario(String u) {
@@ -67,12 +67,12 @@ public class CuentaBB {
     	}
     }
     public String seleccionarEmpresa(String empresa) {
-    	this.empresa = emp;
+    	this.emp = empresa;
     	getCuentasAutorizadas();
     	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
-    	this.cf = cuenta;  //CAMBIAR A EJB
+    	this.cf = cuentaEJB.getCuentaFintech(cuenta);  
     	iban = cuentaEJB.getIbanCuenta(cuenta);
     	return "vistaCuentaSaldo.xhtml";
     }
@@ -84,7 +84,7 @@ public class CuentaBB {
     	listaEmpresasAutorizadas = cuentaEJB.getEmpresasAutorizadas(usuario);
     }
     private void getCuentasAutorizadas() {
-    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(usuario, emp);
+    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
     }
     
     public void crearCuentaF() throws EburyAppException {
