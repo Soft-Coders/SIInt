@@ -12,15 +12,15 @@
 	                              <h:commandButton value="registroIndividual" action="#{registro.registroIndividual()}">Crear una cuenta Ebury</h:commandButton>
 	                        </c:when>
 	                        <c:otherwise>
-	                              <h:commandButton value="mainIndividual" action="#{infoSesion.vistaPrincipalCliente}"></h:commandButton>
+	                              <h:commandButton value="mainIndividual" action="#{infoSesion.mainCliente()}"></h:commandButton>
 	                        </c:otherwise>
 	                  </c:choose>
 	                  <c:choose>
 	                        <c:when test="#{empty infoSesion.usuario.getPersonaAutorizada()}">
-	                              <h:commandButton value="registroAutorizado" action="#{registro.registroAutorizado}">Crear una cuenta de autorizado</h:commandButton>
+	                              <h:commandButton value="registroAutorizado" action="#{registro.registroAutorizado()}">Crear una cuenta de autorizado</h:commandButton>
 	                        </c:when>
 	                        <c:otherwise>
-	                              <h:commandButton value="mainAutorizado" action="#{infoSesion.vistaPrincipalAutorizado}"></h:commandButton>
+	                              <h:commandButton value="mainAutorizado" action="#{infoSesion.mainAutorizado()}"></h:commandButton>
 	                        </c:otherwise>
 	                  </c:choose>
 	            </h:panelGrid>
