@@ -32,6 +32,8 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 @Stateless
 public class InformesEJB implements GestionInformes{
 	
+	private static final Date EPOCH = new Date(0,0,1);
+
 	private static final String N_E = "noexistente";
 	
 	@PersistenceContext(unitName = "eburyAppEjb")
@@ -111,7 +113,7 @@ public class InformesEJB implements GestionInformes{
 	 * 
 	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
-	 * @return Lista de las <b>Clientes</b>que cumplen las condiciones de la consulta
+	 * @return Lista de las <b>Clientes</b> que cumplen las condiciones de la consulta
 	 * @throws InvalidJSONQueryException 
 	 */
 	@SuppressWarnings("deprecation")
@@ -163,17 +165,9 @@ public class InformesEJB implements GestionInformes{
 					System.out.println("> " + param.toString());
 			System.out.println("=======");
 			
-			if(startPeriod != null) {
-				iPredicate += "i.fechaAlta = :startPeriod";
-				paPredicate += "i.fechaInicio = :startPeriod";
-			}
-			if(endPeriod != null) {
-				if(iPredicate.length() > predicateLength) {
-					iPredicate += " AND ";
-					paPredicate += " AND ";
-				}
-				iPredicate += "i.fechaBaja = :endPeriod";
-				paPredicate += "i.fechaFin = :endPeriod";
+			if(startPeriod != null || endPeriod != null) {
+				iPredicate += "i.fechaAlta BETWEEN :startPeriod AND :endPeriod";
+				paPredicate += "i.fechaInicio BETWEEN :startPeriod AND :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
@@ -243,50 +237,32 @@ public class InformesEJB implements GestionInformes{
 				throw new InvalidJSONQueryException("-@@ 0 @@- => " + e.getMessage());
 			}
 			if(startPeriod != null) {
-				try {
+				Date spDate = dateConvertion(endPeriod);
+				
+				iQuery.setParameter("startPeriod", spDate);
+				paQuery.setParameter("startPeriod", spDate);
+				
+				if(endPeriod != null) {
+					Date epDate = dateConvertion(endPeriod);
 					
-					String[] dateArr = startPeriod.split("-");
-					int year = Integer.parseInt(dateArr[0]);
-					if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
-						throw new InvalidJSONQueryException("startPeriod.year NOT VALID");
-					int month = Integer.parseInt(dateArr[1]);
-					if(month < 1 || month > 12)
-						throw new InvalidJSONQueryException("startPeriod.month NOT VALID");
-					int day = Integer.parseInt(dateArr[2]);
-					if(day < 1 || day > 31)
-						throw new InvalidJSONQueryException("startPeriod.day NOT VALID");
-					Date spDate = new Date(year-1900, month, day);			// Deprecated -> Cambiar tipo a Calendar? TODO
-					iQuery.setParameter("startPeriod", spDate);
-					paQuery.setParameter("startPeriod", spDate);
-					
-				}catch(NullPointerException e) {
-					throw new InvalidJSONQueryException("startPeriod NOT VALID");
-				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 1 @@- -> " + iPredicate + " <-");
-				}
-			}
-			if(endPeriod != null) {
-				try {
-					
-					String[] dateArr = endPeriod.split("-");
-					int year = Integer.parseInt(dateArr[0]);
-					if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
-						throw new InvalidJSONQueryException("endPeriod.year NOT VALID");
-					int month = Integer.parseInt(dateArr[1]);
-					if(month < 1 || month > 12)
-						throw new InvalidJSONQueryException("endPeriod.month NOT VALID");
-					int day = Integer.parseInt(dateArr[2]);
-					if(day < 1 || day > 31)
-						throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
-					Date epDate = new Date(year-1900, month, day);
 					iQuery.setParameter("endPeriod", epDate);
 					paQuery.setParameter("endPeriod", epDate);
-					
-				}catch(NullPointerException e) {
-					throw new InvalidJSONQueryException("endPeriod NOT VALID");
-				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 2 @@- -> " + iPredicate + " <-");
 				}
+				else {
+					iQuery.setParameter("endPeriod", new Date());
+					paQuery.setParameter("endPeriod", new Date());
+				}
+			}
+			else if(endPeriod != null) {
+				
+				Date epDate = dateConvertion(endPeriod);
+				
+				iQuery.setParameter("endPeriod", epDate);
+				paQuery.setParameter("endPeriod", epDate);
+				
+				iQuery.setParameter("startPeriod", EPOCH);
+				paQuery.setParameter("startPeriod", EPOCH);
+				
 			}
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("customer COULD NOT BE CAST PROPERLY " + e.getMessage());
@@ -302,6 +278,40 @@ public class InformesEJB implements GestionInformes{
         System.out.println("R>>>>>>>\n" + results);
         
 		return results;
+	}
+	
+	/**
+	 * Método privado que transforma una <b>String</b> que contiene una fecha de formato YYYY-MM-DD en un objeto <b>Date</b>.
+	 * También comprueba que la fecha sea válida.
+	 * 
+	 * @param period <b>String</b> que contiene una fecha de formato YYYY-MM-DD
+	 * @author Ignacio Lopezosa
+	 * @return Objeto <b>Date</b> que coincide con la fecha de entrada
+	 * @throws InvalidJSONQueryException 
+	 */
+	private Date dateConvertion(String period) throws InvalidJSONQueryException {
+		try {
+			
+			String[] dateArr = period.split("-");
+			int year = Integer.parseInt(dateArr[0]);
+			if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
+				throw new InvalidJSONQueryException("endPeriod.year NOT VALID");
+			int month = Integer.parseInt(dateArr[1]);
+			if(month < 1 || month > 12)
+				throw new InvalidJSONQueryException("endPeriod.month NOT VALID");
+			int day = Integer.parseInt(dateArr[2]);
+			if(day < 1 || day > 31)
+				throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
+			Date epDate = new Date(year-1900, month-1, day);		// Month from 0 - 11
+			
+			System.out.println("endPeriod:\n=======\n" + epDate + "\n=======");
+			
+			return epDate;
+		}catch(NullPointerException e) {
+			throw new InvalidJSONQueryException("endPeriod NOT VALID");
+		}catch(IllegalArgumentException e) {
+			throw new InvalidJSONQueryException("-@@ 3 @@- -> " + period + " <-");
+		}
 	}
 	
 	/**
