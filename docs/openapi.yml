@@ -1,0 +1,153 @@
+openapi: 3.0.1
+info:
+  title: API para Reporte Regulatorio de Holanda por Ebury.
+  description: Esta API permite a las entidades regulatorias de Holanda, presumiblemente el Ministerio de Justicia Holandés, consultar la información de los clientes y cuentas a cargo de la empresa Ebury.
+  version: 1.0.0
+servers:
+- url: http://localhost:8080/eburyApp-war/api/
+tags:
+- name: healthcheck
+  description: Este endpoint comprueba que el servicio REST se encuentre disponible.
+- name: clients
+  description: Devuelve información de los clientes que cumplen una determinada cadena de consulta.
+- name: products
+  description: Devuelve información de las cuentas que cumplen una determinada cadena de consulta.
+  
+paths:
+  /healthcheck:
+    get:
+      tags:
+      - healthcheck
+      summary: Devuelve "OK" si existe conexión con la API REST.
+    responses:
+      200:
+        description: (OK) El servicio REST está disponible para consulta.
+        content:
+          text/plain:
+            schema:
+              type:
+      
+  /clients:
+    post:
+      tags:
+      - clients
+      summary: Devuelve información de los clientes que cumplen una determinada cadena de consulta.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyClients'
+        required: true
+      responses:
+        200:
+          description: (OK) La consulta se ha procesado sin errores y se ha devuelto la lista de clientes adecuada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseClientsSuccess'
+          
+          
+components:
+  #responses:
+  
+  schemas:
+    BodyClients:
+      type: object
+      required:
+      - searchParameters
+      properties:
+        searchParameters:
+          type: object
+          properties:
+            name:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  description: Nombre de cliente(s).
+                lastName:
+                  type: string
+                  description: Apellido(s) de cliente(s).
+            startPeriod:
+              type: string
+              description: Fecha de búsqueda para clientes dados de alta después de esta.
+              format: yyyy-mm-dd
+            endPeriod:
+              type: string
+              description: Fecha de búsqueda para clientes dados de alta antes de esta.
+              format: yyyy-mm-dd
+            address:
+                type: object
+                properties:
+                  streetNumber:
+                    type: string
+                    description: Calle y número de la residencia de cliente(s)
+                  postalCode:
+                    type: string
+                    description: Código postal de la residencia de cliente(s)
+                  city:
+                    type: string
+                    description: Ciudad de residencia de cliente(s)
+                  country:
+                    type: string
+                    description: País de residencia de cliente(s)
+      
+    ResponseClientsSuccess:
+      type: object
+      properties:
+        Individual:
+          type: array
+          description: Array de los clientes que cumplen las condiciones de la consulta.
+          items:
+            type: object
+            properties:
+              products:
+                type: array
+                description: Array de las cuentas a nombre del cliente
+                items:
+                  type: object
+                  properties:
+                    productNumber:
+                      type: string
+                      description: IBAN de la cuenta del cliente
+                    status:
+                      type: string
+                      description: Estado de la cuenta del cliente
+                      enum: ["activa", "inactiva"]
+                    relationship:
+                      type: string
+                      description: Relación del cliente con la cuenta.
+                      enum: ["propietaria", "autorizada"]
+              activeCustomer:
+                type: boolean
+                description: Si el cliente está o no activo
+              identificationNumber:
+                type: string
+                description: Número de identificación del cliente
+              dateOfBirth:
+                type: string
+                description: Fecha de nacimiento del cliente
+              name:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    description: Nombre de cliente(s).
+                  lastName:
+                    type: string
+                    description: Apellido(s) de cliente(s).
+              address:
+                type: object
+                properties:
+                  streetNumber:
+                    type: string
+                    description: Calle y número de la residencia del cliente
+                  postalCode:
+                    type: string
+                    description: Código postal de la residencia del cliente
+                  city:
+                    type: string
+                    description: Ciudad de residencia del cliente
+                  country:
+                    type: string
+                    description: País de residencia del cliente
