@@ -1,11 +1,14 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Cliente;
@@ -13,8 +16,8 @@ import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 @Named(value = "cliente")
-@RequestScoped
-public class ClienteController {
+@ViewScoped
+public class ClienteController implements Serializable{
 
         @EJB
         private GestionCliente gestionCliente;
@@ -38,6 +41,7 @@ public class ClienteController {
         } 
 
         public List<Cliente> getListaInactivos(){
+            setListaInactivos();
             return listInactivos;
         }
         
@@ -50,11 +54,11 @@ public class ClienteController {
         } 
 
         public List<Cliente> getListaActivos(){
+            setListaActivos();
             return listActivos;
         }
 
         public String refrescarBaja(){
-            setListaActivos();
             return "bajaClientes.xhtml";
         }
 
@@ -63,7 +67,6 @@ public class ClienteController {
         }
 
         public String refrescarAlta(){
-            setListaInactivos();
             return "altaClientes.xhtml";
         }
 

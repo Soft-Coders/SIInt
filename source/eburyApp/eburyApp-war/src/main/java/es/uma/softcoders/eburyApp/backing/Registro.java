@@ -52,6 +52,14 @@ public class Registro implements Serializable{
     	    individual.setFechaAlta(new Date());
         }
 		
+	    public Individual getIndividual() {
+	    	return individual;
+	    }
+	    
+	    public PersonaAutorizada getAutorizado() {
+	    	return autorizado;
+	    }
+	    
 		public void setUsuario(String user) {
 			this.usuario.setUsuario(user);
 		}

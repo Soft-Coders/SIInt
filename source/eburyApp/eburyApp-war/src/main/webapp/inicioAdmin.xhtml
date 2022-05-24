@@ -21,10 +21,9 @@
                 <!-- <h:form id="registro">
                     <h:panelGrid columns="3">
  -->
-                        <!-- <h:commandButton value="Alta de clientes" action="#{cliente.goAlta()}"/>
-                        <h:commandButton value="Baja de clientes" action="#{cliente.goBaja()}"/> -->
-                        <h:link outcome="altaClientes.xhtml">Alta de clientes</h:link>
-                        <h:link outcome="bajaClientes.xhtml">Baja de clientes</h:link>
+                        
+                        <h:link action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml">Alta de clientes</h:link>
+                        <h:link action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml">Baja de clientes</h:link>
                         <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
                     <!-- </h:panelGrid> -->
                     <!-- <h:messages/> -->
