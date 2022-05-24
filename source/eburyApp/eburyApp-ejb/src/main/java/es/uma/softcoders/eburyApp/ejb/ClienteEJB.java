@@ -56,11 +56,11 @@ public class ClienteEJB implements GestionCliente {
     @Override
     public void altaCliente(Cliente c) throws EburyAppException {
     
-    	/* if(c.getID()!= null) {
-            Cliente clienteEntity = em.find(Cliente.class, c.getID());
-            if(clienteEntity != null)
-                throw new ClienteExistenteException("El cliente ya existe");
-    	} */
+    	 
+        Cliente clienteEntity = em.find(Cliente.class, c.getID());
+        
+                
+    	 
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
@@ -87,15 +87,11 @@ public class ClienteEJB implements GestionCliente {
             throw new ObligatorioNuloException("Pais nulo");
         
 
-        if(c instanceof Empresa){
+        if(clienteEntity instanceof Empresa){
             //Comprobamos que los campos obligatorios de empresa han sido rellenados
-        	Empresa e = (Empresa) c;
-            if(e.getRazonSocial()==null) {
-            	throw new DatosIncorrectosException("Razon social de empresa nula");
-            }
-            
-            e.setEstado("ACTIVO");
-            em.persist(e);
+
+            clienteEntity.setEstado("ACTIVO");
+            em.persist(clienteEntity);
         
 //            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
 //            Set<PersonaAutorizada> pAs= m.keySet();
@@ -104,21 +100,15 @@ public class ClienteEJB implements GestionCliente {
 //	         }
 
             
-        }else if(c instanceof Individual){
+        }else if(clienteEntity instanceof Individual){
         	
         	
         	//Comprobamos que los campos obligatorios de individual han sido rellenados
-        	Individual i = (Individual) c;
-        	if(i.getNombre()==null) {
-        		throw new ObligatorioNuloException("Nombre de individual nulo");
-        	}
-        	if(i.getApellido()==null) {
-        		throw new ObligatorioNuloException("Apellido de individual nulo");
-        	}
         	
-            i.setEstado("ACTIVO");
+        	
+            clienteEntity.setEstado("ACTIVO");
             
-            em.persist(i);
+            em.persist(clienteEntity);
         }
     }
 

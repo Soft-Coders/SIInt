@@ -32,6 +32,18 @@ public class ClienteController implements Serializable{
 
         private Long idCliente;
 
+        public ClienteController(){
+            Cliente clienteAux = new Cliente();
+            Cliente clienteBuffer = new Cliente();
+        }
+
+        public Cliente getClienteAux(){
+            return clienteAux; 
+        }
+        public Cliente getClienteBuffer(){
+            return clienteBuffer; 
+        }
+
         public void setListaInactivos(){
             try{listInactivos = gestionCliente.clientesInactivos();}
             catch(EburyAppException e){
@@ -52,7 +64,9 @@ public class ClienteController implements Serializable{
 	            FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);
             }
         } 
-
+        public String goRegister(){
+            return "registro.xhtml";
+        }
         public List<Cliente> getListaActivos(){
             setListaActivos();
             return listActivos;

@@ -8,12 +8,13 @@
         <title>Modificar clientes</title>
     </h:head>
     <h:body>
-        <c:choose>
-            <c:when test="#{infoSesion.usuario.esAdministrativo}">
+        <!-- <c:choose>
+            <c:when test="#{infoSesion.usuario.esAdministrativo}"> -->
                 <h:form id="modificacion">
+                    <h3>Modificar cliente: <h:outputText value="#{cliente.clienteBuffer.identificacion}" /></h3> 
                     <h:panelGrid columns="3">
                         <h:outputText value="Identificacion:"/>
-                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}" required="true"/>
+                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}" required="true" placeholder="#{cliente.clienteBuffer.identificacion}" />
                         <h:message for="ident"/>
 
                         <h:outputText value="Tipo:"/>
@@ -29,32 +30,32 @@
                         <h:message for="dir"/>
 
                         <h:outputText value="Ciudad:"/>
-                        <h:inputSecret id="ciudad" value="#{cliente.clienteAux.ciudad}" required="true"/>
+                        <h:inputText id="ciudad" value="#{cliente.clienteAux.ciudad}" required="true"/>
                         <h:message for="ciudad"/>
 
                         <h:outputText value="Codigo Postal:"/>
-                        <h:inputSecret id="cp" value="#{cliente.clienteAux.codigoPostal}" required="true"/>
+                        <h:inputText id="cp" value="#{cliente.clienteAux.codigoPostal}" required="true"/>
                         <h:message for="cp"/>
 
                         <h:outputText value="Pais:"/>
-                        <h:inputSecret id="cp" value="#{cliente.clienteAux.Pais}" required="true"/>
-                        <h:message for="cp"/>
+                        <h:inputText id="pais" value="#{cliente.clienteAux.Pais}" required="true"/>
+                        <h:message for="pais"/>
 
-                        <h:commandButton value="Modificar" action="#{cliente.modificarCliente()}"/>
+                        <h:commandButton value="Modificar" action="#{cliente.modificarCliente(cliente.clienteAux)}"/>
                         <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
                     </h:panelGrid>
                     <h:message for="modificacion"/>
                     <h:messages/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras())}"/>
+                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
                     
                 </h:form>
                 
-            </c:when>
+            <!-- </c:when>
             <c:otherwise>
                 <p>No tiene autorización para ver esta página, debe autenticarse.</p>
             </c:otherwise>
-        </c:choose>
+        </c:choose> -->
 
     </h:body>
 </html>
