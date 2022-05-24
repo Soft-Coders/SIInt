@@ -56,11 +56,11 @@ public class ClienteEJB implements GestionCliente {
     @Override
     public void altaCliente(Cliente c) throws EburyAppException {
     
-    	if(c.getID()!= null) {
+    	/* if(c.getID()!= null) {
             Cliente clienteEntity = em.find(Cliente.class, c.getID());
             if(clienteEntity != null)
                 throw new ClienteExistenteException("El cliente ya existe");
-    	}
+    	} */
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");

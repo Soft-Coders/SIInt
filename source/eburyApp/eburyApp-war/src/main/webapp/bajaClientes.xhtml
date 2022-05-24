@@ -14,7 +14,7 @@
             </c:when>
             <c:otherwise> -->
                 <h:form id="contactos">
-                    <h:dataTable id="list" value="#{cliente.getListaActivos()}" var="c">
+                    <h:dataTable id="list" action="#{cliente.setListaActivos()}"  value="#{cliente.getListaActivos()}" var="c">
                         <h:column>
                             <f:facet name="header">Identificacion</f:facet>
                             <h:outputText value="#{c.identificacion}"/>
