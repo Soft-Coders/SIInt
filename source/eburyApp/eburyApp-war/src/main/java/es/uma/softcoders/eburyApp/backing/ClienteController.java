@@ -41,6 +41,7 @@ public class ClienteController implements Serializable{
         } 
 
         public List<Cliente> getListaInactivos(){
+            setListaInactivos();
             return listInactivos;
         }
         
@@ -53,11 +54,11 @@ public class ClienteController implements Serializable{
         } 
 
         public List<Cliente> getListaActivos(){
+            setListaActivos();
             return listActivos;
         }
 
         public String refrescarBaja(){
-            setListaActivos();
             return "bajaClientes.xhtml";
         }
 
@@ -66,7 +67,6 @@ public class ClienteController implements Serializable{
         }
 
         public String refrescarAlta(){
-            setListaInactivos();
             return "altaClientes.xhtml";
         }
 
