@@ -109,7 +109,7 @@ public class ServicioREST {
 			
 			products.add(Json.createObjectBuilder()
 					.add("productNumber", cf.getIban())
-					.add("status", cf.getEstado())
+					.add("status", (cf.getEstado().equals("ACTIVO") ? "activa" : "inactiva"))
 					.add("relationship", "propietaria"));	//  Los Clientes solo pueden ser dueños, no PersonasAutorizadas
 		}
 		
@@ -149,7 +149,7 @@ public class ServicioREST {
 				
 				products.add(Json.createObjectBuilder()
 						.add("productNumber", cf.getIban())
-						.add("status", cf.getEstado())
+						.add("status", (cf.getEstado().equals("ACTIVO") ? "activa" : "inactiva"))
 						.add("relationship", "autorizada"));	//  Los Clientes solo pueden ser dueños, no PersonasAutorizadas
 			}
 		}
@@ -213,7 +213,7 @@ public class ServicioREST {
 				
 				Date fechaCierre = s.getFechaCierre();
 				productsArr.add(Json.createObjectBuilder().add("accountHolder", accountHolder)
-				.add("status", s.getEstado())
+				.add("status", (s.getEstado().equals("ACTIVO") ? "activa" : "inactiva"))
 				.add("startDate", s.getFechaApertura().toGMTString())
 				.add("endDate", (fechaCierre == null) ? N_E : fechaCierre.toGMTString()));
 			}
