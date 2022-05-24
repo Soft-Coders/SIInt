@@ -101,11 +101,6 @@ public class CuentaEJB implements GestionCuenta{
 		return c.getIban();
 		
 	}
-	
-	public CuentaFintech getCuentaFintech(String cuenta) {
-		return em.find(CuentaFintech.class, cuenta);
-	}
-	
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
 	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
@@ -140,14 +135,18 @@ public class CuentaEJB implements GestionCuenta{
 		}
 		return (List<Empresa>)query.getResultList();
 	}
-	
-	public List<CuentaFintech> getCuentasAutorizadas(String empresa){
+	/*
+	public List<CuentaFintech> getCuentasFintechAutorizadas(String usuario){
 		Query query = null;
-		if (empresa != null) {
-			Empresa emp = em.find(Empresa.class, empresa);
-				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idemp")
-						.setParameter("idemp", emp);
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada aut = u.getPersonaAutorizada();
+			if (aut != null) {
+				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idaut AND  a ON ")
+						.setParameter("idaut", aut);
+						
+			}
 		}
 		return (List<CuentaFintech>)query.getResultList();
-	}
+	}*/
 }

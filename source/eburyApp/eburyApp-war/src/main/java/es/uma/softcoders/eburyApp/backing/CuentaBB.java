@@ -2,10 +2,6 @@ package es.uma.softcoders.eburyApp.backing;
 
 import java.util.List;
 
-
-import es.uma.softcoders.eburyApp.Cliente;
-import es.uma.softcoders.eburyApp.Cuenta;
-import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
@@ -37,9 +33,9 @@ public class CuentaBB {
 	private boolean individual;
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
-	private List<Empresa> listaEmpresasAutorizadas;
+	private List<CuentaFintech> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
-	private List<CuentaFintech> listaCuentasAutorizadas;
+	private List<Empresa> listaCuentasAutorizadas;
     private CuentaFintech cf;
     private String iban;
     
@@ -57,7 +53,7 @@ public class CuentaBB {
     	iban = i;
     }
    
-    public String getUsuario() {
+    public Usuario getUsuario() {
     	return usuario;
     }
     public void setUsuario(String u) {
@@ -71,12 +67,12 @@ public class CuentaBB {
     	}
     }
     public String seleccionarEmpresa(String empresa) {
-    	this.emp = empresa;
+    	this.empresa = emp;
     	getCuentasAutorizadas();
     	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
-    	this.cf = cuentaEJB.getCuentaFintech(cuenta);  
+    	this.cf = cuenta;  //CAMBIAR A EJB
     	iban = cuentaEJB.getIbanCuenta(cuenta);
     	return "vistaCuentaSaldo.xhtml";
     }
@@ -88,7 +84,7 @@ public class CuentaBB {
     	listaEmpresasAutorizadas = cuentaEJB.getEmpresasAutorizadas(usuario);
     }
     private void getCuentasAutorizadas() {
-    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
+    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(usuario, emp);
     }
     
     public void crearCuentaF() throws EburyAppException {
