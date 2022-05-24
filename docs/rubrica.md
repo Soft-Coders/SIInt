@@ -9,4 +9,4 @@
 | Anotaciones en las entidades JPA                     | 2 / 6                | 0,3333333333   | 6%             |
 | Generación del esquema de la BD                      | 2 / 1                | 2              | 39%            |
 
-> A más alto el Ratio mayor **recompensa** por unidad de **esfuerzo**
+> A más alto el Ratio mayor **recompensa** por unidad de esfuerzos
