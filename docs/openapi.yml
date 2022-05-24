@@ -19,13 +19,14 @@ paths:
       tags:
       - healthcheck
       summary: Devuelve "OK" si existe conexión con la API REST.
-    responses:
-      200:
-        description: (OK) El servicio REST está disponible para consulta.
-        content:
-          text/plain:
-            schema:
-              type:
+      responses:
+        200:
+          description: (OK) El servicio REST está disponible para consulta.
+          content:
+            text/plain:
+              schema:
+                type: string
+                enum: [OK]
       
   /clients:
     post:
