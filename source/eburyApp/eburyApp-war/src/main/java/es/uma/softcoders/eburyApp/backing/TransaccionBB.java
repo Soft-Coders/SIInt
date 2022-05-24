@@ -22,7 +22,7 @@ public class TransaccionBB {
     private String iban;
     private String divisaOrigen;
     private String divisaDestino;
-    private Long cantidad;
+    private Double cantidad;
     
     public String getIban() {
     	return iban;
@@ -45,10 +45,10 @@ public class TransaccionBB {
     	divisaDestino = d;
     }
     
-    public Long getCantidad() {
+    public Double getCantidad() {
     	return cantidad;
     }
-    public void setCantidad(Long c) {
+    public void setCantidad(Double c) {
     	cantidad = c;
     }
     
