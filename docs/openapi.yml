@@ -27,6 +27,8 @@ paths:
               schema:
                 type: string
                 enum: [OK]
+        500:
+          description: Error en el servidor. El servicio no está disponible.
       
   /clients:
     post:
@@ -46,6 +48,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseClientsSuccess'
+        400:
+          $ref: "#/components/responses/BadRequest"
+          
+        500:
+          $ref: "#/components/responses/ServerError"
   
   /products:
     post:
@@ -65,8 +72,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseProductsSuccess'  
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/ServerError"
 components:
-  #responses:
+  responses:
+    BadRequest:
+      description: (BadRequest) los datos enviados son incorrectos o hay datos obligatorios no enviados.
+      
+    ServerError:
+      description: Error en el servidor. Use healthcheck para comprobar estado del servicio.
   
   schemas:
     BodyClients:
@@ -192,6 +208,7 @@ components:
       properties:
         products:
           type: array
+          description: Array de las cuentas que cumplen las condiciones de la consulta.
           items:
             type: object
             properties:

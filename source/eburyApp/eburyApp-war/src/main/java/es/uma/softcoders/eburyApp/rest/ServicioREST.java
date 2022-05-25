@@ -3,6 +3,7 @@ package es.uma.softcoders.eburyApp.rest;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.StringJoiner;
 
 import javax.ejb.EJB;
 import javax.json.Json;
@@ -117,7 +118,7 @@ public class ServicioREST {
 		JsonObjectBuilder individual = Json.createObjectBuilder().add("products", products)
 		.add("activeCustomer", (c.getEstado().equals("ACTIVO")) ? true : false)
 		.add("identificationNumber", c.getIdentificacion())
-		.add("dateOfBirth", (fechaNacimiento == null) ? N_E : fechaNacimiento.toGMTString())
+		.add("dateOfBirth", (fechaNacimiento == null) ? N_E : formatDate(fechaNacimiento))
 		.add("name", Json.createObjectBuilder()
 		.add("firstName", c.getNombre())
 		.add("lastName", c.getApellido()))
@@ -159,7 +160,7 @@ public class ServicioREST {
 		JsonObjectBuilder individual = Json.createObjectBuilder().add("products", products)
 		.add("activeCustomer", (estado != null && estado.equals("ACTIVO")) ? true : false)
 		.add("identificationNumber", pa.getIdentificacion())
-		.add("dateOfBirth", (fechaNacimiento == null) ? N_E : fechaNacimiento.toGMTString())
+		.add("dateOfBirth", (fechaNacimiento == null) ? N_E : formatDate(fechaNacimiento))
 		.add("name", Json.createObjectBuilder()
 		.add("firstName", pa.getNombre())
 		.add("lastName", pa.getApellidos()))
@@ -214,8 +215,8 @@ public class ServicioREST {
 				Date fechaCierre = s.getFechaCierre();
 				productsArr.add(Json.createObjectBuilder().add("accountHolder", accountHolder)
 				.add("status", (s.getEstado().equals("ACTIVO") ? "activa" : "inactiva"))
-				.add("startDate", s.getFechaApertura().toGMTString())
-				.add("endDate", (fechaCierre == null) ? N_E : fechaCierre.toGMTString()));
+				.add("startDate", formatDate(s.getFechaApertura()))
+				.add("endDate", (fechaCierre == null) ? N_E : formatDate(fechaCierre)));
 			}
 			
 			return Response.ok(Json.createObjectBuilder().add("products", productsArr).build()).build();
@@ -225,4 +226,24 @@ public class ServicioREST {
 			return Response.status(Status.BAD_REQUEST).entity(e.getMessage()).build();
 		}
 	}
+	
+	/**
+	 * Método privado auxiliar, devuelve la fecha de un objeto <i>Date</i> como <i>String</i> en formato <b>yyyy-mm-dd</b>.
+	 * 
+	 * @param d Objeto <i>Date</i>.
+	 * @return <i>String</i> que contiene la fecha de <i>d</i> en formato <b>yyyy-mm-dd</b>.
+	 * @author Ignacio Lopezosa
+	 * */
+	private String formatDate(Date d) {
+		StringJoiner sj = new StringJoiner("-");
+		
+		int month = d.getMonth() + 1,
+			day = d.getDay();
+		
+		return sj.add(String.valueOf(d.getYear()+1900))
+				 .add((month < 10) ? "0" + String.valueOf(month) : String.valueOf(month))
+				 .add((day < 10) ? "0" + String.valueOf(day) : String.valueOf(day))
+				 .toString();
+	}
 }
+
