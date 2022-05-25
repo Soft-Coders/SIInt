@@ -46,8 +46,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ResponseClientsSuccess'
-          
-          
+  
+  /products:
+    post:
+      tags:
+      - products
+      summary: Devuelve información de las cuentas que cumplen una determinada cadena de consulta.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BodyProducts'
+        required: true
+      responses:
+        200:
+          description: (OK) La consulta se ha procesado sin errores y se ha devuelto la lista de cuentas adecuada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseProductsSuccess'  
 components:
   #responses:
   
@@ -72,11 +89,11 @@ components:
             startPeriod:
               type: string
               description: Fecha de búsqueda para clientes dados de alta después de esta.
-              format: yyyy-mm-dd
+              format: date
             endPeriod:
               type: string
               description: Fecha de búsqueda para clientes dados de alta antes de esta.
-              format: yyyy-mm-dd
+              format: date
             address:
                 type: object
                 properties:
@@ -128,6 +145,7 @@ components:
               dateOfBirth:
                 type: string
                 description: Fecha de nacimiento del cliente
+                format: date
               name:
                 type: object
                 properties:
@@ -152,3 +170,77 @@ components:
                   country:
                     type: string
                     description: País de residencia del cliente
+                    
+    BodyProducts:
+      type: object
+      required:
+      - searchParameters
+      properties:
+        searchParameters:
+          type: object
+          properties:
+            status:
+              type: string
+              description: Estado de la(s) cuenta(s)
+              enum: ["active", "inactive"]
+            productNumber:
+              type: string
+              description: IBAN de la cuenta del cliente
+      
+    ResponseProductsSuccess:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              accountHolder:
+                type: object
+                properties:
+                  activeCustomer:
+                    type: boolean
+                    description: Si el cliente está o no activo
+                  accountYpe:
+                    type: string
+                    description: Tipo de la cuenta.
+                    enum: ["Fisica", "Empresa"]
+                  name:
+                    type: object
+                    properties:
+                      firstName:
+                        type: string
+                        description: Nombre de cliente(s).
+                      lastName:
+                        type: string
+                        description: Apellido(s) de cliente(s).
+                  address:
+                    type: object
+                    properties:
+                      streetNumber:
+                        type: string
+                        description: Calle y número de la residencia del cliente
+                      postalCode:
+                        type: string
+                        description: Código postal de la residencia del cliente
+                      city:
+                        type: string
+                        description: Ciudad de residencia del cliente
+                      country:
+                        type: string
+                        description: País de residencia del cliente
+              productNumber:
+                type: string
+                description: IBAN de la cuenta del cliente
+              status:
+                type: string
+                description: Estado de la cuenta del cliente
+                enum: ["activa", "inactiva"]
+              startDate:
+                type: string
+                description: Fecha de alta de la cuenta.
+                format: date
+              endDate: 
+                type: string
+                description: Fecha de baja de la cuenta (si está inactiva).
+                format: date
