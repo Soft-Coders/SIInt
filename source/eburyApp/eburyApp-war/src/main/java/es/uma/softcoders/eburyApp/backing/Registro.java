@@ -60,8 +60,36 @@ public class Registro implements Serializable{
 	    	return autorizado;
 	    }
 	    
-		public void setUsuario(String user) {
-			this.usuario.setUsuario(user);
+		public Usuario getUsuario() {
+			return usuario;
+		}
+
+		public void setUsuario(Usuario usuario) {
+			this.usuario = usuario;
+		}
+
+		public Empresa getEmpresa() {
+			return empresa;
+		}
+
+		public void setEmpresa(Empresa empresa) {
+			this.empresa = empresa;
+		}
+
+		public Character getCuenta() {
+			return cuenta;
+		}
+
+		public void setCuenta(Character cuenta) {
+			this.cuenta = cuenta;
+		}
+
+		public void setAutorizado(PersonaAutorizada autorizado) {
+			this.autorizado = autorizado;
+		}
+
+		public void setIndividual(Individual individual) {
+			this.individual = individual;
 		}
 		
 		public String registrarUsuario() {

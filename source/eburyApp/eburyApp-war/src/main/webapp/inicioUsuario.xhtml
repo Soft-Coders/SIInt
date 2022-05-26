@@ -8,16 +8,16 @@
 	      <h:form id="registro">
 	            <h:panelGrid columns="1">
 	                  <c:choose>
-	                        <c:when test="#{empty infoSesion.usuario.getIndividual()}">
-	                              <p>Debe de contactar con un administrador para que cree una cuenta de Ebury</p>
+	                        <c:when test="${infoSesion.usuario.individual == null}">
+	                              <h:commandButton value="registroIndividual" action="#{registro.registroIndividual()}">Crear una cuenta Ebury</h:commandButton>
 	                        </c:when>
 	                        <c:otherwise>
 	                              <h:commandButton value="mainIndividual" action="#{infoSesion.mainCliente()}"></h:commandButton>
 	                        </c:otherwise>
 	                  </c:choose>
 	                  <c:choose>
-	                        <c:when test="#{empty infoSesion.usuario.getPersonaAutorizada()}">
-	                              <p>Debe de contactar con un administrador para que cree una cuenta de autorizado</p>
+	                        <c:when test="#{infoSesion.usuario.personaAutorizada == null}">
+	                              <h:commandButton value="registroAutorizado" action="#{registro.registroAutorizado()}">Crear una cuenta de autorizado</h:commandButton>
 	                        </c:when>
 	                        <c:otherwise>
 	                              <h:commandButton value="mainAutorizado" action="#{infoSesion.mainAutorizado()}"></h:commandButton>

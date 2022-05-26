@@ -11,16 +11,13 @@
         <h:form id="registro">
             <h:panelGrid columns="3">
                 <h:outputText value="Nombre de usuario:"/>
-                <h:inputText id="user" value="#{registro.usuario.getUsuario()}" required="true"/>
+                <h:inputText id="user" value="#{registro.usuario.usuario}" required="true"/>
                 <h:message for="user"/>
                 <h:outputText value="Contraseña:"/>
-                <h:inputSecret id="pass" value="#{registro.usuario.getClave()}" required="true"/>
+                <h:inputSecret id="pass" value="#{registro.usuario.clave}" required="true"/>
                 <h:message for="pass"/>
-                <h:outputText value="Repita contraseña:"/>
-                <h:inputSecret id="repass" value="#{registro.repass}" required="true"/>
-                <h:message for="repass"/>
                 <h:commandButton value="Crear usuario" action="#{registro.registrarUsuario()}"/>
-                <h:link outcome="login.xhtml">Volver a la página de login</h:link>
+                <h:link outcome="index.xhtml">Cancelar</h:link>
             </h:panelGrid>
             <h:messages/>
         </h:form>

@@ -80,10 +80,9 @@ public class ClienteEJB implements GestionCliente {
     @Override
     public void registrarCliente(Cliente c, Long usuario, String password) throws EburyAppException {
     
-<<<<<<< HEAD
+
     	if(c.getId()!= null) {
             Cliente clienteEntity = em.find(Cliente.class, c.getId());
-=======
     	/* if(c.getID()!= null) {
             Cliente clienteEntity = em.find(Cliente.class, c.getID());
 >>>>>>> ede1816be4145d5dd0ddde3c07f8fce9ae27dd79
@@ -142,6 +141,7 @@ public class ClienteEJB implements GestionCliente {
             
             em.persist(i);
             user.setIndividual(i);
+        	}
         }
     }
     

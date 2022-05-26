@@ -32,6 +32,7 @@ public class ClienteController implements Serializable{
 
         private Long idCliente;
 
+        
         public void setListaInactivos(){
             try{listInactivos = gestionCliente.clientesInactivos();}
             catch(EburyAppException e){
