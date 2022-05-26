@@ -36,9 +36,9 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() throws ParseException{
 		
-//		Divisa comprobacion = em.find(Divisa.class, "EUR");
-//		if(comprobacion != null)
-//			return;
+		Divisa comprobacion = em.find(Divisa.class, "EUR");
+		if(comprobacion != null)
+			return;
 		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
