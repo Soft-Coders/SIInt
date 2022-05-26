@@ -12,6 +12,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
@@ -26,23 +28,14 @@ public class ClienteController implements Serializable{
 
         private List<Cliente> listActivos;
 
-        private Cliente clienteAux;
-
-        private Cliente clienteBuffer;
+        
 
         private Long idCliente;
 
         public ClienteController(){
-            Cliente clienteAux = new Cliente();
-            Cliente clienteBuffer = new Cliente();
+            
         }
 
-        public Cliente getClienteAux(){
-            return clienteAux; 
-        }
-        public Cliente getClienteBuffer(){
-            return clienteBuffer; 
-        }
 
         public void setListaInactivos(){
             try{listInactivos = gestionCliente.clientesInactivos();}
@@ -110,23 +103,8 @@ public class ClienteController implements Serializable{
             return "altaCliente.xhtml";
         }
 
-        public String goModificarCliente(Cliente c){
-            idCliente = c.getID();
-            clienteBuffer = c;
-            return "modificarClientes.xhtml";
-        }
+        
 
-        public String modificarCliente(Cliente c){
-            clienteAux.setFecha_Alta(clienteBuffer.getFecha_Alta());
-            clienteAux.setFecha_Baja(clienteBuffer.getFecha_Baja());
-            try{
-                gestionCliente.modificarCliente(c, idCliente);  
-                return  "bajaClientes.xhtml";    
-            }catch(EburyAppException e){
-            FacesMessage fm = new FacesMessage("Error al modificar");
-            FacesContext.getCurrentInstance().addMessage("modificarClientes:modificacion", fm);}
-            return "unexpected.xhtml";
-
-        }
+        
 
 } 

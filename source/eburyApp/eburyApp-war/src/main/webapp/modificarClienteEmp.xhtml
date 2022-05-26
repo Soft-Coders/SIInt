@@ -5,50 +5,56 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Modificar clientes</title>
+        <title>Modificar cliente empresa</title>
     </h:head>
     <h:body>
         <!-- <c:choose>
             <c:when test="#{infoSesion.usuario.esAdministrativo}"> -->
                 <h:form id="modificacion">
-                    <h3>Modificar cliente: <h:outputText value="#{cliente.clienteBuffer.identificacion}" /></h3> 
+                    <h3>Modificar cliente: <h:outputText value="#{modificar.empresaBuffer.identificacion}" /></h3> 
                     <h:panelGrid columns="3">
                         <h:outputText value="Identificacion:"/>
-                        <h:inputText id="ident" value="#{cliente.clienteAux.identificacion}" required="true" placeholder="#{cliente.clienteBuffer.identificacion}" />
+                        <h:inputText id="ident" value="#{modificar.empresaAux.identificacion}" required="true" />
                         <h:message for="ident"/>
 
-                        <h:outputText value="Tipo:"/>
-                        <h:inputText id="tipo" value="#{cliente.clienteAux.tipo}" required="true"/>
-                        <h:message for="tipo"/>
-
                         <h:outputText value="Estado:"/>
-                        <h:inputText id="estado" value="#{cliente.clienteAux.estado}" required="true"/>
-                        <h:message for="email"/>
+                        <h:inputText id="estado" value="#{modificar.empresaAux.estado}" required="true"/>
+                        <h:message for="estado"/>
 
                         <h:outputText value="Direccion:"/>
-                        <h:inputText id="dir" value="#{cliente.clienteAux.direccion}" required="true"/>
+                        <h:inputText id="dir" value="#{modificar.empresaAux.direccion}" required="true"/>
                         <h:message for="dir"/>
 
                         <h:outputText value="Ciudad:"/>
-                        <h:inputText id="ciudad" value="#{cliente.clienteAux.ciudad}" required="true"/>
+                        <h:inputText id="ciudad" value="#{modificar.empresaAux.ciudad}" required="true"/>
                         <h:message for="ciudad"/>
 
                         <h:outputText value="Codigo Postal:"/>
-                        <h:inputText id="cp" value="#{cliente.clienteAux.codigoPostal}" required="true"/>
+                        <h:inputText id="cp" value="#{modificar.empresaAux.codigoPostal}" required="true"/>
                         <h:message for="cp"/>
 
                         <h:outputText value="Pais:"/>
-                        <h:inputText id="pais" value="#{cliente.clienteAux.Pais}" required="true"/>
+                        <h:inputText id="pais" value="#{modificar.empresaAux.pais}" required="true"/>
                         <h:message for="pais"/>
 
-                        <h:commandButton value="Modificar" action="#{cliente.modificarCliente(cliente.clienteAux)}"/>
-                        <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                        <h:outputText value="Razon social:"/>
+                        <h:inputText id="razsoc" value="#{modificar.empresaAux.razonSocial}" required="true"/>
+                        <h:message for="razsoc"/>
+
+
+
+                        <h:commandButton value="Modificar" action="#{modificar.modificarClienteEmp(modificar.empresaAux)}"/>
+                        
                     </h:panelGrid>
                     <h:message for="modificacion"/>
-                    <h:messages/>
+                    
+                    
+                    
+                </h:form>
+                <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                <h:form>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
                     <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
-                    
                 </h:form>
                 
             <!-- </c:when>

@@ -114,7 +114,11 @@ public class ClienteEJB implements GestionCliente {
 
     @Override
     public void modificarCliente(Cliente c, Long cliente) throws EburyAppException{
+        if(cliente == null){
+            throw new EburyAppException("NULL ID");
+        }
         Cliente clienteEntity = em.find(Cliente.class, cliente);
+        
         if(clienteEntity == null){
             throw new ClienteNoEncontradoException("Cliente no encotrado");
         }
@@ -125,9 +129,6 @@ public class ClienteEJB implements GestionCliente {
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
-        
-        if(c.getTipo_cliente()==null)
-            throw new ObligatorioNuloException("Tipo del cliente nulo");
         
         if(c.getEstado() == null)
             throw new ObligatorioNuloException("Estado del cliente nulo");
@@ -144,9 +145,8 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-  
+        clienteEntity.setID(c.getID());
         clienteEntity.setIdentificacion(c.getIdentificacion());
-        clienteEntity.setTipo_cliente(c.getTipo_cliente());
         clienteEntity.setEstado(c.getEstado());
         clienteEntity.setDireccion(c.getDireccion());
         clienteEntity.setCiudad(c.getCiudad());
