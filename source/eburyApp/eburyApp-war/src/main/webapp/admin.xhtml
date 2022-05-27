@@ -15,10 +15,11 @@
                     <p>Ya hay una sesion activa: <h:outputText value="#{infoSesion.usuario.usuario}"/>.</p>
                     <p>Para iniciar sesión con otra cuenta debe <h:commandLink action="#{infoSesion.invalidarSesionAdmin()}">salir</h:commandLink> primero de la aplicación</p>
                 </c:when>
-
+                
                 <c:otherwise>
+                    <p><h2>Inicia sesion</h2></p>
                     <h:panelGrid columns="3">
-                        <p><h1>Inicia sesion</h1></p>
+                        
                         <h:outputText value="Nombre de usuario:"/>
                         <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
                         <h:message for="user"/>
