@@ -3,6 +3,7 @@ package es.uma.softcoders.eburyApp.backing;
 import java.io.Serializable;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
@@ -12,7 +13,7 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import javax.inject.Inject;
 
 @Named(value="infoSesion")
-@RequestScoped
+@SessionScoped
 public class InfoSesion implements Serializable{
 	
         

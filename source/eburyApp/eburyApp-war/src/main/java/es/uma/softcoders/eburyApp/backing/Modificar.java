@@ -119,6 +119,9 @@ public class Modificar implements Serializable{
             i.setFecha_Alta(individualBuffer.getFecha_Alta());
             i.setFecha_Baja(individualBuffer.getFecha_Baja());
             try{
+                if(getIdCliente() == null){
+                    return "inicioAdmin.xhtml";
+                }
                 gestionCliente.modificarCliente(i, getIdCliente());  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
@@ -128,10 +131,13 @@ public class Modificar implements Serializable{
         }
 
         public String modificarClienteEmp(Empresa emp){
-            empresaAux.setID(empresaBuffer.getID());
-            empresaAux.setFecha_Alta(empresaBuffer.getFecha_Alta());
-            empresaAux.setFecha_Baja(empresaBuffer.getFecha_Baja());
+            emp.setID(empresaBuffer.getID());
+            emp.setFecha_Alta(empresaBuffer.getFecha_Alta());
+            emp.setFecha_Baja(empresaBuffer.getFecha_Baja());
             try{
+                if(getIdCliente() == null){
+                    return "inicioAdmin.xhtml";
+                }
                 gestionCliente.modificarCliente(emp, getIdCliente());  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
