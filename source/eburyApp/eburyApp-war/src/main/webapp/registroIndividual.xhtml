@@ -9,31 +9,28 @@
     </h:head>
     <h:body>
         <h:form id="registroInd">
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="9">
                 <h:outputText value="Nombre:"/>
-                <h:inputText id="user" value="#{registro.individual.nombre}" required="true"/>
-                <h:message for="user"/> 
+                <h:inputText id="nombre" value="#{registro.individual.nombre}" required="true"/>
+                <h:message for="nombre"/> 
                 <h:outputText value="Apellido:"/>
-                <h:inputText id="user" value="#{registro.individual.apellido}" required="true"/>
-                <h:message for="user"/>
+                <h:inputText id="apellido" value="#{registro.individual.apellido}" required="true"/>
+                <h:message for="apellido"/>
                 <h:outputText value="Fecha de nacimiento:"/>
-                <h:inputText id="user" value="#{registro.individual.fechaNacimiento}"/>
-                <h:message for="user"/>
-                <h:outputText value="Identificacion:"/>
-                <h:inputText id="user" value="#{registro.individual.identificacion}" required="true"/>
-                <h:message for="user"/>
+                <h:inputText id="nacimiento" value="#{registro.individual.fechaNacimiento}"/>
+                <h:message for="nacimiento"/>
                 <h:outputText value="País:"/>
-                <h:inputSecret id="repass" value="#{registro.individual.pais}" required="true"/>
-                <h:message for="pass"/>
-                <h:outputText value="Ciudad: "/>
-                <h:inputSecret id="pass" value="#{registro.individual.ciudad}" required="true"/>
-                <h:message for="pass"/>
+                <h:inputSecret id="pais" value="#{registro.individual.pais}" required="true"/>
+                <h:message for="pais"/>
+                <h:outputText value="Ciudad:"/>
+                <h:inputSecret id="ciudad" value="#{registro.individual.ciudad}" required="true"/>
+                <h:message for="ciudad"/>
                 <h:outputText value="Dirección:"/>
-                <h:inputSecret id="repass" value="#{registro.individual.direccion}" required="true"/>
-                <h:message for="pass"/>
+                <h:inputSecret id="direccion" value="#{registro.individual.direccion}" required="true"/>
+                <h:message for="direccion"/>
                 <h:outputText value="Código Postal:"/>
-                <h:inputSecret id="repass" value="#{registro.individual.codigoPostal}" required="true"/>
-                <h:message for="pass"/>
+                <h:inputSecret id="postal" value="#{registro.individual.codigoPostal}" required="true"/>
+                <h:message for="postal"/>
                 <h:commandButton value="Crear cuenta de cliente" action="#{registro.registrarIndividual()}"/>
                 <h:link outcome="inicioUsuario.xhtml">Cancelar</h:link>
             </h:panelGrid>

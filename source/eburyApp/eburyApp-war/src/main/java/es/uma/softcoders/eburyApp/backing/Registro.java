@@ -114,6 +114,7 @@ public class Registro implements Serializable{
 				individual.setTipoCliente("INDIVIDUAL");
 				individual.setEstado("INACTIVO");
 				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario());
+				individual.setIdentificacion(aux.getUsuario());
 				gestionCliente.registrarCliente(individual, aux.getId(), aux.getClave());
 				return "vistaPrincipalCliente.xhtml";
 			}catch(EburyAppException e){ 
@@ -127,7 +128,9 @@ public class Registro implements Serializable{
 			
 			try{
 				autorizado.setEstado("INACTIVO");
-				gestionAutorizado.registrarAutorizado(autorizado, usuario.getId(), usuario.getClave());
+				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario());
+				autorizado.setIdentificacion(aux.getUsuario());
+				gestionAutorizado.registrarAutorizado(autorizado, aux.getId(), aux.getClave());
 				return "vistaPrincipalCliente.xhtml";
 			}catch(EburyAppException e){
 				FacesMessage fm = new FacesMessage("Error: " + e);

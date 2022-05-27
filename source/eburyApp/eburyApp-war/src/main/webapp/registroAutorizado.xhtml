@@ -9,22 +9,19 @@
     </h:head>
     <h:body>
         <h:form id="registroAutorizado">
-            <h:panelGrid columns="3">
+            <h:panelGrid columns="6">
                 <h:outputText value="Nombre:"/>
-                <h:inputText id="user" value="#{registro.autorizado.nombre}" required="true"/>
-                <h:message for="user"/> 
+                <h:inputText id="nombre" value="#{registro.autorizado.nombre}" required="true"/>
+                <h:message for="nombre"/> 
                 <h:outputText value="Apellido:"/>
-                <h:inputText id="user" value="#{registro.autorizado.apellidos}" required="true"/>
-                <h:message for="user"/>
+                <h:inputText id="apellido" value="#{registro.autorizado.apellidos}" required="true"/>
+                <h:message for="apellido"/>
                 <h:outputText value="Fecha de nacimiento:"/>
-                <h:inputText id="user" value="#{registro.autorizado.fechaNacimiento}"/>
-                <h:message for="user"/>
-                <h:outputText value="Identificacion:"/>
-                <h:inputText id="user" value="#{registro.autorizado.identificacion}" required="true"/>
-                <h:message for="user"/>
+                <h:inputText id="nacimiento" value="#{registro.autorizado.fechaNacimiento}"/>
+                <h:message for="nacimiento"/>
                 <h:outputText value="Dirección:"/>
-                <h:inputSecret id="repass" value="#{registro.autorizado.direccion}" required="true"/>
-                <h:message for="pass"/>
+                <h:inputSecret id="direccion" value="#{registro.autorizado.direccion}" required="true"/>
+                <h:message for="direccion"/>
                 <h:commandButton value="Crear cuenta de autorizado" action="#{registro.registrarAutorizado()}"/>
                 <h:link outcome="inicioUsuario.xhtml">Cancelar</h:link>
             </h:panelGrid>
