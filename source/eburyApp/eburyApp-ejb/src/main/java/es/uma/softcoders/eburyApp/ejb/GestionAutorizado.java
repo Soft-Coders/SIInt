@@ -1,7 +1,10 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
+import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
@@ -18,7 +21,7 @@ import es.uma.softcoders.eburyApp.exceptions.UsuarioNoVinculadoException;
 public interface GestionAutorizado {
 
 	
-	public void altaAutorizado(Long id, Long usuario, String password) throws EburyAppException;
+	public void altaAutorizado(Long id) throws EburyAppException;
 	
 	public void registrarAutorizado(PersonaAutorizada p, Long usuario, String password) throws EburyAppException;
 	/*
@@ -29,6 +32,9 @@ public interface GestionAutorizado {
 	 */
 	//public void agregarEmpresa(Long id, Empresa empresa, Character cuenta)throws EmpresaNoEncontradaException, PersonaAutorizadaExistenteException, CuentaNoCoincidenteException, EmpresaExistenteException, UsuarioNoVinculadoException;
 	
+	public List<PersonaAutorizada> autorizadosInactivos() throws EburyAppException;
+	
+    public List<PersonaAutorizada> autorizadosActivos() throws EburyAppException;
 	
 	/*
 	 * La aplicación permitirá a un administrativo modificar los datos de las 

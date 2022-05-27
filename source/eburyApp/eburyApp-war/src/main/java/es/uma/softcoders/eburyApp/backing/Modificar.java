@@ -15,6 +15,7 @@ import javax.inject.Named;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
@@ -27,6 +28,10 @@ public class Modificar implements Serializable{
 
         @Inject
         private ClienteController clienteCont;
+        
+        private PersonaAutorizada autorizadoBuffer = new PersonaAutorizada();
+        
+        private PersonaAutorizada autorizadoAux = new PersonaAutorizada();
 
         private Individual individualAux = new Individual();
 
@@ -37,6 +42,8 @@ public class Modificar implements Serializable{
         private Empresa empresaBuffer = new Empresa();
 
         private Long idCliente;
+        
+        private Long idAutorizado;
 
         public Modificar(){
             
@@ -93,6 +100,18 @@ public class Modificar implements Serializable{
         }
         public Long getIdCliente(){
             return idCliente;
+        }
+        
+        public String goModificarAutorizado(PersonaAutorizada p) {
+        	if(p.getId() == null) {
+        		return "unexpected.xhtml";
+        	}else {
+        		idAutorizado = p.getId();
+        	}
+        	
+        	autorizadoBuffer = p;
+        	return "modificarAutorizado.xhtml";
+        	
         }
 
 

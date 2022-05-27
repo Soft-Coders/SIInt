@@ -1,10 +1,12 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
@@ -12,6 +14,7 @@ import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
@@ -34,17 +37,32 @@ public class AutorizadoEJB implements GestionAutorizado {
 	}
 	
 	@Override
-	public void altaAutorizado(Long autorizado, Long usuario, String password) throws EburyAppException{
+    public List<PersonaAutorizda> autorizadosInactivos() throws EburyAppException{
+        Query q = em.createQuery("SELECT p FROM PERSONA_AUTORIZADA p WHERE c.estado = 'INACTIVO'");
+        List<PersonaAutorizada> cli = q.getResultList();
+        if (cli.isEmpty())
+            throw new ClienteNoEncontradoException("No hay cuentas inactivas");
+        return cli;
+
+    }
+
+    @Override
+    public List<PersonaAutorizada> autorizadosActivos() throws EburyAppException{
+        Query q = em.createQuery("SELECT p FROM PERSONA_AUTORIZADA p WHERE c.estado = 'ACTIVO'");
+        List<PersonaAutorizada> cli = q.getResultList();
+        if (cli.isEmpty())
+            throw new ClienteNoEncontradoException("No hay cuentas activas");
+        return cli;
+
+    }
+	
+	@Override
+	public void altaAutorizado(Long autorizado) throws EburyAppException{
 	    	
 		PersonaAutorizada p = em.find(PersonaAutorizada.class, autorizado);
 		if(p == null)
 			throw new EburyAppException("El autorizado no existe");
 	 	
-	    
-		Usuario user = em.find(Usuario.class, usuario);
-		if(password != user.getClave()) {
-			throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
-		}
 		p.setEstado("ACTIVO");
     	em.merge(p);
 	    	
