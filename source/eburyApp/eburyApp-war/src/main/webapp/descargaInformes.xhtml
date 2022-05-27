@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Descarga Informes</title>
+    </h:head>
+    <h:body>
+
+		<h:form id="descarga">
+
+            <c:choose>
+                <c:when test="#{empty infoSesion.usuario}">
+                    <p>Se necesita estar en una sesión activa.</p>
+                </c:when>
+
+                <c:otherwise>
+	                <c:when test="#{!infoSesion.usuario.esAdministrativo}">
+	                    <p>No se tienen los permisos necesarios para descargar informes.</p>
+	                </c:when>
+	                <c:otherwise>
+	                    <h:panelGrid columns="2">
+	
+	                        <h:commandButton value="Inicio" action="#{descarga.descargaInicial()}"/>
+	                        <h:commandButton value="Periodico" action="#{descarga.descargaPeriodica())}"/>
+	
+	                    </h:panelGrid>
+	                </c:otherwise>
+
+                </c:otherwise>
+            </c:choose>
+
+        </h:form>
+
+    </h:body>
+</html>
