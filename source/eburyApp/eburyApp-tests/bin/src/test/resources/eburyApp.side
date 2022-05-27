@@ -1,0 +1,87 @@
+{
+  "id": "331a097c-ffe1-4c62-a49c-da5250e82fc5",
+  "version": "2.0",
+  "name": "eburyApp",
+  "url": "http://localhost:8080/eburyApp-war/",
+  "tests": [{
+    "id": "36a8ce92-ef32-4819-a76c-a0023894b89d",
+    "name": "inicio",
+    "commands": [{
+      "id": "71d3646c-f440-4da3-b294-34c1864fa3cc",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/eburyApp-war/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "e3daed82-daa7-419f-8c1b-6ca86e054c27",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1920x1055",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "f5c7e1c8-3c37-4bda-8534-4f08135c3490",
+      "comment": "",
+      "command": "assertText",
+      "target": "id=saludo",
+      "targets": [
+        ["id=saludo", "id"],
+        ["css=#saludo", "css:finder"],
+        ["xpath=//span[@id='saludo']", "xpath:attributes"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": "Hola mundo"
+    }, {
+      "id": "9165c98b-0bce-4e52-8f3d-69b6d72f9991",
+      "comment": "",
+      "command": "click",
+      "target": "id=saludo",
+      "targets": [
+        ["id=saludo", "id"],
+        ["css=#saludo", "css:finder"],
+        ["xpath=//span[@id='saludo']", "xpath:attributes"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "48c17cc4-bd00-488e-abf2-eecfdb795125",
+      "comment": "",
+      "command": "click",
+      "target": "id=saludo",
+      "targets": [
+        ["id=saludo", "id"],
+        ["css=#saludo", "css:finder"],
+        ["xpath=//span[@id='saludo']", "xpath:attributes"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "44d29aa6-653e-43cf-ab62-88f90fb838d8",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "id=saludo",
+      "targets": [
+        ["id=saludo", "id"],
+        ["css=#saludo", "css:finder"],
+        ["xpath=//span[@id='saludo']", "xpath:attributes"],
+        ["xpath=//span", "xpath:position"],
+        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }]
+  }],
+  "suites": [{
+    "id": "221f045d-08d4-43a2-a336-ff506c6fa511",
+    "name": "eburyAppIT",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["36a8ce92-ef32-4819-a76c-a0023894b89d"]
+  }],
+  "urls": ["http://localhost:8080/eburyApp-war/"],
+  "plugins": []
+}

@@ -81,14 +81,10 @@ public class ClienteEJB implements GestionCliente {
     public void registrarCliente(Cliente c, Long usuario, String password) throws EburyAppException {
     
 
-    	if(c.getId()!= null) {
-            Cliente clienteEntity = em.find(Cliente.class, c.getId());
-    	/* if(c.getID()!= null) {
-            Cliente clienteEntity = em.find(Cliente.class, c.getID());
->>>>>>> ede1816be4145d5dd0ddde3c07f8fce9ae27dd79
-            if(clienteEntity != null)
-                throw new ClienteExistenteException("El cliente ya existe");
-    	} */
+    	 
+        Cliente clienteEntity = em.find(Cliente.class, c.getId());
+        
+                
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
@@ -113,35 +109,30 @@ public class ClienteEJB implements GestionCliente {
         
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
-         
-        else if(c instanceof Individual){
-        	
-        	if(usuario == null) {
-        		throw new DatosIncorrectosException("Usuario nulo");
-        	}
-        	
-        	//Comprobamos que la clave es correcta
-        	Usuario user = em.find(Usuario.class, usuario);
-        	if(password != user.getClave()) {
-        		throw new ContrasenaIncorrectaException("Contraseña Incorrecta");
-        	}
-        	
+
+        
+
+        if(clienteEntity instanceof Empresa){
+            //Comprobamos que los campos obligatorios de empresa han sido rellenados
+
+            clienteEntity.setEstado("ACTIVO");
+            em.persist(clienteEntity);
+        
+//            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
+//            Set<PersonaAutorizada> pAs= m.keySet();
+//	         if (pAs == null){
+//	            throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
+//	         }
+
+            
+        }else if(clienteEntity instanceof Individual){
+
         	
         	//Comprobamos que los campos obligatorios de individual han sido rellenados
-        	Individual i = (Individual) c;
-        	if(i.getNombre()==null) {
-        		throw new ObligatorioNuloException("Nombre de individual nulo");
-        	}
-        	if(i.getApellido()==null) {
-        		throw new ObligatorioNuloException("Apellido de individual nulo");
-        	}
-        	
-            i.setEstado("INACTIVO");
-            i.setUsuario(user);
+ 
+            clienteEntity.setEstado("ACTIVO");
             
-            em.persist(i);
-            user.setIndividual(i);
-        	}
+            em.persist(clienteEntity);
         }
     }
     
@@ -215,7 +206,11 @@ public class ClienteEJB implements GestionCliente {
     
     @Override
     public void modificarCliente(Cliente c, Long cliente) throws EburyAppException{
+        if(cliente == null){
+            throw new EburyAppException("NULL ID");
+        }
         Cliente clienteEntity = em.find(Cliente.class, cliente);
+        
         if(clienteEntity == null){
             throw new ClienteNoEncontradoException("Cliente no encotrado");
         }
@@ -226,10 +221,6 @@ public class ClienteEJB implements GestionCliente {
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
-        
-        if(c.getTipoCliente()==null)
-            throw new ObligatorioNuloException("Tipo del cliente nulo");
-        
         if(c.getEstado() == null)
             throw new ObligatorioNuloException("Estado del cliente nulo");
         
@@ -248,9 +239,10 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-  
+        clienteEntity.setID(c.getID());
         clienteEntity.setIdentificacion(c.getIdentificacion());
-        clienteEntity.setTipoCliente(c.getTipoCliente());
+
+        
         clienteEntity.setEstado(c.getEstado());
         clienteEntity.setFechaAlta(c.getFechaAlta());
         clienteEntity.setDireccion(c.getDireccion());

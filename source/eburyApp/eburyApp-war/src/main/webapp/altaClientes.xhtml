@@ -36,9 +36,10 @@
                         
                     </h:dataTable>
                     <h:message for="list"/>
+                    <h:commandButton value="Crear nuevo cliente" action="#{cliente.goRegister()}"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
-                    <h:commandButton value="Refrescar" action="#{cliente.setListaInactivos()}"/>
+                    <p><h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/></p>
+                    <p><h:commandButton value="Refrescar" action="#{cliente.setListaInactivos()}"/></p>
                 </h:form>
             <!-- </c:otherwise>
         </c:choose> -->

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Modificar cliente empresa</title>
+    </h:head>
+    <h:body>
+        <!-- <c:choose>
+            <c:when test="#{infoSesion.usuario.esAdministrativo}"> -->
+                <h:form id="modificacion">
+                    <h3>Modificar cliente: <h:outputText value="#{modificar.empresaBuffer.identificacion}" /></h3> 
+                    <h:panelGrid columns="3">
+                        <h:outputText value="Identificacion:"/>
+                        <h:inputText id="ident" value="#{modificar.empresaAux.identificacion}" required="true" />
+                        <h:message for="ident"/>
+
+                        <h:outputText value="Estado:"/>
+                        <h:inputText id="estado" value="#{modificar.empresaAux.estado}" required="true"/>
+                        <h:message for="estado"/>
+
+                        <h:outputText value="Direccion:"/>
+                        <h:inputText id="dir" value="#{modificar.empresaAux.direccion}" required="true"/>
+                        <h:message for="dir"/>
+
+                        <h:outputText value="Ciudad:"/>
+                        <h:inputText id="ciudad" value="#{modificar.empresaAux.ciudad}" required="true"/>
+                        <h:message for="ciudad"/>
+
+                        <h:outputText value="Codigo Postal:"/>
+                        <h:inputText id="cp" value="#{modificar.empresaAux.codigoPostal}" required="true"/>
+                        <h:message for="cp"/>
+
+                        <h:outputText value="Pais:"/>
+                        <h:inputText id="pais" value="#{modificar.empresaAux.pais}" required="true"/>
+                        <h:message for="pais"/>
+
+                        <h:outputText value="Razon social:"/>
+                        <h:inputText id="razsoc" value="#{modificar.empresaAux.razonSocial}" required="true"/>
+                        <h:message for="razsoc"/>
+
+
+
+                        <h:commandButton value="Modificar" action="#{modificar.modificarClienteEmp(modificar.empresaAux)}"/>
+                        
+                    </h:panelGrid>
+                    <h:message for="modificacion"/>
+                    
+                    
+                    
+                </h:form>
+                <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                <h:form>
+                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
+                </h:form>
+                
+            <!-- </c:when>
+            <c:otherwise>
+                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
+            </c:otherwise>
+        </c:choose> -->
+
+    </h:body>
+</html>
