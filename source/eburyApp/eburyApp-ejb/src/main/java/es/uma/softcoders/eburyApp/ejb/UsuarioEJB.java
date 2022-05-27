@@ -3,6 +3,8 @@ package es.uma.softcoders.eburyApp.ejb;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
@@ -20,11 +22,7 @@ public class UsuarioEJB implements GestionUsuario{
 		
 	}
 	
-	public void agregarUsuario(Long user,String nUsuario, String password) throws UsuarioYaExistenteException{
-		Usuario usuario = em.find(Usuario.class, user);
-		if(usuario != null) {
-			throw new UsuarioYaExistenteException("El usuario ya existe");
-		}
+	public void agregarUsuario(String nUsuario, String password) throws UsuarioYaExistenteException{
 		Usuario usuarioNuevo = new Usuario();
 		usuarioNuevo.setClave(password);
 		usuarioNuevo.setEsAdministrativo(false);
@@ -33,6 +31,13 @@ public class UsuarioEJB implements GestionUsuario{
 		em.persist(usuarioNuevo);
 		
 		
+	}
+	
+	public Usuario devolverUsuario(String user) {
+		TypedQuery <Usuario> q = em.createQuery("SELECT c FROM USUARIO WHERE c.Usuario = :uname ", Usuario.class);
+		q.setParameter(" fname", user);
+		Usuario aux = q.getSingleResult();
+		return aux;
 	}
 	
 	public void agregarAdministrativo(Long user,String nUsuario, String password)throws UsuarioYaExistenteException{

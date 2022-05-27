@@ -4,6 +4,7 @@ import javax.ejb.Local;
 
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioNoExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.UsuarioYaExistenteException;
 
@@ -16,7 +17,7 @@ public interface GestionUsuario {
 	 * @throws UsuarioYaExistenteException
 	 * @author Pablo Huertas
 	*/
-	public void agregarUsuario(Long id, String username, String password) throws UsuarioYaExistenteException;
+	public void agregarUsuario(String username, String password) throws UsuarioYaExistenteException;
 	
 	/** Crea un usuario con el atributo es_administrativo = true
 	 * 
@@ -24,6 +25,9 @@ public interface GestionUsuario {
 	 * @throws UsuarioYaExistenteException
 	 * @author Pablo Huertas
 	*/
+	
+	public Usuario devolverUsuario(String user);
+	
 	public void agregarAdministrativo( Long id,String username, String password) throws UsuarioYaExistenteException;
 	
 	/**Añade un cliente individual al usuario

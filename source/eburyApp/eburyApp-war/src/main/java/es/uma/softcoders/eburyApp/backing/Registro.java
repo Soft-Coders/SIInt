@@ -28,6 +28,9 @@ import es.uma.softcoders.eburyApp.exceptions.UsuarioYaExistenteException;
 @RequestScoped
 public class Registro implements Serializable{
 
+		@Inject
+		private InfoSesion infoSesion;
+	
 		@EJB
 		private GestionUsuario gestionUsuario;
 		
@@ -94,8 +97,8 @@ public class Registro implements Serializable{
 		
 		public String registrarUsuario() {
 			try {
-				gestionUsuario.agregarUsuario(usuario.getId(), usuario.getUsuario(), usuario.getClave());
-	            return "inicioUsuario.xhtml";
+				gestionUsuario.agregarUsuario(usuario.getUsuario(), usuario.getClave());
+	            return "index.xhtml";
 	        } catch (UsuarioYaExistenteException e) {
 	            FacesMessage fm = new FacesMessage("Error: " + e);
 	            FacesContext.getCurrentInstance().addMessage(null, fm);
@@ -110,7 +113,8 @@ public class Registro implements Serializable{
 			try{
 				individual.setTipoCliente("INDIVIDUAL");
 				individual.setEstado("INACTIVO");
-				gestionCliente.registrarCliente(individual, usuario.getId(), usuario.getClave());
+				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario());
+				gestionCliente.registrarCliente(individual, aux.getId(), aux.getClave());
 				return "vistaPrincipalCliente.xhtml";
 			}catch(EburyAppException e){ 
 				FacesMessage fm = new FacesMessage("Error: " + e);
