@@ -21,11 +21,11 @@
                 <!-- <h:form id="registro">
                     <h:panelGrid columns="3">
  -->
-                        
-                        <p><h:link action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"> Alta de clientes </h:link></p>
-                        <p><h:link action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"> Baja de clientes </h:link></p>
-                        <p><h:link outcome="descargaInformes.xhtml"> Descarga informes </h:link></p>
-                        <p><h:link outcome="admin.xhtml"> Volver a la página de login </h:link></p>
+                        <h1>Menú Administrador</h1>
+                        <h:button value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
+                        <h:button value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
+                        <h:button value="Descarga de informes" outcome="descargaInformes.xhtml"/>
+                        <h:button value="Logout" outcome="admin.xhtml"/>
                     <!-- </h:panelGrid> -->
                     <!-- <h:messages/> -->
                     
