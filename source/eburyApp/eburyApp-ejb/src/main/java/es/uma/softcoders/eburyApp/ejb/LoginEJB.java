@@ -71,7 +71,7 @@ public class LoginEJB implements GestionLogin {
         }
         
         if(ind != null){
-            gestionCliente.comprobarCliente(ind.getID());
+            gestionCliente.comprobarCliente(ind.getId());
         }
     }
 

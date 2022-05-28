@@ -19,6 +19,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
+import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
@@ -135,7 +137,7 @@ public class PruebaInformes {
             query=JSONObject.toJSONString(json4);
 
             try{
-                List<Object> pRes = gestionInformes.product(query);
+                List<Segregada> pRes = gestionInformes.product(query);
                 if(pRes.isEmpty()){
                     fail("No debe ser vacía-4");
                 }
@@ -155,7 +157,7 @@ public class PruebaInformes {
             query = JSONObject.toJSONString(json5);
 
             try{
-                List<Object> pRes = gestionInformes.product(query);
+                List<Segregada> pRes = gestionInformes.product(query);
                 if(pRes.isEmpty()){
                     fail("No debe ser vacía");
                 }
@@ -173,7 +175,7 @@ public class PruebaInformes {
             json6.put("searchParameters", sP6);
 
             try{
-                List<Object>pRes = gestionInformes.product(query);                
+                List<Segregada>pRes = gestionInformes.product(query);                
             }catch(InvalidJSONQueryException e){
                 
             }

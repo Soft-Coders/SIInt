@@ -55,23 +55,20 @@ public class ClienteEJB implements GestionCliente {
 
     @Override
     public void altaCliente(Cliente c) throws EburyAppException {
-    
     	 
-        Cliente clienteEntity = em.find(Cliente.class, c.getID());
-        
-                
-    	 
+        Cliente clienteEntity = em.find(Cliente.class, c.getId());
+
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
         
-        if(c.getTipo_cliente()==null)
+        if(c.getTipoCliente()==null)
             throw new ObligatorioNuloException("Tipo del cliente nulo");
         
         if(c.getEstado() == null)
             throw new ObligatorioNuloException("Estado del cliente nulo");
         
-        if(c.getFecha_Alta() == null)
+        if(c.getFechaAlta() == null)
             throw new ObligatorioNuloException("Fecha de alta nula");
         
         if(c.getDireccion() == null)
@@ -131,8 +128,8 @@ public class ClienteEJB implements GestionCliente {
             throw new ObligatorioNuloException("Identificacion nula");
         
         if(c.getEstado() == null)
-            throw new ObligatorioNuloException("Estado del cliente nulo");
-        
+            throw new ObligatorioNuloException("Estado del cliente nulo"); 
+
         if(c.getDireccion() == null)
             throw new ObligatorioNuloException("Direccion nula");
         
@@ -145,7 +142,7 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-        clienteEntity.setID(c.getID());
+        clienteEntity.setId(c.getId());
         clienteEntity.setIdentificacion(c.getIdentificacion());
         clienteEntity.setEstado(c.getEstado());
         clienteEntity.setDireccion(c.getDireccion());
@@ -190,10 +187,10 @@ public class ClienteEJB implements GestionCliente {
     public void comprobarCliente(Long cliente) throws EburyAppException{
         Individual clienteEntity = em.find(Individual.class, cliente);
 
-        if (clienteEntity.getTipo_cliente()=="EMPRESA")
+        if (clienteEntity.getTipoCliente()=="EMPRESA")
             throw new ClienteNuloException("El cliente es una empresa");
 
-        if(clienteEntity.getTipo_cliente()=="INDIVIDUAL"){
+        if(clienteEntity.getTipoCliente()=="INDIVIDUAL"){
             
             if(clienteEntity.getUsuario()==null){
                 throw new ClienteNoValidoException("El cliente no posee usuario");

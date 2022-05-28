@@ -136,10 +136,6 @@ public class CuentaFintech extends Cuenta implements Serializable{
  		this.cliente = cliente;
  	}
 	
- 	public void setIBAN(String iban) {
- 		super.setIban(iban);
- 	}
-	
 	// equals() y hashCode() se heredan del padre
 
 	

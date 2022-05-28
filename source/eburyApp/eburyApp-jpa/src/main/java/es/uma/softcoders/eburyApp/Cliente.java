@@ -83,73 +83,131 @@ public class Cliente implements Serializable{
 
     // ------ GETTERS & SETTERS ------
 	
-	public Long getID() {
-		return id;
-	}
-	public void setID(Long iD) {
-		id = iD;
-	}
-	public String getIdentificacion() {
-		return identificacion;
-	}
-	public void setIdentificacion(String Identificacion) {
-		identificacion = Identificacion;
-	}
-	public String getTipo_cliente() {
-		return tipoCliente;
-	}
-	public void setTipo_cliente(String tipo_cliente) {
-		this.tipoCliente = tipo_cliente;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public Date getFecha_Alta() {
-		return fechaAlta;
-	}
-	public void setFecha_Alta(Date fecha_Alta) {
-		fechaAlta = fecha_Alta;
-	}
-	public Date getFecha_Baja() {
-		return fechaBaja;
-	}
-	public void setFecha_Baja(Date fecha_Baja) {
-		fechaBaja = fecha_Baja;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String Direccion) {
-		direccion = Direccion;
-	}
-	public String getCiudad() {
-		return ciudad;
-	}
-	public void setCiudad(String Ciudad) {
-		ciudad = Ciudad;
-	}
-	public String getCodigoPostal() {
-		return codigoPostal;
-	}
-	public void setCodigoPostal(String CodigoPostal) {
-		codigoPostal = CodigoPostal;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String Pais) {
-		pais = Pais;
-	}
-	
-	
 	/**
 	 * @return la lista de cuentas del cliente
 	 */
 	public List<CuentaFintech> getCuentas() {
 		return cuentas;
+	}
+	/**
+	 * @return the id
+	 */
+	public Long getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Long id) {
+		this.id = id;
+	}
+	/**
+	 * @return the identificacion
+	 */
+	public String getIdentificacion() {
+		return identificacion;
+	}
+	/**
+	 * @param identificacion the identificacion to set
+	 */
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
+	}
+	/**
+	 * @return the tipoCliente
+	 */
+	public String getTipoCliente() {
+		return tipoCliente;
+	}
+	/**
+	 * @param tipoCliente the tipoCliente to set
+	 */
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = tipoCliente;
+	}
+	/**
+	 * @return the estado
+	 */
+	public String getEstado() {
+		return estado;
+	}
+	/**
+	 * @param estado the estado to set
+	 */
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	/**
+	 * @return the fechaAlta
+	 */
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+	/**
+	 * @param fechaAlta the fechaAlta to set
+	 */
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+	/**
+	 * @return the fechaBaja
+	 */
+	public Date getFechaBaja() {
+		return fechaBaja;
+	}
+	/**
+	 * @param fechaBaja the fechaBaja to set
+	 */
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
+	}
+	/**
+	 * @return the direccion
+	 */
+	public String getDireccion() {
+		return direccion;
+	}
+	/**
+	 * @param direccion the direccion to set
+	 */
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	/**
+	 * @return the ciudad
+	 */
+	public String getCiudad() {
+		return ciudad;
+	}
+	/**
+	 * @param ciudad the ciudad to set
+	 */
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+	/**
+	 * @return the codigoPostal
+	 */
+	public String getCodigoPostal() {
+		return codigoPostal;
+	}
+	/**
+	 * @param codigoPostal the codigoPostal to set
+	 */
+	public void setCodigoPostal(String codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+	/**
+	 * @return the pais
+	 */
+	public String getPais() {
+		return pais;
+	}
+	/**
+	 * @param pais the pais to set
+	 */
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	/**
 	 * @param cuentas la lista de cuentas fintech del cliente
@@ -175,7 +233,7 @@ public class Cliente implements Serializable{
 		if (getClass() != obj.getClass())
 			res = false;
 		Cliente other = (Cliente) obj;
-		if (this.id!= other.getID() || !(this.identificacion.equalsIgnoreCase(other.getIdentificacion())))
+		if (this.id!= other.getId() || !(this.identificacion.equalsIgnoreCase(other.getIdentificacion())))
 			res = false;
 
 		return res;
