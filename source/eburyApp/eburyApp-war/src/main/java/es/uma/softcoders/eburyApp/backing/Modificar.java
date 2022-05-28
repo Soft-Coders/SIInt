@@ -105,24 +105,22 @@ public class Modificar implements Serializable{
 
             if(c instanceof Individual){
                 individualBuffer = (Individual) c;
-                return "modificarClienteInd.xhtml";
+                return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
             }else if(c instanceof Empresa){
                 empresaBuffer = (Empresa) c;
-                return "modificarClienteEmp.xhtml";
+                return "modificarClienteEmp.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
             } else {
                 return "unexpected.xhml";
             }
         }
 
-        public String modificarClienteInd(Individual i){
+        public String modificarClienteInd(Individual i, String id){
+            Long idL = Long.valueOf(id);
             i.setID(individualBuffer.getID());
             i.setFecha_Alta(individualBuffer.getFecha_Alta());
             i.setFecha_Baja(individualBuffer.getFecha_Baja());
             try{
-                if(getIdCliente() == null){
-                    return "inicioAdmin.xhtml";
-                }
-                gestionCliente.modificarCliente(i, getIdCliente());  
+                gestionCliente.modificarCliente(i, idL);  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al modificar");
@@ -130,15 +128,13 @@ public class Modificar implements Serializable{
             return "unexpected.xhtml";
         }
 
-        public String modificarClienteEmp(Empresa emp){
-            emp.setID(empresaBuffer.getID());
+        public String modificarClienteEmp(Empresa emp, String id){
+            Long idL = Long.valueOf(id);
+            emp.setID(idL);
             emp.setFecha_Alta(empresaBuffer.getFecha_Alta());
             emp.setFecha_Baja(empresaBuffer.getFecha_Baja());
             try{
-                if(getIdCliente() == null){
-                    return "inicioAdmin.xhtml";
-                }
-                gestionCliente.modificarCliente(emp, getIdCliente());  
+                gestionCliente.modificarCliente(emp, idL);  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al modificar");
