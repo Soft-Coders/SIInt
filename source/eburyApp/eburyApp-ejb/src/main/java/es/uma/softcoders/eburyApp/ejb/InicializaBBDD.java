@@ -117,6 +117,8 @@ public class InicializaBBDD {
 		paY40.setApellidos("");
 		paY40.setDireccion("La calle de Ana");
 		paY40.setUsuario(usuarioAna);
+		paY40.setEstado("INACTIVO");
+		paY40.setFechaInicio(new Date());
 		em.persist(paY40);
 		
 		eur.setAbreviatura("EUR");

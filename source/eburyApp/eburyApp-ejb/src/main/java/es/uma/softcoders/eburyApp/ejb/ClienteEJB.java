@@ -239,7 +239,7 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-        clienteEntity.setID(c.getID());
+        clienteEntity.setId(c.getId());
         clienteEntity.setIdentificacion(c.getIdentificacion());
 
         

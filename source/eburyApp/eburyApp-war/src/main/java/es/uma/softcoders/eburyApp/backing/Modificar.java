@@ -116,10 +116,10 @@ public class Modificar implements Serializable{
 
 
         public String goModificarCliente(Cliente c){
-            if(c.getID() == null){
+            if(c.getId() == null){
                 return "unexpected.xhtml";
             } else{
-                idCliente = c.getID();
+                idCliente = c.getId();
             }
 
             if(c instanceof Individual){
@@ -134,9 +134,9 @@ public class Modificar implements Serializable{
         }
 
         public String modificarClienteInd(Individual i){
-            i.setID(individualBuffer.getID());
-            i.setFecha_Alta(individualBuffer.getFecha_Alta());
-            i.setFecha_Baja(individualBuffer.getFecha_Baja());
+            i.setId(individualBuffer.getId());
+            i.setFechaAlta(individualBuffer.getFechaAlta());
+            i.setFechaBaja(individualBuffer.getFechaBaja());
             try{
                 gestionCliente.modificarCliente(i, getIdCliente());  
                 return  "bajaClientes.xhtml";    
@@ -147,9 +147,9 @@ public class Modificar implements Serializable{
         }
 
         public String modificarClienteEmp(Empresa emp){
-            empresaAux.setID(empresaBuffer.getID());
-            empresaAux.setFecha_Alta(empresaBuffer.getFecha_Alta());
-            empresaAux.setFecha_Baja(empresaBuffer.getFecha_Baja());
+            empresaAux.setId(empresaBuffer.getId());
+            empresaAux.setFechaAlta(empresaBuffer.getFechaAlta());
+            empresaAux.setFechaBaja(empresaBuffer.getFechaBaja());
             try{
                 gestionCliente.modificarCliente(emp, getIdCliente());  
                 return  "bajaClientes.xhtml";    

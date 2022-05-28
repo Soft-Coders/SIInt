@@ -37,8 +37,8 @@ public class AutorizadoEJB implements GestionAutorizado {
 	}
 	
 	@Override
-    public List<PersonaAutorizda> autorizadosInactivos() throws EburyAppException{
-        Query q = em.createQuery("SELECT p FROM PERSONA_AUTORIZADA p WHERE c.estado = 'INACTIVO'");
+    public List<PersonaAutorizada> autorizadosInactivos() throws EburyAppException{
+        Query q = em.createQuery("SELECT p FROM PersonaAutorizada p WHERE p.estado = 'INACTIVO'");
         List<PersonaAutorizada> cli = q.getResultList();
         if (cli.isEmpty())
             throw new ClienteNoEncontradoException("No hay cuentas inactivas");
@@ -48,7 +48,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 
     @Override
     public List<PersonaAutorizada> autorizadosActivos() throws EburyAppException{
-        Query q = em.createQuery("SELECT p FROM PERSONA_AUTORIZADA p WHERE c.estado = 'ACTIVO'");
+        Query q = em.createQuery("SELECT p FROM PersonaAutorizada p WHERE p.estado = 'ACTIVO'");
         List<PersonaAutorizada> cli = q.getResultList();
         if (cli.isEmpty())
             throw new ClienteNoEncontradoException("No hay cuentas activas");

@@ -105,7 +105,7 @@ public class AutorizadoController implements Serializable{
         public String goAlta(){
             return "altaAutorizados.xhtml";
         }
-
+}
         /* public String goModificarCliente(Cliente c){
             idCliente = c.getId();
             clienteBuffer = c;
