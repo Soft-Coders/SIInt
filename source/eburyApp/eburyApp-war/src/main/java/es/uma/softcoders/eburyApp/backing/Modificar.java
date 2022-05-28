@@ -15,6 +15,7 @@ import javax.inject.Named;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
@@ -27,6 +28,10 @@ public class Modificar implements Serializable{
 
         @Inject
         private ClienteController clienteCont;
+        
+        private PersonaAutorizada autorizadoBuffer = new PersonaAutorizada();
+        
+        private PersonaAutorizada autorizadoAux = new PersonaAutorizada();
 
         private Individual individualAux = new Individual();
 
@@ -37,6 +42,8 @@ public class Modificar implements Serializable{
         private Empresa empresaBuffer = new Empresa();
 
         private Long idCliente;
+        
+        private Long idAutorizado;
 
         public Modificar(){
             
@@ -94,17 +101,21 @@ public class Modificar implements Serializable{
         public Long getIdCliente(){
             return idCliente;
         }
+        
+        public String goModificarAutorizado(PersonaAutorizada p) {
+        	if(p.getId() == null) {
+        		return "unexpected.xhtml";
+        	}else {
+        		idAutorizado = p.getId();
+        	}
+        	
+        	autorizadoBuffer = p;
+        	return "modificarAutorizado.xhtml";
+        	
+        }
 
 
         public String goModificarCliente(Cliente c){
-            if(c.getId() == null){
-                return "unexpected.xhtml";
-            } else{
-                idCliente = c.getId();
-            }
-            
-            System.out.println(" 3=======D** "+idCliente);
-            
             if(c instanceof Individual){
                 individualBuffer = (Individual) c;
                 return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
@@ -116,10 +127,13 @@ public class Modificar implements Serializable{
             }
         }
 
-        public String modificarClienteInd(Individual i, Long idCliente){
+
+        public String modificarClienteInd(Individual i, String id){
+            Long idL = Long.valueOf(id);
             i.setId(individualBuffer.getId());
             i.setFechaAlta(individualBuffer.getFechaAlta());
-            i.setFechaBaja(individualBuffer.getFechaBaja());
+            i.setFechaAlta(individualBuffer.getFechaAlta());
+
             try{
             	System.out.println("> modificar.modificarCliente() : idCliente : "+idCliente);
                 gestionCliente.modificarCliente(i, idCliente);  
@@ -136,6 +150,7 @@ public class Modificar implements Serializable{
             emp.setId(idL);
             emp.setFechaAlta(empresaBuffer.getFechaAlta());
             emp.setFechaBaja(empresaBuffer.getFechaBaja());
+
             try{
                 gestionCliente.modificarCliente(emp, idL);  
                 return  "bajaClientes.xhtml";    

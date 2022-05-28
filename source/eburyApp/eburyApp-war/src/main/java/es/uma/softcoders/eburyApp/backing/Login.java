@@ -51,8 +51,10 @@ public class Login implements Serializable{
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
 	            System.out.println("> login.entrar() : POST : loginUsuario() : PRE : setUsuario()");
 	            sesion.setUsuario(usuario);
+	            
 	            System.out.println("> login.entrar() : POST : setUsuario()");
-	            return "inicio.xhtml";
+
+	            return "inicioUsuario.xhtml";
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");

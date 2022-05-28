@@ -23,10 +23,14 @@ import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoValidoException;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNuloException;
 import es.uma.softcoders.eburyApp.exceptions.ContrasenaIncorrectaException;
+import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
 import es.uma.softcoders.eburyApp.exceptions.DatosIncorrectosException;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
+import es.uma.softcoders.eburyApp.exceptions.EmpresaExistenteException;
+import es.uma.softcoders.eburyApp.exceptions.EmpresaNoEncontradaException;
 import es.uma.softcoders.eburyApp.exceptions.EmpresaSinUsuarioException;
 import es.uma.softcoders.eburyApp.exceptions.ObligatorioNuloException;
+import es.uma.softcoders.eburyApp.exceptions.PersonaAutorizadaExistenteException;
 @Stateless
 public class ClienteEJB implements GestionCliente {
 	
@@ -54,10 +58,92 @@ public class ClienteEJB implements GestionCliente {
     }
 
     @Override
-    public void altaCliente(Cliente c) throws EburyAppException {
+    public void altaCliente(Long cliente) throws EburyAppException{
+    	
+        Cliente c = em.find(Cliente.class, cliente);
+        if(c == null)
+            throw new ClienteExistenteException("El cliente no existe");
+    	
+    	if(c instanceof Individual) {
+
+        	Individual i = (Individual)c;
+        	i.setEstado("ACTIVO");
+        	em.merge(i);
+    	}else{
+    		Empresa e = (Empresa)c;
+    		e.setEstado("ACTIVO");
+    		em.merge(e);
+    	}
+    	
+    }
+    
+    @Override
+    public void registrarCliente(Cliente c, Long usuario, String password) throws EburyAppException {
+    
+
     	 
         Cliente clienteEntity = em.find(Cliente.class, c.getId());
+        
+                
 
+        if(c.getIdentificacion() == null)
+            throw new ObligatorioNuloException("Identificacion nula");
+        
+        if(c.getTipoCliente()==null)
+            throw new ObligatorioNuloException("Tipo del cliente nulo");
+        
+        if(c.getEstado() == null)
+            throw new ObligatorioNuloException("Estado del cliente nulo");
+        
+        if(c.getFechaAlta() == null)
+            throw new ObligatorioNuloException("Fecha de alta nula");
+        
+        if(c.getDireccion() == null)
+            throw new ObligatorioNuloException("Direccion nula");
+        
+        if(c.getCiudad() == null)
+            throw new ObligatorioNuloException("Ciudad nula");
+        
+        if(c.getCodigoPostal()==null)
+            throw new ObligatorioNuloException("Codigo postal nulo");
+        
+        if(c.getPais()==null)
+            throw new ObligatorioNuloException("Pais nulo");
+
+        
+
+        if(clienteEntity instanceof Empresa){
+            //Comprobamos que los campos obligatorios de empresa han sido rellenados
+
+            clienteEntity.setEstado("ACTIVO");
+            em.persist(clienteEntity);
+        
+//            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
+//            Set<PersonaAutorizada> pAs= m.keySet();
+//	         if (pAs == null){
+//	            throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
+//	         }
+
+            
+        }else if(clienteEntity instanceof Individual){
+
+        	
+        	//Comprobamos que los campos obligatorios de individual han sido rellenados
+ 
+            clienteEntity.setEstado("ACTIVO");
+            
+            em.persist(clienteEntity);
+        }
+    }
+    
+    @Override
+    public void registrarEmpresa(Cliente c, Long idPersAut, Character cuenta)throws EburyAppException{
+
+    	if(c.getId()!= null) {
+            Cliente clienteEntity = em.find(Cliente.class, c.getId());
+            if(clienteEntity != null)
+                throw new ClienteExistenteException("El cliente ya existe");
+    	}
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
@@ -84,31 +170,40 @@ public class ClienteEJB implements GestionCliente {
             throw new ObligatorioNuloException("Pais nulo");
         
 
-        if(clienteEntity instanceof Empresa){
+        if(c instanceof Empresa){
             //Comprobamos que los campos obligatorios de empresa han sido rellenados
-
-            clienteEntity.setEstado("ACTIVO");
-            em.persist(clienteEntity);
+        	Empresa e = (Empresa) c;
+            if(e.getRazonSocial()==null) {
+            	throw new DatosIncorrectosException("Razon social de empresa nula");
+            }
+            
+            e.setEstado("INACTIVO");
+            em.persist(e);
+    		
+    		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, idPersAut);
         
-//            Map<PersonaAutorizada, Character> m = e.getAutorizacion();
-//            Set<PersonaAutorizada> pAs= m.keySet();
-//	         if (pAs == null){
-//	            throw new EmpresaSinUsuarioException("La empresa no tiene ninguna persona autorizada");
-//	         }
-
-            
-        }else if(clienteEntity instanceof Individual){
-        	
-        	
-        	//Comprobamos que los campos obligatorios de individual han sido rellenados
-        	
-        	
-            clienteEntity.setEstado("ACTIVO");
-            
-            em.persist(clienteEntity);
-        }
+            if(cuenta != 'L' && cuenta != 'O') {
+    			throw new CuentaNoCoincidenteException("El caracter de cuenta no es válido, prueba con L (Lectura) o con O (Operativa)");
+    		}
+    		
+    		Map<PersonaAutorizada, Character> listaPersonasAutorizadas = e.getAutorizacion();
+    		if(listaPersonasAutorizadas.get(personaAutorizadaEntity) == null) {
+    			listaPersonasAutorizadas.put(personaAutorizadaEntity, cuenta);
+    			e.setAutorizacion(listaPersonasAutorizadas);
+    		} else {
+    			throw new PersonaAutorizadaExistenteException("Persona autorizada ya registrada en la empresa");
+    		}
+    		
+    		Map<Empresa, Character> listaEmpresas = personaAutorizadaEntity.getAutorizacion();
+    		if(listaEmpresas.get(e) == null) {
+    			listaEmpresas.put(e, cuenta);
+    			personaAutorizadaEntity.setAutorizacion(listaEmpresas);
+    		} else {
+    			throw new EmpresaExistenteException("Empresa ya registrada en la persona autorizada");
+    		}
+    	}	
     }
-
+    
     @Override
     public void modificarCliente(Cliente c, Long cliente) throws EburyAppException{
         if(cliente == null){
@@ -141,6 +236,7 @@ public class ClienteEJB implements GestionCliente {
         
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
+
 
         clienteEntity.setIdentificacion(c.getIdentificacion());
         clienteEntity.setEstado(c.getEstado());

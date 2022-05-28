@@ -2,12 +2,17 @@ package es.uma.softcoders.eburyApp.backing;
 
 import java.io.Serializable;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.ejb.GestionUsuario;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 import javax.inject.Inject;
@@ -16,17 +21,18 @@ import javax.inject.Inject;
 @SessionScoped
 public class InfoSesion implements Serializable{
 	
+
         private static int instance = 0;
         private int currentInstance;
         
         private Usuario usuario;
         
-        private boolean autorizado;
 
         public InfoSesion(){
         	System.out.println("> infoSesion.InfoSesion() : CREATED " + ++instance);
         	currentInstance = instance;
         }
+        
 
         public synchronized String invalidarSesion(){
                 if (usuario != null)
@@ -42,14 +48,12 @@ public class InfoSesion implements Serializable{
                         usuario = null;
                         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 }
-                autorizado = false;
                 return "admin.xhtml";
         }
         
         public synchronized void setUsuario(Usuario u){        	
         	System.out.println("> infoSesion"+currentInstance+".setUsuario() : PRE : usuario");
                 this.usuario = u;
-                this.autorizado = u.isEsAdministrativo();
             System.out.println("> infoSesion"+currentInstance+".setUsuario() : POST : usuario :\n" + usuario);
         }
 

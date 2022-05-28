@@ -129,13 +129,13 @@ public class BaseDatosCT {
 		cpInactiva.setCliente(c);
 		
 		//Divisas
-		Divisa dDolar = new Divisa("DOL", "dolares", '$', 1.05);
-		Divisa dEuro = new Divisa("EUR", "euros", '€', 1.00);
+		Divisa dDolar = new Divisa("DOL", "dolares", '$', 2.00);
+		Divisa dEuro = new Divisa("EUR", "euros", '€', 3.00);
 		
 		//Cuentas referencias
 		cfPruebaD.setIban("cfPruebaD");
 		cfPruebaD.setNombreBanco("Santander");
-		cfPruebaD.setSaldo(10000.0);
+		cfPruebaD.setSaldo(10000.00);
 		cfPruebaD.setFechaApertura(date.parse("2010-02-22"));
 		cfPruebaD.setEstado("ACTIVO");
 		cfPruebaD.setSwift("Swift");
@@ -144,7 +144,7 @@ public class BaseDatosCT {
 		
 		cfPruebaE.setIban("cfPruebaE");
 		cfPruebaE.setNombreBanco("Santander");
-		cfPruebaE.setSaldo(10000.0);
+		cfPruebaE.setSaldo(10000.00);
 		cfPruebaE.setFechaApertura(date.parse("2010-02-22"));
 		cfPruebaE.setEstado("ACTIVO");
 		cfPruebaE.setSwift("Swift");
@@ -153,8 +153,8 @@ public class BaseDatosCT {
 		
 		//Relación cuenta referencias - pooled
 		Map<CuentaReferencia,Double> depositado = new HashMap<>();
-		depositado.put(cfPruebaD, 5000.0);
-		depositado.put(cfPruebaE, 5000.0);
+		depositado.put(cfPruebaD, 5000.00);
+		depositado.put(cfPruebaE, 5000.00);
 		
 		cpPooled.setDepositadaEn(depositado);
 		
