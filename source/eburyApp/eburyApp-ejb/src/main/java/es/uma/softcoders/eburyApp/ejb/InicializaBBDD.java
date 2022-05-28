@@ -99,12 +99,12 @@ public class InicializaBBDD {
 		individual639.setTipoCliente("INDIVIDUAL");
 		individual639.setFechaAlta(new Date());
 		individual639.setEstado("ACTIVO");
-		individual639.setDireccion("Direccion");
+		individual639.setDireccion("La calle de Juan");
 		individual639.setCiudad("Madrid");
 		individual639.setCodigoPostal("28770");
 		individual639.setPais("España");
-		individual639.setNombre("Oscar");
-		individual639.setApellido("Lopezosa");
+		individual639.setNombre("Juan");
+		individual639.setApellido("");
 		individual639.setUsuario(usuarioJuan);
 		individual639.setCuentas(cuentas639);
 		em.persist(individual639);
@@ -113,9 +113,9 @@ public class InicializaBBDD {
 		aut.put(empresaP33, 'W');
 		paY40.setIdentificacion("Y4001267V");
 		paY40.setAutorizacion(aut);
-		paY40.setNombre("Paco");
-		paY40.setApellidos("Gutierrez");
-		paY40.setDireccion("La calle de Paco");
+		paY40.setNombre("Ana");
+		paY40.setApellidos("");
+		paY40.setDireccion("La calle de Ana");
 		paY40.setUsuario(usuarioAna);
 		em.persist(paY40);
 		
