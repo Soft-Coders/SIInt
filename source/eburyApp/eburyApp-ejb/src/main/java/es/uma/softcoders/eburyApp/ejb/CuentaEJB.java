@@ -68,7 +68,7 @@ public class CuentaEJB implements GestionCuenta{
 			if (cf == null) {
 				throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
 			}
-			cf.setEstado("INACTIVA");
+			cf.setEstado("INACTIVO");
 		}
 	}
 	
