@@ -36,8 +36,8 @@ public class UsuarioEJB implements GestionUsuario{
 	}
 	
 	public List<Usuario> devolverUsuario(String user) {
-		Query q = em.createQuery("SELECT c FROM Usuario WHERE c.Usuario = :uname ");
-		q.setParameter(" uname ", user);
+		Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario LIKE :uname ");
+		q.setParameter("uname", user);
 		List<Usuario> aux = q.getResultList();
 		return aux;
 	}

@@ -36,7 +36,7 @@ public class CuentaBB {
 	private List<Empresa> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
-	private CuentaFintech cf;
+	private CuentaFintech cf = new CuentaFintech();
     private String iban;
     
     
@@ -60,7 +60,7 @@ public class CuentaBB {
 	}
 
     
-    public CuentaFintech getCuentaFintech () {
+    public CuentaFintech getCf () {
     	return cf;
     }
     public void setCuentaFintech(CuentaFintech cuenta) {
@@ -120,13 +120,19 @@ public class CuentaBB {
 		return "vistaCrearCuentaFintech.xhtml";
 	}
     public String vistaEliminarCuenta() {
+		
 		return "vistaEliminarCuentaFintech.xhtml";
 	}
     public String vistaPrincipalCliente() {
     	return "vistaPrincipalCliente.xhtml";
     }
     public String vistaConfirmarEliminar(){
-    	return "vistaConfirmarEliminar.xhtml";
+		try {
+			cerrarCuentaF();
+		} catch (EburyAppException e) {
+			e.printStackTrace();
+		}
+    	return "vistaPrincipalCliente.xhtml";
     }
     
     public String irCambioDivisa() {

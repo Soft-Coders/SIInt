@@ -155,11 +155,16 @@ public class AutorizadoEJB implements GestionAutorizado {
 		}	
 	}*/
 	
-	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws PersonaAutorizadaNoEncontradaException{
+	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws EburyAppException{
+		System.out.println("> HE LLEGADO AL METODO ");
 		PersonaAutorizada personaAutorizadaEntity = em.find(PersonaAutorizada.class, autorizado);
+		System.out.println("> HE HECHO FIND ");
+		
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
 		}
+		System.out.println("> HAY PERSONA AUTORIZADA ");
+
 		
 		//Si algún atributo de la clase auxiliar no es nulo se da por hecho que tiene que ser cambiado
 		if(p.getApellidos() != null) {
@@ -168,27 +173,27 @@ public class AutorizadoEJB implements GestionAutorizado {
 		if(p.getDireccion() != null) {
 			personaAutorizadaEntity.setDireccion(p.getDireccion());
 		}
-		if(p.getFechaNacimiento() != null) {
-			personaAutorizadaEntity.setFechaNacimiento(p.getFechaNacimiento());
-		}
+
+		System.out.println("> HE LLEGADO A LA 177");
 		if(p.getIdentificacion() != null) {
-			personaAutorizadaEntity.setApellidos(p.getApellidos());
-		}
-		if(p.getUsuario() != null) {
-			personaAutorizadaEntity.setUsuario(p.getUsuario());
+			personaAutorizadaEntity.setIdentificacion(p.getIdentificacion());
 		}
 		if(p.getNombre() != null) {
 			personaAutorizadaEntity.setNombre(p.getNombre());
 		}
 		if(p.getEstado() != null) {
-			try {
+			if(p.getEstado().equals("ACTIVO") || p.getEstado().equals("INACTIVO")) {
 				personaAutorizadaEntity.setEstado(p.getEstado());
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}else{
+				throw new EburyAppException("ESTADO NO VALIDO P-AUT");
 			}
 		}
-		em.persist(personaAutorizadaEntity);
+		System.out.println("> ANTES DEL MERGE");
+
+		em.merge(personaAutorizadaEntity);
+		em.flush();
+		System.out.println("> DESPUES DEL MERGE");
+
 	}
 	
 	public void eliminarAutorizado(Long autorizado, Long empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException{
@@ -230,13 +235,10 @@ public class AutorizadoEJB implements GestionAutorizado {
 		if(personaAutorizadaEntity == null) {
 			throw new PersonaAutorizadaNoEncontradaException("La persona autorizada en cuestión no se encuentra en la base de datos");
 		}
-		try {
-			personaAutorizadaEntity.setEstado("INACTIVO");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		em.persist(personaAutorizadaEntity);
+		
+		personaAutorizadaEntity.setEstado("INACTIVO");
+		
+		em.merge(personaAutorizadaEntity);
 	}
 	
 }

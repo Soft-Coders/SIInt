@@ -18,7 +18,7 @@
     	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
     	<h:panelGrid columns="2">
 			<h:outputText value="IBAN:"/>
-			<h:inputText value="#{cuentaBB.iban}"/>
+			<h:inputText value="#{cuentaBB.cf.iban}"/>
 		</h:panelGrid>
     	<br/>
     	<h:commandButton value="Crear Cuenta" action="#{cuentaBB.crearCuentaF()}"/>
