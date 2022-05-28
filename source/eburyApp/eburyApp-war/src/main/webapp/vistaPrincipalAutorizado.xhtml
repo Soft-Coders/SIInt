@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Lista de Empresas</title>
+</h:head>
+
+<h:body>
+	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
+	<h1>Mis empresas</h1>
+	<table>
+    		<tr>
+    			<th>Identificación</th>
+    			<th>Estado</th>
+    			<th>Fecha Alta</th>
+    			<th>Dirección</th>
+    			<th>Ciudad</th>
+    			<th>Código Postal</th>
+    			<th>País</th>
+    			<th>Razón Social</th>
+    			<th>Cuentas</th>
+    		</tr>
+    		<tbody>
+	    		<ui:repeat var="emp" value="#{CuentaBB.listaEmpresasAutorizadas}">
+	    			<h:panelGroup>
+	   			  	<tr>
+		    			<td>#{emp.identificacion}</td>
+		    			<td>#{emp.estado}</td>
+		    			<td>#{emp.fechaAlta}</td>
+		    			<td>#{emp.direccion}</td>
+		    			<td>#{emp.ciudad}</td>
+		    			<td>#{emp.codigoPostal}</td>
+		    			<td>#{emp.pais}</td>
+		    			<td>#{emp.razonSocial}</td>
+		    			 <!-- AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA-->
+		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
+		    						action="#{CuentaBB.seleccionarEmpresa(emp)}" /></td>
+		    		</tr>
+	    			</h:panelGroup>
+	    		</ui:repeat>
+    		</tbody>
+    	</table>
+</h:body>
+
+</html> 

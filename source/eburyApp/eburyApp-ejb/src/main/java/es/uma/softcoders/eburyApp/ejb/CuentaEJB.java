@@ -1,11 +1,20 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.Date;
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Cuenta;
 import es.uma.softcoders.eburyApp.CuentaFintech;
+import es.uma.softcoders.eburyApp.Empresa;
+import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoExistenteException;
@@ -18,7 +27,9 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
  */
 @Stateless
 public class CuentaEJB implements GestionCuenta{
-
+	
+	private static Long auxIBAN = 10000000000L;
+	private static Long swift = 1234567890L;
 
 	@PersistenceContext(unitName="eburyAppEjb")
 	private EntityManager em;
@@ -26,30 +37,26 @@ public class CuentaEJB implements GestionCuenta{
 	@Override
 	public void crearCuentaFintech(CuentaFintech cf) throws EburyAppException {
 		if (cf.getIban() == null) {
-			System.out.println("IBAN NULL ->");
-			throw new DatosIncorrectosException("IBAN NULO, INVÁLIDO");
-		} else {
-			System.out.println("IBAN NOT NULL");
+			cf.setIban(auxIBAN.toString());
+			auxIBAN++;
+		} 
 			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
-				System.out.println("IBAN REGISTRADO ->");
 				throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 			}
-			System.out.println("IBAN NO REGISTRADO");
 			if (cf.getCliente() == null) {
-				System.out.println("CLIENTE NULL ->");
 				throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
 			} 
-			System.out.println("CLIENTE NOT NULL");
 			if (em.find(Cliente.class, cf.getCliente().getId()) == null) {
-				System.out.println("CLIENTE INEXISTENTE ->");
 				System.out.println(em.createQuery("SELECT c FROM Cliente c").getResultList());
 				throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
 			}
-			System.out.println("CLIENTE EXISTENTE");
+		if (cf.getEstado()==null) cf.setEstado("ACTIVO");
+		if (cf.getFechaApertura()==null) cf.setFechaApertura(new Date());
+		if (cf.getSwift()==null) {
+			cf.setSwift(swift.toString());
+			swift ++;
 		}
-		System.out.println("PERSIST");
 		em.persist(cf);
-		System.out.println(" O-O ");
 	}
 
 	@Override
@@ -64,5 +71,82 @@ public class CuentaEJB implements GestionCuenta{
 			cf.setEstado("INACTIVA");
 		}
 	}
+	
+	public boolean esIndividual(String usuario) {
+		boolean a = false;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			Individual ind = u.getIndividual();
+			if (ind != null) {
+				a = true;
+			}
+		}
+		return a;
+	}
 
+	public boolean esAutorizado(String usuario) {
+		boolean a = false;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada pau = u.getPersonaAutorizada();
+			if (pau != null) {
+				a = true;
+			}
+		}
+		return a;
+	}
+	
+	public String getIbanCuenta(String cuenta) {
+		Cuenta c = em.find(Cuenta.class, cuenta);
+		return c.getIban();
+		
+	}
+	
+	public CuentaFintech getCuentaFintech(String cuenta) {
+ 		return em.find(CuentaFintech.class, cuenta);
+ 	}
+	
+	/**
+	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
+	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
+	 * @param usuario
+	 * @return lista de cuentas fintech asociadas
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<CuentaFintech> getCuentasFintechPropias(String usuario){
+		Query query = null;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			Individual ind = u.getIndividual();
+			if (ind != null) {
+				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idindividual")
+						.setParameter("idindividual", ind);
+			}
+		}
+		return (List<CuentaFintech>)query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Empresa> getEmpresasAutorizadas(String usuario){
+		Query query = null;
+		if (usuario != null) {
+			Usuario u = em.find(Usuario.class, usuario);
+			PersonaAutorizada pau = u.getPersonaAutorizada();
+			if (pau != null) {
+				query = em.createQuery("SELECT a FROM EMPRESA a WHERE a.autorizacion LIKE :idpau")
+						.setParameter("idpau", pau);
+			}
+		}
+		return (List<Empresa>)query.getResultList();
+	}
+	public List<CuentaFintech> getCuentasAutorizadas(String empresa){
+		Query query = null;
+		if (empresa != null) {
+ 			Empresa emp = em.find(Empresa.class, empresa);
+ 				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idemp")
+ 						.setParameter("idemp", emp);
+ 		}
+ 		return (List<CuentaFintech>)query.getResultList();
+	}
 }

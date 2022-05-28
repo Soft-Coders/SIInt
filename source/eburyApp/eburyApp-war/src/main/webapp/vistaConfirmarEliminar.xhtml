@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Confirmar Eliminar</title>
+</h:head>
+
+<h:body>
+	<!-- Página de confirmación para la eliminación de una cuenta-->
+	<h1>Confirmación</h1>
+	
+	<!-- Tiene dos botones: uno para confirmar y otro para cancelar la operación -->
+	<div>
+		<p>¿Está seguro de que quiere eliminar la cuenta seleccionada?</p>
+		<h:form>
+			<div class="btn">
+				<h:commandButton value="Sí" action="#{CuentaBB.cerrarCuentaF()}"/>
+			</div>
+			<div class="btn">
+				<h:commandButton value="No" action="#{CuentaBB.vistaPrincipalCliente()}"/>
+			</div>
+		</h:form>
+	</div>
+	
+</h:body>
+
+</html> 
