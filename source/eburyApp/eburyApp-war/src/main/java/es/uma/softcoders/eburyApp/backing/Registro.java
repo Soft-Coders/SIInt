@@ -113,7 +113,7 @@ public class Registro implements Serializable{
 			try{
 				individual.setTipoCliente("INDIVIDUAL");
 				individual.setEstado("INACTIVO");
-				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario());
+				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario()).get(0);
 				individual.setIdentificacion(aux.getUsuario());
 				gestionCliente.registrarCliente(individual, aux.getId(), aux.getClave());
 				return "vistaPrincipalCliente.xhtml";
@@ -128,7 +128,7 @@ public class Registro implements Serializable{
 			
 			try{
 				autorizado.setEstado("INACTIVO");
-				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario());
+				Usuario aux = gestionUsuario.devolverUsuario(infoSesion.getUsuario().getUsuario()).get(0);
 				autorizado.setIdentificacion(aux.getUsuario());
 				gestionAutorizado.registrarAutorizado(autorizado, aux.getId(), aux.getClave());
 				return "vistaPrincipalCliente.xhtml";

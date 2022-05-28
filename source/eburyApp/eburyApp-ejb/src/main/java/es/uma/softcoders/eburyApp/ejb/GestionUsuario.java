@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import es.uma.softcoders.eburyApp.Individual;
@@ -26,7 +28,7 @@ public interface GestionUsuario {
 	 * @author Pablo Huertas
 	*/
 	
-	public Usuario devolverUsuario(String user);
+	public List<Usuario> devolverUsuario(String user);
 	
 	public void agregarAdministrativo( Long id,String username, String password) throws UsuarioYaExistenteException;
 	

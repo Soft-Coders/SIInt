@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,12 +35,13 @@ public class UsuarioEJB implements GestionUsuario{
 		
 	}
 	
-	public Usuario devolverUsuario(String user) {
-		TypedQuery <Usuario> q = em.createQuery("SELECT c FROM USUARIO WHERE c.Usuario = :uname ", Usuario.class);
-		q.setParameter(" fname", user);
-		Usuario aux = q.getSingleResult();
+	public List<Usuario> devolverUsuario(String user) {
+		Query q = em.createQuery("SELECT c FROM Usuario WHERE c.Usuario = :uname ");
+		q.setParameter(" uname ", user);
+		List<Usuario> aux = q.getResultList();
 		return aux;
 	}
+	
 	
 	public void agregarAdministrativo(Long user,String nUsuario, String password)throws UsuarioYaExistenteException{
 		Usuario usuario = em.find(Usuario.class, user);

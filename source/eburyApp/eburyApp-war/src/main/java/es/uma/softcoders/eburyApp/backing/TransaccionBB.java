@@ -12,7 +12,7 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 
 
-@Named
+@Named(value="transaccionBB")
 @RequestScoped
 public class TransaccionBB {
 	

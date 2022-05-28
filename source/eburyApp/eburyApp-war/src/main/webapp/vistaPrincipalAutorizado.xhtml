@@ -26,7 +26,7 @@
     			<th>Cuentas</th>
     		</tr>
     		<tbody>
-	    		<ui:repeat var="emp" value="#{CuentaBB.listaEmpresasAutorizadas}">
+	    		<ui:repeat var="emp" value="#{cuentaBB.listaEmpresasAutorizadas}">
 	    			<h:panelGroup>
 	   			  	<tr>
 		    			<td>#{emp.identificacion}</td>
@@ -39,7 +39,7 @@
 		    			<td>#{emp.razonSocial}</td>
 		    			 <!-- AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA-->
 		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
-		    						action="#{CuentaBB.seleccionarEmpresa(emp)}" /></td>
+		    						action="#{cuentaBB.seleccionarEmpresa(emp)}" /></td>
 		    		</tr>
 	    			</h:panelGroup>
 	    		</ui:repeat>

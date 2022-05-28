@@ -18,19 +18,19 @@
     	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
     	<h:panelGrid columns="2">
 			<h:outputText value="Divisa original:"/>
-			<h:inputText value="#{TransaccionBB.divisaOrigen}"/>
+			<h:inputText value="#{transaccionBB.divisaOrigen}"/>
 		</h:panelGrid>
     	<br/>
     	<h:panelGrid columns="2">
 			<h:outputText value="Divisa destino:"/>
-			<h:inputText value="#{TransaccionBB.divisaDestino}"/>
+			<h:inputText value="#{transaccionBB.divisaDestino}"/>
 		</h:panelGrid>
 		<br/>
 		<h:panelGrid columns="2">
 			<h:outputText value="Cantidad:"/>
-			<h:inputText value="#{TransaccionBB.cantidad}"/>
+			<h:inputText value="#{transaccionBB.cantidad}"/>
 		</h:panelGrid>
-    	<h:commandButton value="Realizar Cambio" action="#{TransaccionBB.preguntarConfirmacionCambio()}"/>
+    	<h:commandButton value="Realizar Cambio" action="#{transaccionBB.preguntarConfirmacionCambio()}"/>
 	</h:form>
 	
 </h:body>

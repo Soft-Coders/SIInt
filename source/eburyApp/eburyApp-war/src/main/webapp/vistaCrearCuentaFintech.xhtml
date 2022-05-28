@@ -18,17 +18,17 @@
     	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
     	<h:panelGrid columns="2">
 			<h:outputText value="IBAN:"/>
-			<h:inputText value="#{CuentaBB.iban}"/>
+			<h:inputText value="#{cuentaBB.iban}"/>
 		</h:panelGrid>
     	<br/>
-    	<h:commandButton value="Crear Cuenta" action="#{CuentaBB.crearCuentaF()}"/>
+    	<h:commandButton value="Crear Cuenta" action="#{cuentaBB.crearCuentaF()}"/>
 	</h:form>
 	
 	<!-- Parte baja de la página: tiene un botón para cambiar de vista a la principal -->
 	<div>
 		<h:form>
 			<div class="btn">
-				<h:commandButton value="Atrás" action="#{CuentaBB.vistaPrincipalCliente()}"/>
+				<h:commandButton value="Atrás" action="#{cuentaBB.vistaPrincipalCliente()}"/>
 			</div>
 		</h:form>
 	</div>

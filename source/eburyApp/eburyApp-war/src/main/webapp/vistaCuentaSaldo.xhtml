@@ -13,14 +13,14 @@
 <h:body>
 	<!-- Lista de divisas dentro de la cuenta seleccionada -->
 	<h1>Mi saldo</h1>
-	<p>IBAN: <h value=#{CuentaBB.iban}/></p>
+	<p>IBAN: <h value=#{cuentaBB.iban}/></p>
 	<table>
     		<tr>
     			<th>Divisa</th>
     			<th>Saldo</th>
     		</tr>
     		<tbody>
-	    		<ui:repeat var="div" value="#{CuentaBB.listaDivisas}">
+	    		<ui:repeat var="div" value="#{cuentaBB.listaDivisas}">
 	    			<h:panelGroup>
 	   			  	<tr>
 		    			<td>#{div.nombre}</td>
@@ -33,7 +33,7 @@
     	<div>
 		<h:form>
 			<div class="btn">
-				<h:commandButton value="Cambio de Divisa" action="#{CuentaBB.irCambioDivisa()}"/>
+				<h:commandButton value="Cambio de Divisa" action="#{cuentaBB.irCambioDivisa()}"/>
 			</div>
 		</h:form>
 	</div>

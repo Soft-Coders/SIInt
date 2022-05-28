@@ -19,7 +19,7 @@ import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 
 
-@Named
+@Named(value="cuentaBB")
 @RequestScoped
 public class CuentaBB {
 	
@@ -36,8 +36,29 @@ public class CuentaBB {
 	private List<Empresa> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
-    private CuentaFintech cf;
+	private CuentaFintech cf;
     private String iban;
+    
+    
+    public List<CuentaFintech> getListaCuentasPropias() {
+		return listaCuentasPropias;
+	}
+	public void setListaCuentasPropias(List<CuentaFintech> listaCuentasPropias) {
+		this.listaCuentasPropias = listaCuentasPropias;
+	}
+	public List<Empresa> getListaEmpresasAutorizadas() {
+		return listaEmpresasAutorizadas;
+	}
+	public void setListaEmpresasAutorizadas(List<Empresa> listaEmpresasAutorizadas) {
+		this.listaEmpresasAutorizadas = listaEmpresasAutorizadas;
+	}
+	public List<CuentaFintech> getListaCuentasAutorizadas() {
+		return listaCuentasAutorizadas;
+	}
+	public void setListaCuentasAutorizadas(List<CuentaFintech> listaCuentasAutorizadas) {
+		this.listaCuentasAutorizadas = listaCuentasAutorizadas;
+	}
+
     
     public CuentaFintech getCuentaFintech () {
     	return cf;

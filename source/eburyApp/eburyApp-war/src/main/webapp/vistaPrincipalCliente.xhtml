@@ -24,7 +24,7 @@
     			<th>Saldo</th>
     		</tr>
     		<tbody>
-	    		<ui:repeat var="cue" value="#{CuentaBB.listaCuentasPropias}">
+	    		<ui:repeat var="cue" value="#{cuentaBB.listaCuentasPropias}">
 	    			<h:panelGroup>
 	   			  	<tr>
 		    			<td>#{cue.iban}</td>
@@ -33,7 +33,7 @@
 		    			<td>#{cue.fechaApertura}</td>
 		    			<td>#{cue.fechaCierre}</td>
 		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
-		    						action="#{CuentaBB.seleccionarCuenta(cue)}" /></td>
+		    						action="#{cuentaBB.seleccionarCuenta(cue)}" /></td>
 		    		</tr>
 	    			</h:panelGroup>
 	    		</ui:repeat>
@@ -44,10 +44,10 @@
 	<div>
 		<h:form>
 			<div class="btn">
-				<h:commandButton value="Crear Cuenta" action="#{CuentaBB.vistaCrearCuenta()}"/>
+				<h:commandButton value="Crear Cuenta" action="#{cuentaBB.vistaCrearCuenta()}"/>
 			</div>
 			<div class="btn">
-				<h:commandButton value="Eliminar Cuenta" action="#{CuentaBB.vistaEliminarCuenta()}"/>
+				<h:commandButton value="Eliminar Cuenta" action="#{cuentaBB.vistaEliminarCuenta()}"/>
 			</div>
 		</h:form>
 	</div>
