@@ -222,6 +222,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 		if(hayRelaciones == false) {
 			bajaAutorizado(personaAutorizadaEntity.getId());
 		}
+		em.persist(personaAutorizadaEntity);
 	}
 	
 	public void bajaAutorizado(Long autorizado) throws PersonaAutorizadaNoEncontradaException{
@@ -235,6 +236,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		em.persist(personaAutorizadaEntity);
 	}
 	
 }
