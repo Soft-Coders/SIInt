@@ -142,7 +142,6 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-        clienteEntity.setId(c.getId());
         clienteEntity.setIdentificacion(c.getIdentificacion());
         clienteEntity.setEstado(c.getEstado());
         clienteEntity.setDireccion(c.getDireccion());
@@ -171,10 +170,7 @@ public class ClienteEJB implements GestionCliente {
                 
             if(indIn.getFechaNacimiento() != null)
                 indOut.setFechaNacimiento(indIn.getFechaNacimiento());
-            
-            if(indIn.getUsuario() != null) 
-            	indOut.setUsuario(indIn.getUsuario());
-           
+                       
             em.persist(indOut);
 
         }else{
