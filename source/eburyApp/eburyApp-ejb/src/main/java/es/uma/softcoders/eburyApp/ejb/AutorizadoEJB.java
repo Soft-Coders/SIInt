@@ -109,9 +109,9 @@ public class AutorizadoEJB implements GestionAutorizado {
     	
         p.setEstado("INACTIVO");
         p.setUsuario(user);
-        
+		em.persist(user);
         em.persist(p);
-        user.setPersonaAutorizada(p);
+        
 
 	}
 	
@@ -188,6 +188,7 @@ public class AutorizadoEJB implements GestionAutorizado {
 				e.printStackTrace();
 			}
 		}
+		em.persist(personaAutorizadaEntity);
 	}
 	
 	public void eliminarAutorizado(Long autorizado, Long empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException{

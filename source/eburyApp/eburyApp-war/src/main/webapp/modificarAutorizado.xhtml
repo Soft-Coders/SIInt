@@ -5,8 +5,50 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Modificar cliente empresa</title>
+        <title>Modificar autorizado</title>
     </h:head>
     <h:body>
+      <h:form id="modificacion">
+
+        <f:metadata>
+            <f:viewParam name="id" />
+        </f:metadata>
+        <h3>Modificar autorizado: <h:outputText value="#{id}" /></h3> 
+        <h:panelGrid columns="3">
+
+            <h:outputText value="Nombre:"/>
+            <h:inputText id="nombre" value="#{modificarAut.autorizadoAux.nombre}" required="true"/>
+            <h:message for="nombre"/>
+
+            <h:outputText value="Apellido:"/>
+            <h:inputText id="apellido" value="#{modificarAut.autorizadoAux.apellidos}" required="true"/>
+            <h:message for="apellido"/>
+
+            <h:outputText value="Identificacion:"/>
+            <h:inputText id="ident" value="#{modificarAut.autorizadoAux.identificacion}" required="true" />
+            <h:message for="ident"/>
+
+            <h:outputText value="Estado:"/>
+            <h:inputText id="estado" value="#{modificarAut.autorizadoAux.estado}" required="true"/>
+            <h:message for="estado"/>
+            
+            <h:outputText value="Direccion:"/>
+            <h:inputText id="dir" value="#{modificarAut.autorizadoAux.direccion}" required="true"/>
+            <h:message for="dir"/>
+
+            <h:commandButton value="Modificar" action="#{modificarAut.modificarAutorizado(modificarAut.autorizadoAux, id)}"/>
+            
+        </h:panelGrid>
+        <h:message for="modificacion"/>
         
+        
+        
+    </h:form>
+    <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+    <h:form>
+        <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+        <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
+    </h:form>
+    
     </h:body>
+</html>

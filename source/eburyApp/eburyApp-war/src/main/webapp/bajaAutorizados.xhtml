@@ -17,6 +17,12 @@
             <c:otherwise> -->
                 <h:form id="contactos">
                     <h:dataTable id="list" value="#{autorizado.getListaActivos()}" var="c">
+                        
+                        <h:column>
+                            <f:facet name="nombre">Nombre</f:facet>
+                            <h:outputText value="#{c.nombre}"/>
+                        </h:column>
+
                         <h:column>
                             <f:facet name="header">Identificacion</f:facet>
                             <h:outputText value="#{c.identificacion}"/>
@@ -37,7 +43,7 @@
                         </h:column>
 
                         <h:column>
-                            <h:commandButton value="MODIFICAR" action="#{modificar.goModificarAutorizado(c)}"/>
+                            <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
                         </h:column>
                         
                     </h:dataTable>
