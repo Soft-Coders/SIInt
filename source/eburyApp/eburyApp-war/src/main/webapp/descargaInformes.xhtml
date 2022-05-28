@@ -10,17 +10,20 @@
 
 		<h:form id="descarga">
 
-               
-	                    <h:panelGrid columns="2">
+            <h1>Descarga de Informes Alemania</h1>
+            <p>Esta página permite a los usuario administrativos descargar los informes iniciales y periódicos de Alemania.
+            Para posteriormente enviarlos a la entidad reguladora pertinente.</p>
+	        <h:panelGrid columns="3">
 	
-	                        <h:commandButton value="Inicio" action="#{descarga.descargaInicial()}"/>
-	                        <h:commandButton value="Periodico" action="#{descarga.descargaPeriodica()}"/>
+	            <h:commandButton value="Informe Inicial" action="#{descarga.descargaInicial()}"/>
+	            <h:commandButton value="Informe Periodico" action="#{descarga.descargaPeriodica()}"/>
 	
-	                    </h:panelGrid>
-	                    <h:messages/>
+	        </h:panelGrid>
+	        <h:messages/>
 
 
         </h:form>
+       <h:button value="Atrás" outcome="inicioAdmin.xhtml"/>
 
     </h:body>
 </html>

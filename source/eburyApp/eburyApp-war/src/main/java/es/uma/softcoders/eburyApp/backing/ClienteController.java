@@ -87,7 +87,7 @@ public class ClienteController implements Serializable{
         }
 
         public String darBaja(Cliente c){
-            try{gestionCliente.bajaCliente(c.getID());}
+            try{gestionCliente.bajaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de baja");
             FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);}
