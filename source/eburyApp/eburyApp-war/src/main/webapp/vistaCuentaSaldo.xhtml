@@ -13,7 +13,7 @@
 <h:body>
 	<!-- Lista de divisas dentro de la cuenta seleccionada -->
 	<h1>Mi saldo</h1>
-	<p>IBAN: <h value=#{cuentaBB.iban}/></p>
+	<p>IBAN: <h:outputText value=#{cuentaBB.iban} /></p> 
 	<table>
     		<tr>
     			<th>Divisa</th>
