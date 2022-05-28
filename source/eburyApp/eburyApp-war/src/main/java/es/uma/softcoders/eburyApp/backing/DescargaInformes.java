@@ -8,24 +8,27 @@ import java.io.OutputStream;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 
-import org.primefaces.model.DefaultStreamedContent;
-import org.primefaces.model.StreamedContent;
-
 import es.uma.softcoders.eburyApp.ejb.GestionInformes;
+import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 import es.uma.softcoders.eburyApp.exceptions.FailedInitialCSVException;
 import es.uma.softcoders.eburyApp.exceptions.FailedPeriodicCSVException;
 
-@Named
+@Named(value = "descarga")
 @RequestScoped
 public class DescargaInformes {
 	
 	@EJB
 	GestionInformes gestionInformes;
+	
+	@Inject 
+	private InfoSesion sesion;
 	
     public DescargaInformes() {
         
@@ -45,11 +48,17 @@ public class DescargaInformes {
 			gestionInformes.informeAlemaniaInicio(path);
 			path+="/informe.csv";
 			download(path);
-		} catch (FailedInitialCSVException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			FacesMessage fm = new FacesMessage("Error: " + e);
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+			e.printStackTrace();
+		} catch (FailedPeriodicCSVException e) {
+			FacesMessage fm = new FacesMessage("Error: " + e);
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+			e.printStackTrace();
+		} catch (EburyAppException e) {
+			FacesMessage fm = new FacesMessage("Error: Debe de ser administrativo");
+            FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		}
     }
@@ -69,15 +78,22 @@ public class DescargaInformes {
 			path+="/informe.csv";
 			download(path);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			FacesMessage fm = new FacesMessage("Error: " + e);
+            FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		} catch (FailedPeriodicCSVException e) {
-			// TODO Auto-generated catch block
+			FacesMessage fm = new FacesMessage("Error: " + e);
+            FacesContext.getCurrentInstance().addMessage(null, fm);
+			e.printStackTrace();
+		} catch (EburyAppException e) {
+			FacesMessage fm = new FacesMessage("Error: Debe de ser administrativo");
+            FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		}
     }
     
-    public void download(String path) throws IOException {
+    private void download(String path) throws IOException, EburyAppException {
+    	
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         
