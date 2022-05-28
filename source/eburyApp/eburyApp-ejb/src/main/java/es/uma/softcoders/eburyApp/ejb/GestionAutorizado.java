@@ -40,7 +40,7 @@ public interface GestionAutorizado {
 	 * La aplicación permitirá a un administrativo modificar los datos de las 
 	 * personas autorizadas a operar con cuentas de clientes que son personas jurídicas.
 	 */
-	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws PersonaAutorizadaNoEncontradaException;
+	public void modificarAutorizado(PersonaAutorizada p, Long autorizado) throws EburyAppException;
 	
 	/*
 	 * La aplicación permitirá a un administrativo eliminar la relación que tenga una persona autorizada con
