@@ -107,10 +107,10 @@ public class Modificar implements Serializable{
             
             if(c instanceof Individual){
                 individualBuffer = (Individual) c;
-                return "modificarClienteInd.xhtml";
+                return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
             }else if(c instanceof Empresa){
                 empresaBuffer = (Empresa) c;
-                return "modificarClienteEmp.xhtml";
+                return "modificarClienteEmp.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
             } else {
                 return "unexpected.xhml";
             }
@@ -121,7 +121,7 @@ public class Modificar implements Serializable{
             i.setFechaAlta(individualBuffer.getFechaAlta());
             i.setFechaBaja(individualBuffer.getFechaBaja());
             try{
-            	System.out.println(" 3=======D "+idCliente);
+            	System.out.println("> modificar.modificarCliente() : idCliente : "+idCliente);
                 gestionCliente.modificarCliente(i, idCliente);  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
@@ -130,12 +130,14 @@ public class Modificar implements Serializable{
             return "unexpected.xhtml";
         }
 
-        public String modificarClienteEmp(Empresa emp){
-            empresaAux.setId(empresaBuffer.getId());
-            empresaAux.setFechaAlta(empresaBuffer.getFechaAlta());
-            empresaAux.setFechaBaja(empresaBuffer.getFechaBaja());
+
+        public String modificarClienteEmp(Empresa emp, String id){
+            Long idL = Long.valueOf(id);
+            emp.setId(idL);
+            emp.setFechaAlta(empresaBuffer.getFechaAlta());
+            emp.setFechaBaja(empresaBuffer.getFechaBaja());
             try{
-                gestionCliente.modificarCliente(emp, getIdCliente());  
+                gestionCliente.modificarCliente(emp, idL);  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al modificar");

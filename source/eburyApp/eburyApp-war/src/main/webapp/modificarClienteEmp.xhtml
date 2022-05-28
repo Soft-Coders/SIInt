@@ -11,7 +11,11 @@
         <!-- <c:choose>
             <c:when test="#{infoSesion.usuario.esAdministrativo}"> -->
                 <h:form id="modificacion">
-                    <h3>Modificar cliente: <h:outputText value="#{modificar.empresaBuffer.identificacion}" /></h3> 
+
+                    <f:metadata>
+                        <f:viewParam name="id" />
+                    </f:metadata>
+                    <h3>Modificar cliente: <h:outputText value="#{modificar.idCliente}" /></h3> 
                     <h:panelGrid columns="3">
                         <h:outputText value="Identificacion:"/>
                         <h:inputText id="ident" value="#{modificar.empresaAux.identificacion}" required="true" />
@@ -43,7 +47,7 @@
 
 
 
-                        <h:commandButton value="Modificar" action="#{modificar.modificarClienteEmp(modificar.empresaAux)}"/>
+                        <h:commandButton value="Modificar" action="#{modificar.modificarClienteEmp(modificar.empresaAux, id)}"/>
                         
                     </h:panelGrid>
                     <h:message for="modificacion"/>
