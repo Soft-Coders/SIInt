@@ -271,11 +271,7 @@ public class PruebaInformes {
 				for (CSVRecord record : records) {
 	                cont++;
 				}
-<<<<<<< Updated upstream
 	            if(cont != 2){
-=======
-	            if(cont != 3){
->>>>>>> Stashed changes
 	                fail("No hay las líneas que debería: " + cont);
 	            }
 	            csvData.close();
@@ -287,13 +283,7 @@ public class PruebaInformes {
             
         }catch(FailedPeriodicCSVException e){
             fail("No debería dar error - 2 " + e);
-<<<<<<< Updated upstream
         }
-=======
-        }catch(Exception e){
-            fail("Error" + e.getMessage());
-        
->>>>>>> Stashed changes
 
     }
     
