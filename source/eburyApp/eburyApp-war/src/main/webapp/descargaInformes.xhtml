@@ -10,22 +10,15 @@
 
 		<h:form id="descarga">
 
-            <c:choose>
-                
-	                <c:when test="#{!infoSesion.autorizado}">
-	                    <p>No se tienen los permisos necesarios para descargar informes.</p>
-	                </c:when>
-	                <c:otherwise>
+               
 	                    <h:panelGrid columns="2">
 	
 	                        <h:commandButton value="Inicio" action="#{descarga.descargaInicial()}"/>
-	                        <h:commandButton value="Periodico" action="#{descarga.descargaPeriodica())}"/>
+	                        <h:commandButton value="Periodico" action="#{descarga.descargaPeriodica()}"/>
 	
 	                    </h:panelGrid>
 	                    <h:messages/>
-	                </c:otherwise>
 
-            </c:choose>
 
         </h:form>
 

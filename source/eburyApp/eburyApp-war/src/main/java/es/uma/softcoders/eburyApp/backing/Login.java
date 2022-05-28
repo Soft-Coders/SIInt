@@ -28,8 +28,10 @@ public class Login implements Serializable{
 		private InfoSesion sesion;
 		
 		private Usuario usuario;
-
+		private static int instance = 0;
+		
 		public Login() {
+			System.out.println("> login.Login() : CREATED : " + ++instance);
 			usuario = new Usuario();
 		}
 		
@@ -45,8 +47,11 @@ public class Login implements Serializable{
 		
 		public String entrar() {
 			try {
+				System.out.println("> login.entrar() : PRE : loginUsuario()");
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
+	            System.out.println("> login.entrar() : POST : loginUsuario() : PRE : setUsuario()");
 	            sesion.setUsuario(usuario);
+	            System.out.println("> login.entrar() : POST : setUsuario()");
 	            return "inicio.xhtml";
 
 	        } catch (ClienteNoEncontradoException e) {
@@ -64,9 +69,12 @@ public class Login implements Serializable{
 
 		public String entrarAdmin(){
 			try {
+				System.out.println("> login.entrarAdmin() : PRE : loginAdmin()");
 	            login.loginAdmin(usuario.getUsuario(), usuario.getClave());
+	            System.out.println("> login.entrarAdmin() : POST : loginAdmin() : PRE : setUsuario()");
 				usuario.setEsAdministrativo(true);
 	            sesion.setUsuario(usuario);
+	            System.out.println("> login.entrarAdmin() : POST : setUsuario()");
 	            return "inicioAdmin.xhtml";
 
 	        } catch (ClienteNoEncontradoException e) {

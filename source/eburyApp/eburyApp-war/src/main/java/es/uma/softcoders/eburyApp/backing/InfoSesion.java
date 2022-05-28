@@ -16,12 +16,16 @@ import javax.inject.Inject;
 @SessionScoped
 public class InfoSesion implements Serializable{
 	
-        
+        private static int instance = 0;
+        private int currentInstance;
         
         private Usuario usuario;
+        
+        private boolean autorizado;
 
         public InfoSesion(){
-
+        	System.out.println("> infoSesion.InfoSesion() : CREATED " + ++instance);
+        	currentInstance = instance;
         }
 
         public synchronized String invalidarSesion(){
@@ -38,11 +42,15 @@ public class InfoSesion implements Serializable{
                         usuario = null;
                         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
                 }
+                autorizado = false;
                 return "admin.xhtml";
         }
         
-        public synchronized void setUsuario(Usuario u){
+        public synchronized void setUsuario(Usuario u){        	
+        	System.out.println("> infoSesion"+currentInstance+".setUsuario() : PRE : usuario");
                 this.usuario = u;
+                this.autorizado = u.isEsAdministrativo();
+            System.out.println("> infoSesion"+currentInstance+".setUsuario() : POST : usuario :\n" + usuario);
         }
 
         public synchronized Usuario getUsuario(){
@@ -50,8 +58,7 @@ public class InfoSesion implements Serializable{
         }
         
         public boolean isAutorizado() {
-        	
-        	System.out.println(" 3=======D "+ usuario);
+        	System.out.println("> infoSesion"+currentInstance+".isAutorizado() : usuario :\n"+ usuario);
         	return usuario.isEsAdministrativo();
         }
 

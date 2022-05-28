@@ -27,77 +27,129 @@ public class DescargaInformes {
 	@EJB
 	GestionInformes gestionInformes;
 	
-	@Inject 
-	private InfoSesion sesion;
+	@Inject
+	InfoSesion sesion;
+	
+	private static int instance = 0;
 	
     public DescargaInformes() {
-        
+    	System.out.println("> descarga.DescargaInformes() : CREATED " + ++instance);
     }
     
     public void descargaInicial() {
+    	
+    	System.out.println("> descarga.descargaInicial() : PRE : request");
+    	
     	Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
     	String path;
     	
+    	System.out.println("> descarga.descargaInicial() : POST : request : " + request);
+    	
     	if(request instanceof HttpServletRequest) {
+    		System.out.println("> descarga.descargaInicial() : PRE : path");
+    		
     		path = ((HttpServletRequest) request).getRequestURL().toString();
+    		path = "informe.csv";
+    		
+    		System.out.println("> descarga.descargaInicial() : POST : path : " + path);
     	}
-    	else
+    	else {
+    		System.out.println("> descarga.descargaInicial() : PRE : RuntTimeException : [! request instanceof HttpServletRequest] ");
+    		
     		throw new RuntimeException("WHY DOWNLOAD IS NOT SERVLET REQUEST?");
+    	}
     	
     	try {
+    		System.out.println("> descarga.descargaInicial() : PRE : informeAlemaniaInicio(path)");
+    		
 			gestionInformes.informeAlemaniaInicio(path);
-			path+="/informe.csv";
+			
+			System.out.println("> descarga.descargaInicial() : POST : informeAlemaniaInicio(path) : path : " + path);
+			
+			System.out.println("> descarga.descargaInicial() : PRE : download(path)");
+			
 			download(path);
 		} catch (IOException e) {
+			System.out.println("> descarga.descargaInicial() : IOException : Error " + e);
 			FacesMessage fm = new FacesMessage("Error: " + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
-		} catch (FailedPeriodicCSVException e) {
+		} catch (FailedInitialCSVException e) {
+			System.out.println("> descarga.descargaInicial() : FailedPeriodicCSVException : Error " + e);
 			FacesMessage fm = new FacesMessage("Error: " + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		} catch (EburyAppException e) {
-			FacesMessage fm = new FacesMessage("Error: Debe de ser administrativo");
+			System.out.println("> descarga.descargaInicial() : EburyAppException : Error Debe de ser administrativo\n" + e);
+			FacesMessage fm = new FacesMessage("Error 401: Debe de ser administrativo\n" + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		}
     }
     
     public void descargaPeriodica() {
+    	
+    	System.out.println("> descarga.descargaPeriodica() : PRE : request");
+
     	Object request = FacesContext.getCurrentInstance().getExternalContext().getRequest();
     	String path;
     	
+    	System.out.println("> descarga.descargaPeriodica() : POST : request : " + request);
+    	
     	if(request instanceof HttpServletRequest) {
+    		System.out.println("> descarga.descargaPeriodica() : PRE : path");
+    		
     		path = ((HttpServletRequest) request).getRequestURL().toString();
+    		path = "informe.csv";
+
+    		System.out.println("> descarga.descargaPeriodica() : POST : path : " + path);
     	}
-    	else
+    	else {
+    		System.out.println("> descarga.descargaPeriodica() : PRE : RuntTimeException : [! request instanceof HttpServletRequest] ");
+    		
     		throw new RuntimeException("WHY DOWNLOAD IS NOT SERVLET REQUEST?");
+    	}
     	
     	try {
+    		System.out.println("> descarga.descargaPeriodica() : PRE : informeAlemaniaInicio(path)");
+    		
 			gestionInformes.informeAlemaniaPeriodico(path);
-			path+="/informe.csv";
+			
+			System.out.println("> descarga.descargaPeriodica() : POST : informeAlemaniaInicio(path) : path : " + path);
+			
+			System.out.println("> descarga.descargaPeriodica() : PRE : download(path)");
+			
 			download(path);
 		} catch (IOException e) {
+			System.out.println("> descarga.descargaPeriodica() : IOException : Error " + e);
 			FacesMessage fm = new FacesMessage("Error: " + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		} catch (FailedPeriodicCSVException e) {
+			System.out.println("> descarga.descargaPeriodica() : FailedPeriodicCSVException : Error " + e);
 			FacesMessage fm = new FacesMessage("Error: " + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		} catch (EburyAppException e) {
-			FacesMessage fm = new FacesMessage("Error: Debe de ser administrativo");
+			System.out.println("> descarga.descargaPeriodica() : EburyAppException : Error Debe de ser administrativo\n" + e);
+			FacesMessage fm = new FacesMessage("Error 401: Debe de ser administrativo\n" + e);
             FacesContext.getCurrentInstance().addMessage(null, fm);
 			e.printStackTrace();
 		}
     }
     
     private void download(String path) throws IOException, EburyAppException {
+//		if(!sesion.getUsuario().isEsAdministrativo())
+//			throw new EburyAppException("NO ES ADMIN");
     	
+    	System.out.println("> descarga.donwload() : PRE : file");
+
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext ec = fc.getExternalContext();
         
         File file = new File(path);
+        System.out.println("> descarga.donwload() : POST : file : " + file);
+        
         String fileName = file.getName();
         String contentType = ec.getMimeType(fileName); // JSF 1.x: ((ServletContext) ec.getContext()).getMimeType(fileName);
         int contentLength = (int) file.length();
@@ -112,12 +164,16 @@ public class DescargaInformes {
         
         FileInputStream source = new FileInputStream(file);
         
+        System.out.println("> descarga.donwload() : PRE : output.write()");
+        
         byte[] buf = new byte[8192];
         int length;
         while ((length = source.read(buf)) > 0) {
             output.write(buf, 0, length);
         }
         source.close();
+        
+        System.out.println("> descarga.donwload() : POST : output.write()");
 
         fc.responseComplete(); // Important! Otherwise JSF will attempt to render the response which obviously will fail since it's already written with a file and closed.
     }
