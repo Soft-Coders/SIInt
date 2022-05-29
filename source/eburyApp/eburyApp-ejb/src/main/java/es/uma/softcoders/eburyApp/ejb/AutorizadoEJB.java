@@ -107,12 +107,45 @@ public class AutorizadoEJB implements GestionAutorizado {
     	
 
     	
-        p.setEstado("INACTIVO");
+        p.setEstado("ACTIVO");
         p.setUsuario(user);
 		em.persist(user);
         em.persist(p);
         
 
+	}
+	
+	@Override
+	public void autorizar(String paut, String empresa, char tipo) throws EburyAppException {
+		if(tipo != 'O' && tipo != 'L')
+			throw new EburyAppException("tipo no válido");
+		if(empresa == null) 
+			throw new EburyAppException("empresa nula");
+		System.out.println("--------Antes del find-------");
+		PersonaAutorizada p = em.find(PersonaAutorizada.class, Long.valueOf(paut));
+		
+		System.out.println("-------Antes de la query de empresa-------" + p.toString());
+		Query q = em.createQuery("SELECT e FROM Empresa e WHERE e.identificacion = :fname ");
+		q.setParameter("fname", empresa);	
+		
+		System.out.println("-----Antes de buscar las autorizaciones-------"+ q.toString());
+		Empresa e = (Empresa)q.getSingleResult();
+		Map<PersonaAutorizada, Character> empresaRelacion = e.getAutorizacion();
+		
+		System.out.println("-----Antes de añadir la autorizacion-------"+ empresaRelacion.toString());
+		empresaRelacion.put(p, tipo);
+		//Map<Empresa, Character> autorizadoRelacion = p.getAutorizacion();
+		//autorizadoRelacion.put(e, tipo);
+		e.setAutorizacion(empresaRelacion);
+		//p.setAutorizacion(autorizadoRelacion);
+		
+		System.out.println("------Antes del merge------");
+		em.merge(e);
+		System.out.println("------Antes del flush------");
+		em.flush();
+		System.out.println("----Después del flush------");
+		
+		
 	}
 	
 	
