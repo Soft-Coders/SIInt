@@ -79,6 +79,7 @@ public class EburyAppIT {
     }
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td")).getText(), is("Cliente"));
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td")).getText(), is("Persona Autorizada"));
+    driver.findElement(By.linkText("Cancelar")).click();
   }
   @Test
   public void modificarClienteRF3() {
@@ -115,33 +116,37 @@ public class EburyAppIT {
   @Test
   public void bajaClienteRF4() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
-    driver.manage().window().setSize(new Dimension(1920, 1055));
+    driver.manage().window().setSize(new Dimension(1200, 1011));
+    driver.findElement(By.id("login:user")).click();
     driver.findElement(By.id("login:user")).sendKeys("ponciano");
     driver.findElement(By.id("login:pass")).sendKeys("ponciano");
     driver.findElement(By.name("login:j_idt11")).click();
-    driver.findElement(By.cssSelector("input:nth-child(3)")).click();
+    driver.findElement(By.id("Baja")).click();
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("empresaPrueba"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("ACTIVO"));
     driver.findElement(By.name("contactos:list:1:j_idt14")).click();
     driver.findElement(By.cssSelector("input:nth-child(4)")).click();
-    driver.findElement(By.cssSelector("input:nth-child(2)")).click();
-    assertThat(driver.findElement(By.cssSelector("td:nth-child(1)")).getText(), is("empresaPrueba"));
-    assertThat(driver.findElement(By.cssSelector("td:nth-child(2)")).getText(), is("INACTIVO"));
+    driver.findElement(By.id("Alta")).click();
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td:nth-child(1)")).getText(), is("empresaPrueba"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td:nth-child(2)")).getText(), is("INACTIVO"));
+    driver.findElement(By.name("altaClientes:list:0:j_idt12")).click();
   }
   @Test
   public void altaClienteRF2() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
-    driver.manage().window().setSize(new Dimension(1920, 1055));
+    driver.manage().window().setSize(new Dimension(1200, 1011));
     driver.findElement(By.id("login:user")).sendKeys("ponciano");
     driver.findElement(By.id("login:pass")).sendKeys("ponciano");
     driver.findElement(By.name("login:j_idt11")).click();
     driver.findElement(By.id("Alta")).click();
     assertThat(driver.findElement(By.cssSelector("td:nth-child(1)")).getText(), is("individualInactivo"));
     assertThat(driver.findElement(By.cssSelector("td:nth-child(2)")).getText(), is("INACTIVO"));
-    driver.findElement(By.id("altaClientes")).click();
     driver.findElement(By.name("altaClientes:list:0:j_idt12")).click();
     driver.findElement(By.cssSelector("input:nth-child(5)")).click();
     driver.findElement(By.id("Baja")).click();
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(5) > td:nth-child(1)")).getText(), is("individualInactivo"));
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(5) > td:nth-child(2)")).getText(), is("ACTIVO"));
+    driver.findElement(By.name("contactos:list:4:j_idt14")).click();
   }
   @Test
   public void agregarAutorizadoRF6() {
@@ -159,19 +164,20 @@ public class EburyAppIT {
   @Test
   public void eliminarAutorizadosRF8() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
-    driver.manage().window().setSize(new Dimension(1920, 1055));
+    driver.manage().window().setSize(new Dimension(1200, 1011));
     driver.findElement(By.id("login:user")).sendKeys("ponciano");
     driver.findElement(By.id("login:pass")).sendKeys("ponciano");
     driver.findElement(By.name("login:j_idt11")).click();
+    driver.findElement(By.cssSelector("html")).click();
     driver.findElement(By.xpath("(//input[@id=\'Baja\'])[2]")).click();
     assertThat(driver.findElement(By.cssSelector("td:nth-child(2)")).getText(), is("paPrueba"));
     assertThat(driver.findElement(By.cssSelector("td:nth-child(3)")).getText(), is("ACTIVO"));
     driver.findElement(By.name("bajaAutorizados:list:0:j_idt15")).click();
-    assertThat(driver.findElement(By.id("bajaAutorizados")).getText(), is("Identificacion Estado\\\\nNo hay autorizados activos\\\\nLog out"));
     driver.findElement(By.cssSelector("input:nth-child(4)")).click();
     driver.findElement(By.xpath("(//input[@id=\'Alta\'])[2]")).click();
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("paPrueba"));
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("INACTIVO"));
+    driver.findElement(By.name("contactos:list:1:j_idt13")).click();
   }
   @Test
   public void modificarAutorizadoRF7() {
