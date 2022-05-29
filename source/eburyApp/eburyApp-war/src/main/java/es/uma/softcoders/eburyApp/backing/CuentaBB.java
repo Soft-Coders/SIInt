@@ -38,6 +38,7 @@ public class CuentaBB {
 	private List<CuentaFintech> listaCuentasAutorizadas;
 	private CuentaFintech cf = new CuentaFintech();
     private String iban;
+    private String tipo;
     
     
     public List<CuentaFintech> getListaCuentasPropias() {
@@ -59,7 +60,6 @@ public class CuentaBB {
 		this.listaCuentasAutorizadas = listaCuentasAutorizadas;
 	}
 
-    
     public CuentaFintech getCf () {
     	return cf;
     }
@@ -79,14 +79,23 @@ public class CuentaBB {
     }
     public void setUsuario(String u) {
     	usuario = u;
-    	individual = cuentaEJB.esIndividual(u);
+    	/*individual = cuentaEJB.esIndividual(u);
     	autorizado = cuentaEJB.esAutorizado(u);
-    	if (individual == true) {
+    	if (individual == true) {*/
     		getCuentasPropias();
-    	} else if (autorizado == true) {
+    	//} else if (autorizado == true) {
     		getEmpresasAutorizadas();
-    	}
+    	//}
     }
+    
+    public String getTipo() {
+    	return tipo;
+    }
+    public void setTipo(String t) {
+    	tipo=t;
+    }
+    
+    
     public String seleccionarEmpresa(String empresa) {
     	this.emp = empresa;
     	getCuentasAutorizadas();
@@ -109,7 +118,11 @@ public class CuentaBB {
     }
     
     public void crearCuentaF() throws EburyAppException {
-		cuentaEJB.crearCuentaFintech(cf);
+    	if (autorizado == true) {
+    		cuentaEJB.crearCuentaFintech(cf, tipo, usuario, emp);
+    	} else {
+    		cuentaEJB.crearCuentaFintech(cf, tipo, usuario);
+    	}
     }
 
     public void cerrarCuentaF() throws EburyAppException {

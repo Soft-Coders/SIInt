@@ -22,7 +22,17 @@ public interface GestionCuenta {
 	 * @throws EburyAppException 
 	 * @author Marta Maleno Escudero
 	 * */
-	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException, DatosIncorrectosException, EburyAppException;
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario) throws CuentaExistenteException, DatosIncorrectosException, EburyAppException;
+	
+	/** Este método debe crear una cuenta fintech en la base de datos. 
+	 * Los parámetros no nulos deben incluirse obligatoriamente, los nullables
+	 * pueden encontrarse o no.
+	 * 
+	 * @param cf Cuenta a crear, incluye todos los datos que deben almacenarse.
+	 * @throws EburyAppException 
+	 * @author Marta Maleno Escudero
+	 * */
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario, String emp) throws EburyAppException;
 	
 	/** Este método debe cambiar el estado de una cuenta fintech a fin
 	 * de darla de baja. En caso de que estuviera dada de baja previamente,

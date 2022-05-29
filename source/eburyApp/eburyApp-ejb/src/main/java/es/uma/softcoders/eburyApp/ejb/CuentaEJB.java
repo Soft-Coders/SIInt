@@ -14,6 +14,8 @@ import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Pooled;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
@@ -35,7 +37,67 @@ public class CuentaEJB implements GestionCuenta{
 	private EntityManager em;
 
 	@Override
-	public void crearCuentaFintech(CuentaFintech cf) throws EburyAppException {
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario) throws EburyAppException {
+		rellenaNuevaFintech(cf);
+		
+		Usuario u = em.find(Usuario.class, usuario);
+		Individual ind = u.getIndividual();
+		if (ind != null) {
+			cf.setCliente(ind);
+		} 
+		persistirCF(cf, tipo);
+		
+	}
+	
+	
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario, String emp) throws EburyAppException {
+		rellenaNuevaFintech(cf);
+		
+		Empresa e = em.find(Empresa.class, emp);
+		if (emp != null) {
+			cf.setCliente(e);
+		}
+		persistirCF(cf, tipo);
+	}
+	
+	/***
+	 * Este método crea en la base de datos la cuenta fintech pasada por parámetro y del tipo indicada
+	 * @param cf
+	 * @param tipo
+	 */
+	private void persistirCF(CuentaFintech cf, String tipo) {
+		if (tipo == "segregada") {
+			Segregada s = new Segregada();
+			s.setIban(cf.getIban());
+			s.setClasificacion(cf.getClasificacion());
+			s.setSwift(cf.getSwift());
+			s.setCliente(cf.getCliente());
+			s.setEstado(cf.getEstado());
+			s.setFechaApertura(cf.getFechaApertura());
+			s.setFechaCierre(cf.getFechaCierre());
+			em.persist(s);
+		}
+		else {
+			Pooled s = new Pooled();
+			s.setIban(cf.getIban());
+			s.setClasificacion(cf.getClasificacion());
+			s.setSwift(cf.getSwift());
+			s.setCliente(cf.getCliente());
+			s.setEstado(cf.getEstado());
+			s.setFechaApertura(cf.getFechaApertura());
+			s.setFechaCierre(cf.getFechaCierre());
+			em.persist(s);
+		}
+	}
+	
+	/***
+	 * Este método rellena todos los datos necesarios para que la cuenta fintech
+	 * se pueda crear
+	 * @param cf
+	 * @return cf rellena
+	 * @throws EburyAppException
+	 */
+	private CuentaFintech rellenaNuevaFintech(CuentaFintech cf) throws EburyAppException {
 		if (cf.getIban() == null) {
 			cf.setIban(auxIBAN.toString());
 			auxIBAN++;
@@ -43,9 +105,6 @@ public class CuentaEJB implements GestionCuenta{
 			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
 				throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 			}
-			if (cf.getCliente() == null) {
-				throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
-			} 
 			if (em.find(Cliente.class, cf.getCliente().getId()) == null) {
 				System.out.println(em.createQuery("SELECT c FROM Cliente c").getResultList());
 				throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
@@ -56,9 +115,9 @@ public class CuentaEJB implements GestionCuenta{
 			cf.setSwift(swift.toString());
 			swift ++;
 		}
-		em.persist(cf);
+		return cf;
 	}
-
+	
 	@Override
 	public void cerrarCuentaFintech(String cuentafin) throws EburyAppException {
 		if (cuentafin == null) {
@@ -149,4 +208,5 @@ public class CuentaEJB implements GestionCuenta{
  		}
  		return (List<CuentaFintech>)query.getResultList();
 	}
+	
 }

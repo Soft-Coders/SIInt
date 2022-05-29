@@ -23,6 +23,7 @@ public class InfoSesion implements Serializable{
 	
         @EJB 
         private GestionUsuario gestionUsuario;
+       
         
         private Usuario usuario = null;
         
