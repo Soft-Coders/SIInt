@@ -34,6 +34,10 @@ public class AutorizadoController implements Serializable{
         
 
         private Long idAutorizado;
+        
+        private Long empresa;
+        
+        private String tipo;
 
 
         public AutorizadoController(){
@@ -68,7 +72,23 @@ public class AutorizadoController implements Serializable{
             return listActivos;
         }
 
-        public String refrescarBaja(){
+        public Long getEmpresa() {
+			return empresa;
+		}
+
+		public void setEmpresa(Long empresa) {
+			this.empresa = empresa;
+		}
+
+		public String getTipo() {
+			return tipo;
+		}
+
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+
+		public String refrescarBaja(){
             return "bajaAutorizados.xhtml";
         }
 
@@ -96,6 +116,18 @@ public class AutorizadoController implements Serializable{
             FacesContext.getCurrentInstance().addMessage("bajaAutorizados:list", fm);}
 
             return refrescarBaja();
+        }
+        
+        public String autorizar(PersonaAutorizada c) {
+        	Character charAux = tipo.charAt(0);
+        	
+        	try {
+				gestionAutorizado.autorizar(c, empresa, charAux);
+			} catch (EburyAppException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+        	return refrescarBaja();
         }
 
         public String goBaja(){

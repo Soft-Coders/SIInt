@@ -45,12 +45,29 @@
                         <h:column>
                             <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
                         </h:column>
+
+                        <h:column>
+                            <h:commandButton value="Autorizar" action="#{autorizado.autorizar(c)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:inputText id="empresa" value="#{autorizado.empresa}" >
+                                <f:convertNumber />
+                            </h:inputText>
+                            <h:message for="empresa"/> 
+                        </h:column>
+
+                        <h:column>
+                            <h:inputText id="tipo" value="#{autorizado.tipo}" />
+                            <h:message for="tipo"/> 
+                        </h:column>
                         
                     </h:dataTable>
                     <h:message for="list"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
                     <h:commandButton value="Volver a la página de inicio" action="#{autorizado.atras()}"/>
                     <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
+                    
                 </h:form>
             <!-- </c:otherwise> -->
         <!-- </c:choose> -->

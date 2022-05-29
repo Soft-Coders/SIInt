@@ -107,12 +107,33 @@ public class AutorizadoEJB implements GestionAutorizado {
     	
 
     	
-        p.setEstado("INACTIVO");
+        p.setEstado("ACTIVO");
         p.setUsuario(user);
 		em.persist(user);
         em.persist(p);
         
 
+	}
+	
+	@Override
+	public void autorizar(PersonaAutorizada p, Long empresa, Character tipo) throws EburyAppException {
+		if(tipo != 'O' || tipo != 'L')
+			throw new EburyAppException("tipo no válido");
+		if(empresa == null) 
+			throw new EburyAppException("empresa nula");
+		
+		Empresa e = em.find(Empresa.class, empresa);
+		Map<PersonaAutorizada, Character> empresaRelacion = e.getAutorizacion();
+		empresaRelacion.put(p, tipo);
+		//Map<Empresa, Character> autorizadoRelacion = p.getAutorizacion();
+		//autorizadoRelacion.put(e, tipo);
+		e.setAutorizacion(empresaRelacion);
+		//p.setAutorizacion(autorizadoRelacion);
+		em.merge(e);
+		em.merge(p);
+
+		
+		
 	}
 	
 	

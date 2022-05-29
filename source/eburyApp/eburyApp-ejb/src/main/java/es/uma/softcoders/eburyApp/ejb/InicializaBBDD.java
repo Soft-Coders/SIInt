@@ -81,6 +81,7 @@ public class InicializaBBDD {
 		cuentasP33.add(segregadaNL);
 		cuentasP33.add(segregadaFR);
 		cuentasP33.add(segregadaDE);
+		empresaP33.setId(23456L);
 		empresaP33.setIdentificacion("P3310693A");
 		empresaP33.setTipoCliente("EMPRESA");
 		empresaP33.setFechaAlta(new Date());
@@ -110,7 +111,7 @@ public class InicializaBBDD {
 		em.persist(individual639);
 		
 		Map<Empresa, Character> aut = new HashMap<>();
-		aut.put(empresaP33, 'W');
+		//aut.put(empresaP33, 'W');
 		paY40.setIdentificacion("Y4001267V");
 		paY40.setAutorizacion(aut);
 		paY40.setNombre("Ana");
