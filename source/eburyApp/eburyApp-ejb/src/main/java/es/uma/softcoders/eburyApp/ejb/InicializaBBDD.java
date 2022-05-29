@@ -443,23 +443,32 @@ public class InicializaBBDD {
 		CuentaReferencia referenciaPrueba5 = new CuentaReferencia();
 		
 		usuarioIndPrueba.setUsuario("usuarioIndPrueba");
-		usuarioIndPrueba.setClave("usuarioIndPrueba");
+		usuarioIndPrueba.setClave("patata");
 		usuarioIndPrueba.setEsAdministrativo(false);
-		em.persist(usuarioIndPrueba);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'usuarioIndPrueba'").getResultList().isEmpty())
+			em.persist(usuarioIndPrueba);
+		else
+			em.merge(usuarioIndPrueba);
 		
 		System.out.printf("\n\t!!! -> usuarioIndPrueba: %s <- !!!", usuarioIndPrueba);
 		
 		usuarioPAPrueba.setUsuario("usuarioPAPrueba");
-		usuarioPAPrueba.setClave("usuarioPAPrueba");
+		usuarioPAPrueba.setClave("patata");
 		usuarioPAPrueba.setEsAdministrativo(false);
-		em.persist(usuarioPAPrueba);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'usuarioPAPrueba'").getResultList().isEmpty())
+			em.persist(usuarioPAPrueba);
+		else
+			em.merge(usuarioPAPrueba);
 		
 		System.out.printf("\n\t!!! -> usuarioPAPrueba: %s <- !!!", usuarioPAPrueba);
 
 		usuarioAdminPrueba.setUsuario("usuarioAdminPrueba");
-		usuarioAdminPrueba.setClave("usuarioAdminPrueba");
+		usuarioAdminPrueba.setClave("patata");
 		usuarioAdminPrueba.setEsAdministrativo(true);
-		em.persist(usuarioAdminPrueba);
+		if(em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = 'usuarioAdminPrueba'").getResultList().isEmpty())
+			em.persist(usuarioAdminPrueba);
+		else
+			em.merge(usuarioAdminPrueba);
 		
 		System.out.printf("\n\t!!! -> usuarioAdminPrueba: %s <- !!!", usuarioAdminPrueba);
 		
@@ -477,10 +486,10 @@ public class InicializaBBDD {
 		empresaPrueba.setPais("España");
 		empresaPrueba.setRazonSocial("SA");
 		empresaPrueba.setCuentas(cuentasEmpresaPrueba);
-		
-		em.persist(empresaPrueba);
-		
-		
+		if(em.createQuery("SELECT e FROM Empresa e WHERE e.identificacion = 'empresaPrueba'").getResultList().isEmpty())
+			em.persist(empresaPrueba);
+		else
+			em.merge(empresaPrueba);
 		
 		System.out.printf("\n\t!!! -> empresaPrueba: %s <- !!!", empresaPrueba);
 		
@@ -498,8 +507,10 @@ public class InicializaBBDD {
 		individualPrueba.setApellido("prueba");
 		individualPrueba.setUsuario(usuarioIndPrueba);
 		individualPrueba.setCuentas(cuentasIndPrueba);
-		
-		em.persist(individualPrueba);
+		if(em.createQuery("SELECT i FROM Individual i WHERE i.identificacion = 'individualPrueba'").getResultList().isEmpty())
+			em.persist(individualPrueba);
+		else
+			em.merge(individualPrueba);
 		
 		
 		
@@ -515,11 +526,11 @@ public class InicializaBBDD {
 		paPrueba.setUsuario(usuarioPAPrueba);
 		paPrueba.setEstado("ACTIVO");
 		paPrueba.setFechaInicio(new Date());
-		
-		em.persist(paPrueba);
-		
-		
-		
+		if(em.createQuery("SELECT pa FROM PersonaAutorizada pa WHERE pa.identificacion = 'paPrueba'").getResultList().isEmpty())
+			em.persist(paPrueba);
+		else
+			em.merge(paPrueba);
+
 		System.out.printf("\n\t!!! -> paPrueba: %s <- !!!", paPrueba);
 
 		eur.setAbreviatura("EUR");
@@ -541,9 +552,10 @@ public class InicializaBBDD {
 		referenciaPrueba2.setSaldo(1000.00);
 		referenciaPrueba2.setDivisa(eur);
 		referenciaPrueba2.setNombreBanco("Prueba2");
-		
-		em.persist(referenciaPrueba2);
-		
+		if(em.find(CuentaReferencia.class, "referenciaPrueba2") == null)
+			em.persist(referenciaPrueba2);
+		else
+			em.merge(referenciaPrueba2);
 		
 		
 		System.out.printf("\n\t!!! -> referenciaPrueba2: %s <- !!!", referenciaPrueba2);
@@ -552,8 +564,10 @@ public class InicializaBBDD {
 		referenciaPrueba5.setSaldo(1000.00);
 		referenciaPrueba5.setDivisa(usd);
 		referenciaPrueba5.setNombreBanco("Prueba5");
-		
-		em.persist(referenciaPrueba5);
+		if(em.find(CuentaReferencia.class, "referenciaPrueba5") == null)
+			em.persist(referenciaPrueba5);
+		else
+			em.merge(referenciaPrueba5);
 		
 		
 		
@@ -563,8 +577,10 @@ public class InicializaBBDD {
 		referenciaPrueba4.setSaldo(1000.00);
 		referenciaPrueba4.setDivisa(gbp);
 		referenciaPrueba4.setNombreBanco("Prueba4");
-		
-		em.persist(referenciaPrueba4);
+		if(em.find(CuentaReferencia.class, "referenciaPrueba4") == null)
+			em.persist(referenciaPrueba4);
+		else
+			em.merge(referenciaPrueba4);
 		
 		
 		
@@ -574,8 +590,10 @@ public class InicializaBBDD {
 		referenciaPrueba3.setSaldo(1000.00);
 		referenciaPrueba3.setDivisa(usd);
 		referenciaPrueba3.setNombreBanco("Prueba3");
-		
-		em.persist(referenciaPrueba3);
+		if(em.find(CuentaReferencia.class, "referenciaPrueba3") == null)
+			em.persist(referenciaPrueba3);
+		else
+			em.merge(referenciaPrueba3);
 		
 		
 		
@@ -585,8 +603,10 @@ public class InicializaBBDD {
 		referenciaPrueba1.setSaldo(1000.00);
 		referenciaPrueba1.setDivisa(usd);
 		referenciaPrueba1.setNombreBanco("Prueba1");
-		
-		em.persist(referenciaPrueba1);
+		if(em.find(CuentaReferencia.class, "referenciaPrueba1") == null)
+			em.persist(referenciaPrueba1);
+		else
+			em.merge(referenciaPrueba1);
 		
 		
 		
@@ -597,8 +617,10 @@ public class InicializaBBDD {
 		segregadaPrueba1.setEstado("ACTIVO");
 		segregadaPrueba1.setCuentaRef(referenciaPrueba3);
 		segregadaPrueba1.setFechaApertura(new Date());
-		
-		em.persist(segregadaPrueba1);
+		if(em.find(Segregada.class, "segregadaPrueba1") == null)
+			em.persist(segregadaPrueba1);
+		else
+			em.merge(segregadaPrueba1);
 		
 		
 		
@@ -609,8 +631,10 @@ public class InicializaBBDD {
 		segregadaPrueba2.setEstado("ACTIVO");
 		segregadaPrueba2.setCuentaRef(referenciaPrueba1);
 		segregadaPrueba2.setFechaApertura(new Date());
-		
-		em.persist(segregadaPrueba2);
+		if(em.find(Segregada.class, "segregadaPrueba2") == null)
+			em.persist(segregadaPrueba2);
+		else
+			em.merge(segregadaPrueba2);
 		
 		
 		
@@ -623,8 +647,10 @@ public class InicializaBBDD {
 			segregadaPrueba3.setFechaCierre(date.parse("2021-09-01"));
 			segregadaPrueba3.setFechaApertura(date.parse("2020-09-01"));
 			segregadaPrueba3.setCuentaRef(referenciaPrueba1);
-			
-			em.persist(segregadaPrueba3);
+			if(em.find(Segregada.class, "segregadaPrueba3") == null)
+				em.persist(segregadaPrueba3);
+			else
+				em.merge(segregadaPrueba3);
 			
 			
 			
@@ -643,8 +669,10 @@ public class InicializaBBDD {
 		pooledPrueba.setDepositadaEn(referenciasPooledES);
 		pooledPrueba.setEstado("ACTIVO");
 		pooledPrueba.setFechaApertura(new Date());
-		
-		em.persist(pooledPrueba);
+		if(em.find(Segregada.class, "pooledPrueba") == null)
+			em.persist(pooledPrueba);
+		else
+			em.merge(pooledPrueba);
 		
 		
 		
@@ -658,13 +686,13 @@ public class InicializaBBDD {
 		transaccionPrueba.setFechaInstruccion(new Date());
 		transaccionPrueba.setFechaEjecucion(new Date());
 		transaccionPrueba.setTipo("PRUEBA");
-		
-		em.persist(transaccionPrueba);
+		if(em.createQuery("SELECT t FROM Transaccion t WHERE t.tipo = 'PRUEBA'").getResultList().isEmpty())
+			em.persist(transaccionPrueba);
+		else
+			em.merge(transaccionPrueba);
 		
 		
 		
 		System.out.printf("\n\t!!! -> transaccionPrueba: %s <- !!!", transaccionPrueba);
-
 	}
-	
 }
