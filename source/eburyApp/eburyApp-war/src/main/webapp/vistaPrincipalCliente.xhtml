@@ -14,43 +14,43 @@
 	<!-- Parte superior de la página: tiene una lista con las cuentas a las que puede acceder el usuario -->
 	<!-- Aparece una lista con las cuentas de las que es propietario -->
 	<h1>Mis cuentas</h1>
-	<table>
-    		<tr>
-    			<th>IBAN</th>
-    			<th>Swift</th>
-    			<th>Estado</th>
-    			<th>Fecha Apertura</th>
-    			<th>Fecha Cierre</th>
-    			<th>Saldo</th>
-    		</tr>
-    		<tbody>
-	    		<ui:repeat var="cue" value="#{cuentaBB.listaCuentasPropias}">
-	    			<h:panelGroup>
-	   			  	<tr>
-		    			<td>#{cue.iban}</td>
-		    			<td>#{cue.swift}</td>
-		    			<td>#{cue.estado}</td>
-		    			<td>#{cue.fechaApertura}</td>
-		    			<td>#{cue.fechaCierre}</td>
-		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
-		    						action="#{cuentaBB.seleccionarCuenta(cue)}" /></td>
-		    		</tr>
-	    			</h:panelGroup>
-	    		</ui:repeat>
-    		</tbody>
-    	</table>
 	
-	<!-- Parte baja de la página: tiene un botón para cambiar de vista a crear una cuenta nueva o dar de baja una existente -->
-	<div>
-		<h:form>
-			<div class="btn">
-				<h:commandButton value="Crear Cuenta" action="#{cuentaBB.vistaCrearCuenta()}"/>
-			</div>
-			<div class="btn">
-				<h:commandButton value="Eliminar Cuenta" action="#{cuentaBB.vistaEliminarCuenta()}"/>
-			</div>
-		</h:form>
-	</div>
+	<h:form id="contactos">
+    	<h:dataTable id="list" value="#{cuentaBB.getListaEmpresasAutorizadas()}" var="cue">
+                        
+        			<h:column>
+                            <f:facet name="header">IBAN</f:facet>
+                            <h:outputText value="#{cue.iban}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Swift</f:facet>
+                            <h:outputText value="#{cue.swift}"/>
+                        </h:column>
+          
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <h:outputText value="#{cue.estado}"/>
+                        </h:column>
+						<h:column>
+                            <f:facet name="header">Fecha Apertura</f:facet>
+                            <h:outputText value="#{cue.fechaApertura}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Cierre</f:facet>
+                            <h:outputText value="#{cue.fechaCierre}"/>
+                        </h:column>
+                       
+                        <h:column>
+                            <h:commandButton value="Saldo" action="#{#{cuentaBB.seleccionarCuenta(cue)}}"/>
+                        </h:column>
+                        
+                    </h:dataTable>
+                    <h:message for="list"/>
+                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                    <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
+                    
+                </h:form>
 	
 </h:body>
 

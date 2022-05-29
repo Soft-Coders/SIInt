@@ -127,6 +127,7 @@ public class CuentaBB {
 
     public void cerrarCuentaF() throws EburyAppException {
 		cuentaEJB.cerrarCuentaFintech(iban);
+		
     }
     
     public String vistaCrearCuenta() {
