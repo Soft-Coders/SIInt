@@ -1,5 +1,6 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +11,9 @@ import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Pooled;
 import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.Pooled;
+import java.util.Collection;
 import javax.ejb.EJB;
 
 import javax.enterprise.context.RequestScoped;
@@ -18,6 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
+import es.uma.softcoders.eburyApp.ejb.GestionUsuario;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
@@ -31,15 +36,21 @@ public class CuentaBB {
 	private GestionCuenta cuentaEJB;
 	
 	@Inject
+	private InfoSesion info;
+	
+	@Inject
+	private GestionUsuario gestionUsuario;
+	
+	@Inject
 	private TransaccionBB trBB;
 	
 	private Long usuario;
 	private boolean individual;
 	private boolean autorizado;
-	private List<CuentaFintech> listaCuentasPropias;
+	private List<CuentaFintech> listaCuentasPropias = new ArrayList<CuentaFintech>();
 	private List<CuentaFintech> listaFintech;
 	private List<Empresa> listaEmpresasAutorizadas;
-	private String emp;   //emp guarda la empresa que ha sido seleccionada
+	private Long emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
 	private CuentaFintech cf = new CuentaFintech();
     private String iban;
@@ -108,9 +119,11 @@ public class CuentaBB {
     }
     
     
-    public String seleccionarEmpresa(String empresa) {
-    	this.emp = empresa;
-    	//getCuentasAutorizadas();
+    public String seleccionarEmpresa(Long empresa) {
+    	
+    	
+    	listaCuentasPropias = cuentaEJB.cuentasEmpresa(empresa);
+    	
     	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
@@ -171,7 +184,7 @@ public class CuentaBB {
     //}
     
     public boolean compruebaSaldoCero(CuentaFintech cue) {
-    	Double saldo = 0;
+    	Double saldo = 0.0;
     	if (cue instanceof Segregada) {
     		Segregada s = (Segregada)cue;
     		saldo = s.getCuentaRef().getSaldo();

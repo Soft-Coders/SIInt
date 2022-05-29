@@ -51,16 +51,13 @@
                             <f:facet name="header">Razón Social</f:facet>
                             <h:outputText value="#{emp.razonSocial}"/>
                         </h:column>
-                        
                         <h:column>
-                            <f:facet name="header">Saldo</f:facet>
-                            <h:outputText value="#{cuentaBB.devuelveSaldo()}"/>
+                            <f:facet name="header">Cuentas</f:facet>
+                            <h:commandButton value="Cuentas" action="#{cuentaBB.seleccionarEmpresa(emp)}"/>
                         </h:column>
                         
                     </h:dataTable>
                     <h:message for="list"/>
-                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
                     
                 </h:form>
 </h:body>

@@ -32,7 +32,7 @@ public interface GestionCuenta {
 	 * @throws EburyAppException 
 	 * @author Marta Maleno Escudero
 	 * */
-	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, String emp) throws EburyAppException;
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, Long emp) throws EburyAppException;
 	
 	/** Este método debe cambiar el estado de una cuenta fintech a fin
 	 * de darla de baja. En caso de que estuviera dada de baja previamente,
@@ -43,6 +43,8 @@ public interface GestionCuenta {
 	 * @author Marta Maleno Escudero
 	 *  */
 	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException, EburyAppException;
+	
+	public List<CuentaFintech> cuentasEmpresa(Long empresa);
 	
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
@@ -70,7 +72,7 @@ public interface GestionCuenta {
  	public CuentaFintech getCuentaFintech(String cuenta);
  	public List<Empresa> getEmpresasAutorizadas(Long usuario);
  	public List<CuentaFintech> getCuentasAutorizadas(Long empresa);
-
+	public List<CuentaFintech> getAllFintech();
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
 	 * usuario pasado por parámetro siempre que este tenga un Individual asociado

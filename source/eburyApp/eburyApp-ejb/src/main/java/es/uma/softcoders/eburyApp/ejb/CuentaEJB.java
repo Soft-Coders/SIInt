@@ -49,8 +49,8 @@ public class CuentaEJB implements GestionCuenta{
 		
 	}
 	
-	
-	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, String emp) throws EburyAppException {
+	@Override
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, Long emp) throws EburyAppException {
 		rellenaNuevaFintech(cf);
 		
 		Empresa e = em.find(Empresa.class, emp);
@@ -90,6 +90,14 @@ public class CuentaEJB implements GestionCuenta{
 		}
 	}
 	
+	public List<CuentaFintech> cuentasEmpresa(Long empresa){
+		System.out.println("-----Antes de llamar al ejb----"+empresa.toString());
+		Empresa aux = em.find(Empresa.class, empresa);
+		System.out.println("------Despues de llamar al ejb------"+ aux.getCuentas().isEmpty());
+
+		return aux.getCuentas();
+	}
+	
 	/***
 	 * Este método rellena todos los datos necesarios para que la cuenta fintech
 	 * se pueda crear
@@ -97,6 +105,7 @@ public class CuentaEJB implements GestionCuenta{
 	 * @return cf rellena
 	 * @throws EburyAppException
 	 */
+	
 	private CuentaFintech rellenaNuevaFintech(CuentaFintech cf) throws EburyAppException {
 		if (cf.getIban() == null) {
 			cf.setIban(auxIBAN.toString());
@@ -131,6 +140,7 @@ public class CuentaEJB implements GestionCuenta{
 		}
 	}
 	
+	@Override
 	public boolean esIndividual(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
@@ -142,7 +152,8 @@ public class CuentaEJB implements GestionCuenta{
 		}
 		return a;
 	}
-
+	
+	@Override
 	public boolean esAutorizado(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
@@ -155,12 +166,14 @@ public class CuentaEJB implements GestionCuenta{
 		return a;
 	}
 	
+	@Override
 	public String getIbanCuenta(String cuenta) {
 		Cuenta c = em.find(Cuenta.class, cuenta);
 		return c.getIban();
 		
 	}
 	
+	@Override
 	public CuentaFintech getCuentaFintech(String cuenta) {
  		return em.find(CuentaFintech.class, cuenta);
  	}
@@ -213,6 +226,7 @@ public class CuentaEJB implements GestionCuenta{
  		return (List<CuentaFintech>)query.getResultList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CuentaFintech> getAllFintech(){
 		Query query = em.createQuery("SELECT a FROM CuentaFintech a");
