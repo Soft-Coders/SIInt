@@ -1,10 +1,14 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Pooled;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
 import javax.ejb.EJB;
 
@@ -33,6 +37,7 @@ public class CuentaBB {
 	private boolean individual;
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
+	private List<CuentaFintech> listaFintech;
 	private List<Empresa> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
@@ -59,7 +64,14 @@ public class CuentaBB {
 	public void setListaCuentasAutorizadas(List<CuentaFintech> listaCuentasAutorizadas) {
 		this.listaCuentasAutorizadas = listaCuentasAutorizadas;
 	}
-
+	
+	public List<CuentaFintech> getListaFintech(){
+		return listaFintech;
+	}
+	public void setListaFintech(List<CuentaFintech> a) {
+		listaFintech = a;
+	}
+	
     public CuentaFintech getCf () {
     	return cf;
     }
@@ -152,5 +164,44 @@ public class CuentaBB {
     public String irCambioDivisa() {
     	trBB.setIban(iban);
     	return "vistaCambioDivisa.xhtml";
+    }
+    
+    //public void guardarTodasFintech() {
+    //	listaFintech = cuentaEJB.getAllFintech();
+    //}
+    
+    public boolean compruebaSaldoCero(CuentaFintech cue) {
+    	Double saldo = 0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        		if (aux.isEmpty()) {
+        			return true;
+        		} else {
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		}
+    	}
+    	return saldo == 0;
+    }
+    
+    public Double devuelveSaldo(CuentaFintech cue) {
+    	Double saldo = 0.0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		
+    	}
+    	return saldo;
     }
 } 

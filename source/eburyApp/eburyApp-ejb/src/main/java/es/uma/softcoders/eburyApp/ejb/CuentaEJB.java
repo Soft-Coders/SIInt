@@ -126,7 +126,7 @@ public class CuentaEJB implements GestionCuenta{
 			CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
 			if (cf == null) {
 				throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
-			}
+			} 
 			cf.setEstado("INACTIVO");
 		}
 	}
@@ -211,6 +211,12 @@ public class CuentaEJB implements GestionCuenta{
  				query.setParameter("idemp", emp);
  		}
  		return (List<CuentaFintech>)query.getResultList();
+	}
+	
+	@Override
+	public List<CuentaFintech> getAllFintech(){
+		Query query = em.createQuery("SELECT a FROM CuentaFintech a");
+		return (List<CuentaFintech>)query.getResultList();
 	}
 	
 }

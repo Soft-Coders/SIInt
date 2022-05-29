@@ -42,7 +42,8 @@
                         </h:column>
                        
                         <h:column>
-                            <h:commandButton value="Saldo" action="#{cuentaBB.seleccionarCuenta(cue)}"/>
+                            <f:facet name="header">Saldo</f:facet>
+                            <h:outputText value="#{cuentaBB.devuelveSaldo(cue)}"/>
                         </h:column>
                         
                     </h:dataTable>

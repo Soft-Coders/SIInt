@@ -25,9 +25,12 @@
                         <h1>Menú Administrador</h1>
                         <h:button value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
                         <h:button value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
+                        <h:button value="Cierre de cuentas" action="#{cuentaBB.guardarTodasFintech()}" outcome="vistaEliminarCuentaFintech.xhtml"/>
+                        
+                        
                         <h:button value="Descarga de informes" outcome="descargaInformes.xhtml"/>
                         <h:button value="Logout" outcome="admin.xhtml"/>
-
+						
                     <!-- </h:panelGrid> -->
                     <!-- <h:messages/> -->
                     

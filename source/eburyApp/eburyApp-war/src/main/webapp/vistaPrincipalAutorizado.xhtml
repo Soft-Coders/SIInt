@@ -53,7 +53,8 @@
                         </h:column>
                         
                         <h:column>
-                            <h:commandButton value="Saldo" action="#{cuentaBB.seleccionarEmpresa(emp)}"/>
+                            <f:facet name="header">Saldo</f:facet>
+                            <h:outputText value="#{cuentaBB.devuelveSaldo()}"/>
                         </h:column>
                         
                     </h:dataTable>
@@ -62,38 +63,6 @@
                     <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
                     
                 </h:form>
-	<!-- <table>
-    		<tr>
-    			<th>Identificación</th>
-    			<th>Estado</th>
-    			<th>Fecha Alta</th>
-    			<th>Dirección</th>
-    			<th>Ciudad</th>
-    			<th>Código Postal</th>
-    			<th>País</th>
-    			<th>Razón Social</th>
-    			<th>Cuentas</th>
-    		</tr>
-    		<tbody>
-	    		<ui:repeat var="emp" value="#{cuentaBB.listaEmpresasAutorizadas}">
-	    			<h:panelGroup>
-	   			  	<tr>
-		    			<td>#{emp.identificacion}</td>
-		    			<td>#{emp.estado}</td>
-		    			<td>#{emp.fechaAlta}</td>
-		    			<td>#{emp.direccion}</td>
-		    			<td>#{emp.ciudad}</td>
-		    			<td>#{emp.codigoPostal}</td>
-		    			<td>#{emp.pais}</td>
-		    			<td>#{emp.razonSocial}</td>
-		    			AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA
-		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
-		    						action="#{cuentaBB.seleccionarEmpresa(emp)}" /></td>
-		    		</tr>
-	    			</h:panelGroup>
-	    		</ui:repeat>
-    		</tbody>
-    	</table>-->
 </h:body>
 
 </html> 
