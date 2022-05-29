@@ -163,6 +163,6 @@ public class CuentaBB {
     }
     
     public void guardarTodasFintech() {
-    	listaFintech = CuentaEJB.getAllFintech();
+    	listaFintech = cuentaEJB.getAllFintech();
     }
 } 
