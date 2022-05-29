@@ -116,24 +116,34 @@ public class AutorizadoEJB implements GestionAutorizado {
 	}
 	
 	@Override
-	public void autorizar(PersonaAutorizada p, String empresa, Character tipo) throws EburyAppException {
-		if(tipo != 'O' || tipo != 'L')
+	public void autorizar(String paut, String empresa, char tipo) throws EburyAppException {
+		if(tipo != 'O' && tipo != 'L')
 			throw new EburyAppException("tipo no válido");
 		if(empresa == null) 
 			throw new EburyAppException("empresa nula");
+		System.out.println("--------Antes del find-------");
+		PersonaAutorizada p = em.find(PersonaAutorizada.class, Long.valueOf(paut));
 		
-		Query q = em.createQuery("SELECT e FROM Empresa e WHERE e.Identificacion = :fname ");
-		q.setParameter(" fname ", empresa);	
-		Empresa e = (Empresa)q.getResultList().get(q.getFirstResult());
+		System.out.println("-------Antes de la query de empresa-------" + p.toString());
+		Query q = em.createQuery("SELECT e FROM Empresa e WHERE e.identificacion = :fname ");
+		q.setParameter("fname", empresa);	
+		
+		System.out.println("-----Antes de buscar las autorizaciones-------"+ q.toString());
+		Empresa e = (Empresa)q.getSingleResult();
 		Map<PersonaAutorizada, Character> empresaRelacion = e.getAutorizacion();
+		
+		System.out.println("-----Antes de añadir la autorizacion-------"+ empresaRelacion.toString());
 		empresaRelacion.put(p, tipo);
 		//Map<Empresa, Character> autorizadoRelacion = p.getAutorizacion();
 		//autorizadoRelacion.put(e, tipo);
 		e.setAutorizacion(empresaRelacion);
 		//p.setAutorizacion(autorizadoRelacion);
+		
+		System.out.println("------Antes del merge------");
 		em.merge(e);
-		em.merge(p);
-
+		System.out.println("------Antes del flush------");
+		em.flush();
+		System.out.println("----Después del flush------");
 		
 		
 	}

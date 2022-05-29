@@ -48,7 +48,7 @@ public interface GestionAutorizado {
 	 */
 	public void eliminarAutorizado(Long autorizado, Long empresa) throws PersonaAutorizadaNoEncontradaException, EmpresaNoEncontradaException;
 	
-	public void autorizar(PersonaAutorizada p, String empresa, Character tipo) throws EburyAppException;
+	public void autorizar(String p, String empresa, char tipo) throws EburyAppException;
 	
 	/*
 	 * La aplicación permitirá a un administrativo dar de baja a personas autorizadas a

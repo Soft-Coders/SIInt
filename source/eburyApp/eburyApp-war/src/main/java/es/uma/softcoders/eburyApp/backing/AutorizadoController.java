@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Cliente;
@@ -26,10 +27,13 @@ public class AutorizadoController implements Serializable{
         
 		@EJB
         private GestionAutorizado gestionAutorizado;
+		
 
         private List<PersonaAutorizada> listInactivos;
 
         private List<PersonaAutorizada> listActivos;
+        
+        
 
         
 
@@ -118,19 +122,10 @@ public class AutorizadoController implements Serializable{
             return refrescarBaja();
         }
         
-        public String autorizar(PersonaAutorizada c) {
-        	Character charAux = tipo.charAt(0);
-        	
-        	try {
-				gestionAutorizado.autorizar(c, empresa, charAux);
-			} catch (EburyAppException e) {
-	            FacesMessage fm = new FacesMessage("Error al autorizar");
-	            FacesContext.getCurrentInstance().addMessage("bajaAutorizados:list", fm);
-	        }
-				
-			
-        	return refrescarBaja();
+        public String goAutorizacion(PersonaAutorizada c) {
+        	return "autorizacion.xhtml?faces-redirect=true&paut="+c.getId().toString();
         }
+        
 
         public String goBaja(){
             return "bajaAutorizados.xhtml";

@@ -47,20 +47,9 @@
                         </h:column>
 
                         <h:column>
-                            <h:commandButton value="AUTORIZAR" action="#{autorizado.autorizar(c)}"/>
+                            <h:commandButton value="AUTORIZAR" action="#{autorizado.goAutorizacion(c)}"/>
                         </h:column>
 
-                        <h:column>
-                            <f:facet name="header">Identificacion de empresa</f:facet>
-                            <h:inputText id="empresa" value="#{autorizado.empresa}" />
-                            <h:message for="empresa"/> 
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Tipo de autorización</f:facet>
-                            <h:inputText id="tipo" value="#{autorizado.tipo}" />
-                            <h:message for="tipo"/> 
-                        </h:column>
                         
                     </h:dataTable>
                     <h:message for="list"/>
