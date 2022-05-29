@@ -33,6 +33,7 @@ public class CuentaBB {
 	private boolean individual;
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
+	private List<CuentaFintech> listaFintech;
 	private List<Empresa> listaEmpresasAutorizadas;
 	private String emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
@@ -59,7 +60,14 @@ public class CuentaBB {
 	public void setListaCuentasAutorizadas(List<CuentaFintech> listaCuentasAutorizadas) {
 		this.listaCuentasAutorizadas = listaCuentasAutorizadas;
 	}
-
+	
+	public List<CuentaFintech> getListaFintech(){
+		return listaFintech;
+	}
+	public void setListaFintech(List<CuentaFintech> a) {
+		listaFintech = a;
+	}
+	
     public CuentaFintech getCf () {
     	return cf;
     }
@@ -152,5 +160,9 @@ public class CuentaBB {
     public String irCambioDivisa() {
     	trBB.setIban(iban);
     	return "vistaCambioDivisa.xhtml";
+    }
+    
+    public void guardarTodasFintech() {
+    	listaFintech = CuentaEJB.getAllFintech();
     }
 } 

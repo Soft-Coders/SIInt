@@ -21,17 +21,8 @@
 			<h:inputText value="#{cuentaBB.iban}"/>
 		</h:panelGrid>
     	<br/>
-    	<h:commandButton value="Eliminar Cuenta" action="#{cuentaBB.vistaConfirmarEliminar()}"/>
+    	<h:commandButton value="Eliminar Cuenta" action="#{cuentaBB.cerrarCuentaF()}"/>
 	</h:form>
-	
-	<!-- Parte baja de la página: tiene un botón para cambiar de vista a la principal -->
-	<div>
-		<h:form>
-			<div class="btn">
-				<h:commandButton value="Atrás" action="#{cuentaBB.vistaPrincipalCliente()}"/>
-			</div>
-		</h:form>
-	</div>
 	
 </h:body>
 
