@@ -19,12 +19,12 @@
             <!-- <c:if test="#{infoSesion.usuario.esAdministrativo}"> -->
 
                         <h1>Menú Administrador</h1>
-                        <h:button value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
-                        <h:button value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
-                       	<h:button value="Alta de autorizados" action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml"/>
-                        <h:button value="Baja de autorizados" action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml"/>
-                        <h:button value="Descarga de informes" outcome="descargaInformes.xhtml"/>
-                        <h:button value="Logout" outcome="admin.xhtml"/>
+                        <h:button id="Alta" value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
+                        <h:button id="Baja" value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
+                       	<h:button id="Alta" value="Alta de autorizados" action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml"/>
+                        <h:button id="Baja" value="Baja de autorizados" action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml"/>
+                        <h:button id="Descarga" value="Descarga de informes" outcome="descargaInformes.xhtml"/>
+                        <h:button id="Logout" value="Logout" outcome="admin.xhtml"/>
 
     </h:body>
 </html>

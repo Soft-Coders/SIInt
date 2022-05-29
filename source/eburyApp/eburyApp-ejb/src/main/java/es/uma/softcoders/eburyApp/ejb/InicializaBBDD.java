@@ -424,10 +424,12 @@ public class InicializaBBDD {
 		
 		Empresa empresaPrueba = new Empresa();
 		Individual individualPrueba = new Individual();
+		Individual individualInactivo = new Individual();
 		PersonaAutorizada paPrueba = new PersonaAutorizada();
 		Segregada segregadaPrueba1 = new Segregada();
 		Segregada segregadaPrueba2 = new Segregada();
 		Segregada segregadaPrueba3 = new Segregada();
+		Segregada segregadaPrueba4 = new Segregada();
 		Pooled pooledPrueba = new Pooled();
 		Transaccion transaccionPrueba = new Transaccion();
 		Divisa eur = new Divisa();
@@ -501,9 +503,25 @@ public class InicializaBBDD {
 		
 		em.persist(individualPrueba);
 		
-		
-		
 		System.out.printf("\n\t!!! -> individualPrueba: %s <- !!!", individualPrueba);
+		
+		cuentasIndPrueba.add(segregadaPrueba4);
+		individualInactivo.setIdentificacion("individualInactivo");
+		individualInactivo.setTipoCliente("INDIVIDUAL");
+		individualInactivo.setFechaAlta(new Date());
+		individualInactivo.setEstado("INACTIVO");
+		individualInactivo.setDireccion("La calle de Inactivo");
+		individualInactivo.setCiudad("Madrid");
+		individualInactivo.setCodigoPostal("28770");
+		individualInactivo.setPais("España");
+		individualInactivo.setNombre("individual");
+		individualInactivo.setApellido("inactivo");
+		individualInactivo.setUsuario(usuarioIndPrueba);
+		individualInactivo.setCuentas(cuentasIndPrueba);
+		
+		em.persist(individualInactivo);
+		
+		System.out.printf("\n\t!!! -> individualPrueba: %s <- !!!", individualInactivo);
 
 		Map<Empresa, Character> aut = new HashMap<>();
 		aut.put(empresaPrueba, 'O');
@@ -633,6 +651,14 @@ public class InicializaBBDD {
 		} catch(ParseException e) {
 			System.out.println("!!! -> Date ParseException with segregadaDE in InicializaBBDD <- !!!");
 		}
+		
+		segregadaPrueba4.setIban("segregadaPrueba4");
+		segregadaPrueba4.setCliente(individualInactivo);
+		segregadaPrueba4.setEstado("INACTIVO");
+		segregadaPrueba4.setFechaApertura(new Date());
+		segregadaPrueba4.setCuentaRef(referenciaPrueba1);
+		
+		em.persist(segregadaPrueba4);
 		
 		Map<CuentaReferencia, Double> referenciasPooledES = new HashMap<>();
 		referenciasPooledES.put(referenciaPrueba2, 100.00);
