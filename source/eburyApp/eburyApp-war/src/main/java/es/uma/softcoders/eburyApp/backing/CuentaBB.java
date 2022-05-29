@@ -79,13 +79,13 @@ public class CuentaBB {
     }
     public void setUsuario(Long u) {
     	usuario = u;
-    	individual = cuentaEJB.esIndividual(u);
-    	autorizado = cuentaEJB.esAutorizado(u);
-    	if (individual == true) {
-    		getCuentasPropias();
-    	} else if (autorizado == true) {
-    		getEmpresasAutorizadas();
-    	}
+    	//individual = cuentaEJB.esIndividual(u);
+    	//autorizado = cuentaEJB.esAutorizado(u);
+    	//if (individual == true) {
+    	//	getCuentasPropias();
+    	//} else if (autorizado == true) {
+    	//	getEmpresasAutorizadas();
+    	//}
     }
     
     public String getTipo() {
@@ -98,7 +98,7 @@ public class CuentaBB {
     
     public String seleccionarEmpresa(String empresa) {
     	this.emp = empresa;
-    	getCuentasAutorizadas();
+    	//getCuentasAutorizadas();
     	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
@@ -113,9 +113,9 @@ public class CuentaBB {
     private void getEmpresasAutorizadas() {
     	listaEmpresasAutorizadas = cuentaEJB.getEmpresasAutorizadas(usuario);
     }
-    private void getCuentasAutorizadas() {
-    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
-    }
+    //private void getCuentasAutorizadas() {
+    //	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
+    //}
     
     public void crearCuentaF() throws EburyAppException {
     	if (autorizado == true) {

@@ -16,7 +16,7 @@
 	<h1>Mis cuentas</h1>
 	
 	<h:form id="contactos">
-    	<h:dataTable id="list" value="#{cuentaBB.getListaEmpresasAutorizadas()}" var="cue">
+    	<h:dataTable id="list" value="#{cuentaBB.getListaCuentasPropias()}" var="cue">
                         
         			<h:column>
                             <f:facet name="header">IBAN</f:facet>
@@ -42,7 +42,7 @@
                         </h:column>
                        
                         <h:column>
-                            <h:commandButton value="Saldo" action="#{#{cuentaBB.seleccionarCuenta(cue)}}"/>
+                            <h:commandButton value="Saldo" action="#{cuentaBB.seleccionarCuenta(cue)}"/>
                         </h:column>
                         
                     </h:dataTable>

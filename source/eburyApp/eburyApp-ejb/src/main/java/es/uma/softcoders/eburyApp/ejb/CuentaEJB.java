@@ -203,7 +203,7 @@ public class CuentaEJB implements GestionCuenta{
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<CuentaFintech> getCuentasAutorizadas(String empresa){
+	public List<CuentaFintech> getCuentasAutorizadas(Long empresa){
 		Query query = null;
 		if (empresa != null) {
  			Empresa emp = em.find(Empresa.class, empresa);

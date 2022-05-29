@@ -17,7 +17,7 @@
 	<h:form id="contactos">
     	<h:dataTable id="list" value="#{cuentaBB.getListaEmpresasAutorizadas()}" var="emp">
                         
-        			<h:column>
+        			    <h:column>
                             <f:facet name="header">Identificación</f:facet>
                             <h:outputText value="#{emp.identificacion}"/>
                         </h:column>
@@ -86,7 +86,7 @@
 		    			<td>#{emp.codigoPostal}</td>
 		    			<td>#{emp.pais}</td>
 		    			<td>#{emp.razonSocial}</td>
-		    			 <!-- AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA
+		    			AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA
 		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
 		    						action="#{cuentaBB.seleccionarEmpresa(emp)}" /></td>
 		    		</tr>

@@ -58,7 +58,7 @@ public class Login implements Serializable{
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
 	            System.out.println("> login.entrar() : POST : loginUsuario() : PRE : setUsuario()");
 	            sesion.setUsuario(usuario);
-	            cuentaBB.setUsuario(gestionUsuario.devolverUser(usuario.getUsuario()));
+	            //cuentaBB.setUsuario(gestionUsuario.devolverUser(usuario.getUsuario()));
                 
 	            System.out.println("> login.entrar() : POST : setUsuario()");
 
