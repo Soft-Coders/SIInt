@@ -88,6 +88,7 @@ public class AutorizadoController implements Serializable{
 
             return refrescarAlta();
         }
+        
 
         public String darBaja(PersonaAutorizada c){
             try{gestionAutorizado.bajaAutorizado(c.getId());}

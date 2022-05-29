@@ -47,7 +47,7 @@ public class Login implements Serializable{
 			try {
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
 	            sesion.setUsuario(usuario);
-	            return "inicioUsuario.xhtml";
+	            return "inicioUsuario.xhtml" + "?faces-redirect=true&idsession=" + usuario.getUsuario();
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");
@@ -62,12 +62,23 @@ public class Login implements Serializable{
 	        return null;
 		}
 
+		public boolean esAdministrativo(String id){
+			try {
+				return login.comprobacionAdministrativo(id);
+			} catch (EburyAppException e) {
+				e.printStackTrace();
+			}
+			return false;
+			
+
+		}
+
 		public String entrarAdmin(){
 			try {
 	            login.loginAdmin(usuario.getUsuario(), usuario.getClave());
 				usuario.setEsAdministrativo(true);
 	            sesion.setUsuario(usuario);
-	            return "inicioAdmin.xhtml";
+	            return "inicioAdmin.xhtml" + "?faces-redirect=true&idsession=" + usuario.getUsuario();
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");

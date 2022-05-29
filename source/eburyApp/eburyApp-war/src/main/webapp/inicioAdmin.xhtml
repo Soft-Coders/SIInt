@@ -8,32 +8,32 @@
         <title>Inicio Admin</title>
     </h:head>
     <h:body>
-        <!-- <c:choose>
-            <c:if test="#{!infoSesion.usuario.esAdministrativo}">
-                
-                <h:form>
-                    <p>Para crear un nuevo registro debe 
-                        <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> antes de la aplicación.</p>
-                </h:form>
-            </c:when> -->
-            <!-- <c:if test="#{infoSesion.usuario.esAdministrativo}"> -->
-
-                <!-- <h:form id="registro">
-                    <h:panelGrid columns="3">
- -->
-                        
-                        <p><h:link action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml">Alta de clientes</h:link></p>
-                        <p><h:link action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml">Baja de clientes</h:link></p>
-                        <p><h:link action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml">Alta de autorizados</h:link></p>
-                        <p><h:link action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml">Baja de autorizados</h:link></p>
+        <f:metadata>
+            <f:viewParam name="idsession" />
+        </f:metadata>
+        <c:choose>
+            
+            
+            <c:when test="#{!login.esAdministrativo(idsession)}"> 
+                <h2>No tienes permiso para ver esta pagina</h2>
+            </c:when>
+            
+            <c:otherwise>
+                 <h:form id="registro">
+                    <h:panelGrid columns="3">                        
+                        <p><h:link action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml?faces-redirect=true&amp;idsession=#{idsession}">Alta de clientes</h:link></p>
+                        <p><h:link action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml?faces-redirect=true&amp;idsession=#{idsession}">Baja de clientes</h:link></p>
+                        <p><h:link action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml?faces-redirect=true&amp;idsession=#{idsession}">Alta de autorizados</h:link></p>
+                        <p><h:link action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml?faces-redirect=true&amp;idsession=#{idsession}">Baja de autorizados</h:link></p>
                         <p><h:link outcome="admin.xhtml">Volver a la página de login</h:link></p>
-                    <!-- </h:panelGrid> -->
-                    <!-- <h:messages/> -->
+                     </h:panelGrid> 
+                     <h:messages/> 
                     
-                <!-- </h:form> -->
-                
-            <!-- </c:if> -->
-        <!-- </c:choose> -->
+                </h:form> 
+            
+            </c:otherwise>
+            
+        </c:choose> 
 
     </h:body>
 </html>
