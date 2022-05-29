@@ -180,7 +180,7 @@ public class CuentaEJB implements GestionCuenta{
 			Individual ind = u.getIndividual();
 			if (ind != null) {
 				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idindividual")
-						.setParameter("idindividual", ind);
+						.setParameter("idindividual", ind.getId().toString());
 			}
 		}
 		return (List<CuentaFintech>)query.getResultList();
@@ -195,7 +195,7 @@ public class CuentaEJB implements GestionCuenta{
 			PersonaAutorizada pau = u.getPersonaAutorizada();
 			if (pau != null) {
 				query = em.createQuery("SELECT a FROM EMPRESA a WHERE a.autorizacion LIKE :idpau")
-						.setParameter("idpau", pau);
+						.setParameter("idpau", pau.getId().toString());
 			}
 		}
 		return (List<Empresa>)query.getResultList();
@@ -207,7 +207,7 @@ public class CuentaEJB implements GestionCuenta{
 		Query query = null;
 		if (empresa != null) {
  			Empresa emp = em.find(Empresa.class, empresa);
- 				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idemp")
+ 				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idemp")
  						.setParameter("idemp", emp);
  		}
  		return (List<CuentaFintech>)query.getResultList();
