@@ -17,6 +17,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import es.uma.informatica.sii.anotaciones.Requisitos;
+
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Keys;
@@ -37,7 +40,15 @@ public class EburyAppIT {
   public void tearDown() {
     driver.quit();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el correcto acceso al sistema de ADMINISTRATIVOS:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF1"})
   public void loginAdminRF1() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1512, 944));
@@ -62,7 +73,15 @@ public class EburyAppIT {
       assert(elements.size() > 0);
     }
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el correcto acceso al sistema de CLIENTES INDIVIDUALES y PERSONAS AUTORIZADAS:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF10"})
   public void loginUserRF10() {
     driver.get("http://localhost:8080/eburyApp-war/");
     driver.manage().window().setSize(new Dimension(1512, 944));
@@ -81,7 +100,19 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td")).getText(), is("Persona Autorizada"));
     driver.findElement(By.linkText("Cancelar")).click();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de MODIFICAR CLIENTE:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Entra en BAJA CLIENTE para modificar un cliente
+	*	-Pulsa el boton MODIFICAR
+	*	-Rellena los campos obligatorios y pulsa MODIFICAR
+	*	-Comprueba que la identificacion del cliente seleccionado ha sido modificada
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF3"})
   public void modificarClienteRF3() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1920, 1055));
@@ -113,7 +144,18 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(4) > td:nth-child(1)")).getText(), is("individualMod"));
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(4) > td:nth-child(2)")).getText(), is("ACTIVO"));
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de BAJA CLIENTE:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Entra en BAJA CLIENTE para dar de baja a un cliente
+	*	-Pulsa el boton BAJA
+	*	-Comprueba en la vista de ALTA que el cliente esta dado de baja
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF4"})
   public void bajaClienteRF4() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1200, 1011));
@@ -131,7 +173,19 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td:nth-child(2)")).getText(), is("INACTIVO"));
     driver.findElement(By.name("altaClientes:list:0:j_idt12")).click();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de ALTA CLIENTE:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Accede a la vista de ALTA CLIENTE
+	*	-Comprueba que existe un cliente inactivo al que dar de alta
+	*	-Pulsa el boton de ALTA
+	*	-Sale de la vista, y comprueba si el estado del cliente ha cambiado a ACTIVO en la vista de BAJA CLIENTE
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF2"})
   public void altaClienteRF2() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1200, 1011));
@@ -148,7 +202,18 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(5) > td:nth-child(2)")).getText(), is("ACTIVO"));
     driver.findElement(By.name("contactos:list:4:j_idt14")).click();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de AUTORIZAR PERSONA:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Entra en BAJA AUTORIZADO para AUTORIZAR un cliente
+	*	-Pulsa el boton AUTORIZAR
+	*	-Accede a una vista auxiliar y escribe la empresa en la que se autoriza y el tipo de autorizacion
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF6"})
   public void agregarAutorizadoRF6() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1920, 1055));
@@ -161,7 +226,18 @@ public class EburyAppIT {
     driver.findElement(By.id("autorizar:tipo")).sendKeys("O");
     driver.findElement(By.name("autorizar:j_idt13")).click();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de ELIMINAR AUTORIZADO:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Entra en BAJA AUTORIZADO para inhabilitar un autorizado
+	*	-Pulsa el boton BAJA
+	*	-Comprueba en la vista de ALTA que el autorizado esta dado de baja
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF8"})
   public void eliminarAutorizadosRF8() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1200, 1011));
@@ -179,7 +255,19 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("INACTIVO"));
     driver.findElement(By.name("contactos:list:1:j_idt13")).click();
   }
-  @Test
+  /**
+	*Este test se encarga de comprobar el funcionamiento de MODIFICAR AUTORIZADO:
+	*	-Ingresa los datos de acceso de un administrador
+	*	-Comprueba las credenciales y accede al sistema
+	*	-Comprueba que ha ingresado en la vista correcta
+	*	-Entra en BAJA AUTORIZADO para modificar un AUTORIZADO
+	*	-Pulsa el boton MODIFICAR
+	*	-Rellena los campos obligatorios y pulsa MODIFICAR
+	*	-Comprueba que la identificacion, el nombre y el estado del autorizado seleccionado han sido modificados
+	* @author Ignacio Lopezosa & Jesus Cestino
+	* */
+	@Test
+	@Requisitos({"RF7"})
   public void modificarAutorizadoRF7() {
     driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
     driver.manage().window().setSize(new Dimension(1200, 1011));
