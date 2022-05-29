@@ -115,13 +115,13 @@ public class Modificar implements Serializable{
         }
 
 
-        public String goModificarCliente(Cliente c){
+        public String goModificarCliente(Cliente c,String user){
             if(c instanceof Individual){
                 individualBuffer = (Individual) c;
-                return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
+                return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString() + "&idsession="+user;
             }else if(c instanceof Empresa){
                 empresaBuffer = (Empresa) c;
-                return "modificarClienteEmp.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
+                return "modificarClienteEmp.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString() + "&idsession="+user;
             } else {
                 return "unexpected.xhml";
             }

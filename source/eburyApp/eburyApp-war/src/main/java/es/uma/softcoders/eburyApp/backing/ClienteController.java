@@ -57,50 +57,50 @@ public class ClienteController implements Serializable{
 	            FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);
             }
         } 
-        public String goRegister(){
-            return "registro.xhtml";
+        public String goRegister(String user){
+            return "registro.xhtml?faces-redirect=true&idsession="+user;
         }
         public List<Cliente> getListaActivos(){
             setListaActivos();
             return listActivos;
         }
 
-        public String refrescarBaja(){
-            return "bajaClientes.xhtml";
+        public String refrescarBaja(String user){
+            return "bajaClientes.xhtml?faces-redirect=true&idsession="+user;
         }
 
-        public String atras(){
-            return "inicioAdmin.xhtml";
+        public String atras(String user){
+            return "inicioAdmin.xhtml?faces-redirect=true&idsession="+user;
         }
 
-        public String refrescarAlta(){
-            return "altaClientes.xhtml";
+        public String refrescarAlta(String user){
+            return "altaClientes.xhtml?faces-redirect=true&idsession="+user;
         }
 
-        public String darAlta(Cliente c){
+        public String darAlta(Cliente c, String user){
             try{gestionCliente.altaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de alta");
             FacesContext.getCurrentInstance().addMessage("altaClientes:list", fm);}
 
-            return refrescarAlta();
+            return refrescarAlta(user);
         }
 
-        public String darBaja(Cliente c){
+        public String darBaja(Cliente c, String user){
             try{gestionCliente.bajaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de baja");
             FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);}
 
-            return refrescarBaja();
+            return refrescarBaja(user);
         }
 
-        public String goBaja(){
+        public String goBaja(String user){
             return "bajaCliente.xhtml";
         }
 
-        public String goAlta(){
-            return "altaCliente.xhtml";
+        public String goAlta(String user){
+            return "altaCliente.xhtml?faces-redirect=true&idsession="+user;
         }
 
         /* public String goModificarCliente(Cliente c){
