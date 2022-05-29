@@ -80,4 +80,92 @@ public class EburyAppIT {
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td")).getText(), is("Cliente"));
     assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td")).getText(), is("Persona Autorizada"));
   }
+  @Test
+  public void modificarClienteRF3() {
+    driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
+    driver.manage().window().setSize(new Dimension(1512, 944));
+    driver.findElement(By.id("login:user")).sendKeys("ponciano");
+    driver.findElement(By.id("login:pass")).sendKeys("ponciano");
+    driver.findElement(By.name("login:j_idt11")).click();
+    driver.findElement(By.cssSelector("input:nth-child(3)")).click();
+    driver.findElement(By.name("contactos:list:1:j_idt16")).click();
+    driver.findElement(By.id("modificacion:nombre")).sendKeys("NombrePrueba");
+    driver.findElement(By.id("modificacion:ape")).sendKeys("ApellidosPrueba");
+    driver.findElement(By.id("modificacion:ident")).sendKeys("IdentificacionPrueba");
+    driver.findElement(By.id("modificacion:dir")).sendKeys("DireccionPrueba");
+    driver.findElement(By.id("modificacion:ciudad")).sendKeys("CiudadPrueba");
+    driver.findElement(By.id("modificacion:cp")).sendKeys("CodigoPostal");
+    driver.findElement(By.id("modificacion:pais")).sendKeys("Pais");
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(1) > td:nth-child(1)")).getText(), is("Nombre:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("Apellidos:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(3) > td:nth-child(1)")).getText(), is("Identificacion:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(4) > td:nth-child(1)")).getText(), is("Estado:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(5) > td:nth-child(1)")).getText(), is("Direccion:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(6) > td:nth-child(1)")).getText(), is("Ciudad:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(7) > td:nth-child(1)")).getText(), is("Codigo Postal:"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(8) > td:nth-child(1)")).getText(), is("Pais:"));
+    {
+      List<WebElement> elements = driver.findElements(By.name("modificacion:j_idt30"));
+      assert(elements.size() > 0);
+    }
+    {
+      List<WebElement> elements = driver.findElements(By.linkText("Log out"));
+      assert(elements.size() > 0);
+    }
+    {
+      List<WebElement> elements = driver.findElements(By.name("j_idt34:j_idt39"));
+      assert(elements.size() > 0);
+    }
+    {
+      List<WebElement> elements = driver.findElements(By.linkText("Volver a la página de login"));
+      assert(elements.size() > 0);
+    }
+    {
+      List<WebElement> elements = driver.findElements(By.cssSelector("h3"));
+      assert(elements.size() > 0);
+    }
+    driver.findElement(By.name("modificacion:j_idt30")).click();
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("IdentificacionPrueba"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("ACTIVO"));
+  }
+  @Test
+  public void bajaClienteRF4() {
+    driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
+    driver.manage().window().setSize(new Dimension(1512, 944));
+    driver.findElement(By.id("login:user")).sendKeys("ponciano");
+    driver.findElement(By.id("login:pass")).sendKeys("ponciano");
+    driver.findElement(By.name("login:j_idt11")).click();
+    {
+      List<WebElement> elements = driver.findElements(By.cssSelector("input:nth-child(3)"));
+      assert(elements.size() > 0);
+    }
+    driver.findElement(By.cssSelector("input:nth-child(3)")).click();
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("IdentificacionPrueba"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("ACTIVO"));
+    driver.findElement(By.name("contactos:list:1:j_idt14")).click();
+    driver.findElement(By.name("contactos:j_idt22")).click();
+    driver.findElement(By.cssSelector("input:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector("td:nth-child(1)")).getText(), is("IdentificacionPrueba"));
+    assertThat(driver.findElement(By.cssSelector("td:nth-child(2)")).getText(), is("INACTIVO"));
+  }
+  @Test
+  public void altaClienteRF2() {
+    driver.get("http://localhost:8080/eburyApp-war/admin.xhtml");
+    driver.manage().window().setSize(new Dimension(1512, 944));
+    driver.findElement(By.id("login:user")).sendKeys("ponciano");
+    driver.findElement(By.id("login:pass")).sendKeys("ponciano");
+    driver.findElement(By.name("login:j_idt11")).click();
+    driver.findElement(By.cssSelector("input:nth-child(2)")).click();
+    assertThat(driver.findElement(By.cssSelector("td:nth-child(1)")).getText(), is("IdentificacionPrueba"));
+    assertThat(driver.findElement(By.cssSelector("td:nth-child(2)")).getText(), is("INACTIVO"));
+    {
+      List<WebElement> elements = driver.findElements(By.name("contactos:list:0:j_idt14"));
+      assert(elements.size() > 0);
+    }
+    driver.findElement(By.name("contactos:list:0:j_idt14")).click();
+    driver.findElement(By.name("contactos:j_idt21")).click();
+    driver.findElement(By.cssSelector("input:nth-child(3)")).click();
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(1)")).getText(), is("IdentificacionPrueba"));
+    assertThat(driver.findElement(By.cssSelector("tr:nth-child(2) > td:nth-child(2)")).getText(), is("ACTIVO"));
+  }
 }

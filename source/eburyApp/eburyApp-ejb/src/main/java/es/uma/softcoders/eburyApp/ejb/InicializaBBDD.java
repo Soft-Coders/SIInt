@@ -36,185 +36,23 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() throws ParseException{
 		
-		List<Object> checkCliente = em.createQuery("SELECT c FROM Cliente c").getResultList();
-		if(!checkCliente.isEmpty())
-			return;
+		// Entidades para pruebas, siempre se regeneran
 		
-		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println("!!! -> PRE COMP <- !!!");
 		
-		Empresa empresaP33 = new Empresa();
-		Individual individual639 = new Individual();
-		PersonaAutorizada paY40 = new PersonaAutorizada();
-		Segregada segregadaNL = new Segregada();
-		Segregada segregadaFR = new Segregada();
-		Segregada segregadaDE = new Segregada();
-		Pooled pooledES = new Pooled();
-		Transaccion transaccionNL_ES = new Transaccion();
-		Divisa eur = new Divisa();
-		Divisa usd = new Divisa();
-		Divisa gbp = new Divisa();
-		Usuario usuarioJuan = new Usuario();
-		Usuario usuarioAna = new Usuario();
-		Usuario usuarioPonciano = new Usuario();
-		CuentaReferencia referenciaHN4 = new CuentaReferencia();
-		CuentaReferencia referenciaES7 = new CuentaReferencia();
-		CuentaReferencia referenciaVG5 = new CuentaReferencia();
-		CuentaReferencia referenciaGB7 = new CuentaReferencia();
-		CuentaReferencia referenciaVG8 = new CuentaReferencia();
-
-		usuarioJuan.setUsuario("juan");
-		usuarioJuan.setClave("juan");
-		usuarioJuan.setEsAdministrativo(false);
-		em.persist(usuarioJuan);
+		boolean checkCliente = em.createQuery("SELECT c FROM Cliente c").getResultList().isEmpty();
 		
-		usuarioAna.setUsuario("ana");
-		usuarioAna.setClave("ana");
-		usuarioAna.setEsAdministrativo(false);
-		em.persist(usuarioAna);
+		System.out.printf("\n!!! -> POST COMP listEmpty: %b <- !!!", checkCliente);
 		
-		usuarioPonciano.setUsuario("ponciano");
-		usuarioPonciano.setClave("ponciano");
-		usuarioPonciano.setEsAdministrativo(true);
-		em.persist(usuarioPonciano);
+		if(checkCliente)
+			mandatoryBBDD();
 		
-		List<CuentaFintech> cuentasP33 = new ArrayList<CuentaFintech>();
-		cuentasP33.add(segregadaNL);
-		cuentasP33.add(segregadaFR);
-		cuentasP33.add(segregadaDE);
-		empresaP33.setIdentificacion("P3310693A");
-		empresaP33.setTipoCliente("EMPRESA");
-		empresaP33.setFechaAlta(new Date());
-		empresaP33.setEstado("ACTIVO");
-		empresaP33.setDireccion("Direccion");
-		empresaP33.setCiudad("Málaga");
-		empresaP33.setCodigoPostal("29010");
-		empresaP33.setPais("España");
-		empresaP33.setRazonSocial("SA");
-		empresaP33.setCuentas(cuentasP33);
-		em.persist(empresaP33);
+		System.out.println("!!! -> POST MANDATORY <- !!!");
+		System.out.println("!!! -> PRE PRUEBA <- !!!");
 		
-		List<CuentaFintech> cuentas639 = new ArrayList<CuentaFintech>();
-		cuentas639.add(pooledES);
-		individual639.setIdentificacion("63937528N");
-		individual639.setTipoCliente("INDIVIDUAL");
-		individual639.setFechaAlta(new Date());
-		individual639.setEstado("ACTIVO");
-		individual639.setDireccion("La calle de Juan");
-		individual639.setCiudad("Madrid");
-		individual639.setCodigoPostal("28770");
-		individual639.setPais("España");
-		individual639.setNombre("Juan");
-		individual639.setApellido("");
-		individual639.setUsuario(usuarioJuan);
-		individual639.setCuentas(cuentas639);
-		em.persist(individual639);
+		pruebaBBDD();
 		
-		Map<Empresa, Character> aut = new HashMap<>();
-		aut.put(empresaP33, 'W');
-		paY40.setIdentificacion("Y4001267V");
-		paY40.setAutorizacion(aut);
-		paY40.setNombre("Ana");
-		paY40.setApellidos("");
-		paY40.setDireccion("La calle de Ana");
-		paY40.setUsuario(usuarioAna);
-		paY40.setEstado("INACTIVO");
-		paY40.setFechaInicio(new Date());
-		em.persist(paY40);
-		
-		eur.setAbreviatura("EUR");
-		eur.setNombre("EURO");
-		eur.setCambioEuro(1.00);
-		em.persist(eur);
-		
-		usd.setAbreviatura("USD");
-		usd.setNombre("DOLAR");
-		usd.setCambioEuro(0.95);
-		em.persist(usd);
-		
-		gbp.setAbreviatura("GBP");
-		gbp.setNombre("LIBRA");
-		gbp.setCambioEuro(1.18);
-		em.persist(gbp);
-		
-		referenciaES7.setIban("ES7121007487367264321882");
-		referenciaES7.setSaldo(1000.00);
-		referenciaES7.setDivisa(eur);
-		referenciaES7.setNombreBanco("Santander");
-		em.persist(referenciaES7);
-		
-		referenciaVG8.setIban("VG88HBIJ4257959912673134");
-		referenciaVG8.setSaldo(1000.00);
-		referenciaVG8.setDivisa(usd);
-		referenciaVG8.setNombreBanco("HSBC");
-		em.persist(referenciaVG8);
-		
-		referenciaGB7.setIban("GB79BARC20040134265953");
-		referenciaGB7.setSaldo(1000.00);
-		referenciaGB7.setDivisa(gbp);
-		referenciaGB7.setNombreBanco("HSBC");
-		em.persist(referenciaGB7);
-		
-		referenciaVG5.setIban("VG57DDVS5173214964983931");
-		referenciaVG5.setSaldo(1000.00);
-		referenciaVG5.setDivisa(usd);
-		referenciaVG5.setNombreBanco("HSBC");
-		em.persist(referenciaVG5);
-		
-		referenciaHN4.setIban("HN47QUXH11325678769785549996");
-		referenciaHN4.setSaldo(1000.00);
-		referenciaHN4.setDivisa(usd);
-		referenciaHN4.setNombreBanco("Banco Central de Honduras");
-		em.persist(referenciaHN4);
-		
-		segregadaNL.setIban("NL63ABNA6548268733");
-		segregadaNL.setCliente(empresaP33);
-		segregadaNL.setEstado("ACTIVO");
-		segregadaNL.setCuentaRef(referenciaVG5);
-		segregadaNL.setFechaApertura(new Date());
-		em.persist(segregadaNL);
-		
-		segregadaFR.setIban("FR5514508000502273293129K55");
-		segregadaFR.setCliente(empresaP33);
-		segregadaFR.setEstado("ACTIVO");
-		segregadaFR.setCuentaRef(referenciaHN4);
-		segregadaFR.setFechaApertura(new Date());
-		em.persist(segregadaFR);
-		
-		try {			
-			segregadaDE.setIban("DE31500105179261215675");
-			segregadaDE.setCliente(empresaP33);
-			segregadaDE.setEstado("INACTIVO");
-			segregadaDE.setFechaCierre(date.parse("2021-09-01"));
-			segregadaDE.setFechaApertura(date.parse("2020-09-01"));
-			segregadaDE.setCuentaRef(referenciaHN4);
-			em.persist(segregadaDE);
-		} catch(ParseException e) {
-			System.out.println("Date ParseException with segregadaDE in InicializaBBDD");
-		}
-		
-		Map<CuentaReferencia, Double> referenciasPooledES = new HashMap<>();
-		referenciasPooledES.put(referenciaES7, 100.00);
-		referenciasPooledES.put(referenciaVG8, 200.00);
-		referenciasPooledES.put(referenciaGB7, 134.00);
-		pooledES.setIban("ES8400817251647192321264");
-		pooledES.setCliente(individual639);
-		pooledES.setDepositadaEn(referenciasPooledES);
-		pooledES.setEstado("ACTIVO");
-		pooledES.setFechaApertura(new Date());
-		em.persist(pooledES);
-		
-		// RF13 Y RF14 NO HAN SIDO CONTEMPLADOS EN ESTE PROYECTO
-		// ¿CÓMO PROCEDER CON EL SIGUIENTE BLOQUE?  TODO
-		transaccionNL_ES.setOrigen(segregadaNL);
-		transaccionNL_ES.setDivisaEmisor(usd);
-		transaccionNL_ES.setDestino(pooledES);
-		transaccionNL_ES.setDivisaReceptor(usd);
-		transaccionNL_ES.setCantidad(200.00);
-		transaccionNL_ES.setFechaInstruccion(new Date());
-		transaccionNL_ES.setFechaEjecucion(new Date());
-		transaccionNL_ES.setTipo("TRANSFERENCIA");
-		em.persist(transaccionNL_ES);
-		
+		System.out.println("!!! -> POST PRUEBA <- !!!");
 
 //		CuentaReferencia cfPruebaD = new CuentaReferencia();
 //		CuentaReferencia cfPruebaE = new CuentaReferencia();
@@ -397,6 +235,431 @@ public class InicializaBBDD {
 //		em2.setPais("Esp");
 //		em.persist(em1);
 //		em.persist(em2);
+	}
+
+	private void mandatoryBBDD() {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Empresa empresaP33 = new Empresa();
+		Individual individual639 = new Individual();
+		PersonaAutorizada paY40 = new PersonaAutorizada();
+		Segregada segregadaNL = new Segregada();
+		Segregada segregadaFR = new Segregada();
+		Segregada segregadaDE = new Segregada();
+		Pooled pooledES = new Pooled();
+		Transaccion transaccionNL_ES = new Transaccion();
+		Divisa eur = new Divisa();
+		Divisa usd = new Divisa();
+		Divisa gbp = new Divisa();
+		Usuario usuarioJuan = new Usuario();
+		Usuario usuarioAna = new Usuario();
+		Usuario usuarioPonciano = new Usuario();
+		CuentaReferencia referenciaHN4 = new CuentaReferencia();
+		CuentaReferencia referenciaES7 = new CuentaReferencia();
+		CuentaReferencia referenciaVG5 = new CuentaReferencia();
+		CuentaReferencia referenciaGB7 = new CuentaReferencia();
+		CuentaReferencia referenciaVG8 = new CuentaReferencia();
+
+		usuarioJuan.setUsuario("juan");
+		usuarioJuan.setClave("juan");
+		usuarioJuan.setEsAdministrativo(false);
+		em.persist(usuarioJuan);
+		
+		usuarioAna.setUsuario("ana");
+		usuarioAna.setClave("ana");
+		usuarioAna.setEsAdministrativo(false);
+		em.persist(usuarioAna);
+		
+		usuarioPonciano.setUsuario("ponciano");
+		usuarioPonciano.setClave("ponciano");
+		usuarioPonciano.setEsAdministrativo(true);
+		em.persist(usuarioPonciano);
+		
+		List<CuentaFintech> cuentasP33 = new ArrayList<CuentaFintech>();
+		cuentasP33.add(segregadaNL);
+		cuentasP33.add(segregadaFR);
+		cuentasP33.add(segregadaDE);
+		empresaP33.setIdentificacion("P3310693A");
+		empresaP33.setTipoCliente("EMPRESA");
+		empresaP33.setFechaAlta(new Date());
+		empresaP33.setEstado("ACTIVO");
+		empresaP33.setDireccion("Direccion");
+		empresaP33.setCiudad("Málaga");
+		empresaP33.setCodigoPostal("29010");
+		empresaP33.setPais("España");
+		empresaP33.setRazonSocial("SA");
+		empresaP33.setCuentas(cuentasP33);
+		em.persist(empresaP33);
+		
+		List<CuentaFintech> cuentas639 = new ArrayList<CuentaFintech>();
+		cuentas639.add(pooledES);
+		individual639.setIdentificacion("63937528N");
+		individual639.setTipoCliente("INDIVIDUAL");
+		individual639.setFechaAlta(new Date());
+		individual639.setEstado("ACTIVO");
+		individual639.setDireccion("La calle de Juan");
+		individual639.setCiudad("Madrid");
+		individual639.setCodigoPostal("28770");
+		individual639.setPais("España");
+		individual639.setNombre("Juan");
+		individual639.setApellido("");
+		individual639.setUsuario(usuarioJuan);
+		individual639.setCuentas(cuentas639);
+		em.persist(individual639);
+		
+		Map<Empresa, Character> aut = new HashMap<>();
+		aut.put(empresaP33, 'W');
+		paY40.setIdentificacion("Y4001267V");
+		paY40.setAutorizacion(aut);
+		paY40.setNombre("Ana");
+		paY40.setApellidos("");
+		paY40.setDireccion("La calle de Ana");
+		paY40.setUsuario(usuarioAna);
+		paY40.setEstado("INACTIVO");
+		paY40.setFechaInicio(new Date());
+		em.persist(paY40);
+		
+		eur.setAbreviatura("EUR");
+		eur.setNombre("EURO");
+		eur.setCambioEuro(1.00);
+		em.persist(eur);
+		
+		usd.setAbreviatura("USD");
+		usd.setNombre("DOLAR");
+		usd.setCambioEuro(0.95);
+		em.persist(usd);
+		
+		gbp.setAbreviatura("GBP");
+		gbp.setNombre("LIBRA");
+		gbp.setCambioEuro(1.18);
+		em.persist(gbp);
+		
+		referenciaES7.setIban("ES7121007487367264321882");
+		referenciaES7.setSaldo(1000.00);
+		referenciaES7.setDivisa(eur);
+		referenciaES7.setNombreBanco("Santander");
+		em.persist(referenciaES7);
+		
+		referenciaVG8.setIban("VG88HBIJ4257959912673134");
+		referenciaVG8.setSaldo(1000.00);
+		referenciaVG8.setDivisa(usd);
+		referenciaVG8.setNombreBanco("HSBC");
+		em.persist(referenciaVG8);
+		
+		referenciaGB7.setIban("GB79BARC20040134265953");
+		referenciaGB7.setSaldo(1000.00);
+		referenciaGB7.setDivisa(gbp);
+		referenciaGB7.setNombreBanco("HSBC");
+		em.persist(referenciaGB7);
+		
+		referenciaVG5.setIban("VG57DDVS5173214964983931");
+		referenciaVG5.setSaldo(1000.00);
+		referenciaVG5.setDivisa(usd);
+		referenciaVG5.setNombreBanco("HSBC");
+		em.persist(referenciaVG5);
+		
+		referenciaHN4.setIban("HN47QUXH11325678769785549996");
+		referenciaHN4.setSaldo(1000.00);
+		referenciaHN4.setDivisa(usd);
+		referenciaHN4.setNombreBanco("Banco Central de Honduras");
+		em.persist(referenciaHN4);
+		
+		segregadaNL.setIban("NL63ABNA6548268733");
+		segregadaNL.setCliente(empresaP33);
+		segregadaNL.setEstado("ACTIVO");
+		segregadaNL.setCuentaRef(referenciaVG5);
+		segregadaNL.setFechaApertura(new Date());
+		em.persist(segregadaNL);
+		
+		segregadaFR.setIban("FR5514508000502273293129K55");
+		segregadaFR.setCliente(empresaP33);
+		segregadaFR.setEstado("ACTIVO");
+		segregadaFR.setCuentaRef(referenciaHN4);
+		segregadaFR.setFechaApertura(new Date());
+		em.persist(segregadaFR);
+		
+		try {			
+			segregadaDE.setIban("DE31500105179261215675");
+			segregadaDE.setCliente(empresaP33);
+			segregadaDE.setEstado("INACTIVO");
+			segregadaDE.setFechaCierre(date.parse("2021-09-01"));
+			segregadaDE.setFechaApertura(date.parse("2020-09-01"));
+			segregadaDE.setCuentaRef(referenciaHN4);
+			em.persist(segregadaDE);
+		} catch(ParseException e) {
+			System.out.println("!!! -> Date ParseException with segregadaDE in InicializaBBDD <- !!!");
+		}
+		
+		Map<CuentaReferencia, Double> referenciasPooledES = new HashMap<>();
+		referenciasPooledES.put(referenciaES7, 100.00);
+		referenciasPooledES.put(referenciaVG8, 200.00);
+		referenciasPooledES.put(referenciaGB7, 134.00);
+		pooledES.setIban("ES8400817251647192321264");
+		pooledES.setCliente(individual639);
+		pooledES.setDepositadaEn(referenciasPooledES);
+		pooledES.setEstado("ACTIVO");
+		pooledES.setFechaApertura(new Date());
+		em.persist(pooledES);
+		
+		// RF13 Y RF14 NO HAN SIDO CONTEMPLADOS EN ESTE PROYECTO
+		// ¿CÓMO PROCEDER CON EL SIGUIENTE BLOQUE?  TODO
+		transaccionNL_ES.setOrigen(segregadaNL);
+		transaccionNL_ES.setDivisaEmisor(usd);
+		transaccionNL_ES.setDestino(pooledES);
+		transaccionNL_ES.setDivisaReceptor(usd);
+		transaccionNL_ES.setCantidad(200.00);
+		transaccionNL_ES.setFechaInstruccion(new Date());
+		transaccionNL_ES.setFechaEjecucion(new Date());
+		transaccionNL_ES.setTipo("TRANSFERENCIA");
+		em.persist(transaccionNL_ES);
+	}
+
+	private void pruebaBBDD() {
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Empresa empresaPrueba = new Empresa();
+		Individual individualPrueba = new Individual();
+		PersonaAutorizada paPrueba = new PersonaAutorizada();
+		Segregada segregadaPrueba1 = new Segregada();
+		Segregada segregadaPrueba2 = new Segregada();
+		Segregada segregadaPrueba3 = new Segregada();
+		Pooled pooledPrueba = new Pooled();
+		Transaccion transaccionPrueba = new Transaccion();
+		Divisa eur = new Divisa();
+		Divisa usd = new Divisa();
+		Divisa gbp = new Divisa();
+		Usuario usuarioIndPrueba = new Usuario();
+		Usuario usuarioPAPrueba = new Usuario();
+		Usuario usuarioAdminPrueba = new Usuario();
+		CuentaReferencia referenciaPrueba1 = new CuentaReferencia();
+		CuentaReferencia referenciaPrueba2 = new CuentaReferencia();
+		CuentaReferencia referenciaPrueba3 = new CuentaReferencia();
+		CuentaReferencia referenciaPrueba4 = new CuentaReferencia();
+		CuentaReferencia referenciaPrueba5 = new CuentaReferencia();
+		
+		usuarioIndPrueba.setUsuario("usuarioIndPrueba");
+		usuarioIndPrueba.setClave("usuarioIndPrueba");
+		usuarioIndPrueba.setEsAdministrativo(false);
+		em.persist(usuarioIndPrueba);
+		
+		System.out.printf("\n\t!!! -> usuarioIndPrueba: %s <- !!!", usuarioIndPrueba);
+		
+		usuarioPAPrueba.setUsuario("usuarioPAPrueba");
+		usuarioPAPrueba.setClave("usuarioPAPrueba");
+		usuarioPAPrueba.setEsAdministrativo(false);
+		em.persist(usuarioPAPrueba);
+		
+		System.out.printf("\n\t!!! -> usuarioPAPrueba: %s <- !!!", usuarioPAPrueba);
+
+		usuarioAdminPrueba.setUsuario("usuarioAdminPrueba");
+		usuarioAdminPrueba.setClave("usuarioAdminPrueba");
+		usuarioAdminPrueba.setEsAdministrativo(true);
+		em.persist(usuarioAdminPrueba);
+		
+		System.out.printf("\n\t!!! -> usuarioAdminPrueba: %s <- !!!", usuarioAdminPrueba);
+		
+		List<CuentaFintech> cuentasEmpresaPrueba = new ArrayList<CuentaFintech>();
+		cuentasEmpresaPrueba.add(segregadaPrueba1);
+		cuentasEmpresaPrueba.add(segregadaPrueba2);
+		cuentasEmpresaPrueba.add(segregadaPrueba3);
+		empresaPrueba.setIdentificacion("empresaPrueba");
+		empresaPrueba.setTipoCliente("EMPRESA");
+		empresaPrueba.setFechaAlta(new Date());
+		empresaPrueba.setEstado("ACTIVO");
+		empresaPrueba.setDireccion("Direccion");
+		empresaPrueba.setCiudad("Málaga");
+		empresaPrueba.setCodigoPostal("29010");
+		empresaPrueba.setPais("España");
+		empresaPrueba.setRazonSocial("SA");
+		empresaPrueba.setCuentas(cuentasEmpresaPrueba);
+		
+		em.persist(empresaPrueba);
+		
+		
+		
+		System.out.printf("\n\t!!! -> empresaPrueba: %s <- !!!", empresaPrueba);
+		
+		List<CuentaFintech> cuentasIndPrueba = new ArrayList<CuentaFintech>();
+		cuentasIndPrueba.add(pooledPrueba);
+		individualPrueba.setIdentificacion("individualPrueba");
+		individualPrueba.setTipoCliente("INDIVIDUAL");
+		individualPrueba.setFechaAlta(new Date());
+		individualPrueba.setEstado("ACTIVO");
+		individualPrueba.setDireccion("La calle de Prueba");
+		individualPrueba.setCiudad("Madrid");
+		individualPrueba.setCodigoPostal("28770");
+		individualPrueba.setPais("España");
+		individualPrueba.setNombre("individual");
+		individualPrueba.setApellido("prueba");
+		individualPrueba.setUsuario(usuarioIndPrueba);
+		individualPrueba.setCuentas(cuentasIndPrueba);
+		
+		em.persist(individualPrueba);
+		
+		
+		
+		System.out.printf("\n\t!!! -> individualPrueba: %s <- !!!", individualPrueba);
+
+		Map<Empresa, Character> aut = new HashMap<>();
+		aut.put(empresaPrueba, 'W');
+		paPrueba.setIdentificacion("paPrueba");
+		paPrueba.setAutorizacion(aut);
+		paPrueba.setNombre("pa");
+		paPrueba.setApellidos("prueba");
+		paPrueba.setDireccion("La calle de paPrueba");
+		paPrueba.setUsuario(usuarioPAPrueba);
+		paPrueba.setEstado("ACTIVO");
+		paPrueba.setFechaInicio(new Date());
+		
+		em.persist(paPrueba);
+		
+		
+		
+		System.out.printf("\n\t!!! -> paPrueba: %s <- !!!", paPrueba);
+
+		eur.setAbreviatura("EUR");
+		eur.setNombre("EURO");
+		eur.setCambioEuro(1.00);
+		em.merge(eur);
+		
+		usd.setAbreviatura("USD");
+		usd.setNombre("DOLAR");
+		usd.setCambioEuro(0.95);
+		em.merge(usd);
+		
+		gbp.setAbreviatura("GBP");
+		gbp.setNombre("LIBRA");
+		gbp.setCambioEuro(1.18);
+		em.merge(gbp);
+		
+		referenciaPrueba2.setIban("referenciaPrueba2");
+		referenciaPrueba2.setSaldo(1000.00);
+		referenciaPrueba2.setDivisa(eur);
+		referenciaPrueba2.setNombreBanco("Prueba2");
+		
+		em.persist(referenciaPrueba2);
+		
+		
+		
+		System.out.printf("\n\t!!! -> referenciaPrueba2: %s <- !!!", referenciaPrueba2);
+
+		referenciaPrueba5.setIban("referenciaPrueba5");
+		referenciaPrueba5.setSaldo(1000.00);
+		referenciaPrueba5.setDivisa(usd);
+		referenciaPrueba5.setNombreBanco("Prueba5");
+		
+		em.persist(referenciaPrueba5);
+		
+		
+		
+		System.out.printf("\n\t!!! -> referenciaPrueba5: %s <- !!!", referenciaPrueba5);
+
+		referenciaPrueba4.setIban("referenciaPrueba4");
+		referenciaPrueba4.setSaldo(1000.00);
+		referenciaPrueba4.setDivisa(gbp);
+		referenciaPrueba4.setNombreBanco("Prueba4");
+		
+		em.persist(referenciaPrueba4);
+		
+		
+		
+		System.out.printf("\n\t!!! -> referenciaPrueba4: %s <- !!!", referenciaPrueba4);
+
+		referenciaPrueba3.setIban("referenciaPrueba3");
+		referenciaPrueba3.setSaldo(1000.00);
+		referenciaPrueba3.setDivisa(usd);
+		referenciaPrueba3.setNombreBanco("Prueba3");
+		
+		em.persist(referenciaPrueba3);
+		
+		
+		
+		System.out.printf("\n\t!!! -> referenciaPrueba3: %s <- !!!", referenciaPrueba3);
+
+		referenciaPrueba1.setIban("referenciaPrueba1");
+		referenciaPrueba1.setSaldo(1000.00);
+		referenciaPrueba1.setDivisa(usd);
+		referenciaPrueba1.setNombreBanco("Prueba1");
+		
+		em.persist(referenciaPrueba1);
+		
+		
+		
+		System.out.printf("\n\t!!! -> referenciaPrueba1: %s <- !!!", referenciaPrueba1);
+
+		segregadaPrueba1.setIban("segregadaPrueba1");
+		segregadaPrueba1.setCliente(empresaPrueba);
+		segregadaPrueba1.setEstado("ACTIVO");
+		segregadaPrueba1.setCuentaRef(referenciaPrueba3);
+		segregadaPrueba1.setFechaApertura(new Date());
+		
+		em.persist(segregadaPrueba1);
+		
+		
+		
+		System.out.printf("\n\t!!! -> segregadaPrueba1: %s <- !!!", segregadaPrueba1);
+
+		segregadaPrueba2.setIban("segregadaPrueba2");
+		segregadaPrueba2.setCliente(empresaPrueba);
+		segregadaPrueba2.setEstado("ACTIVO");
+		segregadaPrueba2.setCuentaRef(referenciaPrueba1);
+		segregadaPrueba2.setFechaApertura(new Date());
+		
+		em.persist(segregadaPrueba2);
+		
+		
+		
+		System.out.printf("\n\t!!! -> segregadaPrueba2: %s <- !!!", segregadaPrueba2);
+
+		try {			
+			segregadaPrueba3.setIban("segregadaPrueba3");
+			segregadaPrueba3.setCliente(empresaPrueba);
+			segregadaPrueba3.setEstado("INACTIVO");
+			segregadaPrueba3.setFechaCierre(date.parse("2021-09-01"));
+			segregadaPrueba3.setFechaApertura(date.parse("2020-09-01"));
+			segregadaPrueba3.setCuentaRef(referenciaPrueba1);
+			
+			em.persist(segregadaPrueba3);
+			
+			
+			
+			System.out.printf("\n\t!!! -> segregadaPrueba3: %s <- !!!", segregadaPrueba3);
+
+		} catch(ParseException e) {
+			System.out.println("!!! -> Date ParseException with segregadaDE in InicializaBBDD <- !!!");
+		}
+		
+		Map<CuentaReferencia, Double> referenciasPooledES = new HashMap<>();
+		referenciasPooledES.put(referenciaPrueba2, 100.00);
+		referenciasPooledES.put(referenciaPrueba5, 200.00);
+		referenciasPooledES.put(referenciaPrueba4, 134.00);
+		pooledPrueba.setIban("pooledPrueba");
+		pooledPrueba.setCliente(individualPrueba);
+		pooledPrueba.setDepositadaEn(referenciasPooledES);
+		pooledPrueba.setEstado("ACTIVO");
+		pooledPrueba.setFechaApertura(new Date());
+		
+		em.persist(pooledPrueba);
+		
+		
+		
+		System.out.printf("\n\t!!! -> pooledPrueba: %s <- !!!", pooledPrueba);
+
+		transaccionPrueba.setOrigen(segregadaPrueba1);
+		transaccionPrueba.setDivisaEmisor(usd);
+		transaccionPrueba.setDestino(pooledPrueba);
+		transaccionPrueba.setDivisaReceptor(usd);
+		transaccionPrueba.setCantidad(420.69);
+		transaccionPrueba.setFechaInstruccion(new Date());
+		transaccionPrueba.setFechaEjecucion(new Date());
+		transaccionPrueba.setTipo("PRUEBA");
+		
+		em.persist(transaccionPrueba);
+		
+		
+		
+		System.out.printf("\n\t!!! -> transaccionPrueba: %s <- !!!", transaccionPrueba);
+
 	}
 	
 }
