@@ -213,6 +213,7 @@ public class CuentaEJB implements GestionCuenta{
  		return (List<CuentaFintech>)query.getResultList();
 	}
 	
+	@Override
 	public List<CuentaFintech> getAllFintech(){
 		Query query = em.createQuery("SELECT a FROM CuentaFintech a");
 		return (List<CuentaFintech>)query.getResultList();

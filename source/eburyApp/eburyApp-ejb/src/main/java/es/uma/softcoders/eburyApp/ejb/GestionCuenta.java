@@ -70,6 +70,7 @@ public interface GestionCuenta {
  	public CuentaFintech getCuentaFintech(String cuenta);
  	public List<Empresa> getEmpresasAutorizadas(Long usuario);
  	public List<CuentaFintech> getCuentasAutorizadas(String empresa);
+ 	public List<CuentaFintech> getAllFintech();
 
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
