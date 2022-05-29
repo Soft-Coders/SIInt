@@ -94,14 +94,15 @@ public class AutorizadoController implements Serializable{
 
 		public String refrescarBaja(){
             return "bajaAutorizados.xhtml";
+
         }
 
-        public String atras(){
-            return "inicioAdmin.xhtml";
+        public String atras(String user){
+            return "inicioAdmin.xhtml?faces-redirect=true&idsession="+user;
         }
 
         public String refrescarAlta(){
-            return "altaAutorizados.xhtml";
+            return "altaAutorizados.xhtml?faces-redirect=true";
         }
 
         public String darAlta(PersonaAutorizada c){
@@ -112,6 +113,7 @@ public class AutorizadoController implements Serializable{
 
             return refrescarAlta();
         }
+        
 
         public String darBaja(PersonaAutorizada c){
             try{gestionAutorizado.bajaAutorizado(c.getId());}
@@ -127,12 +129,12 @@ public class AutorizadoController implements Serializable{
         }
         
 
-        public String goBaja(){
-            return "bajaAutorizados.xhtml";
+        public String goBaja(String user){
+            return "bajaAutorizados.xhtml?faces-redirect=true&idsession="+user;
         }
 
-        public String goAlta(){
-            return "altaAutorizados.xhtml";
+        public String goAlta(String user){
+            return "altaAutorizados.xhtml?faces-redirect=true&idsession="+user;
         }
 }
         /* public String goModificarCliente(Cliente c){

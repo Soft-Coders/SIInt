@@ -8,8 +8,7 @@
         <title>Modificar cliente empresa</title>
     </h:head>
     <h:body>
-        <!-- <c:choose>
-            <c:when test="#{infoSesion.usuario.esAdministrativo}"> -->
+            
                 <h:form id="modificacion">
 
                     <f:metadata>
@@ -58,14 +57,9 @@
                 <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
                 <h:form>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
+                    <p><h:button id="back" value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/></p>
                 </h:form>
                 
-            <!-- </c:when>
-            <c:otherwise>
-                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
-            </c:otherwise>
-        </c:choose> -->
 
     </h:body>
 </html>

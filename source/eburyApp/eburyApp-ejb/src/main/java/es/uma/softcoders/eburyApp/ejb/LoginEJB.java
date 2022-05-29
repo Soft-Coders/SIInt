@@ -1,5 +1,7 @@
 package es.uma.softcoders.eburyApp.ejb;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -8,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import es.uma.softcoders.eburyApp.Cliente;
+import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
@@ -73,6 +77,54 @@ public class LoginEJB implements GestionLogin {
         if(ind != null){
             gestionCliente.comprobarCliente(ind.getId());
         }*/
+    }
+
+    public Cliente esIndividual(String cuenta) throws EburyAppException{
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	List us = q.getResultList();
+        if (us.isEmpty()) {
+            throw new ClienteNoEncontradoException("Cuenta no existente");
+        }        
+        Usuario u = (Usuario) us.get(0);
+
+        if(u.getIndividual()!=null){
+            return u.getIndividual();
+        }else{
+            return null;
+        }
+    }
+
+    public List<Empresa> empresasAutorizadas(String cuenta) throws EburyAppException{
+        List<Empresa> empresas = new ArrayList<>();
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :cuenta", Usuario.class);
+    	q.setParameter("cuenta", cuenta);
+    	List us = q.getResultList();
+        if (us.isEmpty()) {
+            throw new ClienteNoEncontradoException("Cuenta no existente");
+        }    
+        Usuario u = (Usuario) us.get(0);
+        if(u.getPersonaAutorizada()!=null){
+            Iterator i = u.getPersonaAutorizada().getAutorizacion().keySet().iterator();
+            int cont = 0;
+            while(i.hasNext()){
+                empresas.add((Empresa) i.next());
+            }
+            return empresas;
+        }else{
+            return null;
+        }
+    }
+
+    public boolean comprobacionAdministrativo(String id) throws EburyAppException{
+        Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario = :id", Usuario.class);
+    	q.setParameter("id", id);
+    	List us = q.getResultList();
+        if (us.isEmpty()) {
+            throw new ClienteNoEncontradoException("Cuenta no existente");
+        }    
+        Usuario u = (Usuario) us.get(0);
+        return u.isEsAdministrativo();
     }
 
 }

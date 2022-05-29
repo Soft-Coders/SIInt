@@ -43,7 +43,7 @@
                     </h:dataTable>
                     <h:message for="list"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{cliente.atras()}"/>
+                    <h:button value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/>
                     <h:commandButton value="Refrescar" action="#{cliente.setListaActivos()}"/>
                 </h:form>
             <!-- </c:otherwise> -->

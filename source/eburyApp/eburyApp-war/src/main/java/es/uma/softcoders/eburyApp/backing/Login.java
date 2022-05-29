@@ -56,6 +56,7 @@ public class Login implements Serializable{
 
 	            return "inicioUsuario.xhtml";
 
+
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");
 	            FacesContext.getCurrentInstance().addMessage("login:user", fm);
@@ -69,6 +70,17 @@ public class Login implements Serializable{
 	        return null;
 		}
 
+		public boolean esAdministrativo(String id){
+			try {
+				return login.comprobacionAdministrativo(id);
+			} catch (EburyAppException e) {
+				e.printStackTrace();
+			}
+			return false;
+			
+
+		}
+
 		public String entrarAdmin(){
 			try {
 				System.out.println("> login.entrarAdmin() : PRE : loginAdmin()");
@@ -76,8 +88,10 @@ public class Login implements Serializable{
 	            System.out.println("> login.entrarAdmin() : POST : loginAdmin() : PRE : setUsuario()");
 				usuario.setEsAdministrativo(true);
 	            sesion.setUsuario(usuario);
+
 	            System.out.println("> login.entrarAdmin() : POST : setUsuario()");
 	            return "inicioAdmin.xhtml";
+
 
 	        } catch (ClienteNoEncontradoException e) {
 	            FacesMessage fm = new FacesMessage("La cuenta no existe");

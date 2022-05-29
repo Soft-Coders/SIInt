@@ -10,56 +10,43 @@
         <title>Lista de autorizados</title>
     </h:head>
     <h:body>
-        <!-- <c:choose>
-            <c:when test="#{empty infoSesion.usuario.esAdministrativo}">
-                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
-            </c:when>
-            <c:otherwise> -->
-                <h:form id="contactos">
-                    <h:dataTable id="list" value="#{autorizado.getListaActivos()}" var="c">
-                        
-                        <h:column>
-                            <f:facet name="nombre">Nombre</f:facet>
-                            <h:outputText value="#{c.nombre}"/>
-                        </h:column>
-
-                        <h:column>
-                            <f:facet name="header">Identificacion</f:facet>
-                            <h:outputText value="#{c.identificacion}"/>
-                        </h:column>
-                        
-                        <!-- <h:column>
-                            <f:facet name="header">Tipo de Cliente</f:facet>
-                            <h:outputText value="#{c.getTipo_Cliente()}"/>
-                        </h:column> -->
-                        
-                        <h:column>
-                            <f:facet name="header">Estado</f:facet>
-                            <h:outputText value="#{c.estado}"/>
-                        </h:column>
-
-                        <h:column>
-                            <h:commandButton value="BAJA" action="#{autorizado.darBaja(c)}"/>
-                        </h:column>
-
-                        <h:column>
-                            <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
-                        </h:column>
-
-                        <h:column>
-                            <h:commandButton value="AUTORIZAR" action="#{autorizado.goAutorizacion(c)}"/>
-                        </h:column>
-
-                        
-                    </h:dataTable>
-                    <h:message for="list"/>
-                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{autorizado.atras()}"/>
-                    <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
-                    
-                </h:form>
-            <!-- </c:otherwise> -->
-        <!-- </c:choose> -->
- 
+	    <h:form id="bajaAutorizados">
+	        <h:dataTable id="list" value="#{autorizado.getListaActivos()}" var="c">
+	            
+	            <h:column>
+	                <f:facet name="nombre">Nombre</f:facet>
+	                <h:outputText value="#{c.nombre}"/>
+	            </h:column>
+	
+	            <h:column>
+	                <f:facet name="header">Identificacion</f:facet>
+	                <h:outputText value="#{c.identificacion}"/>
+	            </h:column>
+	
+	            <h:column>
+	                <f:facet name="header">Estado</f:facet>
+	                <h:outputText value="#{c.estado}"/>
+	            </h:column>
+	
+	            <h:column>
+	                <h:commandButton value="BAJA" action="#{autorizado.darBaja(c)}"/>
+	            </h:column>
+	
+	            <h:column>
+	                <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
+	            </h:column>
+	
+	            <h:column>
+	                <h:commandButton value="AUTORIZAR" action="#{autorizado.goAutorizacion(c)}"/>
+	            </h:column>
+	
+	            
+	        </h:dataTable>
+	        <h:message for="list"/>
+	        <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+	
+	        <h:button value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/>
+	        <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
+	    </h:form>
     </h:body>
 </html>

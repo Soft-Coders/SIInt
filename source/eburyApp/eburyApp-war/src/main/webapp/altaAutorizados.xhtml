@@ -19,12 +19,7 @@
                             <f:facet name="header">Identificacion</f:facet>
                             <h:outputText value="#{c.identificacion}"/>
                         </h:column>
-                        
-                       <!--  <h:column>
-                            <f:facet name="header">Tipo de Cliente</f:facet>
-                            <h:outputText value="#{c.tipo_Cliente}"/>
-                        </h:column> -->
-                        
+
                         <h:column>
                             <f:facet name="header">Estado</f:facet>
                             <h:outputText value="#{c.estado}"/>
@@ -38,7 +33,7 @@
                     <h:message for="list"/>
                     <h:commandButton value="Crear nuevo autorizado" action="#{autorizado.goRegister()}"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <p><h:commandButton value="Volver a la página de inicio" action="#{autorizado.atras()}"/></p>
+                    <h:button value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/>
                     <p><h:commandButton value="Refrescar" action="#{autorizado.setListaInactivos()}"/></p>
                 </h:form>
             <!-- </c:otherwise>

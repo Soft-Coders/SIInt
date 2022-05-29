@@ -94,32 +94,6 @@ public class ClienteController implements Serializable{
 
             return refrescarBaja();
         }
-
-        public String goBaja(){
-            return "bajaCliente.xhtml";
-        }
-
-        public String goAlta(){
-            return "altaCliente.xhtml";
-        }
-
-        /* public String goModificarCliente(Cliente c){
-            idCliente = c.getId();
-            clienteBuffer = c;
-            return "modificarClientes.xhtml";
-        }
-
-        public String modificarCliente(Cliente c){
-            clienteAux.setFechaAlta(clienteBuffer.getFechaAlta());
-            clienteAux.setFechaBaja(clienteBuffer.getFechaBaja());
-            try{
-                gestionCliente.modificarCliente(c, idCliente);  
-                return  "bajaClientes.xhtml";    
-            }catch(EburyAppException e){
-            FacesMessage fm = new FacesMessage("Error al modificar");
-            FacesContext.getCurrentInstance().addMessage("modificarClientes:modificacion", fm);}
-            return "unexpected.xhtml";
-		*/
         
         
 

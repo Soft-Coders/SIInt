@@ -19,22 +19,21 @@
             <!-- <c:if test="#{infoSesion.usuario.esAdministrativo}"> -->
 
                 <!-- <h:form id="registro">
-                    <h:panelGrid columns="3">
- -->
+                    <h:panelGrid columns="3"> -->
 
                         <h1>Menú Administrador</h1>
                         <h:button value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
                         <h:button value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
+                       	<h:button value="Alta de autorizados" action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml"/>
+                        <h:button value="Baja de autorizados" action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml"/>
                         <h:button value="Descarga de informes" outcome="descargaInformes.xhtml"/>
                         <h:button value="Logout" outcome="admin.xhtml"/>
 
                     <!-- </h:panelGrid> -->
                     <!-- <h:messages/> -->
                     
-                <!-- </h:form> -->
-                
-            <!-- </c:if> -->
-        <!-- </c:choose> -->
+                </h:form> 
+            
 
     </h:body>
 </html>
