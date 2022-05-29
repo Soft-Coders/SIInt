@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Modificar cliente individual</title>
+    </h:head>
+    <h:body>     
+                    <h:form id="modificacion">
+                        <f:metadata>
+                            <f:viewParam name="id" />
+                        </f:metadata>
+                        <h3>Modificar cliente: <h:outputText value="#{id}" /></h3> 
+
+                        <h:panelGrid columns="3">
+                            <h:outputText value="Nombre:"/>
+                            <h:inputText id="nombre" value="#{modificar.individualAux.nombre}" required="true" />
+                            <h:message for="nombre"/>
+
+                            <h:outputText value="Apellidos:"/>
+                            <h:inputText id="ape" value="#{modificar.individualAux.apellido}" required="true" />
+                            <h:message for="ape"/>
+
+                            <h:outputText value="Identificacion:"/>
+                            <h:inputText id="ident" value="#{modificar.individualAux.identificacion}" required="true" />
+                            <h:message for="ident"/>
+
+                            <h:outputText value="Estado:"/>
+							<h:selectOneMenu value = "#{modificar.individualAux.estado}"> 
+							   <f:selectItem itemValue = "ACTIVO" itemLabel = "ACTIVO" /> 
+							   <f:selectItem itemValue = "INACTIVO" itemLabel = "INACTIVO" /> 
+							</h:selectOneMenu>
+	                        <h:message for="estado"/>
+
+                            <h:outputText value="Direccion:"/>
+                            <h:inputText id="dir" value="#{modificar.individualAux.direccion}" required="true"/>
+                            <h:message for="dir"/>
+
+                            <h:outputText value="Ciudad:"/>
+                            <h:inputText id="ciudad" value="#{modificar.individualAux.ciudad}" required="true"/>
+                            <h:message for="ciudad"/>
+
+                            <h:outputText value="Codigo Postal:"/>
+                            <h:inputText id="cp" value="#{modificar.individualAux.codigoPostal}" required="true"/>
+                            <h:message for="cp"/>
+
+                            <h:outputText value="Pais:"/>
+                            <h:inputText id="pais" value="#{modificar.individualAux.pais}" required="true"/>
+                            <h:message for="pais"/>
+
+                            <h:commandButton value="Modificar" action="#{modificar.modificarClienteInd(modificar.individualAux, id)}"/>
+                            <h:link outcome="admin.xhtml">Volver a la página de login</h:link>
+                        </h:panelGrid>
+                        <h:message for="modificacion"/>
+
+                        </h:form>
+                        <h:form>
+                            <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                            <p><h:button id="back" value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/></p>
+                        </h:form>
+                
+    </h:body>
+</html>

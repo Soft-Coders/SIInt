@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Registro de individual</title>
+    </h:head>
+    <h:body>
+        <h:form id="registroInd">
+            <h:panelGrid columns="3">
+                <h:outputText value="Nombre"/>
+                <h:inputText id="nombre" value="#{registro.individual.nombre}" required="true" />
+                <h:message for="nombre"/> 
+
+                <h:outputText value="Apellido"/>
+                <h:inputText id="apellido" value="#{registro.individual.apellido}" required="true" />
+                <h:message for="apellido"/>
+
+                <h:outputText value="Fecha de nacimiento"/>
+                <h:inputText id="nacimiento" value="#{registro.individual.fechaNacimiento}" >
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+                <h:message for="nacimiento"/>
+
+                <h:outputText value="País"/>
+                <h:inputText id="pais" value="#{registro.individual.pais}" required="true" />
+                <h:message for="pais"/>
+
+                <h:outputText value="Ciudad"/>
+                <h:inputText id="ciudad" value="#{registro.individual.ciudad}" required="true" />
+                <h:message for="ciudad"/>
+
+                <h:outputText value="Dirección"/>
+                <h:inputText id="direccion" value="#{registro.individual.direccion}" required="true" />
+                <h:message for="direccion"/>
+
+                <h:outputText value="Código Postal"/>
+                <h:inputText id="postal" value="#{registro.individual.codigoPostal}" required="true" />
+                <h:message for="postal"/>
+
+                <h:commandButton value="Crear cuenta de cliente" action="#{registro.registrarIndividual()}" />
+                <h:link outcome="inicioUsuario.xhtml">Cancelar</h:link>
+            </h:panelGrid>
+            <h:messages/>
+        </h:form>
+    </h:body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Cambio de Divisa</title>
+</h:head>
+
+<h:body>
+	<!-- Formulario para crear una nueva cuenta fintech -->
+	<h1>Cambio de Divisa</h1>
+	
+	<h:form>
+    	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
+    	<h:panelGrid columns="2">
+			<h:outputText value="Divisa original:"/>
+			<h:inputText value="#{transaccionBB.divisaOrigen}"/>
+		</h:panelGrid>
+    	<br/>
+    	<h:panelGrid columns="2">
+			<h:outputText value="Divisa destino:"/>
+			<h:inputText value="#{transaccionBB.divisaDestino}"/>
+		</h:panelGrid>
+		<br/>
+		<h:panelGrid columns="2">
+			<h:outputText value="Cantidad:"/>
+			<h:inputText value="#{transaccionBB.cantidad}"/>
+		</h:panelGrid>
+    	<h:commandButton value="Realizar Cambio" action="#{transaccionBB.preguntarConfirmacionCambio()}"/>
+	</h:form>
+	
+</h:body>
+
+</html> 

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Lista de Cuentas</title>
+</h:head>
+
+<h:body>
+	<!-- Parte superior de la página: tiene una lista con las cuentas a las que puede acceder el usuario -->
+	<!-- Aparece una lista con las cuentas de las que es propietario -->
+	<h1>Mis cuentas</h1>
+	<table>
+    		<tr>
+    			<th>IBAN</th>
+    			<th>Swift</th>
+    			<th>Estado</th>
+    			<th>Fecha Apertura</th>
+    			<th>Fecha Cierre</th>
+    			<th>Saldo</th>
+    		</tr>
+    		<tbody>
+	    		<ui:repeat var="cue" value="#{cuentaBB.listaCuentasPropias}">
+	    			<h:panelGroup>
+	   			  	<tr>
+		    			<td>#{cue.iban}</td>
+		    			<td>#{cue.swift}</td>
+		    			<td>#{cue.estado}</td>
+		    			<td>#{cue.fechaApertura}</td>
+		    			<td>#{cue.fechaCierre}</td>
+		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
+		    						action="#{cuentaBB.seleccionarCuenta(cue)}" /></td>
+		    		</tr>
+	    			</h:panelGroup>
+	    		</ui:repeat>
+    		</tbody>
+    	</table>
+	
+	<!-- Parte baja de la página: tiene un botón para cambiar de vista a crear una cuenta nueva o dar de baja una existente -->
+	<div>
+		<h:form>
+			<div class="btn">
+				<h:commandButton value="Crear Cuenta" action="#{cuentaBB.vistaCrearCuenta()}"/>
+			</div>
+			<div class="btn">
+				<h:commandButton value="Eliminar Cuenta" action="#{cuentaBB.vistaEliminarCuenta()}"/>
+			</div>
+		</h:form>
+	</div>
+	
+</h:body>
+
+</html> 

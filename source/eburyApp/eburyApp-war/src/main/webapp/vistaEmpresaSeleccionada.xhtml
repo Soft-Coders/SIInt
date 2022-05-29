@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Cuentas de mi Empresa</title>
+</h:head>
+
+<h:body>
+	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
+	<h1>Lista de Cuentas de mi Empresa</h1>
+	<table>
+    		<tr>
+    			<th>IBAN</th>
+    			<th>Swift</th>
+    			<th>Estado</th>
+    			<th>Fecha Apertura</th>
+    			<th>Fecha Cierre</th>
+    			<th>Saldo</th>
+    		</tr>
+    		<tbody>
+	    		<ui:repeat var="cue" value="#{cuentaBB.listaCuentasAutorizadas}">
+	    			<h:panelGroup>
+	   			  	<tr>
+		    			<td>#{cue.iban}</td>
+		    			<td>#{cue.swift}</td>
+		    			<td>#{cue.estado}</td>
+		    			<td>#{cue.fechaApertura}</td>
+		    			<td>#{cue.fechaCierre}</td>
+		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
+		    						action="#{cuentaBB.seleccionarCuenta(cue)}" /></td>
+		    		</tr>
+	    			</h:panelGroup>
+	    		</ui:repeat>
+    		</tbody>
+    	</table>
+</h:body>
+
+</html> 

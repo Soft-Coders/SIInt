@@ -27,7 +27,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	
 	/** @author Marta Maleno */
 	@Override
-	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) 
+	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad) 
 	throws EburyAppException { 
 		if (cuentaPool == null) {
 			throw new DatosIncorrectosException("IBAN DE CUENTA POOLED NULO");
@@ -60,7 +60,7 @@ public class TransaccionEJB implements GestionTransaccion{
 		if (divisaD == null) throw new DivisaInexistenteException("DIVISA DESTINO INEXISTENTE");
 		
 		// Creación de la transacción: se calcula el cambio, se traspasa y se crea la entidad transacción que lo registre
-		Long cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
+		Double cambioADestino = calculoCambio(divisaO, divisaD, cantidad);
 		//try {
 			transferenciaEntreCuentas(cp, corigen, cdestino, cantidad, cambioADestino);
 			crearTransaccionCambioDivisas(cp, divisaO, divisaD, cantidad);
@@ -77,7 +77,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	private CuentaReferencia buscarReferencia(Pooled pool, String divisa) {
 		CuentaReferencia laEncontrada = null; // laEncontrada: cuenta buscada, es null si no se ha encontrado
 		// poolRelacion: el iterador
-		Iterator<Map.Entry<CuentaReferencia, Long>> poolRelacion = pool.getDepositadaEn().entrySet().iterator();
+		Iterator<Map.Entry<CuentaReferencia, Double>> poolRelacion = pool.getDepositadaEn().entrySet().iterator();
 		CuentaReferencia craux = new CuentaReferencia();  // craux: variable auxiliar para las CuentaReferencias
 		
 		// Se itera mientras haya valores en el map y la Cuenta no se ha encontrado
@@ -85,7 +85,7 @@ public class TransaccionEJB implements GestionTransaccion{
 			// entry: los valores que toma el map en cada una de las iteraciones
 			// 	entry.getKey(): devuelve la CuentaReferencia
 			// 	entry.getValue(): devuelve el saldo de la Pooled en esa CuentaReferencia, en su divisa asociada
-			Map.Entry<CuentaReferencia, Long> entry = poolRelacion.next(); 
+			Map.Entry<CuentaReferencia, Double> entry = poolRelacion.next(); 
 			craux = entry.getKey();
 			if (cuentaReferenciaDeseada(craux, craux.getDivisa().getAbreviatura()) == true) {
 				laEncontrada = craux;
@@ -107,7 +107,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	 * Este método devuelve el valor de la cantidad introducida en la divisa origen
 	 * una vez pasada a la divisa destino
 	 * */
-	private Long calculoCambio(Divisa divOrigen, Divisa divDestino, Long cantidad) {
+	private Double calculoCambio(Divisa divOrigen, Divisa divDestino, Double cantidad) {
 		return cantidad * divOrigen.getCambioEuro() / divDestino.getCambioEuro();  
 	}
 	
@@ -115,8 +115,8 @@ public class TransaccionEJB implements GestionTransaccion{
 	 * Este método resta la cantidad cant a la cuenta origen y le suma cantCambiada a la cuenta destino.
 	 * Además actualiza las relaciones entre la Pooled y las CuentaReferencias para reflejar este cambio.
 	 * */
-	private void transferenciaEntreCuentas(Pooled pool, CuentaReferencia corigen, CuentaReferencia cdestino, Long cant, Long cantCambiada) throws SaldoInsuficienteException{
-		Long a = (corigen.getSaldo() - cant);  // a: saldo cambiado en la cuenta referencia origen
+	private void transferenciaEntreCuentas(Pooled pool, CuentaReferencia corigen, CuentaReferencia cdestino, Double cant, Double cantCambiada) throws SaldoInsuficienteException{
+		Double a = (corigen.getSaldo() - cant);  // a: saldo cambiado en la cuenta referencia origen
 		
 		// Si no hay saldo suficiente para realizar el cambio se lanza una excepción
 		if (a < 0) throw new SaldoInsuficienteException("SALDO INSUFICIENTE PARA EL CAMBIO");
@@ -124,17 +124,17 @@ public class TransaccionEJB implements GestionTransaccion{
 			
 			// Primero: se actualiza el saldo total de las cuentaReferencias
 			corigen.setSaldo(a);
-			Long b = (long) (cdestino.getSaldo() + cantCambiada);  // b: saldo cambiado en la cuenta referencia destino
+			Double b = cdestino.getSaldo() + cantCambiada;  // b: saldo cambiado en la cuenta referencia destino
 			cdestino.setSaldo(b);
 			
 			// Segundo: se actualiza el saldo en las relaciones Pooled-CuentaReferencia
 			//    Empezamos actualizando las relaciones de ambas cuentas referencias con la pooled
-			Map<Pooled, Long> listaCuentasPooled = corigen.getDepositadaEn();
+			Map<Pooled, Double> listaCuentasPooled = corigen.getDepositadaEn();
 			listaCuentasPooled.put(pool, a);
 			listaCuentasPooled = cdestino.getDepositadaEn();
 			listaCuentasPooled.put(pool, b);
 			//    Continuamos con la relación dentro de la cuenta pooled con las cuentas referencias
-			Map<CuentaReferencia, Long> listaCuentaReferencias = pool.getDepositadaEn();
+			Map<CuentaReferencia, Double> listaCuentaReferencias = pool.getDepositadaEn();
 			a = listaCuentaReferencias.get(corigen);   // reutilizamos la variable auxiliar
 			listaCuentaReferencias.put(corigen, (a - cant));
 			b = listaCuentaReferencias.get(cdestino);  // reutilizamos la variable auxiliar
@@ -144,7 +144,7 @@ public class TransaccionEJB implements GestionTransaccion{
 	
 	/**
 	 * Este método crea una Transacción con los datos de el cambio de divisa */
-	private void crearTransaccionCambioDivisas(Pooled pool, Divisa demisor, Divisa dreceptor, Long cantidad) {
+	private void crearTransaccionCambioDivisas(Pooled pool, Divisa demisor, Divisa dreceptor, Double cantidad) {
 		Date ahora = new Date();
 		Transaccion trans = new Transaccion(ahora, "Cambio Divisas", demisor, dreceptor, pool, pool);
 		trans.setCantidad(cantidad);
