@@ -9,6 +9,7 @@ import javax.faces.application.FacesMessage;
 
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Cliente;
@@ -26,14 +27,21 @@ public class AutorizadoController implements Serializable{
         
 		@EJB
         private GestionAutorizado gestionAutorizado;
+		
 
         private List<PersonaAutorizada> listInactivos;
 
         private List<PersonaAutorizada> listActivos;
+        
+        
 
         
 
         private Long idAutorizado;
+        
+        private String empresa;
+        
+        private String tipo;
 
 
         public AutorizadoController(){
@@ -68,7 +76,23 @@ public class AutorizadoController implements Serializable{
             return listActivos;
         }
 
-        public String refrescarBaja(){
+        public String getEmpresa() {
+			return empresa;
+		}
+
+		public void setEmpresa(String empresa) {
+			this.empresa = empresa;
+		}
+
+		public String getTipo() {
+			return tipo;
+		}
+
+		public void setTipo(String tipo) {
+			this.tipo = tipo;
+		}
+
+		public String refrescarBaja(){
             return "bajaAutorizados.xhtml";
         }
 
@@ -97,6 +121,11 @@ public class AutorizadoController implements Serializable{
 
             return refrescarBaja();
         }
+        
+        public String goAutorizacion(PersonaAutorizada c) {
+        	return "autorizacion.xhtml?faces-redirect=true&paut="+c.getId().toString();
+        }
+        
 
         public String goBaja(){
             return "bajaAutorizados.xhtml";
