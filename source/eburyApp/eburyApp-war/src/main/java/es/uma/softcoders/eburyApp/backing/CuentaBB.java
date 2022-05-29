@@ -29,7 +29,7 @@ public class CuentaBB {
 	@Inject
 	private TransaccionBB trBB;
 	
-	private String usuario;
+	private Long usuario;
 	private boolean individual;
 	private boolean autorizado;
 	private List<CuentaFintech> listaCuentasPropias;
@@ -74,18 +74,18 @@ public class CuentaBB {
     	iban = i;
     }
    
-    public String getUsuario() {
+    public Long getUsuario() {
     	return usuario;
     }
-    public void setUsuario(String u) {
+    public void setUsuario(Long u) {
     	usuario = u;
-    	/*individual = cuentaEJB.esIndividual(u);
+    	individual = cuentaEJB.esIndividual(u);
     	autorizado = cuentaEJB.esAutorizado(u);
-    	if (individual == true) {*/
+    	if (individual == true) {
     		getCuentasPropias();
-    	//} else if (autorizado == true) {
+    	} else if (autorizado == true) {
     		getEmpresasAutorizadas();
-    	//}
+    	}
     }
     
     public String getTipo() {

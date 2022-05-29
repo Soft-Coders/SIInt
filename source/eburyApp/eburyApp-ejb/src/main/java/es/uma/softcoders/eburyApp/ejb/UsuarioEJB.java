@@ -42,11 +42,11 @@ public class UsuarioEJB implements GestionUsuario{
 		return aux;
 	}
 	
-	public Usuario devolverUser(String user) {
+	public Long devolverUser(String user) {
 		Query q = em.createQuery("SELECT u FROM Usuario u WHERE u.usuario LIKE :uname ");
 		q.setParameter("uname", user);
 		Usuario aux = (Usuario)q.getResultList().get(q.getFirstResult());
-		return aux;
+		return aux.getId();
 	}
 	
 	

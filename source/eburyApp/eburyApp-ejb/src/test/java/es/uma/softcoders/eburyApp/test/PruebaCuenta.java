@@ -86,7 +86,7 @@ public class PruebaCuenta {
 		
 		// Cuenta PreExistente
 		try {
-			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId());
 		}catch(CuentaExistenteException e) {
 			// OK
 		}catch (Exception e) {
@@ -96,7 +96,7 @@ public class PruebaCuenta {
 		// Iban null
 		try {
 			cf.setIban(null);
-			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId());
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
@@ -107,7 +107,7 @@ public class PruebaCuenta {
 		try {
 			cf.setIban("cfIdeal-22");
 			cf.setCliente(null);
-			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId());
 		}catch (DatosIncorrectosException e){
 			//OK
 		}catch(Exception e) {
@@ -118,7 +118,7 @@ public class PruebaCuenta {
 		try {
 			cliente.setId(0022L);
 			cf.setCliente(cliente);
-			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cf, "segregada", cliente.getId());
 		}catch (ClienteInexistenteException e){
 			//OK
 		}catch(Exception e) {
@@ -160,14 +160,14 @@ public class PruebaCuenta {
 		
 		// Cuenta Pooled Ideal
 		try {
-			gestionCuenta.crearCuentaFintech(cfIdealPooled, "pooled", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cfIdealPooled, "pooled", cliente.getId());
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción-5: " + e.getMessage() + "-" + e.getClass());
 		}
 		
 		// Cuenta Segregada Ideal
 		try {
-			gestionCuenta.crearCuentaFintech(cfIdealSegregada, "pooled", cliente.getId().toString());
+			gestionCuenta.crearCuentaFintech(cfIdealSegregada, "pooled", cliente.getId());
 		}catch(Exception e) {
 			fail("No debería lanzar ninguna excepción-6: " + e.getMessage() + "-" + e.getClass());
 		}

@@ -12,7 +12,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="CUENTA_FINTECH")
+//@Table(name="CUENTA_FINTECH")
 
 public class CuentaFintech extends Cuenta implements Serializable{
 	

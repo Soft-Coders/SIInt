@@ -37,7 +37,7 @@ public class CuentaEJB implements GestionCuenta{
 	private EntityManager em;
 
 	@Override
-	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario) throws EburyAppException {
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario) throws EburyAppException {
 		rellenaNuevaFintech(cf);
 		
 		Usuario u = em.find(Usuario.class, usuario);
@@ -50,7 +50,7 @@ public class CuentaEJB implements GestionCuenta{
 	}
 	
 	
-	public void crearCuentaFintech(CuentaFintech cf, String tipo, String usuario, String emp) throws EburyAppException {
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, String emp) throws EburyAppException {
 		rellenaNuevaFintech(cf);
 		
 		Empresa e = em.find(Empresa.class, emp);
@@ -131,7 +131,7 @@ public class CuentaEJB implements GestionCuenta{
 		}
 	}
 	
-	public boolean esIndividual(String usuario) {
+	public boolean esIndividual(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
@@ -143,7 +143,7 @@ public class CuentaEJB implements GestionCuenta{
 		return a;
 	}
 
-	public boolean esAutorizado(String usuario) {
+	public boolean esAutorizado(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
@@ -173,21 +173,22 @@ public class CuentaEJB implements GestionCuenta{
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<CuentaFintech> getCuentasFintechPropias(String usuario){
+	public List<CuentaFintech> getCuentasFintechPropias(Long user){
 		Query query = null;
-		if (usuario != null) {
-			Usuario u = em.find(Usuario.class, usuario);
+		if (user != null) {
+			Usuario u = em.find(Usuario.class, user);
 			Individual ind = u.getIndividual();
 			if (ind != null) {
-				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idindividual")
+				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idindividual")
 						.setParameter("idindividual", ind);
 			}
 		}
 		return (List<CuentaFintech>)query.getResultList();
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<Empresa> getEmpresasAutorizadas(String usuario){
+	public List<Empresa> getEmpresasAutorizadas(Long usuario){
 		Query query = null;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
@@ -199,6 +200,9 @@ public class CuentaEJB implements GestionCuenta{
 		}
 		return (List<Empresa>)query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
 	public List<CuentaFintech> getCuentasAutorizadas(String empresa){
 		Query query = null;
 		if (empresa != null) {

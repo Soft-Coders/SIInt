@@ -55,5 +55,5 @@ public interface GestionUsuario {
 	 * @author Pablo Huertas
 	*/
 	public void convertirAdministrativo(Long id) throws UsuarioNoExistenteException;
-	public Usuario devolverUser(String user);
+	public Long devolverUser(String user);
 }
