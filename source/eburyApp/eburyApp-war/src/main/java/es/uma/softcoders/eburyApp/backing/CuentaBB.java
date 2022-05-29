@@ -7,6 +7,9 @@ import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
 import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.Pooled;
+import java.util.Collection;
 import javax.ejb.EJB;
 
 import javax.enterprise.context.RequestScoped;
@@ -168,7 +171,7 @@ public class CuentaBB {
     }
     
     public boolean compruebaSaldoCero(CuentaFintech cue) {
-    	Double saldo = 0;
+    	Double saldo = 0.0;
     	if (cue instanceof Segregada) {
     		Segregada s = (Segregada)cue;
     		saldo = s.getCuentaRef().getSaldo();
@@ -187,7 +190,7 @@ public class CuentaBB {
     }
     
     public Double devuelveSaldo(CuentaFintech cue) {
-    	Double saldo = 0;
+    	Double saldo = 0.0;
     	if (cue instanceof Segregada) {
     		Segregada s = (Segregada)cue;
     		saldo = s.getCuentaRef().getSaldo();

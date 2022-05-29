@@ -13,31 +13,40 @@
 <h:body>
 	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
 	<h1>Lista de Cuentas de mi Empresa</h1>
-	<table>
-    		<tr>
-    			<th>IBAN</th>
-    			<th>Swift</th>
-    			<th>Estado</th>
-    			<th>Fecha Apertura</th>
-    			<th>Fecha Cierre</th>
-    			<th>Saldo</th>
-    		</tr>
-    		<tbody>
-	    		<ui:repeat var="cue" value="#{cuentaBB.listaCuentasAutorizadas}">
-	    			<h:panelGroup>
-	   			  	<tr>
-		    			<td>#{cue.iban}</td>
-		    			<td>#{cue.swift}</td>
-		    			<td>#{cue.estado}</td>
-		    			<td>#{cue.fechaApertura}</td>
-		    			<td>#{cue.fechaCierre}</td>
-		    			<td><h:link value="Saldo" outcome="vistaCuentaSaldo" 
-		    						action="#{cuentaBB.seleccionarCuenta(cue)}" /></td>
-		    		</tr>
-	    			</h:panelGroup>
-	    		</ui:repeat>
-    		</tbody>
-    	</table>
+	<h:form id="contactos">
+    	<h:dataTable id="list" value="#{cuentaBB.getListaCuentasAutorizadas()}" var="cue">
+                        
+        			<h:column>
+                            <f:facet name="header">IBAN</f:facet>
+                            <h:outputText value="#{cue.iban}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Swift</f:facet>
+                            <h:outputText value="#{cue.swift}"/>
+                        </h:column>
+          
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <h:outputText value="#{cue.estado}"/>
+                        </h:column>
+						<h:column>
+                            <f:facet name="header">Fecha Apertura</f:facet>
+                            <h:outputText value="#{cue.fechaApertura}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Fecha Cierre</f:facet>
+                            <h:outputText value="#{cue.fechaCierre}"/>
+                        </h:column>
+                       <h:column>
+                            <f:facet name="header">Saldo</f:facet>
+                            <h:outputText value="#{cuentaBB.devuelveSaldo(cue)}"/>
+                        </h:column>
+                        
+                    </h:dataTable>
+                    <h:message for="list"/>
+                    
+                </h:form>
 </h:body>
 
 </html> 
