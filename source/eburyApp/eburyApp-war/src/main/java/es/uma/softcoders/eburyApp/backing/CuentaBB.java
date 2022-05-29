@@ -1,6 +1,7 @@
 package es.uma.softcoders.eburyApp.backing;
 
 import java.util.List;
+import java.util.Set;
 
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
@@ -164,5 +165,40 @@ public class CuentaBB {
     
     public void guardarTodasFintech() {
     	listaFintech = cuentaEJB.getAllFintech();
+    }
+    
+    public boolean compruebaSaldoCero(CuentaFintech cue) {
+    	Double saldo = 0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        		if (aux.isEmpty()) {
+        			return true;
+        		} else {
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		}
+    	}
+    	return saldo == 0;
+    }
+    
+    public Double devuelveSaldo(CuentaFintech cue) {
+    	Double saldo = 0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		
+    	}
+    	return saldo;
     }
 } 
