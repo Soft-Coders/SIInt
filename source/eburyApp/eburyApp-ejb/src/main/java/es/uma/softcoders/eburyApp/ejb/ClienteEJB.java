@@ -221,12 +221,10 @@ public class ClienteEJB implements GestionCliente {
 
         if(c.getIdentificacion() == null)
             throw new ObligatorioNuloException("Identificacion nula");
+        
         if(c.getEstado() == null)
-            throw new ObligatorioNuloException("Estado del cliente nulo");
-        
-        if(c.getFechaAlta() == null)
-            throw new ObligatorioNuloException("Fecha de alta nula");
-        
+            throw new ObligatorioNuloException("Estado del cliente nulo"); 
+
         if(c.getDireccion() == null)
             throw new ObligatorioNuloException("Direccion nula");
         
@@ -239,12 +237,9 @@ public class ClienteEJB implements GestionCliente {
         if(c.getPais()==null)
             throw new ObligatorioNuloException("Pais nulo");
 
-        clienteEntity.setId(c.getId());
-        clienteEntity.setIdentificacion(c.getIdentificacion());
 
-        
+        clienteEntity.setIdentificacion(c.getIdentificacion());
         clienteEntity.setEstado(c.getEstado());
-        clienteEntity.setFechaAlta(c.getFechaAlta());
         clienteEntity.setDireccion(c.getDireccion());
         clienteEntity.setCiudad(c.getCiudad());
         clienteEntity.setCodigoPostal(c.getCodigoPostal());
@@ -271,10 +266,7 @@ public class ClienteEJB implements GestionCliente {
                 
             if(indIn.getFechaNacimiento() != null)
                 indOut.setFechaNacimiento(indIn.getFechaNacimiento());
-            
-            if(indIn.getUsuario() != null) 
-            	indOut.setUsuario(indIn.getUsuario());
-           
+                       
             em.persist(indOut);
 
         }else{

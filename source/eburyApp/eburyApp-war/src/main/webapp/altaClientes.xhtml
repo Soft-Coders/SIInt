@@ -8,15 +8,8 @@
         <title>Lista de clientes</title>
     </h:head>
     <h:body>
-         <c:choose>
-            <f:metadata>
-                <f:viewParam name="idsession" />
-            </f:metadata>
-            <c:when test="#{!login.esAdministrativo(idsession)}"> 
-                <h2>No tienes permiso para ver esta pagina</h2>
-            </c:when>
-            <c:otherwise> 
-                <h:form id="contactos">
+          
+                <h:form id="altaClientes">
                     <h:dataTable id="list" value="#{cliente.getListaInactivos()}" var="c">
                         <h:column>
                             <f:facet name="header">Identificacion</f:facet>
@@ -29,18 +22,17 @@
                         </h:column>
                         
                         <h:column>
-                            <h:commandButton value="ALTA" action="#{cliente.darAlta(c,idsession)}"/>
+                            <h:commandButton value="ALTA" action="#{cliente.darAlta(c)}"/>
                         </h:column>
-                        
+
                     </h:dataTable>
                     <h:message for="list"/>
-                    <h:button id="btn-registro" value="Crear nuevo cliente" outcome="registro.xhtml?faces-redirect=true&amp;idsession=#{idsession}"/>
+                    <h:commandButton value="Crear nuevo cliente" action="#{cliente.goRegister()}"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <p><h:button id="back" value="Volver a la página de inicio" outcome="inicioAdmin.xhtml?faces-redirect=true&amp;idsession=#{idsession}"/></p>
+                    <h:button value="Volver a la página de inicio" outcome="inicioAdmin.xhtml"/>
                     <p><h:commandButton value="Refrescar" action="#{cliente.setListaInactivos()}"/></p>
                 </h:form>
-             </c:otherwise>
-        </c:choose>
+             
  
     </h:body>
 </html>

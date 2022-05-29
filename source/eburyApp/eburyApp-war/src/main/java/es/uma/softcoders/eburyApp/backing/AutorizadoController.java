@@ -68,35 +68,35 @@ public class AutorizadoController implements Serializable{
             return listActivos;
         }
 
-        public String refrescarBaja(String user){
-            return "bajaAutorizados.xhtml?faces-redirect=true&idsession="+user;
+        public String refrescarBaja(){
+            return "bajaAutorizados.xhtml?faces-redirect=true";
         }
 
         public String atras(String user){
             return "inicioAdmin.xhtml?faces-redirect=true&idsession="+user;
         }
 
-        public String refrescarAlta(String user){
-            return "altaAutorizados.xhtml?faces-redirect=true&idsession="+user;
+        public String refrescarAlta(){
+            return "altaAutorizados.xhtml?faces-redirect=true";
         }
 
-        public String darAlta(PersonaAutorizada c, String user){
+        public String darAlta(PersonaAutorizada c){
             try{gestionAutorizado.altaAutorizado(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de alta");
             FacesContext.getCurrentInstance().addMessage("altaAutorizados:list", fm);}
 
-            return refrescarAlta(user);
+            return refrescarAlta();
         }
         
 
-        public String darBaja(PersonaAutorizada c, String user){
+        public String darBaja(PersonaAutorizada c){
             try{gestionAutorizado.bajaAutorizado(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de baja");
             FacesContext.getCurrentInstance().addMessage("bajaAutorizados:list", fm);}
 
-            return refrescarBaja(user);
+            return refrescarBaja();
         }
 
         public String goBaja(String user){

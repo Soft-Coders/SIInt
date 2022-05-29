@@ -57,69 +57,43 @@ public class ClienteController implements Serializable{
 	            FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);
             }
         } 
-        public String goRegister(String user){
-            return "registro.xhtml?faces-redirect=true&idsession="+user;
+        public String goRegister(){
+            return "registro.xhtml";
         }
         public List<Cliente> getListaActivos(){
             setListaActivos();
             return listActivos;
         }
 
-        public String refrescarBaja(String user){
-            return "bajaClientes.xhtml?faces-redirect=true&idsession="+user;
+        public String refrescarBaja(){
+            return "bajaClientes.xhtml";
         }
 
-        public String atras(String user){
-            return "inicioAdmin.xhtml?faces-redirect=true&idsession="+user;
+        public String atras(){
+            return "inicioAdmin.xhtml";
         }
 
-        public String refrescarAlta(String user){
-            return "altaClientes.xhtml?faces-redirect=true&idsession="+user;
+        public String refrescarAlta(){
+            return "altaClientes.xhtml";
         }
 
-        public String darAlta(Cliente c, String user){
+        public String darAlta(Cliente c){
             try{gestionCliente.altaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de alta");
             FacesContext.getCurrentInstance().addMessage("altaClientes:list", fm);}
 
-            return refrescarAlta(user);
+            return refrescarAlta();
         }
 
-        public String darBaja(Cliente c, String user){
+        public String darBaja(Cliente c){
             try{gestionCliente.bajaCliente(c.getId());}
             catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al dar de baja");
             FacesContext.getCurrentInstance().addMessage("bajaClientes:list", fm);}
 
-            return refrescarBaja(user);
+            return refrescarBaja();
         }
-
-        public String goBaja(String user){
-            return "bajaCliente.xhtml";
-        }
-
-        public String goAlta(String user){
-            return "altaCliente.xhtml?faces-redirect=true&idsession="+user;
-        }
-
-        /* public String goModificarCliente(Cliente c){
-            idCliente = c.getId();
-            clienteBuffer = c;
-            return "modificarClientes.xhtml";
-        }
-
-        public String modificarCliente(Cliente c){
-            clienteAux.setFechaAlta(clienteBuffer.getFechaAlta());
-            clienteAux.setFechaBaja(clienteBuffer.getFechaBaja());
-            try{
-                gestionCliente.modificarCliente(c, idCliente);  
-                return  "bajaClientes.xhtml";    
-            }catch(EburyAppException e){
-            FacesMessage fm = new FacesMessage("Error al modificar");
-            FacesContext.getCurrentInstance().addMessage("modificarClientes:modificacion", fm);}
-            return "unexpected.xhtml";
-		*/
         
         
 
