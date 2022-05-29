@@ -10,12 +10,15 @@
         <title>Lista de autorizados</title>
     </h:head>
     <h:body>
-        <!-- <c:choose>
-            <c:when test="#{empty infoSesion.usuario.esAdministrativo}">
-                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
+        <c:choose>
+            <f:metadata>
+                <f:viewParam name="idsession" />
+            </f:metadata>
+            <c:when test="#{!login.esAdministrativo(idsession)}"> 
+                <h2>No tienes permiso para ver esta pagina</h2>
             </c:when>
-            <c:otherwise> -->
-                <h:form id="contactos">
+            <c:otherwise>
+                <h:form id="bajaAutorizados">
                     <h:dataTable id="list" value="#{autorizado.getListaActivos()}" var="c">
                         
                         <h:column>
@@ -39,21 +42,21 @@
                         </h:column>
 
                         <h:column>
-                            <h:commandButton value="BAJA" action="#{autorizado.darBaja(c)}"/>
+                            <h:commandButton value="BAJA" action="#{autorizado.darBaja(c,idsession)}"/>
                         </h:column>
 
                         <h:column>
-                            <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
+                            <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c,idsession)}"/>
                         </h:column>
                         
                     </h:dataTable>
                     <h:message for="list"/>
                     <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
-                    <h:commandButton value="Volver a la página de inicio" action="#{autorizado.atras()}"/>
-                    <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
+                    <p><h:button id="back" value="Volver a la página de inicio" outcome="inicioAdmin.xhtml?faces-redirect=true&amp;idsession=#{idsession}"/></p>
+                    <p><h:commandButton value="Refrescar" action="#{cliente.setListaInactivos()}"/></p>
                 </h:form>
-            <!-- </c:otherwise> -->
-        <!-- </c:choose> -->
+            </c:otherwise>
+        </c:choose>
  
     </h:body>
 </html>
