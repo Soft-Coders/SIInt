@@ -81,7 +81,6 @@ public class InicializaBBDD {
 		cuentasP33.add(segregadaNL);
 		cuentasP33.add(segregadaFR);
 		cuentasP33.add(segregadaDE);
-		empresaP33.setId(23456L);
 		empresaP33.setIdentificacion("P3310693A");
 		empresaP33.setTipoCliente("EMPRESA");
 		empresaP33.setFechaAlta(new Date());

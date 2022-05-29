@@ -116,13 +116,15 @@ public class AutorizadoEJB implements GestionAutorizado {
 	}
 	
 	@Override
-	public void autorizar(PersonaAutorizada p, Long empresa, Character tipo) throws EburyAppException {
+	public void autorizar(PersonaAutorizada p, String empresa, Character tipo) throws EburyAppException {
 		if(tipo != 'O' || tipo != 'L')
 			throw new EburyAppException("tipo no válido");
 		if(empresa == null) 
 			throw new EburyAppException("empresa nula");
 		
-		Empresa e = em.find(Empresa.class, empresa);
+		Query q = em.createQuery("SELECT e FROM Empresa e WHERE e.Identificacion = :fname ");
+		q.setParameter(" fname ", empresa);	
+		Empresa e = (Empresa)q.getResultList().get(q.getFirstResult());
 		Map<PersonaAutorizada, Character> empresaRelacion = e.getAutorizacion();
 		empresaRelacion.put(p, tipo);
 		//Map<Empresa, Character> autorizadoRelacion = p.getAutorizacion();

@@ -35,7 +35,7 @@ public class AutorizadoController implements Serializable{
 
         private Long idAutorizado;
         
-        private Long empresa;
+        private String empresa;
         
         private String tipo;
 
@@ -72,11 +72,11 @@ public class AutorizadoController implements Serializable{
             return listActivos;
         }
 
-        public Long getEmpresa() {
+        public String getEmpresa() {
 			return empresa;
 		}
 
-		public void setEmpresa(Long empresa) {
+		public void setEmpresa(String empresa) {
 			this.empresa = empresa;
 		}
 
@@ -124,9 +124,11 @@ public class AutorizadoController implements Serializable{
         	try {
 				gestionAutorizado.autorizar(c, empresa, charAux);
 			} catch (EburyAppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+	            FacesMessage fm = new FacesMessage("Error al autorizar");
+	            FacesContext.getCurrentInstance().addMessage("bajaAutorizados:list", fm);
+	        }
+				
+			
         	return refrescarBaja();
         }
 
