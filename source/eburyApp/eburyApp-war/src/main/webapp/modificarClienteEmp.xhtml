@@ -21,7 +21,10 @@
                         <h:message for="ident"/>
 
                         <h:outputText value="Estado:"/>
-                        <h:inputText id="estado" value="#{modificar.empresaAux.estado}" required="true"/>
+						<h:selectOneMenu value = "#{modificar.empresaAux.estado}"> 
+						   <f:selectItem itemValue = "ACTIVO" itemLabel = "ACTIVO" /> 
+						   <f:selectItem itemValue = "INACTIVO" itemLabel = "INACTIVO" /> 
+						</h:selectOneMenu>
                         <h:message for="estado"/>
 
                         <h:outputText value="Direccion:"/>
