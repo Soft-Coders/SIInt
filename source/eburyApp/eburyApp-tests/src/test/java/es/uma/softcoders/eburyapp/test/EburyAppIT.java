@@ -42,9 +42,11 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el correcto acceso al sistema de ADMINISTRATIVOS:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -75,9 +77,11 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el correcto acceso al sistema de CLIENTES INDIVIDUALES y PERSONAS AUTORIZADAS:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -102,13 +106,15 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de MODIFICAR CLIENTE:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Entra en BAJA CLIENTE para modificar un cliente
-	*	-Pulsa el boton MODIFICAR
-	*	-Rellena los campos obligatorios y pulsa MODIFICAR
-	*	-Comprueba que la identificacion del cliente seleccionado ha sido modificada
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Entra en BAJA CLIENTE para modificar un cliente</li>
+	*	<li>Pulsa el boton MODIFICAR</li>
+	*	<li>Rellena los campos obligatorios y pulsa MODIFICAR</li>
+	*	<li>Comprueba que la identificacion del cliente seleccionado ha sido modificada</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -146,12 +152,14 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de BAJA CLIENTE:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Entra en BAJA CLIENTE para dar de baja a un cliente
-	*	-Pulsa el boton BAJA
-	*	-Comprueba en la vista de ALTA que el cliente esta dado de baja
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Entra en BAJA CLIENTE para dar de baja a un cliente</li>
+	*	<li>Pulsa el boton BAJA</li>
+	*	<li>Comprueba en la vista de ALTA que el cliente esta dado de baja</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -175,13 +183,15 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de ALTA CLIENTE:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Accede a la vista de ALTA CLIENTE
-	*	-Comprueba que existe un cliente inactivo al que dar de alta
-	*	-Pulsa el boton de ALTA
-	*	-Sale de la vista, y comprueba si el estado del cliente ha cambiado a ACTIVO en la vista de BAJA CLIENTE
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Accede a la vista de ALTA CLIENTE</li>
+	*	<li>Comprueba que existe un cliente inactivo al que dar de alta</li>
+	*	<li>Pulsa el boton de ALTA</li>
+	*	<li>Sale de la vista, y comprueba si el estado del cliente ha cambiado a ACTIVO en la vista de BAJA CLIENTE</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -204,12 +214,14 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de AUTORIZAR PERSONA:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Entra en BAJA AUTORIZADO para AUTORIZAR un cliente
-	*	-Pulsa el boton AUTORIZAR
-	*	-Accede a una vista auxiliar y escribe la empresa en la que se autoriza y el tipo de autorizacion
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Entra en BAJA AUTORIZADO para AUTORIZAR un cliente</li>
+	*	<li>Pulsa el boton AUTORIZAR</li>
+	*	<li>Accede a una vista auxiliar y escribe la empresa en la que se autoriza y el tipo de autorizacion</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -228,12 +240,14 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de ELIMINAR AUTORIZADO:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Entra en BAJA AUTORIZADO para inhabilitar un autorizado
-	*	-Pulsa el boton BAJA
-	*	-Comprueba en la vista de ALTA que el autorizado esta dado de baja
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>ueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Entra en BAJA AUTORIZADO para inhabilitar un autorizado</li>
+	*	<li>Pulsa el boton BAJA</li>
+	*	<li>Comprueba en la vista de ALTA que el autorizado esta dado de baja</li>
+	*	</ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
@@ -257,13 +271,15 @@ public class EburyAppIT {
   }
   /**
 	*Este test se encarga de comprobar el funcionamiento de MODIFICAR AUTORIZADO:
-	*	-Ingresa los datos de acceso de un administrador
-	*	-Comprueba las credenciales y accede al sistema
-	*	-Comprueba que ha ingresado en la vista correcta
-	*	-Entra en BAJA AUTORIZADO para modificar un AUTORIZADO
-	*	-Pulsa el boton MODIFICAR
-	*	-Rellena los campos obligatorios y pulsa MODIFICAR
-	*	-Comprueba que la identificacion, el nombre y el estado del autorizado seleccionado han sido modificados
+	*	<ul>
+	*	<li>Ingresa los datos de acceso de un administrador</li>
+	*	<li>Comprueba las credenciales y accede al sistema</li>
+	*	<li>Comprueba que ha ingresado en la vista correcta</li>
+	*	<li>Entra en BAJA AUTORIZADO para modificar un AUTORIZADO</li>
+	*	<li>Pulsa el boton MODIFICARv
+	*	<li>Rellena los campos obligatorios y pulsa MODIFICAR</li>
+	*	<li>Comprueba que la identificacion, el nombre y el estado del autorizado seleccionado han sido modificados</li>
+	*	<ul>
 	* @author Ignacio Lopezosa & Jesus Cestino
 	* */
 	@Test
