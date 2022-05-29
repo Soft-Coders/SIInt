@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Lista de autorizados</title>
+    </h:head>
+    <h:body>
+        <!-- <c:choose>
+            <c:when test="#{empty infoSesion.usuario.esAdministrativo}">
+                <p>No tiene autorización para ver esta página, debe autenticarse.</p>
+            </c:when>
+            <c:otherwise> -->
+                <h:form id="cuentasPooled">
+                    <h:dataTable id="list" value="#{cuentaBB.getListaCeroPooled()}" var="c">
+                        
+                        <h:column>
+                            <f:facet name="nombre">IBAN</f:facet>
+                            <h:outputText value="#{c.nombre}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Swift</f:facet>
+                            <h:outputText value="#{c.identificacion}"/>
+                        </h:column>
+
+
+
+                        <h:column>
+                            <h:commandButton value="BAJA" action="#{cuentaBB.cerrarCuentaF(c)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandButton value="MODIFICAR" action="#{modificarAut.goModificarAut(c)}"/>
+                        </h:column>
+
+                        <h:column>
+                            <h:commandButton value="AUTORIZAR" action="#{autorizado.goAutorizacion(c)}"/>
+                        </h:column>
+
+                        
+                    </h:dataTable>
+                    <h:message for="list"/>
+                    <p><h:commandLink action="#{infoSesion.invalidarSesion()}">Log out</h:commandLink></p>
+                    <h:commandButton value="Volver a la página de inicio" action="#{autorizado.atras()}"/>
+                    <h:commandButton value="Refrescar" action="#{autorizado.setListaActivos()}"/>
+                    
+                </h:form>
+            <!-- </c:otherwise> -->
+        <!-- </c:choose> -->
+ 
+    </h:body>
+</html>

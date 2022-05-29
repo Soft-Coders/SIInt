@@ -1,6 +1,9 @@
 package es.uma.softcoders.eburyApp.backing;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -23,6 +26,9 @@ public class InfoSesion implements Serializable{
 	
         @EJB 
         private GestionUsuario gestionUsuario;
+       
+        @Inject
+        private CuentaBB cuentaBB;
         
         private Usuario usuario = null;
         
@@ -42,6 +48,7 @@ public class InfoSesion implements Serializable{
             		return "registroIndividual.xhtml";
             	}else {
             		individual = gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getIndividual();
+            		cuentaBB.setListaCuentasPropias(individual.getCuentas());
                 	return "vistaPrincipalCliente.xhtml";
             	}
 
@@ -53,6 +60,10 @@ public class InfoSesion implements Serializable{
         		return "registroAutorizado.xhtml";
         	}else {
         		autorizado = gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getPersonaAutorizada();
+        		Iterator<Empresa> it = autorizado.getAutorizacion().keySet().iterator();
+        		List<Empresa> aux = new ArrayList<Empresa>();
+        		it.forEachRemaining(aux::add);
+        		cuentaBB.setListaEmpresasAutorizadas(aux);
             	return "vistaPrincipalAutorizado.xhtml";
         	}
         }

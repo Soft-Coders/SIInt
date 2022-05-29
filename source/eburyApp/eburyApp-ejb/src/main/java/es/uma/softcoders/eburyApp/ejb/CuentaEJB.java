@@ -14,6 +14,8 @@ import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Pooled;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.exceptions.ClienteInexistenteException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaExistenteException;
@@ -35,7 +37,76 @@ public class CuentaEJB implements GestionCuenta{
 	private EntityManager em;
 
 	@Override
-	public void crearCuentaFintech(CuentaFintech cf) throws EburyAppException {
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario) throws EburyAppException {
+		rellenaNuevaFintech(cf);
+		
+		Usuario u = em.find(Usuario.class, usuario);
+		Individual ind = u.getIndividual();
+		if (ind != null) {
+			cf.setCliente(ind);
+		} 
+		persistirCF(cf, tipo);
+		
+	}
+	
+	@Override
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, Long emp) throws EburyAppException {
+		rellenaNuevaFintech(cf);
+		
+		Empresa e = em.find(Empresa.class, emp);
+		if (emp != null) {
+			cf.setCliente(e);
+		}
+		persistirCF(cf, tipo);
+	}
+	
+	/***
+	 * Este método crea en la base de datos la cuenta fintech pasada por parámetro y del tipo indicada
+	 * @param cf
+	 * @param tipo
+	 */
+	private void persistirCF(CuentaFintech cf, String tipo) {
+		if (tipo == "segregada") {
+			Segregada s = new Segregada();
+			s.setIban(cf.getIban());
+			s.setClasificacion(cf.getClasificacion());
+			s.setSwift(cf.getSwift());
+			s.setCliente(cf.getCliente());
+			s.setEstado(cf.getEstado());
+			s.setFechaApertura(cf.getFechaApertura());
+			s.setFechaCierre(cf.getFechaCierre());
+			em.persist(s);
+		}
+		else {
+			Pooled s = new Pooled();
+			s.setIban(cf.getIban());
+			s.setClasificacion(cf.getClasificacion());
+			s.setSwift(cf.getSwift());
+			s.setCliente(cf.getCliente());
+			s.setEstado(cf.getEstado());
+			s.setFechaApertura(cf.getFechaApertura());
+			s.setFechaCierre(cf.getFechaCierre());
+			em.persist(s);
+		}
+	}
+	
+	public List<CuentaFintech> cuentasEmpresa(Long empresa){
+		System.out.println("-----Antes de llamar al ejb----"+empresa.toString());
+		Empresa aux = em.find(Empresa.class, empresa);
+		System.out.println("------Despues de llamar al ejb------"+ aux.getCuentas().isEmpty());
+
+		return aux.getCuentas();
+	}
+	
+	/***
+	 * Este método rellena todos los datos necesarios para que la cuenta fintech
+	 * se pueda crear
+	 * @param cf
+	 * @return cf rellena
+	 * @throws EburyAppException
+	 */
+	
+	private CuentaFintech rellenaNuevaFintech(CuentaFintech cf) throws EburyAppException {
 		if (cf.getIban() == null) {
 			cf.setIban(auxIBAN.toString());
 			auxIBAN++;
@@ -43,9 +114,6 @@ public class CuentaEJB implements GestionCuenta{
 			if (em.find(CuentaFintech.class, cf.getIban()) != null) {
 				throw new CuentaExistenteException("IBAN REGISTRADO, CUENTA FINTECH EXISTENTE");
 			}
-			if (cf.getCliente() == null) {
-				throw new DatosIncorrectosException("CLIENTE NULO, INVÁLIDO");
-			} 
 			if (em.find(Cliente.class, cf.getCliente().getId()) == null) {
 				System.out.println(em.createQuery("SELECT c FROM Cliente c").getResultList());
 				throw new ClienteInexistenteException("CLIENTE INEXISTENTE");
@@ -56,9 +124,9 @@ public class CuentaEJB implements GestionCuenta{
 			cf.setSwift(swift.toString());
 			swift ++;
 		}
-		em.persist(cf);
+		return cf;
 	}
-
+	
 	@Override
 	public void cerrarCuentaFintech(String cuentafin) throws EburyAppException {
 		if (cuentafin == null) {
@@ -67,12 +135,13 @@ public class CuentaEJB implements GestionCuenta{
 			CuentaFintech cf = em.find(CuentaFintech.class, cuentafin);
 			if (cf == null) {
 				throw new CuentaNoExistenteException("IBAN NO REGISTRADO, CUENTA FINTECH INEXISTENTE");
-			}
+			} 
 			cf.setEstado("INACTIVO");
 		}
 	}
 	
-	public boolean esIndividual(String usuario) {
+	@Override
+	public boolean esIndividual(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
@@ -83,8 +152,9 @@ public class CuentaEJB implements GestionCuenta{
 		}
 		return a;
 	}
-
-	public boolean esAutorizado(String usuario) {
+	
+	@Override
+	public boolean esAutorizado(Long usuario) {
 		boolean a = false;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
@@ -96,12 +166,14 @@ public class CuentaEJB implements GestionCuenta{
 		return a;
 	}
 	
+	@Override
 	public String getIbanCuenta(String cuenta) {
 		Cuenta c = em.find(Cuenta.class, cuenta);
 		return c.getIban();
 		
 	}
 	
+	@Override
 	public CuentaFintech getCuentaFintech(String cuenta) {
  		return em.find(CuentaFintech.class, cuenta);
  	}
@@ -114,39 +186,51 @@ public class CuentaEJB implements GestionCuenta{
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<CuentaFintech> getCuentasFintechPropias(String usuario){
+	public List<CuentaFintech> getCuentasFintechPropias(Long user){
 		Query query = null;
-		if (usuario != null) {
-			Usuario u = em.find(Usuario.class, usuario);
+		if (user != null) {
+			Usuario u = em.find(Usuario.class, user);
 			Individual ind = u.getIndividual();
 			if (ind != null) {
-				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idindividual")
-						.setParameter("idindividual", ind);
+				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idindividual");
+				query.setParameter("idindividual", ind.getId().toString());
 			}
 		}
 		return (List<CuentaFintech>)query.getResultList();
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
-	public List<Empresa> getEmpresasAutorizadas(String usuario){
+	public List<Empresa> getEmpresasAutorizadas(Long usuario){
 		Query query = null;
 		if (usuario != null) {
 			Usuario u = em.find(Usuario.class, usuario);
 			PersonaAutorizada pau = u.getPersonaAutorizada();
 			if (pau != null) {
-				query = em.createQuery("SELECT a FROM EMPRESA a WHERE a.autorizacion LIKE :idpau")
-						.setParameter("idpau", pau);
+				query = em.createQuery("SELECT a FROM Empresa a WHERE a.autorizacion LIKE :idpau");
+				query.setParameter("idpau", pau.getId().toString());
 			}
 		}
 		return (List<Empresa>)query.getResultList();
 	}
-	public List<CuentaFintech> getCuentasAutorizadas(String empresa){
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CuentaFintech> getCuentasAutorizadas(Long empresa){
 		Query query = null;
 		if (empresa != null) {
  			Empresa emp = em.find(Empresa.class, empresa);
- 				query = em.createQuery("SELECT a FROM CUENTA_FINTECH a WHERE a.cliente LIKE :idemp")
- 						.setParameter("idemp", emp);
+ 				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idemp");
+ 				query.setParameter("idemp", emp);
  		}
  		return (List<CuentaFintech>)query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<CuentaFintech> getAllFintech(){
+		Query query = em.createQuery("SELECT a FROM CuentaFintech a");
+		return (List<CuentaFintech>)query.getResultList();
+	}
+	
 }

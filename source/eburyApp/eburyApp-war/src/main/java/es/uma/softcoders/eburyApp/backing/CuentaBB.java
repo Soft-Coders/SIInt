@@ -1,11 +1,19 @@
 package es.uma.softcoders.eburyApp.backing;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
 import es.uma.softcoders.eburyApp.PersonaAutorizada;
+import es.uma.softcoders.eburyApp.Pooled;
+import es.uma.softcoders.eburyApp.Segregada;
 import es.uma.softcoders.eburyApp.Usuario;
+import es.uma.softcoders.eburyApp.Segregada;
+import es.uma.softcoders.eburyApp.Pooled;
+import java.util.Collection;
 import javax.ejb.EJB;
 
 import javax.enterprise.context.RequestScoped;
@@ -14,6 +22,7 @@ import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
+import es.uma.softcoders.eburyApp.ejb.GestionUsuario;
 import es.uma.softcoders.eburyApp.CuentaFintech;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
@@ -27,17 +36,25 @@ public class CuentaBB {
 	private GestionCuenta cuentaEJB;
 	
 	@Inject
+	private InfoSesion info;
+	
+	@Inject
+	private GestionUsuario gestionUsuario;
+	
+	@Inject
 	private TransaccionBB trBB;
 	
-	private String usuario;
+	private Long usuario;
 	private boolean individual;
 	private boolean autorizado;
-	private List<CuentaFintech> listaCuentasPropias;
+	private List<CuentaFintech> listaCuentasPropias = new ArrayList<CuentaFintech>();
+	private List<CuentaFintech> listaFintech;
 	private List<Empresa> listaEmpresasAutorizadas;
-	private String emp;   //emp guarda la empresa que ha sido seleccionada
+	private Long emp;   //emp guarda la empresa que ha sido seleccionada
 	private List<CuentaFintech> listaCuentasAutorizadas;
 	private CuentaFintech cf = new CuentaFintech();
     private String iban;
+    private String tipo;
     
     
     public List<CuentaFintech> getListaCuentasPropias() {
@@ -58,8 +75,14 @@ public class CuentaBB {
 	public void setListaCuentasAutorizadas(List<CuentaFintech> listaCuentasAutorizadas) {
 		this.listaCuentasAutorizadas = listaCuentasAutorizadas;
 	}
-
-    
+	
+	public List<CuentaFintech> getListaFintech(){
+		return listaFintech;
+	}
+	public void setListaFintech(List<CuentaFintech> a) {
+		listaFintech = a;
+	}
+	
     public CuentaFintech getCf () {
     	return cf;
     }
@@ -74,22 +97,33 @@ public class CuentaBB {
     	iban = i;
     }
    
-    public String getUsuario() {
+    public Long getUsuario() {
     	return usuario;
     }
-    public void setUsuario(String u) {
+    public void setUsuario(Long u) {
     	usuario = u;
-    	individual = cuentaEJB.esIndividual(u);
-    	autorizado = cuentaEJB.esAutorizado(u);
-    	if (individual == true) {
-    		getCuentasPropias();
-    	} else if (autorizado == true) {
-    		getEmpresasAutorizadas();
-    	}
+    	//individual = cuentaEJB.esIndividual(u);
+    	//autorizado = cuentaEJB.esAutorizado(u);
+    	//if (individual == true) {
+    	//	getCuentasPropias();
+    	//} else if (autorizado == true) {
+    	//	getEmpresasAutorizadas();
+    	//}
     }
-    public String seleccionarEmpresa(String empresa) {
-    	this.emp = empresa;
-    	getCuentasAutorizadas();
+    
+    public String getTipo() {
+    	return tipo;
+    }
+    public void setTipo(String t) {
+    	tipo=t;
+    }
+    
+    
+    public String seleccionarEmpresa(Long empresa) {
+    	
+    	
+    	listaCuentasPropias = cuentaEJB.cuentasEmpresa(empresa);
+    	
     	return "vistaEmpresaSeleccionada.xhtml";
     }
     public String seleccionarCuenta(String cuenta) {
@@ -104,16 +138,21 @@ public class CuentaBB {
     private void getEmpresasAutorizadas() {
     	listaEmpresasAutorizadas = cuentaEJB.getEmpresasAutorizadas(usuario);
     }
-    private void getCuentasAutorizadas() {
-    	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
-    }
+    //private void getCuentasAutorizadas() {
+    //	listaCuentasAutorizadas = cuentaEJB.getCuentasAutorizadas(emp);
+    //}
     
     public void crearCuentaF() throws EburyAppException {
-		cuentaEJB.crearCuentaFintech(cf);
+    	if (autorizado == true) {
+    		cuentaEJB.crearCuentaFintech(cf, tipo, usuario, emp);
+    	} else {
+    		cuentaEJB.crearCuentaFintech(cf, tipo, usuario);
+    	}
     }
 
     public void cerrarCuentaF() throws EburyAppException {
 		cuentaEJB.cerrarCuentaFintech(iban);
+		
     }
     
     public String vistaCrearCuenta() {
@@ -138,5 +177,44 @@ public class CuentaBB {
     public String irCambioDivisa() {
     	trBB.setIban(iban);
     	return "vistaCambioDivisa.xhtml";
+    }
+    
+    //public void guardarTodasFintech() {
+    //	listaFintech = cuentaEJB.getAllFintech();
+    //}
+    
+    public boolean compruebaSaldoCero(CuentaFintech cue) {
+    	Double saldo = 0.0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        		if (aux.isEmpty()) {
+        			return true;
+        		} else {
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		}
+    	}
+    	return saldo == 0;
+    }
+    
+    public Double devuelveSaldo(CuentaFintech cue) {
+    	Double saldo = 0.0;
+    	if (cue instanceof Segregada) {
+    		Segregada s = (Segregada)cue;
+    		saldo = s.getCuentaRef().getSaldo();
+    	} else {
+        		Pooled s = (Pooled)cue;
+        		Collection<Double> aux = s.getDepositadaEn().values();
+        			for (Double d : aux) {
+        				saldo += d;
+        			}
+        		
+    	}
+    	return saldo;
     }
 } 

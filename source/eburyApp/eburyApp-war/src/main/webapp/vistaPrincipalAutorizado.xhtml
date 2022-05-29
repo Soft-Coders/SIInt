@@ -13,38 +13,53 @@
 <h:body>
 	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
 	<h1>Mis empresas</h1>
-	<table>
-    		<tr>
-    			<th>Identificación</th>
-    			<th>Estado</th>
-    			<th>Fecha Alta</th>
-    			<th>Dirección</th>
-    			<th>Ciudad</th>
-    			<th>Código Postal</th>
-    			<th>País</th>
-    			<th>Razón Social</th>
-    			<th>Cuentas</th>
-    		</tr>
-    		<tbody>
-	    		<ui:repeat var="emp" value="#{cuentaBB.listaEmpresasAutorizadas}">
-	    			<h:panelGroup>
-	   			  	<tr>
-		    			<td>#{emp.identificacion}</td>
-		    			<td>#{emp.estado}</td>
-		    			<td>#{emp.fechaAlta}</td>
-		    			<td>#{emp.direccion}</td>
-		    			<td>#{emp.ciudad}</td>
-		    			<td>#{emp.codigoPostal}</td>
-		    			<td>#{emp.pais}</td>
-		    			<td>#{emp.razonSocial}</td>
-		    			 <!-- AQUÍ QUIERO PONER UN LINK A LA PÁGINA CON LAS CUENTAS DE LA EMPRESA-->
-		    			<td><h:link value="Cuentas" outcome="vistaEmpresaSeleccionada" 
-		    						action="#{cuentaBB.seleccionarEmpresa(emp)}" /></td>
-		    		</tr>
-	    			</h:panelGroup>
-	    		</ui:repeat>
-    		</tbody>
-    	</table>
+	
+	<h:form id="contactos">
+    	<h:dataTable id="list" value="#{cuentaBB.getListaEmpresasAutorizadas()}" var="emp">
+                        
+        			    <h:column>
+                            <f:facet name="header">Identificación</f:facet>
+                            <h:outputText value="#{emp.identificacion}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">Estado</f:facet>
+                            <h:outputText value="#{emp.estado}"/>
+                        </h:column>
+          
+                        <h:column>
+                            <f:facet name="header">Fecha Alta</f:facet>
+                            <h:outputText value="#{emp.fechaAlta}"/>
+                        </h:column>
+						<h:column>
+                            <f:facet name="header">Dirección</f:facet>
+                            <h:outputText value="#{emp.direccion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ciudad</f:facet>
+                            <h:outputText value="#{emp.ciudad}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Código Postal</f:facet>
+                            <h:outputText value="#{emp.codigoPostal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">País</f:facet>
+                            <h:outputText value="#{emp.pais}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Razón Social</f:facet>
+                            <h:outputText value="#{emp.razonSocial}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Cuentas</f:facet>
+                            <h:commandButton value="Cuentas" action="#{cuentaBB.seleccionarEmpresa(emp)}"/>
+                        </h:column>
+                        
+                    </h:dataTable>
+                    <h:message for="list"/>
+                    
+                </h:form>
 </h:body>
 
 </html> 
