@@ -28,9 +28,12 @@
                         <h:outputText value="Identificacion:"/>
                         <h:inputText id="ident" value="#{modificar.individualAux.identificacion}" required="true" />
                         <h:message for="ident"/>
-
+						
                         <h:outputText value="Estado:"/>
-                        <h:inputText id="estado" value="#{modificar.individualAux.estado}" required="true"/>
+						<h:selectOneMenu value = "#{modificar.individualAux.estado}"> 
+						   <f:selectItem itemValue = "ACTIVO" itemLabel = "ACTIVO" /> 
+						   <f:selectItem itemValue = "INACTIVO" itemLabel = "INACTIVO" /> 
+						</h:selectOneMenu>
                         <h:message for="estado"/>
 
                         <h:outputText value="Direccion:"/>

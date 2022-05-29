@@ -21,16 +21,40 @@ import javax.inject.Inject;
 @SessionScoped
 public class InfoSesion implements Serializable{
 	
-
-        private static int instance = 0;
-        private int currentInstance;
+        @EJB 
+        private GestionUsuario gestionUsuario;
         
-        private Usuario usuario;
+        private Usuario usuario = null;
         
+        private Individual individual = null;
+        
+        private PersonaAutorizada autorizado = null;
+        
+        private Empresa empresa = null;
 
         public InfoSesion(){
-        	System.out.println("> infoSesion.InfoSesion() : CREATED " + ++instance);
-        	currentInstance = instance;
+
+        }
+        
+        public synchronized String mainCliente() {
+        	
+        		if(gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getIndividual()==null) {
+            		return "registroIndividual.xhtml";
+            	}else {
+            		individual = gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getIndividual();
+                	return "vistaPrincipalCliente.xhtml";
+            	}
+
+        	
+        }
+        
+        public synchronized String mainAutorizado() {
+        	if(gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getPersonaAutorizada()==null) {
+        		return "registroAutorizado.xhtml";
+        	}else {
+        		autorizado = gestionUsuario.devolverUsuario(usuario.getUsuario()).get(0).getPersonaAutorizada();
+            	return "vistaPrincipalAutorizado.xhtml";
+        	}
         }
         
 
@@ -51,19 +75,55 @@ public class InfoSesion implements Serializable{
                 return "admin.xhtml";
         }
         
-        public synchronized void setUsuario(Usuario u){        	
-        	System.out.println("> infoSesion"+currentInstance+".setUsuario() : PRE : usuario");
+        public synchronized void setUsuario(Usuario u){
                 this.usuario = u;
-            System.out.println("> infoSesion"+currentInstance+".setUsuario() : POST : usuario :\n" + usuario);
         }
 
         public synchronized Usuario getUsuario(){
                 return this.usuario;
         }
+
+		public Individual getIndividual() {
+			return individual;
+		}
+
+		public void setIndividual(Individual individual) {
+			this.individual = individual;
+		}
+
+		public PersonaAutorizada getAutorizado() {
+			return autorizado;
+		}
+
+		public void setAutorizado(PersonaAutorizada autorizado) {
+			this.autorizado = autorizado;
+		}
+
+		public Empresa getEmpresa() {
+			return empresa;
+		}
+
+		public void setEmpresa(Empresa empresa) {
+			this.empresa = empresa;
+		}
         
-        public boolean isAutorizado() {
-        	System.out.println("> infoSesion"+currentInstance+".isAutorizado() : usuario :\n"+ usuario);
-        	return usuario.isEsAdministrativo();
+
+
+        //Lo he comentado, ya que la comprobación la hago en el propio .xhmtl
+        /*public synchronized String hayCliente(){
+                if(usuario.getIndividual()==null){
+                        return "registro.xhtml";
+                }else{
+                        return "vistaPrincipalCliente.xhtml";
+                }
         }
+        
+        public synchronized String hayAutorizado(){
+                if(usuario.getPersonaAutorizada()==null){
+                        return "registro.xhtml";
+                }else{
+                        return "vistaPrincipalAutorizado.xhtml";
+                }
+        }*/
 
 } 

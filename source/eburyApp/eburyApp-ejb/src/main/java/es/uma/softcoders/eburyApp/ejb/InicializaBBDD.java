@@ -36,12 +36,8 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() throws ParseException{
 		
-		Cuenta checkCuenta = em.find(Cuenta.class, "EUR");
-		Individual checkIndividual = (checkCuenta == null) ? null :
-			(Individual) em.createQuery("SELECT i FROM Individual i WHERE i.identifiacion LIKE '63937528N'").getSingleResult();
-		PersonaAutorizada checkPA = (checkIndividual == null) ? null :
-			(PersonaAutorizada) em.createQuery("SELECT pa FROM PersonaAutorizada pa WHERE pa.identificacion LIKE 'Y4001267V'").getSingleResult();
-		if(checkPA != null)
+		List<Object> checkCliente = em.createQuery("SELECT c FROM Cliente c").getResultList();
+		if(!checkCliente.isEmpty())
 			return;
 		
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");

@@ -1,87 +1,240 @@
 {
-  "id": "331a097c-ffe1-4c62-a49c-da5250e82fc5",
+  "id": "acfd96a6-3d06-4cc8-bfa9-2f5cbd4127d4",
   "version": "2.0",
   "name": "eburyApp",
   "url": "http://localhost:8080/eburyApp-war/",
   "tests": [{
-    "id": "36a8ce92-ef32-4819-a76c-a0023894b89d",
-    "name": "inicio",
+    "id": "f6e5a214-3767-4c85-9201-f4bc864850de",
+    "name": "loginAdminRF1",
     "commands": [{
-      "id": "71d3646c-f440-4da3-b294-34c1864fa3cc",
+      "id": "a66f1132-11b1-4b24-b6cf-6e128692e410",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/eburyApp-war/admin.xhtml",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "8f3be6c2-c379-43dc-9bb4-4b419791b468",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1512x944",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "12968515-141d-4696-8eee-f2c2f153b5fa",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:user",
+      "targets": [
+        ["id=login:user", "id"],
+        ["name=login:user", "name"],
+        ["css=#login\\3Auser", "css:finder"],
+        ["xpath=//input[@id='login:user']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr/td[2]/input", "xpath:idRelative"],
+        ["xpath=//td[2]/input", "xpath:position"]
+      ],
+      "value": "ponciano"
+    }, {
+      "id": "f9e80525-2e5a-443d-9661-cf8d419e2bc4",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:pass",
+      "targets": [
+        ["id=login:pass", "id"],
+        ["name=login:pass", "name"],
+        ["css=#login\\3Apass", "css:finder"],
+        ["xpath=//input[@id='login:pass']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[2]/td[2]/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "ponciano"
+    }, {
+      "id": "a1c0badb-0f4e-4214-9cac-fe6b666bff60",
+      "comment": "",
+      "command": "click",
+      "target": "name=login:j_idt11",
+      "targets": [
+        ["name=login:j_idt11", "name"],
+        ["css=td:nth-child(1) > input", "css:finder"],
+        ["xpath=//input[@name='login:j_idt11']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[3]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9655abbe-abe8-4f58-bbc1-4d56ab9057ab",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Menú Administrador')]", "xpath:innerText"]
+      ],
+      "value": "Menú Administrador"
+    }, {
+      "id": "df39e265-fc1d-45a2-b88f-4c51050f3020",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=input:nth-child(2)",
+      "targets": [
+        ["css=input:nth-child(2)", "css:finder"],
+        ["xpath=//input[@value='Alta de clientes']", "xpath:attributes"],
+        ["xpath=//input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "6d04d0de-d92c-47b7-82c9-7609b1a1dcf9",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=input:nth-child(3)",
+      "targets": [
+        ["css=input:nth-child(3)", "css:finder"],
+        ["xpath=//input[@value='Baja de clientes']", "xpath:attributes"],
+        ["xpath=//input[2]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9db8a729-17b9-4dea-acf4-46ceb408134c",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=input:nth-child(4)",
+      "targets": [
+        ["css=input:nth-child(4)", "css:finder"],
+        ["xpath=//input[@value='Descarga de informes']", "xpath:attributes"],
+        ["xpath=//input[3]", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "e0ad1828-a06a-4b0e-9f77-d48b2a9600e7",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "css=input:nth-child(5)",
+      "targets": [
+        ["css=input:nth-child(5)", "css:finder"],
+        ["xpath=//input[@value='Logout']", "xpath:attributes"],
+        ["xpath=//input[4]", "xpath:position"]
+      ],
+      "value": ""
+    }]
+  }, {
+    "id": "48c68661-9408-4ad8-a065-443471bbf6be",
+    "name": "loginUserRF10",
+    "commands": [{
+      "id": "fe54283c-3c2e-483b-bdc3-ed4698417e55",
       "comment": "",
       "command": "open",
       "target": "http://localhost:8080/eburyApp-war/",
       "targets": [],
       "value": ""
     }, {
-      "id": "e3daed82-daa7-419f-8c1b-6ca86e054c27",
+      "id": "a8e38013-c5a9-4bc2-807e-2ffebe71e311",
       "comment": "",
       "command": "setWindowSize",
-      "target": "1920x1055",
+      "target": "1512x944",
       "targets": [],
       "value": ""
     }, {
-      "id": "f5c7e1c8-3c37-4bda-8534-4f08135c3490",
+      "id": "c14e797b-242a-4f90-96af-c2648ecac97f",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:user",
+      "targets": [
+        ["id=login:user", "id"],
+        ["name=login:user", "name"],
+        ["css=#login\\3Auser", "css:finder"],
+        ["xpath=//input[@id='login:user']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr/td[2]/input", "xpath:idRelative"],
+        ["xpath=//td[2]/input", "xpath:position"]
+      ],
+      "value": "ana"
+    }, {
+      "id": "d2a09422-507a-4b6b-83fb-429a868e8ccd",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:pass",
+      "targets": [
+        ["id=login:pass", "id"],
+        ["name=login:pass", "name"],
+        ["css=#login\\3Apass", "css:finder"],
+        ["xpath=//input[@id='login:pass']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[2]/td[2]/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "ana"
+    }, {
+      "id": "8a09e097-b59e-46fc-8c3c-8a2a627380a2",
+      "comment": "",
+      "command": "click",
+      "target": "name=login:j_idt10",
+      "targets": [
+        ["name=login:j_idt10", "name"],
+        ["css=td:nth-child(1) > input", "css:finder"],
+        ["xpath=//input[@name='login:j_idt10']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[3]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "96f6311a-a0a5-49d0-8e1b-f5b7ef00171a",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "name=registro:j_idt4",
+      "targets": [
+        ["name=registro:j_idt4", "name"],
+        ["css=tr:nth-child(1) input", "css:finder"],
+        ["xpath=//input[@name='registro:j_idt4']", "xpath:attributes"],
+        ["xpath=//form[@id='registro']/table/tbody/tr/td/input", "xpath:idRelative"],
+        ["xpath=//td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "4c1e0323-63dc-41fb-b902-465decfd4926",
+      "comment": "",
+      "command": "assertElementPresent",
+      "target": "name=registro:j_idt6",
+      "targets": [
+        ["name=registro:j_idt6", "name"],
+        ["css=tr:nth-child(2) input", "css:finder"],
+        ["xpath=//input[@name='registro:j_idt6']", "xpath:attributes"],
+        ["xpath=//form[@id='registro']/table/tbody/tr[2]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "beec6e61-7811-45ab-905f-150cb4c276d9",
       "comment": "",
       "command": "assertText",
-      "target": "id=saludo",
+      "target": "css=tr:nth-child(1) > td",
       "targets": [
-        ["id=saludo", "id"],
-        ["css=#saludo", "css:finder"],
-        ["xpath=//span[@id='saludo']", "xpath:attributes"],
-        ["xpath=//span", "xpath:position"],
-        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+        ["css=tr:nth-child(1) > td", "css:finder"],
+        ["xpath=//form[@id='registro']/table/tbody/tr/td", "xpath:idRelative"],
+        ["xpath=//td", "xpath:position"],
+        ["xpath=//td[contains(.,'Cliente')]", "xpath:innerText"]
       ],
-      "value": "Hola mundo"
+      "value": "Cliente"
     }, {
-      "id": "9165c98b-0bce-4e52-8f3d-69b6d72f9991",
+      "id": "30817305-f6c0-4a29-bcb4-7ebfe55614f4",
       "comment": "",
-      "command": "click",
-      "target": "id=saludo",
+      "command": "assertText",
+      "target": "css=tr:nth-child(2) > td",
       "targets": [
-        ["id=saludo", "id"],
-        ["css=#saludo", "css:finder"],
-        ["xpath=//span[@id='saludo']", "xpath:attributes"],
-        ["xpath=//span", "xpath:position"],
-        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
+        ["css=tr:nth-child(2) > td", "css:finder"],
+        ["xpath=//form[@id='registro']/table/tbody/tr[2]/td", "xpath:idRelative"],
+        ["xpath=//tr[2]/td", "xpath:position"],
+        ["xpath=//td[contains(.,'Persona Autorizada')]", "xpath:innerText"]
       ],
-      "value": ""
-    }, {
-      "id": "48c17cc4-bd00-488e-abf2-eecfdb795125",
-      "comment": "",
-      "command": "click",
-      "target": "id=saludo",
-      "targets": [
-        ["id=saludo", "id"],
-        ["css=#saludo", "css:finder"],
-        ["xpath=//span[@id='saludo']", "xpath:attributes"],
-        ["xpath=//span", "xpath:position"],
-        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
-      ],
-      "value": ""
-    }, {
-      "id": "44d29aa6-653e-43cf-ab62-88f90fb838d8",
-      "comment": "",
-      "command": "doubleClick",
-      "target": "id=saludo",
-      "targets": [
-        ["id=saludo", "id"],
-        ["css=#saludo", "css:finder"],
-        ["xpath=//span[@id='saludo']", "xpath:attributes"],
-        ["xpath=//span", "xpath:position"],
-        ["xpath=//span[contains(.,'Hola mundo')]", "xpath:innerText"]
-      ],
-      "value": ""
+      "value": "Persona Autorizada"
     }]
   }],
   "suites": [{
-    "id": "221f045d-08d4-43a2-a336-ff506c6fa511",
+    "id": "7c288841-e153-4dc8-8bdc-1e8eeac572d5",
     "name": "eburyAppIT",
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["36a8ce92-ef32-4819-a76c-a0023894b89d"]
+    "tests": ["f6e5a214-3767-4c85-9201-f4bc864850de", "48c68661-9408-4ad8-a065-443471bbf6be"]
   }],
-  "urls": ["http://localhost:8080/eburyApp-war/"],
+  "urls": ["http://localhost:8080/eburyApp-war/admin.xhtml", "http://localhost:8080/eburyApp-war/"],
   "plugins": []
 }

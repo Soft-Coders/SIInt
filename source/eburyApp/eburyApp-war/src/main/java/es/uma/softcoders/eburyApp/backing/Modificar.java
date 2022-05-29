@@ -116,6 +116,7 @@ public class Modificar implements Serializable{
 
 
         public String goModificarCliente(Cliente c){
+        	idCliente = c.getId();
             if(c instanceof Individual){
                 individualBuffer = (Individual) c;
                 return "modificarClienteInd.xhtml"  + "?faces-redirect=true" + "&id=" + idCliente.toString();
@@ -135,8 +136,7 @@ public class Modificar implements Serializable{
             i.setFechaAlta(individualBuffer.getFechaAlta());
 
             try{
-            	System.out.println("> modificar.modificarCliente() : idCliente : "+idCliente);
-                gestionCliente.modificarCliente(i, idCliente);  
+                gestionCliente.modificarCliente(i, idL);  
                 return  "bajaClientes.xhtml";    
             }catch(EburyAppException e){
             FacesMessage fm = new FacesMessage("Error al modificar");
@@ -144,12 +144,11 @@ public class Modificar implements Serializable{
             return "unexpected.xhtml";
         }
 
-
         public String modificarClienteEmp(Empresa emp, String id){
             Long idL = Long.valueOf(id);
             emp.setId(idL);
             emp.setFechaAlta(empresaBuffer.getFechaAlta());
-            emp.setFechaBaja(empresaBuffer.getFechaBaja());
+            emp.setFechaAlta(empresaBuffer.getFechaAlta());
 
             try{
                 gestionCliente.modificarCliente(emp, idL);  
