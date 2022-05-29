@@ -110,7 +110,7 @@ public class InicializaBBDD {
 		em.persist(individual639);
 		
 		Map<Empresa, Character> aut = new HashMap<>();
-		//aut.put(empresaP33, 'W');
+		aut.put(empresaP33, 'W');
 		paY40.setIdentificacion("Y4001267V");
 		paY40.setAutorizacion(aut);
 		paY40.setNombre("Ana");
