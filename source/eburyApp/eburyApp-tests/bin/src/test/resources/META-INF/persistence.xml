@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" 
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="eburyAppIT" transaction-type="RESOURCE_LOCAL">
+		<class>es.uma.softcoders.eburyApp.Cuenta</class>
+		<class>es.uma.softcoders.eburyApp.CuentaFintech</class>
+		<class>es.uma.softcoders.eburyApp.Cliente</class>
+		<class>es.uma.softcoders.eburyApp.Empresa</class>
+		<class>es.uma.softcoders.eburyApp.Individual</class>
+		<class>es.uma.softcoders.eburyApp.Divisa</class>
+		<class>es.uma.softcoders.eburyApp.PersonaAutorizada</class>
+		<class>es.uma.softcoders.eburyApp.Usuario</class>
+		<class>es.uma.softcoders.eburyApp.Segregada</class>
+        <class>es.uma.softcoders.eburyApp.CuentaReferencia</class>
+        <class>es.uma.softcoders.eburyApp.Pooled</class>
+        <class>es.uma.softcoders.eburyApp.Transaccion</class>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    <properties>
+    	<property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    	<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sii"/>
+		<property name="javax.persistence.jdbc.user" value="siiuser"/>
+		<property name="javax.persistence.jdbc.password" value="siipassword"/>
+		<property name="javax.persistence.jdbc.driver" value="org.mysql.cj.jdbc.Driver"/>
+    </properties>
+  </persistence-unit>
+</persistence>

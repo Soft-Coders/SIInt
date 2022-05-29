@@ -27,5 +27,5 @@ public interface GestionTransaccion {
 	 * @author Marta Maleno Escudero
 	 * 
 	 *  */
-	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Long cantidad) throws CuentaNoExistenteException, DivisaInexistenteException, EburyAppException;
+	public void cambioDivisa(String cuentaPool, String divOrigen, String divDestino, Double cantidad) throws CuentaNoExistenteException, DivisaInexistenteException, EburyAppException;
 }

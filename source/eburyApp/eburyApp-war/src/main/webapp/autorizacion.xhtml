@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <title>Lista de autorizados</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="paut"/>
+        </f:metadata>
+        <h:form id="autorizar">
+            <h:column>
+                <f:facet name="header">Identificacion de empresa</f:facet>
+                <h:inputText id="empresa" value="#{autorizacion.empresa}" />
+                <h:message for="empresa"/> 
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Tipo de autorización</f:facet>
+                <h:inputText id="tipo" value="#{autorizacion.tipo}" />
+                <h:message for="tipo"/> 
+            </h:column>
+
+            <h:column>
+                <h:commandButton value="AUTORIZAR" action="#{autorizacion.autorizar(paut)}"/>
+            </h:column>
+        </h:form>
+    </h:body>
+</html>

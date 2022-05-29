@@ -32,21 +32,27 @@ import es.uma.softcoders.eburyApp.exceptions.InvalidJSONQueryException;
 @Stateless
 public class InformesEJB implements GestionInformes{
 	
+	private static final Date EPOCH = new Date(0,0,1);
+
 	private static final String N_E = "noexistente";
+	
 	@PersistenceContext(unitName = "eburyAppEjb")
 	private EntityManager em;
-	
-	/**
-	 * Método encargado de responder a la consulta de la API REST para los informes de Holanda.
+
+	/** Método que contiene la lógica para gestión de consultas de <b>Cuentas</b> a través de API REST. Usado en informes de Holanda.
 	 * 
-	 * @throws InvalidJSONQueryException
-	 * @param json String que contiene la consulta de la API en formato JSON
+	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
-	 */
-	@Override
-	public List<Object> informeHolanda(String json) throws InvalidJSONQueryException {
+	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
+	 * @throws InvalidJSONQueryException 
+	 * */
+	public List<Segregada> product(String json) throws InvalidJSONQueryException {
 		
-		List<Object> results;
+		System.out.println(" > " + json);
+		
+		List<Segregada> results = new ArrayList<>();
+		Query querySegregadas;
+
 		try {
 			Object jsonFile    = JSONValue.parseWithException(json);
 			JSONObject jsonObj = (JSONObject) jsonFile;
@@ -58,78 +64,39 @@ public class InformesEJB implements GestionInformes{
 			Object searchParameters = jsonObj.get("searchParameters");
 			if(searchParameters == null)
 				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
-			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
+			JSONObject spObj = (JSONObject) searchParameters;
 			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
-			// Buscar "questionType"
-			String questionType = (String) spObj.get("questionType");
-			System.out.println("questionType:\n=======\n" + questionType + "\n=======\n");
-			if(questionType == null)
-				throw new InvalidJSONQueryException("questionType NOT FOUND");
-			
-			// Elegir funcionamiento según "questionType"
-			switch(questionType) {
-			case "Product":case "product":case "PRODUCT":
-				results = product(spObj);
-				break;
-			case "Customer":case "customer":case "CUSTOMER":
-				results = customer(spObj);
-				break;
-			default:
-				throw new InvalidJSONQueryException("questionType NOT VALID");	
-			}
-		}catch(ClassCastException e) {
-			throw new InvalidJSONQueryException("json COULD NOT BE CAST PROPERLY");
-		}catch(ParseException e) {
-			throw new InvalidJSONQueryException("json COULD NOT BE PARSED PROPERLY"); // Properly
-		}catch(Exception e) {
-			throw new InvalidJSONQueryException("\n@@@@@\n" + json + "\n@@@@@\njson ERROR " + e.getMessage());
-		}
-		
-		return results;
-	}
 
-	/** Método privado que contiene la lógica para gestión de consultas de <b>Cuentas</b> a través de API REST. Usado en informes de Holanda.
-	 * 
-	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
-	 * @author Ignacio Lopezosa
-	 * @return Lista de las <b>Cuentas</b> que cumplen las condiciones de la consulta
-	 * @throws InvalidJSONQueryException 
-	 * */
-	private List<Object> product(JSONObject spObj) throws InvalidJSONQueryException {
-		
-		List<Object> results = new ArrayList<>();
-		Query querySegregadas;
-//		Query queryReferencia;
-		try {
 			String predicate     = "";
 			String status        = (String) spObj.get("status");
 			String productNumber = (String) spObj.get("productNumber");
 			
+			System.out.println("status + productNumber:\n=======\n" + status + productNumber + "\n=======\n");
 			if(status != null || productNumber != null) {
-				predicate.concat(" WHERE ");	
+				System.out.println("===status or productNumber NOT NULL===");
+				predicate += " WHERE ";	
 				int queryLength = predicate.length();
 				
 				if(status.equalsIgnoreCase("active"))
-					predicate.concat("C.estado = 'ACTIV[OAE]'");		//TODO Determinar nomenclatura de CuentaFintech.estado
+					predicate += "C.estado LIKE 'ACTIV_'";
 				else if(status.equalsIgnoreCase("inactive"))
-					predicate.concat("C.estado = 'INACTIV[OAE]'");	//TODO Determinar nomenclatura de CuentaFintech.estado
-				else
+					predicate += "C.estado LIKE 'INACTIV_'";
+				else if(status != null)
 					throw new InvalidJSONQueryException("status NOT VALID");
 				
 				if(productNumber != null) {
-					if(predicate.length() > queryLength)			// Se ha modificado query?
-						predicate.concat(" AND ");
-					predicate.concat("C.iban = '" + productNumber + "'");
+					if(predicate.length() > queryLength)	// Se ha modificado query?
+						predicate += " AND ";
+					predicate += "C.iban = '" + productNumber + "'";
 				}
+				System.out.println("predicate:\n=======\n" + predicate + "\n=======\n");
 			}
 			
-			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
-//			queryReferencia = em.createQuery("FROM CuentaReferencia C" + predicate + " AND C.depositadaEn IS NOT NULL");
+			System.out.println("predicate:\n=======\n" + predicate + "\n=======\n");
 			
-			List<Object> resultsSegregadas = querySegregadas.getResultList();
-//			List<Object> resultsReferencia = querySegregadas.getResultList();
-			results.addAll(resultsSegregadas);
-//			results.addAll(resultsReferencia);
+			querySegregadas = em.createQuery("FROM Segregada C" + predicate);
+			
+			results = querySegregadas.getResultList();
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("product COULD NOT BE CAST PROPERLY");
 		}catch(IllegalArgumentException e) {
@@ -146,19 +113,34 @@ public class InformesEJB implements GestionInformes{
 	 * 
 	 * @param searchParameters Objeto JSON que contiene los datos de la consulta
 	 * @author Ignacio Lopezosa
-	 * @return Lista de las <b>Clientes</b>que cumplen las condiciones de la consulta
+	 * @return Lista de las <b>Clientes</b> que cumplen las condiciones de la consulta
 	 * @throws InvalidJSONQueryException 
 	 */
 	@SuppressWarnings("deprecation")
-	private List<Object> customer(JSONObject spObj) throws InvalidJSONQueryException {
+	public List<Object> customer(String json) throws InvalidJSONQueryException {
 		
-		Query query;
+		Query iQuery, paQuery;	// iQuery -> individualQuery, paQuery -> personaAutorizadaQuery
+		
 		try {
-			String predicate   = "";
-			int predicateLength= predicate.length();
+			Object jsonFile    = JSONValue.parseWithException(json);
+			JSONObject jsonObj = (JSONObject) jsonFile;
+			if (jsonObj == null)
+				throw new InvalidJSONQueryException("JSON Query NOT FOUND");
+			System.out.println("jsonObj:\n=======\n" + jsonObj.toString() + "\n=======\n");
+			
+			// Buscar "searchParameters"
+			Object searchParameters = jsonObj.get("searchParameters");
+			if(searchParameters == null)
+				throw new InvalidJSONQueryException("searchParameters NOT FOUND");			
+			JSONObject spObj = (JSONObject) searchParameters;					// Cast into JSONObject
+			System.out.println("spObj:\n=======\n" + spObj.toString() + "\n=======\n");
+
+			String iPredicate  = "";
+			String paPredicate = "";
+			int predicateLength= iPredicate.length();
 			String startPeriod = (String) spObj.get("startPeriod");
 			String endPeriod   = (String) spObj.get("endPeriod");
-			JSONObject name    = (JSONObject) spObj.get("name");					// Cast into JSONObject				
+			JSONObject name    = (JSONObject) spObj.get("name");				// Cast into JSONObject				
 			String firstName   = null;
 			String lastName    = null;
 			if(name != null) {
@@ -183,108 +165,107 @@ public class InformesEJB implements GestionInformes{
 					System.out.println("> " + param.toString());
 			System.out.println("=======");
 			
-			if(startPeriod != null)
-				predicate += "i.fechaAlta = :startPeriod";
-			if(endPeriod != null) {
-				if(predicate.length() > predicateLength)
-					predicate += " AND ";
-				predicate += "i.fechaBaja = :endPeriod";
+			if(startPeriod != null || endPeriod != null) {
+				iPredicate += "i.fechaAlta BETWEEN :startPeriod AND :endPeriod";
+				paPredicate += "i.fechaInicio BETWEEN :startPeriod AND :endPeriod";
 			}
 			if(name != null) {
 				if(firstName != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.nombre = '" + firstName + "'";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
+					iPredicate += "i.nombre = '" + firstName + "'";
+					paPredicate += "i.nombre = '" + firstName + "'";;
 				}
 				if(lastName != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.apellido = '" + lastName + "'";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
+					iPredicate += "i.apellido = '" + lastName + "'";
+					paPredicate += "i.apellidos = '" + lastName + "'";
 				}
 			}
 			if(address != null) {
 				if(street != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.direccion = '" + street + "'";
+					if(iPredicate.length() > predicateLength) {
+						iPredicate += " AND ";
+						paPredicate += " AND ";
+					}
+					iPredicate += "i.direccion = '" + street + "'";
+					paPredicate += "i.direccion = '" + street + "'";;
 				}
 				if(city != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.ciudad = '" + city + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.ciudad = '" + city + "'";
 				}
 				if(postalCode != null) {
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.codigoPostal = '" + postalCode + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.codigoPostal = '" + postalCode + "'";
 				}
 				if(country != null) {
 					if(!country.equalsIgnoreCase("netherlands") && !country.equalsIgnoreCase("NL") && !country.equalsIgnoreCase("holanda"))
 						throw new InvalidJSONQueryException("customer.country NOT VALID");
-					if(predicate.length() > predicateLength)
-						predicate += " AND ";
-					predicate += "i.pais = '" + country + "'";
+					if(iPredicate.length() > predicateLength)
+						iPredicate += " AND ";
+					iPredicate += "i.pais = '" + country + "'";
 				}
 			}
 			
-			System.out.println("predicate:\n=======\n" + predicate + "\n=======");
+			System.out.println("predicate:\n=======\n" + iPredicate + "\n=======");
 			
 			if(em == null)
 				throw new NullPointerException("---El EntityManager es NULL---");
 			try {
 				String hql;
-				if(predicate.equals(""))
+				if(iPredicate.equals(""))
 					hql = "SELECT i FROM Individual i";
 				else
-					hql = "SELECT i FROM Individual i WHERE " + predicate;
-				System.out.println("hql:\n=======\n" + hql + "\n=======");
-				query = em.createQuery(hql);
+					hql = "SELECT i FROM Individual i WHERE " + iPredicate;
+				System.out.println("i-hql:\n=======\n" + hql + "\n=======");
+				iQuery = em.createQuery(hql);
+				if(paPredicate.equals(""))
+					hql = "SELECT i FROM PersonaAutorizada i";
+				else
+					hql = "SELECT i FROM PersonaAutorizada i WHERE " + paPredicate;
+				System.out.println("pa-hql:\n=======\n" + hql + "\n=======");
+				paQuery = em.createQuery(hql);
 			}catch(IllegalArgumentException e) {
 				throw new InvalidJSONQueryException("-@@ 0 @@- => " + e.getMessage());
 			}
 			if(startPeriod != null) {
-				try {
+				Date spDate = dateConvertion(startPeriod);
+				
+				iQuery.setParameter("startPeriod", spDate);
+				paQuery.setParameter("startPeriod", spDate);
+				
+				if(endPeriod != null) {
+					Date epDate = dateConvertion(endPeriod);
 					
-					String[] dateArr = startPeriod.split("-");
-					int year = Integer.parseInt(dateArr[0]);
-					if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
-						throw new InvalidJSONQueryException("startPeriod.year NOT VALID");
-					int month = Integer.parseInt(dateArr[1]);
-					if(month < 1 || month > 12)
-						throw new InvalidJSONQueryException("startPeriod.month NOT VALID");
-					int day = Integer.parseInt(dateArr[2]);
-					if(day < 1 || day > 31)
-						throw new InvalidJSONQueryException("startPeriod.day NOT VALID");
-					Date spDate = new Date(year-1900, month, day);			// Deprecated -> Cambiar tipo a Calendar? TODO
-					query.setParameter("startPeriod", spDate);
+					if(spDate.compareTo(epDate) > 0)
+						throw new InvalidJSONQueryException("\"endPeriod\" cannot be before \"startPeriod\"");
 					
-				}catch(NullPointerException e) {
-					throw new InvalidJSONQueryException("startPeriod NOT VALID");
-				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 1 @@- -> " + predicate + " <-");
+					iQuery.setParameter("endPeriod", epDate);
+					paQuery.setParameter("endPeriod", epDate);
+				}
+				else {
+					iQuery.setParameter("endPeriod", new Date());
+					paQuery.setParameter("endPeriod", new Date());
 				}
 			}
-			if(endPeriod != null) {
-				try {
-					
-					String[] dateArr = endPeriod.split("-");
-					int year = Integer.parseInt(dateArr[0]);
-					if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
-						throw new InvalidJSONQueryException("endPeriod.year NOT VALID");
-					int month = Integer.parseInt(dateArr[1]);
-					if(month < 1 || month > 12)
-						throw new InvalidJSONQueryException("endPeriod.month NOT VALID");
-					int day = Integer.parseInt(dateArr[2]);
-					if(day < 1 || day > 31)
-						throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
-					Date epDate = new Date(year-1900, month, day);
-					query.setParameter("endPeriod", epDate);
-					
-				}catch(NullPointerException e) {
-					throw new InvalidJSONQueryException("endPeriod NOT VALID");
-				}catch(IllegalArgumentException e) {
-					throw new InvalidJSONQueryException("-@@ 2 @@- -> " + predicate + " <-");
-				}
+			else if(endPeriod != null) {
+				
+				Date epDate = dateConvertion(endPeriod);
+				
+				iQuery.setParameter("endPeriod", epDate);
+				paQuery.setParameter("endPeriod", epDate);
+				
+				iQuery.setParameter("startPeriod", EPOCH);
+				paQuery.setParameter("startPeriod", EPOCH);
+				
 			}
 		}catch(ClassCastException e) {
 			throw new InvalidJSONQueryException("customer COULD NOT BE CAST PROPERLY " + e.getMessage());
@@ -293,17 +274,47 @@ public class InformesEJB implements GestionInformes{
 		}catch(Exception e) {
 			throw new InvalidJSONQueryException("customer ERROR " + e.getMessage() + "-" + e.getClass() + " ->\n" + e.getStackTrace().toString());
 		}
-		@SuppressWarnings("unchecked")
-		List<Object> results = query.getResultList();
+		
+		List<Object> results = iQuery.getResultList();
+		results.addAll(paQuery.getResultList());
 		
         System.out.println("R>>>>>>>\n" + results);
-        System.out.println("A>>>>>>>");
-        try {
-        System.out.println(("-> " + em.createQuery("SELECT i FROM Individual i", Individual.class).getResultList().get(0)));
-        }catch(Exception e) {
-        	System.out.println("#> " + e.getMessage() + " - " + e.getClass() + " - " + e.getCause() + " - " + e.getStackTrace());
-        }
+        
 		return results;
+	}
+	
+	/**
+	 * Método privado que transforma una <b>String</b> que contiene una fecha de formato YYYY-MM-DD en un objeto <b>Date</b>.
+	 * También comprueba que la fecha sea válida.
+	 * 
+	 * @param period <b>String</b> que contiene una fecha de formato YYYY-MM-DD
+	 * @author Ignacio Lopezosa
+	 * @return Objeto <b>Date</b> que coincide con la fecha de entrada
+	 * @throws InvalidJSONQueryException 
+	 */
+	private Date dateConvertion(String period) throws InvalidJSONQueryException {
+		try {
+			
+			String[] dateArr = period.split("-");
+			int year = Integer.parseInt(dateArr[0]);
+			if(year < 1900 || year > (new Date().getYear() + 1900))	//new Date().getYear() + 1900 = current year
+				throw new InvalidJSONQueryException("endPeriod.year NOT VALID");
+			int month = Integer.parseInt(dateArr[1]);
+			if(month < 1 || month > 12)
+				throw new InvalidJSONQueryException("endPeriod.month NOT VALID");
+			int day = Integer.parseInt(dateArr[2]);
+			if(day < 1 || day > 31)
+				throw new InvalidJSONQueryException("endPeriod.day NOT VALID");
+			Date epDate = new Date(year-1900, month-1, day);		// Month from 0 - 11
+			
+			System.out.println("endPeriod:\n=======\n" + epDate + "\n=======");
+			
+			return epDate;
+		}catch(NullPointerException e) {
+			throw new InvalidJSONQueryException("endPeriod NOT VALID");
+		}catch(IllegalArgumentException e) {
+			throw new InvalidJSONQueryException("-@@ 3 @@- -> " + period + " <-");
+		}
 	}
 	
 	/**

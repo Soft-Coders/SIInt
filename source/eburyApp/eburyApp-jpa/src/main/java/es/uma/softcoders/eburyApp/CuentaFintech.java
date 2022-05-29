@@ -32,10 +32,11 @@ public class CuentaFintech extends Cuenta implements Serializable{
 		this.fechaApertura = fechaApertura;
 	}
 	
-	public CuentaFintech(String estado, Date fechaApertura, Date fechaCierre) {
+	public CuentaFintech(String estado, Date fechaApertura, Date fechaCierre, String clasificacion) {
 		this.estado = estado;
 		this.fechaApertura = fechaApertura;
 		this.fechaCierre = fechaCierre;
+		this.clasificacion = clasificacion;
 	}
 	
 	
@@ -52,9 +53,26 @@ public class CuentaFintech extends Cuenta implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date fechaCierre;
 	
+	private String clasificacion;
+	
 	
 	// ---------- RELACIONES -----------
 	
+	/**
+	 * @return la clasificación de la cuenta
+	 */
+	public String getClasificacion() {
+		return clasificacion;
+	}
+
+	/**
+	 * @param clasificacion la clasificación de la cuenta
+	 */
+	public void setClasificacion(String clasificacion) {
+		this.clasificacion = clasificacion;
+	}
+
+
 	@ManyToOne
 	@JoinColumn(name="CLIENTE_FK", nullable=false)
 	private Cliente cliente;
@@ -116,10 +134,6 @@ public class CuentaFintech extends Cuenta implements Serializable{
  	 */
  	public void setCliente(Cliente cliente) {
  		this.cliente = cliente;
- 	}
-	
- 	public void setIBAN(String iban) {
- 		super.setIban(iban);
  	}
 	
 	// equals() y hashCode() se heredan del padre

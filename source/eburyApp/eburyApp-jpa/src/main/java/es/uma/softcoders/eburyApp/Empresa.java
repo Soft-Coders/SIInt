@@ -12,7 +12,7 @@ public class Empresa extends Cliente implements Serializable{
 	
 	// ---------- ATRIBUTOS ----------
 	
-    @Column(name = "FECHA_NACIMIENTO", nullable = false, length = 30)
+    @Column(name = "RAZON_SOCIAL", nullable = false, length = 30)
     private String razonSocial;
     
     // ------ GETTERS & SETTERS ------

@@ -45,7 +45,7 @@ public class Segregada extends CuentaFintech implements Serializable{
 	 * @return la comisión de la cuenta segregada
 	 */
 	public String getComision() {
-		return comision;
+		return comision;		// TODO
 	}
 
 	/**
