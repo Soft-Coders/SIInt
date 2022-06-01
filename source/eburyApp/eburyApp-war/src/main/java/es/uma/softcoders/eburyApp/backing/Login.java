@@ -10,6 +10,7 @@ import javax.inject.Named;
 
 import es.uma.softcoders.eburyApp.Usuario;
 import es.uma.softcoders.eburyApp.ejb.GestionLogin;
+import es.uma.softcoders.eburyApp.ejb.GestionUsuario;
 import es.uma.softcoders.eburyApp.ejb.LoginEJB;
 import es.uma.softcoders.eburyApp.exceptions.ClienteNoEncontradoException;
 import es.uma.softcoders.eburyApp.exceptions.CuentaNoCoincidenteException;
@@ -24,8 +25,14 @@ public class Login implements Serializable{
 		@EJB
 		private GestionLogin login;
 		
+		@EJB
+		private GestionUsuario gestionUsuario;
+		
 		@Inject 
 		private InfoSesion sesion;
+		 
+        @Inject 
+    	private CuentaBB cuentaBB;
 		
 		private Usuario usuario;
 		private static int instance = 0;
@@ -51,7 +58,8 @@ public class Login implements Serializable{
 	            login.loginUsuario(usuario.getUsuario(), usuario.getClave());
 	            System.out.println("> login.entrar() : POST : loginUsuario() : PRE : setUsuario()");
 	            sesion.setUsuario(usuario);
-	            
+	            //cuentaBB.setUsuario(gestionUsuario.devolverUser(usuario.getUsuario()));
+                
 	            System.out.println("> login.entrar() : POST : setUsuario()");
 
 	            return "inicioUsuario.xhtml";

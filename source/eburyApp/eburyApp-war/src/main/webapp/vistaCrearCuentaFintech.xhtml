@@ -14,15 +14,24 @@
 	<!-- Formulario para crear una nueva cuenta fintech -->
 	<h1>Crear Cuenta</h1>
 	
-	<h:form>
-    	<h:outputLabel>Introduzca los siguientes datos:</h:outputLabel>
-    	<h:panelGrid columns="2">
-			<h:outputText value="IBAN:"/>
-			<h:inputText value="#{cuentaBB.cf.iban}"/>
-		</h:panelGrid>
-    	<br/>
-    	<h:commandButton value="Crear Cuenta" action="#{cuentaBB.crearCuentaF()}"/>
+	 <h:form>
+    	<h:outputLabel>¿Qué tipo de cuenta fintech quiere crear?</h:outputLabel>
+    	<h:selectOneRadio value = "#{cuentaBB.tipo}"> 
+   			<f:selectItem itemValue = '"pooled"' itemLabel = "pooled" /> 
+   			<f:selectItem itemValue = '"segregada"' itemLabel = "segregada" />
+		</h:selectOneRadio>  
+    	<h:commandButton value="Crear Cuenta" action="#{CuentaBB.crearCuentaF()}"/>
 	</h:form>
+	
+	<!-- 
+	<p>¿Qué tipo de cuenta fintech quiere crear?</p>
+	<h:form>
+    	<h:selectOneRadio value = "#{cuentaBB.tipo}"> 
+   			<f:selectItem itemValue = '"pooled"' itemLabel = "pooled" /> 
+   			<f:selectItem itemValue = '"segregada"' itemLabel = "segregada" />
+		</h:selectOneRadio>  
+    	<h:commandButton value="Crear Cuenta" action="#{cuentaBB.crearCuentaF()}"/>
+	</h:form>  -->
 	
 	<!-- Parte baja de la página: tiene un botón para cambiar de vista a la principal -->
 	<div>

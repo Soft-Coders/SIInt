@@ -22,7 +22,17 @@ public interface GestionCuenta {
 	 * @throws EburyAppException 
 	 * @author Marta Maleno Escudero
 	 * */
-	public void crearCuentaFintech(CuentaFintech cf) throws CuentaExistenteException, DatosIncorrectosException, EburyAppException;
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario) throws CuentaExistenteException, DatosIncorrectosException, EburyAppException;
+	
+	/** Este método debe crear una cuenta fintech en la base de datos. 
+	 * Los parámetros no nulos deben incluirse obligatoriamente, los nullables
+	 * pueden encontrarse o no.
+	 * 
+	 * @param cf Cuenta a crear, incluye todos los datos que deben almacenarse.
+	 * @throws EburyAppException 
+	 * @author Marta Maleno Escudero
+	 * */
+	public void crearCuentaFintech(CuentaFintech cf, String tipo, Long usuario, Long emp) throws EburyAppException;
 	
 	/** Este método debe cambiar el estado de una cuenta fintech a fin
 	 * de darla de baja. En caso de que estuviera dada de baja previamente,
@@ -34,30 +44,40 @@ public interface GestionCuenta {
 	 *  */
 	public void cerrarCuentaFintech(String cuentafin) throws CuentaNoExistenteException, EburyAppException;
 	
+	public List<CuentaFintech> cuentasEmpresa(Long empresa);
+	
 	/**
 	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
 	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
 	 * @param usuario
 	 * @return lista de cuentas fintech asociadas
 	 */
-	public List<CuentaFintech> getCuentasFintechPropias(String usuario);
+	public List<CuentaFintech> getCuentasFintechPropias(Long usuario);
 	
 	/**
 	 * Este método devuelve si el usuario con identificación pasada por parámetro es individual o no
 	 * @param usuario
 	 * @return
 	 */
-	public boolean esIndividual(String usuario);
+	public boolean esIndividual(Long usuario);
 	
 	/**
 	 * Este método devuelve si el usuario con identificación pasada por parámetro es autorizado o no
 	 * @param usuario
 	 * @return
 	 */
-	public boolean esAutorizado(String usuario);
+	public boolean esAutorizado(Long usuario);
 	
 	public String getIbanCuenta(String cuenta);
  	public CuentaFintech getCuentaFintech(String cuenta);
- 	public List<Empresa> getEmpresasAutorizadas(String usuario);
- 	public List<CuentaFintech> getCuentasAutorizadas(String empresa);
+ 	public List<Empresa> getEmpresasAutorizadas(Long usuario);
+ 	public List<CuentaFintech> getCuentasAutorizadas(Long empresa);
+	public List<CuentaFintech> getAllFintech();
+	/**
+	 * Este método devuelve una lista con todas las cuentas fintech asociadas al
+	 * usuario pasado por parámetro siempre que este tenga un Individual asociado
+	 * @param usuario
+	 * @return lista de cuentas fintech asociadas
+	 */
+
 }
