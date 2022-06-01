@@ -44,15 +44,12 @@ public class InicializaBBDD {
 		
 		System.out.printf("\n!!! -> POST COMP listEmpty: %b <- !!!", checkCliente);
 		
-		if(checkCliente)
+		if(checkCliente){
 			mandatoryBBDD();
+			pruebaBBDD();
+		}
 		
-		System.out.println("!!! -> POST MANDATORY <- !!!");
-		System.out.println("!!! -> PRE PRUEBA <- !!!");
-		
-		pruebaBBDD();
-		
-		System.out.println("!!! -> POST PRUEBA <- !!!");
+		System.out.println("!!! -> POST BD <- !!!");
 
 //		baseDatosCT();
 	}
