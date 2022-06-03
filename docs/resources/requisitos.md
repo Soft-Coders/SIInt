@@ -42,18 +42,18 @@
 ## Lista de requisitos implementados
 
 ### Funcionales
-- [ ] RF1
-- [ ] RF2
-- [ ] RF3
-- [ ] RF4
+- [x] RF1
+- [x] RF2
+- [x] RF3
+- [x] RF4
 - [ ] RF5
-- [ ] RF6
-- [ ] RF7
-- [ ] RF8
+- [x] RF6
+- [x] RF7
+- [x] RF8
 - [ ] RF9
-- [ ] RF10
-- [ ] RF11
-- [ ] RF12
+- [x] RF10
+- [x] RF11
+- [x] RF12
 - [ ] RF15
 - [ ] RF17
 - [ ] RF18
