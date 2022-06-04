@@ -446,7 +446,7 @@ public class InformesEJB implements GestionInformes{
 		}catch(ClassCastException e) {
 			throw new FailedInitialCSVException("INITIAL CSV parameter COULD NOT BE CAST PROPERLY");
 		}catch(Exception e) {
-			throw new FailedInitialCSVException("INITIAL CSV ERROR: " + e.getMessage() + e.getClass());
+			throw new FailedInitialCSVException("INITIAL CSV ERROR");
 		}
 	}
 	
