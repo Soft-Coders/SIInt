@@ -9,8 +9,11 @@
     margin-left: 5%;
 }
 
+#log{
+    background: fixed no-repeat center url("https://i.imgur.com/TCpXaNi.png");
+}
+
 html{
-    background-color: white;
     font-family: 'Open Sans', 'Roboto', sans-serif;
 }
 
@@ -36,15 +39,8 @@ div p{
     box-shadow: 0 0 5px;
 }
 
-input:not(td input) {
-    background-color: #094358;
-    color: white;
-    border-radius: 5px;
-    margin: 3px;
-    font-size: 12px;
-}
-
-.button, .logBut{
+input[type="button"].button, input[type="button"].logBut
+input[type="submit"].button, input[type="submit"].logBut{
     background-color: #094358;
     border: none;
     color: white;
@@ -56,7 +52,15 @@ input:not(td input) {
     display: inline-block;
 }
 
-.logBut {
+input[type="button"], input[type="submit"] {
+    background-color: #094358;
+    color: white;
+    border-radius: 5px;
+    margin: 3px;
+    font-size: 12px;
+}
+
+input[type="submit"].logBut {
     margin-left: 85%;
     margin-right: 85%;
 }
