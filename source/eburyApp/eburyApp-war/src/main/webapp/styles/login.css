@@ -20,6 +20,7 @@ body{
 
 .grid{
     margin: 15% 49% 50% 40%;
+    padding: 4px;
     background-color: aliceblue;
     border-radius: 10px;
     border-width: 5px;
@@ -27,6 +28,21 @@ body{
     box-shadow: 0 0 5px;
 }
 
+div p{
+    margin: 1%;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: aliceblue;
+    box-shadow: 0 0 5px;
+}
+
+input {
+    background-color: #094358;
+    color: white;
+    border-radius: 5px;
+    margin: 3px;
+    font-size: 12px;
+}
 
 .button, .logBut{
     background-color: #094358;
