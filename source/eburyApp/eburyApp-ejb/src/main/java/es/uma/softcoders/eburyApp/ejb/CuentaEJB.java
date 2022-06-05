@@ -94,7 +94,7 @@ public class CuentaEJB implements GestionCuenta{
 		System.out.println("-----Antes de llamar al ejb----"+empresa.toString());
 		Empresa aux = em.find(Empresa.class, empresa);
 		System.out.println("------Despues de llamar al ejb------"+ aux.getCuentas().isEmpty());
-
+		
 		return aux.getCuentas();
 	}
 	
@@ -220,9 +220,11 @@ public class CuentaEJB implements GestionCuenta{
 		Query query = null;
 		if (empresa != null) {
  			Empresa emp = em.find(Empresa.class, empresa);
- 				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente LIKE :idemp");
+ 				query = em.createQuery("SELECT a FROM CuentaFintech a WHERE a.cliente =:idemp");
  				query.setParameter("idemp", emp);
  		}
+		System.out.println("TENGO LA LISTA:" + query.getResultList().isEmpty());
+		
  		return (List<CuentaFintech>)query.getResultList();
 	}
 	
