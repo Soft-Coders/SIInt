@@ -36,7 +36,7 @@ div p{
     box-shadow: 0 0 5px;
 }
 
-input {
+input:not(td input) {
     background-color: #094358;
     color: white;
     border-radius: 5px;
