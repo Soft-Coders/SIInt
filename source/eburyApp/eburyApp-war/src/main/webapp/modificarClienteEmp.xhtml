@@ -9,12 +9,18 @@
         <title>Modificar cliente empresa</title>
     </h:head>
     <h:body>
+
+        <f:metadata>
+            <f:viewParam name="id" />
+        </f:metadata>
+
+        <div class="barra">
+            <h1>Modificar cliente: <h:outputText value="#{id}" /></h1>
+        </div>
             
                 <h:form id="modificacion">
 
-                    <f:metadata>
-                        <f:viewParam name="id" />
-                    </f:metadata>
+                    
                     <h3>Modificar cliente: <h:outputText value="#{id}" /></h3> 
                     <h:panelGrid columns="3">
                         <h:outputText value="Identificacion:"/>
