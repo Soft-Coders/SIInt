@@ -1,6 +1,7 @@
 package es.uma.softcoders.eburyApp.backing;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -14,7 +15,10 @@ import javax.inject.Named;
 import es.uma.softcoders.eburyApp.Cliente;
 import es.uma.softcoders.eburyApp.Empresa;
 import es.uma.softcoders.eburyApp.Individual;
+import es.uma.softcoders.eburyApp.CuentaFintech;
+import javax.inject.Inject;
 import es.uma.softcoders.eburyApp.ejb.GestionCliente;
+import es.uma.softcoders.eburyApp.ejb.GestionCuenta;
 import es.uma.softcoders.eburyApp.exceptions.EburyAppException;
 
 @Named(value = "cliente")
@@ -24,9 +28,17 @@ public class ClienteController implements Serializable{
         @EJB
         private GestionCliente gestionCliente;
 
+        @EJB
+	    private GestionCuenta cuentaEJB;
+
+        @Inject
+        private CuentaBB cuentaBB;
+
         private List<Cliente> listInactivos;
 
         private List<Cliente> listActivos;
+
+        private List<CuentaFintech> listaCuentasPropias = new ArrayList<CuentaFintech>();
 
         
 
@@ -35,6 +47,15 @@ public class ClienteController implements Serializable{
 
         public ClienteController(){
             
+        }
+        
+        public String seleccionarEmpresa(Empresa empresa) {
+            Long emp = empresa.getId();
+            System.out.println("-----Antes de llamar al metodo----"+empresa.toString());
+            cuentaBB.setListaCuentasPropias(cuentaEJB.cuentasEmpresa(emp));
+            System.out.println("-----Despues de llamar al metodo----"+empresa.toString());
+            
+            return "vistaEmpresaSeleccionada.xhtml?faces-redirect=true&empresa="+emp.toString();
         }
 
         public void setListaInactivos(){

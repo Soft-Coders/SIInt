@@ -7,6 +7,7 @@
        xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
+    <link rel="stylesheet" href="styles\login.css"/>
 	<title>Lista de Empresas</title>
 </h:head>
 
@@ -53,7 +54,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Cuentas</f:facet>
-                            <h:commandButton value="Cuentas" action="#{cuentaBB.seleccionarEmpresa(emp)}"/>
+                            <h:commandButton value="Cuentas" action="#{cliente.seleccionarEmpresa(emp)}"/>
                         </h:column>
                         
                     </h:dataTable>

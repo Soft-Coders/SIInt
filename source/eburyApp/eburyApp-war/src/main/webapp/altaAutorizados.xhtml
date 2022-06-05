@@ -5,6 +5,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <link rel="stylesheet" href="styles\login.css"/>
         <title>Lista de autorizados</title>
     </h:head>
     <h:body>
@@ -13,6 +14,10 @@
                 <p>No tiene autorización para ver esta página, debe autenticarse.</p>
             </c:when>
             <c:otherwise> -->
+
+                <div class="barra">
+                    <h1>Alta de autorizados</h1>
+                </div>
                 <h:form id="contactos">
                     <h:dataTable id="list" value="#{autorizado.getListaInactivos()}" var="c">
                         <h:column>

@@ -5,9 +5,14 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <link rel="stylesheet" href="styles\login.css"/>
         <title>Lista de clientes</title>
     </h:head>
     <h:body>
+
+        <div class="barra">
+            <h1>Alta de clientes</h1>
+        </div>
           
                 <h:form id="altaClientes">
                     <h:dataTable id="list" value="#{cliente.getListaInactivos()}" var="c">
