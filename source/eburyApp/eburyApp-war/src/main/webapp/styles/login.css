@@ -1,0 +1,79 @@
+.barra {
+    background-color: #083e5f;
+    color: white;
+    margin: 0;
+    padding: 10px;
+}
+
+.img {
+    margin-left: 5%;
+}
+
+#log{
+    background: fixed no-repeat center url("https://i.imgur.com/TCpXaNi.png");
+}
+
+html{
+    font-family: 'Open Sans', 'Roboto', sans-serif;
+}
+
+body{
+    margin: 0%;
+}
+
+.grid{
+    margin: 15% 49% 50% 40%;
+    padding: 4px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    border-width: 5px;
+    border-color: black;
+    box-shadow: 0 0 5px;
+}
+
+div p, #menu{
+    margin: 1%;
+    padding: 1%;
+    border-radius: 5px;
+    background-color: aliceblue;
+    box-shadow: 0 0 5px;
+}
+
+#admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu{
+    margin-top: 3%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+input[type="button"].button, input[type="button"].logBut
+input[type="submit"].button, input[type="submit"].logBut{
+    background-color: #094358;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    border-radius: 10px;
+    margin: 5px;
+    display: inline-block;
+}
+
+input[type="button"], input[type="submit"] {
+    background-color: #094358;
+    color: white;
+    border-radius: 5px;
+    margin: 3px;
+    font-size: 12px;
+}
+
+input[type="submit"].logBut {
+    margin-left: 85%;
+    margin-right: 85%;
+}

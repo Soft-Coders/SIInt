@@ -5,33 +5,38 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <link rel="stylesheet" href="styles\login.css"/>
         <title>Login</title>
     </h:head>
-    <h:body>
+    <h:body id ="log">
 
         <h:form id="login">
+        <div class="barra">
+            <img class="imagen" width="266px" height="96px"
+            src="https://i.imgur.com/xEitVbV.png"/>
+        </div>
+
 
             <c:choose>
                 <c:when test="#{!empty infoSesion.usuario}">
                     <p>Ya hay una sesion activa: <h:outputText value="#{infoSesion.usuario.usuario}"/>.</p>
                     <p>Para iniciar sesión con otra cuenta debe <h:commandLink action="#{infoSesion.invalidarSesion()}">salir</h:commandLink> primero de la aplicación</p>
                 </c:when>
-
                 <c:otherwise>
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Nombre de usuario:"/>
+                    <h:panelGrid columns="3" class="grid">
+                        <h:outputText class="text" value="Nombre de usuario:"/>
                         <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
                         <h:message for="user"/>
 
-                        <h:outputText value="Contraseña:"/>
+                        <h:outputText class="text" value="Contraseña:"/>
                         <h:inputSecret id="pass" required="true" value="#{login.usuario.clave}"/>
                         <h:message for="pass"/>
                         
-                        <h:commandButton value="Entrar" action="#{login.entrar()}"/>
+                        <h:commandButton class="logBut" value="Entrar" action="#{login.entrar()}"/>
 
                     </h:panelGrid>
 
-                    <div>
+                    <div class="registro">
                         <p>Si no tiene cuenta puede crear una en la <h:link outcome="registro.xhtml">página de registro</h:link></p>
                     </div>
                     

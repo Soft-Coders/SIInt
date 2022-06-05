@@ -7,6 +7,7 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
+        <link rel="stylesheet" href="styles\login.css"/>
         <title>Lista de clientes</title>
     </h:head>
     <h:body>
@@ -15,6 +16,9 @@
                 <p>No tiene autorización para ver esta página, debe autenticarse.</p>
             </c:when>
             <c:otherwise> -->
+                <div class="barra">
+                    <h1>Baja de clientes</h1>
+                </div>
                 <h:form id="contactos">
                     <h:dataTable id="list" value="#{cliente.getListaActivos()}" var="c">
                         <h:column>

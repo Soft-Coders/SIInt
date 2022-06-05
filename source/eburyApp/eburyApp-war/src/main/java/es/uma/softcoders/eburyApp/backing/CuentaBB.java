@@ -119,12 +119,13 @@ public class CuentaBB {
     }
     
     
-    public String seleccionarEmpresa(Long empresa) {
+    public String seleccionarEmpresa(Empresa empresa) {
+    	Long emp = empresa.getId();
+    	System.out.println("-----Antes de llamar al metodo----"+empresa.toString());
+    	listaCuentasPropias = cuentaEJB.cuentasEmpresa(emp);
+		System.out.println("-----Despues de llamar al metodo----"+empresa.toString());
     	
-    	
-    	listaCuentasPropias = cuentaEJB.cuentasEmpresa(empresa);
-    	
-    	return "vistaEmpresaSeleccionada.xhtml";
+    	return "vistaEmpresaSeleccionada.xhtml?faces-redirect=true&empresa="+emp.toString();
     }
     public String seleccionarCuenta(String cuenta) {
     	this.cf = cuentaEJB.getCuentaFintech(cuenta);  

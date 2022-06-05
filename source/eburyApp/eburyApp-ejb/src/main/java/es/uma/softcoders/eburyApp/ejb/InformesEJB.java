@@ -371,9 +371,6 @@ public class InformesEJB implements GestionInformes{
 						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
 							throw new FailedInitialCSVException("nacimiento NOT VALID");
 					}
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedInitialCSVException("pais NOT VALID");
 					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
@@ -417,10 +414,6 @@ public class InformesEJB implements GestionInformes{
 					String identity  = c.getIdentificacion();
 					String birth     = N_E;
 					
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedInitialCSVException("pais NOT VALID");
-					
 					// CSV construction
 					p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
@@ -453,7 +446,7 @@ public class InformesEJB implements GestionInformes{
 		}catch(ClassCastException e) {
 			throw new FailedInitialCSVException("INITIAL CSV parameter COULD NOT BE CAST PROPERLY");
 		}catch(Exception e) {
-			throw new FailedInitialCSVException("INITIAL CSV ERROR");
+			throw new FailedInitialCSVException("INITIAL CSV ERROR: " + e.getMessage() + e.getClass());
 		}
 	}
 	
@@ -517,9 +510,6 @@ public class InformesEJB implements GestionInformes{
 						if(nacimiento.getYear() < 0 || nacimiento.getYear() > new Date().getYear())
 							throw new FailedPeriodicCSVException("nacimiento NOT VALID");
 					}
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						continue;
 					
 					p.printRecord(iban, apellido, nombre, direccion, ciudad, cp, pais, identity, birth);
 					p.println();
@@ -574,10 +564,6 @@ public class InformesEJB implements GestionInformes{
 					String pais      = c.getPais();
 					String identity  = c.getIdentificacion();
 					String birth     = N_E;
-					
-					// Checks:
-					if(!pais.equalsIgnoreCase("germany") && !pais.equalsIgnoreCase("DE") && !pais.equalsIgnoreCase("alemania"))
-						throw new FailedPeriodicCSVException("pais NOT VALID");
 					
 					// CSV construction
 					p.printRecord(iban, apellidos, nombre, direccion, ciudad, cp, pais, identity, birth);
