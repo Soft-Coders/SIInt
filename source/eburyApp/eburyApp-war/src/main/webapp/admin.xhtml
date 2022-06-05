@@ -12,8 +12,7 @@
 
         <h:form id="login">
         <div class="barra">
-            <img class="imagen" width="266px" height="96px"
-            src="https://i.imgur.com/xEitVbV.png"/>
+            <h1>Inicia sesión admin</h1>
         </div>
 
             <c:choose>
@@ -23,7 +22,6 @@
                 </c:when>
                 
                 <c:otherwise>
-                    <p><h2>Inicia sesion admin</h2></p>
                     <h:panelGrid columns="3" class="grid">
                         <h:outputText class="text" value="Nombre de usuario:"/>
                         <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
@@ -34,7 +32,7 @@
                         <h:message for="pass"/>
                         
 
-                        <h:commandButton class="button" value="Entrar" action="#{login.entrarAdmin()}"/>
+                        <h:commandButton class="logBut" value="Entrar" action="#{login.entrarAdmin()}"/>
 
                     </h:panelGrid>          
 
