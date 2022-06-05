@@ -13,6 +13,9 @@
 <h:body>
 	<!-- Primero aparece una lista con las empresas a las que puede acceder como autorizado -->
 	<h1>Lista de Cuentas de mi Empresa</h1>
+    <f:metadata>
+        <f:viewParam name="empresa"/>
+    </f:metadata>
 	<h:form id="contactos">
     	<h:dataTable id="list" value="#{cuentaBB.getListaCuentasPropias()}" var="cue">
                         
@@ -47,6 +50,7 @@
                     <h:message for="list"/>
                     
                 </h:form>
+                <h:button value="Refrescar" action="#{cuentaBB.seleccionarEmpresa(empresa)}"/>
 </h:body>
 
 </html> 
