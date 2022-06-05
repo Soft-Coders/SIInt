@@ -31,12 +31,25 @@ body{
     box-shadow: 0 0 5px;
 }
 
-div p{
+div p, #menu{
     margin: 1%;
     padding: 1%;
     border-radius: 5px;
     background-color: aliceblue;
     box-shadow: 0 0 5px;
+}
+
+#admin{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#menu{
+    margin-top: 3%;
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 input[type="button"].button, input[type="button"].logBut

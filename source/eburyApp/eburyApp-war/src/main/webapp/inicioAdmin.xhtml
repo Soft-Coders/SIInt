@@ -21,13 +21,16 @@
                         <div class="barra">
                             <h1>Menú Administrador</h1>
                         </div>
-
-                        <h:button class="button" id="Alta" value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
-                        <h:button class="button" id="Baja" value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
-                       	<h:button class="button" id="Alta" value="Alta de autorizados" action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml"/>
-                        <h:button class="button" id="Baja" value="Baja de autorizados" action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml"/>
-                        <h:button class="button" id="Descarga" value="Descarga de informes" outcome="descargaInformes.xhtml"/>
-                        <h:button class="button" id="Logout" value="Logout" outcome="admin.xhtml"/>
+                        <div id="admin">
+                            <div id="menu">
+                                <h:button class="button" id="Alta" value="Alta de clientes" action="#{cliente.setListaInactivos()}" outcome="altaClientes.xhtml"/>
+                                <h:button class="button" id="Baja" value="Baja de clientes" action="#{cliente.setListaActivos()}" outcome="bajaClientes.xhtml"/>
+                                <h:button class="button" id="Alta" value="Alta de autorizados" action="#{autorizado.setListaInactivos()}" outcome="altaAutorizados.xhtml"/>
+                                <h:button class="button" id="Baja" value="Baja de autorizados" action="#{autorizado.setListaActivos()}" outcome="bajaAutorizados.xhtml"/>
+                                <h:button class="button" id="Descarga" value="Descarga de informes" outcome="descargaInformes.xhtml"/>
+                                <h:button class="button" id="Logout" value="Logout" outcome="admin.xhtml"/>
+                            </div>
+                        </div>
 
 						
                     <!-- </h:panelGrid> -->
