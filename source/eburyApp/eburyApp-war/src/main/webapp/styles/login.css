@@ -1,9 +1,5 @@
 .barra {
-    background-color: #ffffff;
-    margin-top: 0%;
-    margin-left: 0%; 
-    margin-right: 0%;
-    opacity: 90%;
+    background-color: #083e5f;
 }
 
 .img {
@@ -22,18 +18,13 @@ p{
 }
 
 body{
-    margin-top: 0%;
-    margin-left: 0%;
-    margin-right:0%;
+    margin: 0%;
 }
 
 .grid{
-    margin-top: 15%;
-    margin-bottom: 50%;
-    margin-left: 40%;
-    margin-right: 49%;
+    margin: 15% 49% 50% 40%;
     background-color: aliceblue;
-    border-radius: 3%;
+    border-radius: 10px;
     border-width: 5px;
     border-color: black;
 }
@@ -48,7 +39,7 @@ body{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    border-radius: 10%;
-    margin-left: 55%;
-    margin-right: 45%;
+    border-radius: 10px;
+    margin-left: 85%;
+    margin-right: 85%;
 }

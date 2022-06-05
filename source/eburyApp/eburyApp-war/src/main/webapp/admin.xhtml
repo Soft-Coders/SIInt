@@ -5,11 +5,16 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
+        <link rel="stylesheet" href="styles\login.css"/>
         <title>Login admin</title>
     </h:head>
     <h:body>
 
         <h:form id="login">
+        <div class="barra">
+            <img class="imagen" width="266px" height="96px"
+            src="https://i.imgur.com/xEitVbV.png"/>
+        </div>
 
             <c:choose>
                 <c:when test="#{!empty infoSesion.usuario}">
@@ -19,17 +24,17 @@
                 
                 <c:otherwise>
                     <p><h2>Inicia sesion admin</h2></p>
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Nombre de usuario:"/>
+                    <h:panelGrid columns="3" class="grid">
+                        <h:outputText class="text" value="Nombre de usuario:"/>
                         <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
                         <h:message for="user"/>
 
-                        <h:outputText value="Contraseña:"/>
+                        <h:outputText class="text" value="Contraseña:"/>
                         <h:inputSecret id="pass" required="true" value="#{login.usuario.clave}"/>
                         <h:message for="pass"/>
                         
 
-                        <h:commandButton value="Entrar" action="#{login.entrarAdmin()}"/>
+                        <h:commandButton class="button" value="Entrar" action="#{login.entrarAdmin()}"/>
 
                     </h:panelGrid>          
 
